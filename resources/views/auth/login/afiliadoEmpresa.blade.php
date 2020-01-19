@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+
+        /* Add a hover effect if you want */
+        .fa:hover {
+            opacity: 0.3;
+        }
+
+        /* Set a specific color for each brand */
+
+        /* Facebook */
+        .fa-facebook {
+            /*background: #3B5998;*/
+            color: white;
+        }
+    </style>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -56,8 +71,12 @@
 
                             </div>
                         </form>
+                        <br>
                         <div>
-                            <a href="{{ route('employee.redirect') }}" class="btn btn-link">Facebook</a>
+                            <!--<a href="{{ route('employee.redirect') }}" class="btn btn-link">Facebook</a>-->
+                            <!-- Add font awesome icons -->
+                            <a href="#" class="fa fa-facebook"></a>
+                            <button href="{{ route('employee.redirect') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Inicio sesion con facebook</button>
                         </div>
                     </div>
                 </div>

@@ -9,15 +9,33 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
+    <!-- Scripts
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
+     Fonts
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
+    Styles
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+-->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Conexiones | Plataforma de aprendizaje</title>
+    <link rel="shortcut icon" href="https://falcon.technext.it/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#2c7be5">
+    <link rel="stylesheet" type="text/css" href="{{ asset('falcon/css/falcon.css') }}">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+    <link href="{{ asset('falcon/css/theme.css') }}" type="text/css" rel="stylesheet" class="theme-stylesheet">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
+
 </head>
 <body>
     <div id="app">
