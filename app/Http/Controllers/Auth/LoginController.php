@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AfiliadoEmpresa;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -56,7 +58,16 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-        return $user;
+        $afiliadoempresa = new AfiliadoEmpresa();
+        $afiliadoempresa->nombre = $user->name;
+        $afiliadoempresa->correo = $user->email;
+        $afiliadoempresa->provaider_id = $user->id;
+        $afiliadoempresa->save();
+        //Auth::login($afiliadoempresa,true);
+        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+        return redirect($this->redirectTo);
+        //return $user->getAvatar();
+        //return $user;
         // $user->token;
     }
 }
