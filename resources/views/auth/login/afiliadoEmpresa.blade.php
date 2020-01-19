@@ -75,7 +75,7 @@
                         <div>
                             <!--<a href="{{ route('employee.redirect') }}" class="btn btn-link">Facebook</a>-->
                             <!-- Add font awesome icons -->
-                            <button href="{{ route('employee.redirect') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Inicio sesion con facebook</button>
+                            <a href="{{ route('employee.redirect') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Inicio sesion con facebook</a>
                         </div>
                     </div>
                 </div>

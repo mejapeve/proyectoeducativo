@@ -40,9 +40,10 @@ Route::prefix('employee')
                 Route::post('logout', 'AfiliadoEmpresaController@logout')->name('logout');
                 //Route::get('redirect', 'AfiliadoEmpresaController@redirect')->name('redirect');
                 //Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
-                Route::get('redirect', 'Auth\LoginController@redirectToProvider')->name('redirect');
-                Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
+
             });
+        Route::get('redirect', 'Auth\LoginController@redirectToProvider')->name('redirect');
+        Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
     });
 
 Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
