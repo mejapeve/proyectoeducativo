@@ -38,8 +38,10 @@ Route::prefix('employee')
                 Route::get('login/{empresa?}', 'AfiliadoEmpresaController@showLoginForm')->name('login');
                 Route::post('login', 'AfiliadoEmpresaController@login')->name('login');
                 Route::post('logout', 'AfiliadoEmpresaController@logout')->name('logout');
-                Route::get('redirect', 'AfiliadoEmpresaController@redirect')->name('redirect');
-                Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
+                //Route::get('redirect', 'AfiliadoEmpresaController@redirect')->name('redirect');
+                //Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
+                Route::get('redirect', 'Auth\LoginController@redirectToProvider')->name('redirect');
+                Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
             });
     });
 
