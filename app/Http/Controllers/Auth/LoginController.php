@@ -113,7 +113,7 @@ class LoginController extends Controller
         switch ($this->rol){
             case 1:
                 //dd('estudiante');
-                $this->redirectTo = "estudiante";
+                $this->redirectTo = "student";
                 break;
             case 2:
                 //dd('tutor');
