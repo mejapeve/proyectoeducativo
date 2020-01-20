@@ -42,9 +42,9 @@ Route::prefix('employee')
                 //Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
 
             });
-        Route::get('redirectfacebook', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
+        Route::get('redirectfacebook/{rol}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
         Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
-        Route::get('redirectgmail', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
+        Route::get('redirectgmail/{rol}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
         Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
 
@@ -58,3 +58,11 @@ Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
+
+Route::get('student', 'StudentController@index')->name('student');
+
+Route::get('tutor', 'TutorController@index')->name('tutor');
+
+Route::get('teacher', 'TeacherController@index')->name('teacher');
+
+

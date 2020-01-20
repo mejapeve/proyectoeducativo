@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AfiliadoEmpresa;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
@@ -23,12 +24,14 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    private $rol = null;
+    private $redirectTo = '/';
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+
 
     /**
      * Create a new controller instance.
@@ -45,8 +48,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider()
+    public function redirectToProvider($rol)
     {
+        $this->rol = Crypt::decryptString($rol);
+        $this->rolLogin();
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -59,15 +64,7 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->stateless()->user();
 
-        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
-
-        if($afiliadoempresa === null){
-            $afiliadoempresa = new AfiliadoEmpresa();
-            $afiliadoempresa->nombre = $user->name;
-            $afiliadoempresa->correo = $user->email;
-            $afiliadoempresa->provaider_id = $user->id;
-            $afiliadoempresa->save();
-        }
+        $afiliadoempresa = $this->createAfiliado($user);
 
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         return redirect($this->redirectTo);
@@ -77,8 +74,10 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProviderGmail()
+    public function redirectToProviderGmail($rol)
     {
+        $this->rol = Crypt::decrypt($rol);
+        $this->rolLogin();
         return Socialite::driver('google')->redirect();
     }
 
@@ -90,8 +89,15 @@ class LoginController extends Controller
     public function handleProviderCallbackGmail()
     {
         $user = Socialite::driver('google')->stateless()->user();
-        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
 
+        $afiliadoempresa = $this->createAfiliado($user);
+
+        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+        return redirect($this->redirectTo);
+    }
+
+    public function createAfiliado($user){
+        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $afiliadoempresa->nombre = $user->name;
@@ -99,8 +105,23 @@ class LoginController extends Controller
             $afiliadoempresa->provaider_id = $user->id;
             $afiliadoempresa->save();
         }
+        return $afiliadoempresa;
+    }
 
-        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($this->redirectTo);
+    public function rolLogin(){
+        switch ($this->rol){
+            case 1:
+                //dd('estudiante');
+                $this->redirectTo = "estudiante";
+                break;
+            case 2:
+                //dd('tutor');
+                $this->redirectTo = "tutor";
+                break;
+            case 3:
+                //dd('profesor');
+                $this->redirectTo = "teacher";
+                break;
+        }
     }
 }
