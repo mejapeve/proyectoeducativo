@@ -78,6 +78,7 @@ class LoginController extends Controller
     {
         $this->rol = Crypt::decrypt($rol);
         $this->rolLogin();
+        session(['my_variable' => $this->redirectTo]);
         return Socialite::driver('google')->redirect();
     }
 
@@ -91,9 +92,9 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
 
         $afiliadoempresa = $this->createAfiliado($user);
-
+        $my_variable = session('my_variable');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($this->redirectTo);
+        return redirect($my_variable);
     }
 
     public function createAfiliado($user){
