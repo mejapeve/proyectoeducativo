@@ -70,4 +70,30 @@ class LoginController extends Controller
         //return $user;
         // $user->token;
     }
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProviderGmail()
+    {
+        return Socialite::driver('gmail')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallbackGmail()
+    {
+        $user = Socialite::driver('gmail')->stateless()->user();
+        $afiliadoempresa = new AfiliadoEmpresa();
+        $afiliadoempresa->nombre = $user->name;
+        $afiliadoempresa->correo = $user->email;
+        $afiliadoempresa->provaider_id = $user->id;
+        $afiliadoempresa->save();
+        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+        return redirect($this->redirectTo);
+    }
 }

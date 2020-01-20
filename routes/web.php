@@ -42,8 +42,10 @@ Route::prefix('employee')
                 //Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
 
             });
-        Route::get('redirect', 'Auth\LoginController@redirectToProvider')->name('redirect');
+        Route::get('redirectfacebook', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
         Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
+        Route::get('redirectgmail', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
+        Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
 
 Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
