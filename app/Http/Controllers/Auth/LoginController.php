@@ -61,7 +61,7 @@ class LoginController extends Controller
 
         $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
 
-        if(!count($afiliadoempresa)){
+        if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $afiliadoempresa->nombre = $user->name;
             $afiliadoempresa->correo = $user->email;
@@ -92,7 +92,7 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
         $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
 
-        if(!count($afiliadoempresa)){
+        if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $afiliadoempresa->nombre = $user->name;
             $afiliadoempresa->correo = $user->email;
