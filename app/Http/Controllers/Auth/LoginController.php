@@ -58,17 +58,19 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-        $afiliadoempresa = new AfiliadoEmpresa();
-        $afiliadoempresa->nombre = $user->name;
-        $afiliadoempresa->correo = $user->email;
-        $afiliadoempresa->provaider_id = $user->id;
-        $afiliadoempresa->save();
-        //Auth::login($afiliadoempresa,true);
+
+        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
+
+        if(!count($afiliadoempresa)){
+            $afiliadoempresa = new AfiliadoEmpresa();
+            $afiliadoempresa->nombre = $user->name;
+            $afiliadoempresa->correo = $user->email;
+            $afiliadoempresa->provaider_id = $user->id;
+            $afiliadoempresa->save();
+        }
+
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         return redirect($this->redirectTo);
-        //return $user->getAvatar();
-        //return $user;
-        // $user->token;
     }
     /**
      * Redirect the user to the GitHub authentication page.
@@ -88,11 +90,16 @@ class LoginController extends Controller
     public function handleProviderCallbackGmail()
     {
         $user = Socialite::driver('google')->stateless()->user();
-        $afiliadoempresa = new AfiliadoEmpresa();
-        $afiliadoempresa->nombre = $user->name;
-        $afiliadoempresa->correo = $user->email;
-        $afiliadoempresa->provaider_id = $user->id;
-        $afiliadoempresa->save();
+        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
+
+        if(!count($afiliadoempresa)){
+            $afiliadoempresa = new AfiliadoEmpresa();
+            $afiliadoempresa->nombre = $user->name;
+            $afiliadoempresa->correo = $user->email;
+            $afiliadoempresa->provaider_id = $user->id;
+            $afiliadoempresa->save();
+        }
+
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         return redirect($this->redirectTo);
     }
