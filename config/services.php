@@ -38,7 +38,7 @@ return [
         'client_secret' => env('FACEBOOK_SECRET'),
         'redirect' => env('FACEBOOK_URL'),
     ],
-    'gmail' => [
+    'google' => [
         'client_id' => env('GMAIL_ID'),
         'client_secret' => env('GMAIL_SECRET'),
         'redirect' => env('GMAIL_URL'),

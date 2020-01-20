@@ -77,7 +77,7 @@ class LoginController extends Controller
      */
     public function redirectToProviderGmail()
     {
-        return Socialite::driver('gmail')->redirect();
+        return Socialite::driver('google')->redirect();
     }
 
     /**
@@ -87,7 +87,7 @@ class LoginController extends Controller
      */
     public function handleProviderCallbackGmail()
     {
-        $user = Socialite::driver('gmail')->stateless()->user();
+        $user = Socialite::driver('google')->stateless()->user();
         $afiliadoempresa = new AfiliadoEmpresa();
         $afiliadoempresa->nombre = $user->name;
         $afiliadoempresa->correo = $user->email;
