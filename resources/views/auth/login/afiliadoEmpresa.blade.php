@@ -20,14 +20,14 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('Inicio de sesion') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('employee.login') }}">
                             @csrf
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Addresshghjghjg') }}</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="correo" type="email" class="form-control @error('correo') is-invalid @enderror" name="correo" value="{{ old('correo') }}" required autocomplete="correo" autofocus>
@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -64,7 +64,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-8 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
+                                        {{ __('Iniciar sesion') }}
                                     </button>
 
                                 </div>
@@ -72,10 +72,11 @@
                             </div>
                         </form>
                         <br>
-                        <div>
+                        <div class="text-center">
                             <!--<a href="{{ route('employee.redirect') }}" class="btn btn-link">Facebook</a>-->
                             <!-- Add font awesome icons -->
-                            <a href="{{ route('employee.redirect') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Inicio sesion con facebook</a>
+                            <a href="{{ route('employee.redirect') }}" class="btn btn-primary"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                            <a href="{{ route('employee.redirect') }}" class="btn btn-primary" style="background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                         </div>
                     </div>
                 </div>
