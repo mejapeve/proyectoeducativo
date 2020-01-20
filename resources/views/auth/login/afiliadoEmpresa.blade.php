@@ -140,12 +140,11 @@
                             </form>
                             <br>
                             <div class="row text-center">
-
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirect') }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                                    <a href="{{ route('employee.redirectfacebook') }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirect') }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
+                                    <a href="{{ route('employee.redirectgmail') }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                                 </div>
                             </div>
                         </div>
@@ -208,12 +207,11 @@
                             </form>
                             <br>
                             <div class="row text-center">
-
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirect') }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                                    <a href="{{ route('employee.redirectfacebook') }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirect') }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
+                                    <a href="{{ route('employee.redirectgmail') }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                                 </div>
                             </div>
                         </div>
