@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 class TutorController extends Controller
 {
     //
-    public function index (){
 
+    public function index (Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         return view('roles.tutorindex');
 
     }
+
 }

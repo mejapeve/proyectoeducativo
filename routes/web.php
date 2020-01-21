@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
         return 'esta loggeado';
     });
     Route::get('/student', 'StudentController@index')->middleware('role:student')->name('student');
+    Route::get('/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
+    Route::get('/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
 });
 
 
@@ -52,10 +54,5 @@ Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
 
-
-
-Route::get('tutor', 'TutorController@index')->name('tutor');
-
-Route::get('teacher', 'TeacherController@index')->name('teacher');
 
 
