@@ -16,16 +16,8 @@ Route::get('/', function () {
 });
 Route::get('/home', function () {
     return view('welcome');
-});
-/*
-Route::view('/login', 'prueba', ['name' => 'Taylor']);
-Route::get('{nombre?}/loginparam', 'LoginController@index')->name('login');*/
-/*
-Auth::routes();
+})->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
-*/
-//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('employee')
     ->as('employee.')
@@ -52,6 +44,7 @@ Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
     Route::get('/profile', function () {
         return 'esta loggeado';
     });
+    Route::get('/student', 'StudentController@index')->middleware('role:student')->name('student');
 });
 
 
@@ -59,7 +52,7 @@ Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
 
-Route::get('student', 'StudentController@index')->name('student');
+
 
 Route::get('tutor', 'TutorController@index')->name('tutor');
 
