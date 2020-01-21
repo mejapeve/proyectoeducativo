@@ -52,6 +52,7 @@ class LoginController extends Controller
     {
         $this->rol = Crypt::decryptString($rol);
         $this->rolLogin();
+        session(['redirec' => $this->redirectTo]);
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -65,9 +66,9 @@ class LoginController extends Controller
         $user = Socialite::driver('facebook')->stateless()->user();
 
         $afiliadoempresa = $this->createAfiliado($user);
-
+        $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($this->redirectTo);
+        return redirect($redirec);
     }
     /**
      * Redirect the user to the GitHub authentication page.
@@ -78,7 +79,7 @@ class LoginController extends Controller
     {
         $this->rol = Crypt::decrypt($rol);
         $this->rolLogin();
-        session(['my_variable' => $this->redirectTo]);
+        session(['redirec' => $this->redirectTo]);
         return Socialite::driver('google')->redirect();
     }
 
@@ -92,9 +93,9 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
 
         $afiliadoempresa = $this->createAfiliado($user);
-        $my_variable = session('my_variable');
+        $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($my_variable);
+        return redirect($redirec);
     }
 
     public function createAfiliado($user){
@@ -112,15 +113,12 @@ class LoginController extends Controller
     public function rolLogin(){
         switch ($this->rol){
             case 1:
-                //dd('estudiante');
                 $this->redirectTo = "student";
                 break;
             case 2:
-                //dd('tutor');
                 $this->redirectTo = "tutor";
                 break;
             case 3:
-                //dd('profesor');
                 $this->redirectTo = "teacher";
                 break;
         }
