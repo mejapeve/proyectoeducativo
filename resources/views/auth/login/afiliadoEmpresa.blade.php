@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>alumno</strong></div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login') }}">
+                            <form method="POST" action="{{ route('employee.login','1') }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -90,7 +90,7 @@
                         <div class="card-header">{{ __('Inicio de sesion como') }} <strong>tutor</strong> </div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login') }}">
+                            <form method="POST" action="{{ route('employee.login',2) }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -157,7 +157,7 @@
                         <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>docente</strong></div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login') }}">
+                            <form method="POST" action="{{ route('employee.login',3) }}">
                                 @csrf
 
                                 <div class="form-group row">

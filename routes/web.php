@@ -28,7 +28,7 @@ Route::prefix('employee')
         Route::namespace('Auth\Login')
             ->group(function() {
                 Route::get('login/{empresa?}', 'AfiliadoEmpresaController@showLoginForm')->name('login');
-                Route::post('login', 'AfiliadoEmpresaController@login')->name('login');
+                Route::post('login/{rol?}', 'AfiliadoEmpresaController@login')->name('login');
                 Route::post('logout', 'AfiliadoEmpresaController@logout')->name('logout');
                 //Route::get('redirect', 'AfiliadoEmpresaController@redirect')->name('redirect');
                 //Route::get('callback', 'AfiliadoEmpresaController@callback')->name('callback');
@@ -44,11 +44,11 @@ Route::group(['middleware' => 'auth:afiliadoempresa'], function() {
     Route::get('/profile', function () {
         return 'esta loggeado';
     });
-    Route::get('/student', 'StudentController@index')->middleware('role:student')->name('student');
-    Route::get('/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
-    Route::get('/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
-});
 
+    Route::get('teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
+    Route::get('tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
+});
+Route::get('student', 'StudentController@index')->middleware('role:student')->name('student');
 
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

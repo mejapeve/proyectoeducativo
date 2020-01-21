@@ -116,10 +116,10 @@ class LoginController extends Controller
                 $this->redirectTo = "student";
                 break;
             case 2:
-                $this->redirectTo = "tutor";
+                $this->redirectTo = "teacher";
                 break;
             case 3:
-                $this->redirectTo = "teacher";
+                $this->redirectTo = "tutor";
                 break;
         }
     }
