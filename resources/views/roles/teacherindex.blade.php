@@ -15,7 +15,7 @@
                             </div>
                         @endif
 
-                        You are logged in! like tutor
+                        You are logged in! like techa
                     </div>
                 </div>
             </div>
