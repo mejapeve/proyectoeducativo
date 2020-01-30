@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 */
 
 namespace App\Http\Controllers\Auth\Login;
+use App\Models\Companies;
 use App\Models\Empresas;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
@@ -16,17 +17,19 @@ use Illuminate\Http\Request;
 class AfiliadoEmpresaController extends DefaultLoginController
 
 {
-    //
-    //protected $redirectTo = '/employee/home';
     public function __construct()
     {
         $this->middleware('guest:afiliadoempresa')->except('logout');
     }
+    public function index(){
+        //return redirect('auth.login.afiliadoEmpresa');
+    }
     public function showLoginForm( $empresa = "conexiones" )
     {
 
-        if(count(Empresas::where('nombre',$empresa)->get())){
-            return view('auth.login.afiliadoEmpresa');
+        if(count(Companies::where('name',$empresa)->get())){
+            session(['name_company' => $empresa]);
+            return redirect()->route('loginform',['empresa'=> $empresa]);
         }else{
             return 'empresa no existe';
         }
@@ -56,9 +59,6 @@ class AfiliadoEmpresaController extends DefaultLoginController
 
         $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
         if (method_exists($this, 'hasTooManyLoginAttempts') &&
             $this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -67,8 +67,6 @@ class AfiliadoEmpresaController extends DefaultLoginController
         }
 
         if ($this->attemptLogin($request)) {
-
-           // $this->rolLogin(intval($rol));
 
             return $this->sendLoginResponse($request,$rol);
         }
@@ -91,10 +89,10 @@ class AfiliadoEmpresaController extends DefaultLoginController
                 $redirectTo = "student";
                 break;
             case 2:
-                $redirectTo = "teacher";
+                $redirectTo = "tutor";
                 break;
             case 3:
-                $redirectTo = "tutor";
+                $redirectTo = "teacher";
                 break;
         }
         return $this->authenticated($request, $this->guard()->user())

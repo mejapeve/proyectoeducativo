@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAfiliadoEmpresasTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateAfiliadoEmpresasTable extends Migration
      */
     public function up()
     {
-        Schema::create('afiliado_empresas', function (Blueprint $table) {
-
+        Schema::create('companies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombre');
-            $table->string('correo')->unique();
-            $table->string('password');
-            $table->string('provaider_facebook');
-            $table->string('provaider_google');
-            $table->rememberToken();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ class CreateAfiliadoEmpresasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('afiliado_empresas');
+        Schema::dropIfExists('companies');
     }
 }

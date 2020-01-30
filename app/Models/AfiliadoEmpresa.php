@@ -45,11 +45,44 @@ class AfiliadoEmpresa extends Model
         }
         return false;
     }
-    public function hasRole($role)
+    public function hasRole($rol)
     {
-        if ($this->roles()->where('name', $role)->first()) {
+
+        $role = Roles::where('name',$rol) ->first();//$this->roles()->where('name', $rol)->first();
+        $company =  Companies::where('name',session('name_company'))->first();
+        $affiliatedCompany = AffiliatedCompany::where([
+           ['company_id',$company->id],
+           ['affiliated_id',auth('afiliadoempresa')->user()->id],
+        ])->first();
+        //dd($role);
+        if(AffiliatedCompanyRole::where([
+            ['affiliated_company_id',$affiliatedCompany->id],
+            ['rol_id',$role->id],
+        ])->first()){
+            return true;
+        }
+        /*if ($this->roles()->where('name', $role)->first()) {
+            //dd($this->roles()->where('name', $role)->first());
+            dd(auth('afiliadoempresa')->user());
+            return true;
+        }*/
+        return false;
+    }
+
+
+    ///////////
+    ///
+    public function companies()
+    {
+        return $this->belongsToMany('App\Models\Companies','affiliated_companies','affiliated_id','company_id')->withTimestamps();
+    }
+
+    public function hasCompany($company){
+        if ($this->companies()->where('name', $company)->first()) {
             return true;
         }
         return false;
     }
+
+
 }
