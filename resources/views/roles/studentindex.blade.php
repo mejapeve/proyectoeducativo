@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container" ng-controller="HomePageController" ng-init="init()">
         @if (session('status'))
             <div class="alert alert-success" role="alert">asdasdasd
                 {{ session('status') }}
@@ -164,7 +164,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="mb-3 card">
-                        <div class="card-header"><h5 class="mb-0">VISTA ESTUDIANTE {{auth('afiliadoempresa')->user()->nombre}}</h5></div>
+                        <div class="card-header"><h5 class="mb-0">VISTA ESTUDIANTE {{auth('afiliadoempresa')->user()->nombre}} @{{ userInformation.variable }}</h5></div>
                         <div class="bg-light card-body">
                             <div dir="ltr"
                                  style="position: relative; text-align: left; box-sizing: border-box; padding: 0px; overflow: hidden; white-space: pre; font-family: monospace; color: rgb(248, 248, 242); background-color: rgb(40, 42, 54);">
@@ -207,4 +207,7 @@
             </footer>
         </div>
     </div>
+@endsection
+@section('js')
+    <script src="{{url('/app/controller/HomePageController.js')}}"></script>
 @endsection

@@ -14,11 +14,11 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
+        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
@@ -110,6 +110,7 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         array (
             'JakubOnderka\\PhpConsoleHighlighter\\' => 35,
             'JakubOnderka\\PhpConsoleColor\\' => 29,
+            'Jadjoubran\\LaravelAngular\\' => 26,
         ),
         'I' => 
         array (
@@ -340,6 +341,10 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src',
         ),
+        'Jadjoubran\\LaravelAngular\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jadjoubran/laravel-angular/src',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
@@ -436,12 +441,14 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\Home\\AfiliadoHomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Home/AfiliadoHomeController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
+        'App\\Http\\Controllers\\PruebaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PruebaController.php',
         'App\\Http\\Controllers\\SocialController' => __DIR__ . '/../..' . '/app/Http/Controllers/SocialController.php',
         'App\\Http\\Controllers\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/StudentController.php',
         'App\\Http\\Controllers\\TeacherController' => __DIR__ . '/../..' . '/app/Http/Controllers/TeacherController.php',
         'App\\Http\\Controllers\\TutorController' => __DIR__ . '/../..' . '/app/Http/Controllers/TutorController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
+        'App\\Http\\Middleware\\CheckCompanyAffiliated' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckCompanyAffiliated.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -449,8 +456,11 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\AffiliatedCompany' => __DIR__ . '/../..' . '/app/Models/AffiliatedCompany.php',
+        'App\\Models\\AffiliatedCompanyRole' => __DIR__ . '/../..' . '/app/Models/AffiliatedCompanyRole.php',
         'App\\Models\\AfiliadoEmpresa' => __DIR__ . '/../..' . '/app/Models/AfiliadoEmpresa.php',
         'App\\Models\\AfiliadoEmpresaRoles' => __DIR__ . '/../..' . '/app/Models/AfiliadoEmpresaRoles.php',
+        'App\\Models\\Companies' => __DIR__ . '/../..' . '/app/Models/Companies.php',
         'App\\Models\\Empresas' => __DIR__ . '/../..' . '/app/Models/Empresas.php',
         'App\\Models\\Roles' => __DIR__ . '/../..' . '/app/Models/Roles.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
@@ -2037,6 +2047,10 @@ class ComposerStaticInit0b003950bdcf2a30518ed886afe6e103
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Jadjoubran\\LaravelAngular\\Command\\InstallCommand' => __DIR__ . '/..' . '/jadjoubran/laravel-angular/src/Command/InstallCommand.php',
+        'Jadjoubran\\LaravelAngular\\Provider\\LaravelAngularServiceProvider' => __DIR__ . '/..' . '/jadjoubran/laravel-angular/src/Provider/LaravelAngularServiceProvider.php',
+        'Jadjoubran\\LaravelAngular\\Provider\\LaravelServiceProvider' => __DIR__ . '/..' . '/jadjoubran/laravel-angular/src/Provider/LaravelServiceProvider.php',
+        'Jadjoubran\\LaravelAngular\\Provider\\LumenServiceProvider' => __DIR__ . '/..' . '/jadjoubran/laravel-angular/src/Provider/LumenServiceProvider.php',
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',

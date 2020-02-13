@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
     <!-- Scripts
 
 
@@ -35,10 +35,15 @@
     <link href="{{ asset('falcon/css/theme.css') }}" type="text/css" rel="stylesheet" class="theme-stylesheet">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"
+            type="text/javascript">
+    </script>
 
 </head>
 <body>
-    <div id="app">
+    <div id="app" ng-app="MyApp">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -90,5 +95,7 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{url('/app/app.js')}}"></script>
+    @yield('js')
 </body>
 </html>

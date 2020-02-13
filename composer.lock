@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ea235de3d4cfb080b9dfb4ae97398bd",
+    "content-hash": "5c7e88cb25fc6e7aa05cb392fc9166f9",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -565,6 +565,53 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "jadjoubran/laravel-angular",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jadjoubran/laravel-angular.git",
+                "reference": "e402f5d4477481095ac98aaf51544064bf808e5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jadjoubran/laravel-angular/zipball/e402f5d4477481095ac98aaf51544064bf808e5b",
+                "reference": "e402f5d4477481095ac98aaf51544064bf808e5b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.1",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "illuminate/support": "^5.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jadjoubran\\LaravelAngular\\Provider\\LaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jadjoubran\\LaravelAngular\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Joubran",
+                    "email": "joubran.jad@gmail.com"
+                }
+            ],
+            "description": "Laravel & Angular package",
+            "time": "2017-12-17T11:41:06+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
