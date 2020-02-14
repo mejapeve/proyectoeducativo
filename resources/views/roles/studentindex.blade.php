@@ -209,5 +209,5 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{url('/app/controller/HomePageController.js')}}"></script>
+    <script src="{{asset('/../angular/controller/HomePageController.js')}}"></script>
 @endsection

@@ -90,12 +90,11 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
-    <script src="{{url('/app/app.js')}}"></script>
+    <script src="{{asset('/../angular/app.js')}}"></script>
     @yield('js')
 </body>
 </html>
