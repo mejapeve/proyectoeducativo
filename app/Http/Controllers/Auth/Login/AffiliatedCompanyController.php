@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 
-class AfiliadoEmpresaController extends DefaultLoginController
+class AffiliatedCompanyController extends DefaultLoginController
 
 {
     public function __construct()
@@ -96,7 +96,7 @@ class AfiliadoEmpresaController extends DefaultLoginController
                 break;
         }
         return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended($redirectTo);
+            ?: redirect()->route($redirectTo,session('name_company' ));
     }
 
 

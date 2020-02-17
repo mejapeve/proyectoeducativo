@@ -64,7 +64,7 @@
                         <!-- Authentication Links -->
                         @guest('afiliadoempresa')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employee.login') }}">{{ __('Employee Login') }}</a>
+                                <a class="nav-link" href="{{ route('user.login') }}">{{ __('Employee Login') }}</a>
                             </li>
                         @else
                             <li class="nav-item dropdown">
@@ -74,13 +74,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('employee.logout') }}"
+                                    <a class="dropdown-item" href="{{ route('user.logout') }}"
                                        onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('employee.logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>

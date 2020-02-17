@@ -50,7 +50,7 @@ return [
             //'redirectTo' => 'employee.home',
             'driver' => 'session',
             'provider' => 'afiliadoempresa',
-            'redirectTo' => 'employee.home',
+            'redirectTo' => 'user.home',
         ],
     ],
 

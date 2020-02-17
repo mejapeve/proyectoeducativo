@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>alumno</strong></div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login','1') }}">
+                            <form method="POST" action="{{ route('user.login','1') }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -74,10 +74,10 @@
                             <br>
                             <div class="row text-center">
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectfacebook',encrypt(1)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                                    <a href="{{ route('user.redirectfacebook',encrypt(1)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectgmail',encrypt(1)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
+                                    <a href="{{ route('user.redirectgmail',encrypt(1)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                         <div class="card-header">{{ __('Inicio de sesion como') }} <strong>tutor</strong> </div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login',2) }}">
+                            <form method="POST" action="{{ route('user.login',2) }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -141,10 +141,10 @@
                             <br>
                             <div class="row text-center">
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectfacebook',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                                    <a href="{{ route('user.redirectfacebook',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectgmail',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
+                                    <a href="{{ route('user.redirectgmail',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +157,7 @@
                         <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>docente</strong></div>
 
                         <div class="card-body">
-                            <form method="POST" action="{{ route('employee.login',3) }}">
+                            <form method="POST" action="{{ route('user.login',3) }}">
                                 @csrf
 
                                 <div class="form-group row">
@@ -208,10 +208,10 @@
                             <br>
                             <div class="row text-center">
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectfacebook',encrypt(3)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
+                                    <a href="{{ route('user.redirectfacebook',encrypt(3)) }}" class="btn btn-primary btn-block" style="margin-top: 2px"><i class="fa fa-facebook"></i> Inicio sesion con Facebook</a>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12">
-                                    <a href="{{ route('employee.redirectgmail',encrypt(3)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
+                                    <a href="{{ route('user.redirectgmail',encrypt(3)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);"><i class="fa fa-google"></i> Inicio sesion con Gmail</a>
                                 </div>
                             </div>
                         </div>
