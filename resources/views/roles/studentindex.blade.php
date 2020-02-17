@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" ng-controller="HomePageController" ng-init="init()">
         @if (session('status'))
-            <div class="alert alert-success" role="alert">asdasdasd
+            <div class="alert alert-success" role="alert">
                 {{ session('status') }}
             </div>
         @endif

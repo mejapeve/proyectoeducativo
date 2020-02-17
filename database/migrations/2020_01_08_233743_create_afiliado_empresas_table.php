@@ -19,8 +19,9 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->string('nombre');
             $table->string('correo')->unique();
             $table->string('password');
-            $table->string('provaider_facebook');
-            $table->string('provaider_google');
+            $table->string('provaider_facebook')->nullable();
+            $table->string('provaider_google')->nullable();
+            $table->bigInteger('empresa_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });

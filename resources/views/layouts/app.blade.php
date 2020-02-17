@@ -85,6 +85,8 @@
                                     </form>
                                 </div>
                             </li>
+                            <button onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">Salir</button>
                         @endguest
                     </ul>
                 </div>
