@@ -51,7 +51,7 @@ Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
 */
-
+Auth::routes();
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
 

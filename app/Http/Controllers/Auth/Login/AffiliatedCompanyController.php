@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 
 class AffiliatedCompanyController extends DefaultLoginController
 
 {
+    use Notifiable;
     public function __construct()
     {
         $this->middleware('guest:afiliadoempresa')->except('logout');

@@ -105,7 +105,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'afiliadoempresa',
             'table' => 'password_resets',
             'expire' => 60,
         ],
