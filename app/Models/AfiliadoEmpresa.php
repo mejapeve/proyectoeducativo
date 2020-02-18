@@ -4,13 +4,31 @@ namespace App\Models;
 
 //use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Model;
-
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
 class AfiliadoEmpresa extends Model
 {
     //
+    use Notifiable;
+
+    protected $table="afiliado_empresas";
+
+    protected $fillable = [
+        'nombre', 'correo', 'password',
+    ];
     protected $guarded = ['id'];
+
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     public function getAuthPassword()
