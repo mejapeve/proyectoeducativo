@@ -508,6 +508,11 @@ svg:not(:root).svg-inline--fa {
 
 @media (min-width: 540px) {
 	.search-box .search-input {
-		width: 16rem!important;
+		width: 12rem!important;
 	}
+}
+
+
+.show {
+	display: block!important;
 }
