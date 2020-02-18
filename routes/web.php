@@ -54,5 +54,6 @@ Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')-
 Auth::routes();
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
+Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
 
 
