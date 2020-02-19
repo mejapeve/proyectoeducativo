@@ -17,13 +17,14 @@
 				  
 				  <!-- Authentication Links -->
 				  @guest('afiliadoempresa')
-                  <li class="nav-item">
-				  <a class="mr-2 ml-4 btn btn-primary btn-sm" href="{{ route('user.login') }}">Iniciar Sesión</a>
-				  </li>
-				  
-                  <li class="nav-item">
-				  <a class="mr-2 ml-2 btn btn-secondary btn-sm" href="">Registro gratis</a>
-				  </li>
+                     <li class="nav-item">
+                     <a class="mr-2 ml-4 btn btn-primary btn-sm" href="{{ route('user.login') }}">Iniciar Sesión</a>
+                     </li>
+                     @if (Route::has('register'))
+                        <li class="nav-item">
+                        <a class="mr-2 ml-2 btn btn-secondary btn-sm" href="{{ route('register') }}">Registro gratis</a>
+                        </li>
+                     @endif
 				  @endguest
                </ul>
             </div>

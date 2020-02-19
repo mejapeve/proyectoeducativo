@@ -13,9 +13,7 @@ class AfiliadoEmpresa extends Model
 
     protected $table="afiliado_empresas";
 
-    protected $fillable = [
-        'nombre', 'correo', 'password',
-    ];
+
     protected $guarded = ['id'];
 
     protected $hidden = [
