@@ -29,7 +29,7 @@ class DefaultUsersSeeder extends Seeder
             //$userN->empresa_id = $user['empresa_id'];
             $userN->save();
 
-            $affiliatedCompany = new \App\Models\AffiliatedCompany();
+            $affiliatedCompany = new \App\Models\CompaniesAffiliated();
             $affiliatedCompany->affiliated_id = $userN->id;
             $affiliatedCompany->company_id = $user['empresa_id'];
             $affiliatedCompany->save();

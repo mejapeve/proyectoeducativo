@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\AffiliatedCompanyRole;
+use App\Models\CompaniesAffiliated;
 use App\Models\AfiliadoEmpresa;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -67,13 +69,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        return AfiliadoEmpresa::create([
+        session(['name_company' => 'conexiones']);
+        $afiliado_empresa = AfiliadoEmpresa::create([
             'name' => $data['name'],
             'last_name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'country_id' => 42,
+            'department_id' => 11,
+            'city_id' => 149,
         ]);
+
+
+        $companies_affiliated = new CompaniesAffiliated();
+        $companies_affiliated->company_id = 1;
+        $companies_affiliated->affiliated_id = $afiliado_empresa->id;
+        $companies_affiliated->save();
+
+        $affiliated_company_role = new AffiliatedCompanyRole();
+        $affiliated_company_role->affiliated_company_id = $companies_affiliated->id;
+        $affiliated_company_role->rol_id = 3;
+        $affiliated_company_role->save();
+
+        return $afiliado_empresa;
     }
 
 

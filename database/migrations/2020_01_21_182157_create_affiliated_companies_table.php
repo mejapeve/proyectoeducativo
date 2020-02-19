@@ -13,7 +13,7 @@ class CreateAffiliatedCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::create('affiliated_companies', function (Blueprint $table) {
+        Schema::create('companies_affiliated', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('affiliated_id')->unsigned();
             $table->foreign('affiliated_id')->references('id')->on('afiliado_empresas');
@@ -30,6 +30,6 @@ class CreateAffiliatedCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('affiliated_companies');
+        Schema::dropIfExists('companies_affiliated');
     }
 }

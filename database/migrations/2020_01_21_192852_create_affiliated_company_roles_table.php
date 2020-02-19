@@ -16,7 +16,7 @@ class CreateAffiliatedCompanyRolesTable extends Migration
         Schema::create('affiliated_company_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('affiliated_company_id')->unsigned();
-            $table->foreign('affiliated_company_id')->references('id')->on('afiliado_empresas');
+            $table->foreign('affiliated_company_id')->references('id')->on('companies_affiliated');
             $table->bigInteger('rol_id')->unsigned();
             $table->foreign('rol_id')->references('id')->on('roles');
             $table->timestamps();

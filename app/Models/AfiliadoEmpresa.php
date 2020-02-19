@@ -66,7 +66,7 @@ class AfiliadoEmpresa extends Model
 
         $role = Roles::where('name',$rol) ->first();//$this->roles()->where('name', $rol)->first();
         $company =  Companies::where('name',session('name_company'))->first();
-        $affiliatedCompany = AffiliatedCompany::where([
+        $affiliatedCompany = CompaniesAffiliated::where([
            ['company_id',$company->id],
            ['affiliated_id',auth('afiliadoempresa')->user()->id],
         ])->first();
@@ -90,7 +90,7 @@ class AfiliadoEmpresa extends Model
     ///
     public function companies()
     {
-        return $this->belongsToMany('App\Models\Companies','affiliated_companies','affiliated_id','company_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Companies','companies_affiliated','affiliated_id','company_id')->withTimestamps();
     }
 
     public function hasCompany($company){
