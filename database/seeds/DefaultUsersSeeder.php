@@ -23,7 +23,7 @@ class DefaultUsersSeeder extends Seeder
 
             $userN = new \App\Models\AfiliadoEmpresa();
             $userN->nombre = $user['nombre'];
-            $userN->correo = $user['correo'];
+            $userN->email = $user['correo'];
             $userN->password = \Illuminate\Support\Facades\Hash::make($user['password']);
             $userN->empresa_id = $user['empresa_id'];
             $userN->save();
