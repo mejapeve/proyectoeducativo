@@ -16,14 +16,22 @@ class CreateAfiliadoEmpresasTable extends Migration
         Schema::create('afiliado_empresas', function (Blueprint $table) {
 
             $table->bigIncrements('id');
-            $table->string('nombre');
+            $table->string('name');
+            $table->string('last_name');
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('provaider_facebook')->nullable();
             $table->string('provaider_google')->nullable();
-            $table->bigInteger('empresa_id')->unsigned();
+            $table->bigInteger('country_id')->nullable()->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->bigInteger('department_id')->nullable()->unsigned();
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->bigInteger('city_id')->nullable()->unsigned();
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->rememberToken();
             $table->timestamps();
+
         });
     }
 
