@@ -19313,3 +19313,18 @@ border-radius: 0!important;
 		display: block!important
 	}
 }
+
+.about-header {
+	border-left: 8px solid black;
+    background-color: #edf2f9;
+	border-radius: 0!important;
+}
+
+.about-body {
+    padding: 15px;
+}
+
+.about-title {
+	border-left: 8px solid black;
+	padding-left: 14px;
+}

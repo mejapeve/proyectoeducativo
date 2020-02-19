@@ -14,9 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/home', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/aboutus', function () {
+    return view('aboutus');
+})->name('aboutus');
+
+Route::get('/contactus', function () {
+    return view('contactus');
+})->name('contactus');
+
 
 Route::get('{empresa}/loginform', ['as' => 'loginform', 'uses' => 'DataAffiliatedCompanyController@index']);
 

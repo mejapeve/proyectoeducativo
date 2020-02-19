@@ -1,4 +1,17 @@
 MyApp.controller('navbarController', ['$scope', function($scope) {
+
+		var url = $(location).attr('href');
+		
+		if(url.includes('/aboutus')){
+			$(".nav .nav-item .aboutus").addClass("selected");
+		}
+		else if(url.includes('/contactus')){
+			$(".nav .nav-item .contactus").addClass("selected");
+		}
+		else  { 
+			$(".nav .nav-item .home").addClass("selected");
+		}
+
 	  
 	  $(".navbar-nav .dropdown").click(function(){
 		if($(this).find(".dropdown-menu").hasClass("show")) {

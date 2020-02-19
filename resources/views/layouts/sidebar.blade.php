@@ -9,21 +9,21 @@
                <div class="ScrollbarsCustom-Content" style="box-sizing: border-box; padding: 0.05px; min-height: 100%; min-width: 100%;">
                   <ul class="navbar-nav flex-column">
                      <li class="nav-item">
-                        <a class="nav-link" href="/#!">
+                        <a class="nav-link" href="{{ route('home') }}">
                            <div class="d-flex align-items-center">
-                              <span>Inicio</span>
+						      <span>Inicio</span>
                            </div>
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/#!">
+                        <a class="nav-link" href="{{ route('aboutus') }}">
                            <div class="d-flex align-items-center">
-                              <span>Equipo</span>
+                              <span>Que es conexiones?</span>
                            </div>
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/#!">
+                        <a class="nav-link" href="{{ route('contactus') }}">
                            <div class="d-flex align-items-center">
                               <span></span>
 							  <span>Contáctenos</span>
