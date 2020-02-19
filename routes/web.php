@@ -29,6 +29,7 @@ Route::get('/contactus', function () {
 
 
 Route::get('{empresa}/loginform', ['as' => 'loginform', 'uses' => 'DataAffiliatedCompanyController@index']);
+Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
 Route::prefix('user')
     ->as('user.')
@@ -54,6 +55,9 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
+    Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
+
+
 });
 
 /*

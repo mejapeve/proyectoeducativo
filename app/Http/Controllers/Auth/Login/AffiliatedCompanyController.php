@@ -37,10 +37,7 @@ class AffiliatedCompanyController extends DefaultLoginController
         }
 
     }
-    public function username()
-    {
-        return 'correo';
-    }
+
     protected function guard()
     {
         return Auth::guard('afiliadoempresa');
@@ -95,6 +92,10 @@ class AffiliatedCompanyController extends DefaultLoginController
                 break;
             case 3:
                 $redirectTo = "teacher";
+                break;
+            case 4:
+                $redirectTo = "admin";
+                session(['name_company' => 'conexiones']);
                 break;
         }
         return $this->authenticated($request, $this->guard()->user())
