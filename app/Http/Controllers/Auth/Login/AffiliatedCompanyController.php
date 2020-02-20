@@ -19,13 +19,31 @@ class AffiliatedCompanyController extends DefaultLoginController
 
 {
     use Notifiable;
+
+    protected $username;
+
     public function __construct()
     {
         $this->middleware('guest:afiliadoempresa')->except('logout');
+        $this->username = $this->type_validation();
     }
+
+    public function type_validation (){
+        $login = \request()->input('user_name');
+        $fieldType = filter_var($login,FILTER_VALIDATE_EMAIL)?'email':'user_name';
+        \request()->merge([$fieldType=>$login]);
+        return $fieldType;
+    }
+
     public function index(){
         //return redirect('auth.login.afiliadoEmpresa');
     }
+
+    public function username()
+    {
+        return $this->username;
+    }
+
     public function showLoginForm( $empresa = "conexiones" )
     {
 

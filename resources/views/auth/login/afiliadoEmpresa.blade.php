@@ -11,9 +11,9 @@
 							@csrf
 
 							<div class="form-group">
-								<input placeholder="Usuario" name="email" id="email" type="email" class="form-control @error('correo') is-invalid @enderror" value="{{ old('correo') }}" required autocomplete="correo" autofocus>
+								<input placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
 
-								@error('correo')
+								@error('user_name')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -64,7 +64,7 @@
 							@csrf
 							
 							<div class="form-group">
-								<input name="name" placeholder="Usuario" type="text" class="form-control">
+								<input placeholder="Usuario" name="email" id="email" type="email" class="form-control @error('correo') is-invalid @enderror" value="{{ old('correo') }}" required autocomplete="correo" autofocus>
 								@error('correo')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>

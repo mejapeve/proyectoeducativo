@@ -14,14 +14,15 @@ class DefaultUsersSeeder extends Seeder
         //
 
         $users = [
-            ['nombre'=>'Cristian','apellido'=>'Jojoa','correo'=>'cristianjojoa01@gmail.com','password'=>'cristianjojoa01','empresa_id'=>1],
-            ['nombre'=>'Henry ','apellido'=>'Garzon','correo'=>'hsgarzon2020@gmail.com','password'=>'hsgarzon2020','empresa_id'=>1],
-            ['nombre'=>'David','apellido'=>'Camacho','correo'=>'davithc01@gmail.com','password'=>'davithc01','empresa_id'=>1,]
+            ['user_name'=>'CristianJojoa','nombre'=>'Cristian','apellido'=>'Jojoa','correo'=>'cristianjojoa01@gmail.com','password'=>'cristianjojoa01','empresa_id'=>1],
+            ['user_name'=>'HenryGarzon','nombre'=>'Henry ','apellido'=>'Garzon','correo'=>'hsgarzon2020@gmail.com','password'=>'hsgarzon2020','empresa_id'=>1],
+            ['user_name'=>'DavidCamacho','nombre'=>'David','apellido'=>'Camacho','correo'=>'davithc01@gmail.com','password'=>'davithc01','empresa_id'=>1,]
         ];
 
         foreach ($users as $user){
 
             $userN = new \App\Models\AfiliadoEmpresa();
+            $userN->user_name = $user['user_name'];
             $userN->name = $user['nombre'];
             $userN->last_name = $user['apellido'];
             $userN->email = $user['correo'];

@@ -16,9 +16,10 @@ class CreateAfiliadoEmpresasTable extends Migration
         Schema::create('afiliado_empresas', function (Blueprint $table) {
 
             $table->bigIncrements('id');
+            $table->string('user_name')->nullable();
             $table->string('name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('provaider_facebook')->nullable();

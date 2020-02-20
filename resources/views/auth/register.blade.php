@@ -28,17 +28,27 @@
                            <h3>Registro de usuario</h3>
                            <form method="POST" action="{{ route('register') }}">
 							@csrf
-							
+							<!--
 							
                               <div class="form-group">
-								<label class="">{{ __('Name') }}</label>
-								<input placeholder="" type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="">
-								@error('name')
+								<label class="">{{ __('Usuario') }}</label>
+								<input placeholder="" type="text" name="user_name" class="form-control @error('user_name') is-invalid @enderror" value="">
+								@error('user_name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
 							  </div>
+							  -->
+                               <div class="form-group">
+                                   <label class="">{{ __('Nombre') }}</label>
+                                   <input placeholder="" type="text" name="user_name" class="form-control @error('user_name') is-invalid @enderror" value="">
+                                   @error('user_name')
+                                   <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                   @enderror
+                               </div>
                               <div class="form-group">
 								<label class="">{{ __('E-Mail Address') }}</label>
 								<input placeholder="" type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="">
