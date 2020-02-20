@@ -1,6 +1,7 @@
 MyApp.controller('navbarController', ['$scope', function($scope) {
 
 		var url = $(location).attr('href');
+		var origin = $(location).attr('origin');
 		
 		if(url.includes('/aboutus')){
 			$(".nav .nav-item .aboutus").addClass("selected");
@@ -8,7 +9,7 @@ MyApp.controller('navbarController', ['$scope', function($scope) {
 		else if(url.includes('/contactus')){
 			$(".nav .nav-item .contactus").addClass("selected");
 		}
-		else  { 
+		else if(url.includes('/home') || url.replace(/\//g,"") === origin.replace(/\//g,"")) { 
 			$(".nav .nav-item .home").addClass("selected");
 		}
 
