@@ -11,7 +11,7 @@
 							@csrf
 
 							<div class="form-group">
-								<input placeholder="Usuario" id="correo" type="email" class="form-control @error('correo') is-invalid @enderror" name="correo" value="{{ old('correo') }}" required autocomplete="correo" autofocus>
+								<input placeholder="Usuario" name="email" id="email" type="email" class="form-control @error('correo') is-invalid @enderror" value="{{ old('correo') }}" required autocomplete="correo" autofocus>
 
 								@error('correo')
 								<span class="invalid-feedback" role="alert">
