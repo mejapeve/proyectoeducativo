@@ -60,6 +60,8 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
 
 });
 
+Route::post('register_student', 'TutorController@register_student')->name('register_student');
+
 /*
 Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
