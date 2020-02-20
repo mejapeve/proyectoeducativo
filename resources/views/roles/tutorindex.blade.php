@@ -209,9 +209,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="">{{ __('Apellidos') }}</label>
-                                            <input placeholder="" type="text" name="name"
-                                                   class="form-control @error('name') is-invalid @enderror" value="">
-                                            @error('name')
+                                            <input placeholder="" type="text" name="apellido"
+                                                   class="form-control @error('apellido') is-invalid @enderror" value="">
+                                            @error('apellido')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -219,9 +219,9 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="">{{ __('Fecha nacimiento') }}</label>
-                                            <input placeholder="" type="text" name="name"
-                                                   class="form-control @error('name') is-invalid @enderror" value="">
-                                            @error('name')
+                                            <input placeholder="" type="text" name="fecha"
+                                                   class="form-control @error('fecha') is-invalid @enderror" value="">
+                                            @error('fecha')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

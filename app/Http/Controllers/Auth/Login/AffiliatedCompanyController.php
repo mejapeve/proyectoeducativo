@@ -116,6 +116,7 @@ class AffiliatedCompanyController extends DefaultLoginController
                 session(['name_company' => 'conexiones']);
                 break;
         }
+
         return $this->authenticated($request, $this->guard()->user())
             ?: redirect()->route($redirectTo,session('name_company' ));
     }

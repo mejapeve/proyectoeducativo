@@ -23,6 +23,7 @@ class TutorController extends Controller
         $rol = "student";
         $this->create_user_relation(auth('afiliadoempresa')->user()->id,$request,$rol);
 
+        return redirect()->route('conexiones/tutor');
 
 
     }
