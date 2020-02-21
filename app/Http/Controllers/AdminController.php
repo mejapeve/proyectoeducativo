@@ -12,7 +12,7 @@ class AdminController extends Controller
 
         $request->user('afiliadoempresa')->authorizeRoles(['admin']);
 
-        return view('roles.adminindex');
+        return view('roles.admin.index');
     }
 
 }
