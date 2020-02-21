@@ -71,5 +71,5 @@ Auth::routes();
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
 Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
-
+Route::get('/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 
