@@ -73,3 +73,7 @@ Route::get('testangular', 'HomeController@testangular')->name('testangular');
 Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
 Route::get('/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 
+Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
+Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
+Route::get('get_cities', 'CityController@get_cities')->name('get_cities');
+Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
