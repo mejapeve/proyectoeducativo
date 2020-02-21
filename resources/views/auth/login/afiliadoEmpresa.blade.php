@@ -60,7 +60,7 @@
 				<div class="card">
 					<div class="card-header">{{ __('Inicio de sesion como') }} <strong>tutor</strong> </div>
 					<div class="card-body">
-						<form method="POST" action="{{ route('user.login','2') }}">
+						<form method="POST" action="{{ route('user.login','3') }}">
 							@csrf
 							
 							<div class="form-group">

@@ -106,10 +106,10 @@ class AffiliatedCompanyController extends DefaultLoginController
                 $redirectTo = "student";
                 break;
             case 2:
-                $redirectTo = "tutor";
+                $redirectTo = "teacher";
                 break;
             case 3:
-                $redirectTo = "teacher";
+                $redirectTo = "tutor";
                 break;
             case 4:
                 $redirectTo = "admin";
