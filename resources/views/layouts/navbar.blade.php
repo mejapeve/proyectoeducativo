@@ -71,7 +71,8 @@
                      <li class="list-group-item">
                         <a class="notification bg-200 notification-flush rounded-0 border-x-0 border-300 border-bottom-0" href="">
                            <div class="notification-avatar">
-                              <div class="avatar avatar-2xl mr-3"><img class="rounded-circle " src="./static/media/1.38f0341f.jpg" alt=""></div>
+                              <div class="avatar avatar-2xl mr-3"><img class="rounded-circle " 
+							  src="{{ asset('static/media/1.38f0341f.jpg') }}" alt=""></div>
                            </div>
                            <div class="notification-body">
                               <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
@@ -101,7 +102,8 @@
          </li>
          <li class="dropdown nav-item">
             <a aria-haspopup="true" href="#" class="pr-0 nav-link" aria-expanded="false">
-               <div class="avatar avatar-xl "><img class="rounded-circle " src="./static/media/3.cb95ae1b.jpg" alt=""></div>
+               <div class="avatar avatar-xl "><img class="rounded-circle " 	
+					src="{{ asset('static/media/3.cb95ae1b.jpg') }}" alt=""></div>
             </a>
             <div tabindex="-1" role="menu" aria-hidden="false" class="dropdown-menu-card dropdown-menu dropdown-menu-right">
 			   <div class="modal-backdrop fade show"></div>
@@ -118,7 +120,7 @@
 				  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
 				  <div tabindex="-1" class="dropdown-divider"></div>
                   <a tabindex="0" role="menuitem" class="dropdown-item" href="/pages/settings">Configuración</a>
-				  <a tabindex="0" role="menuitem" class="dropdown-item"  
+				  <a tabindex="0" role="menuitem" class="dropdown-item" href="#" 
 					onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
 				  <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
 					@csrf

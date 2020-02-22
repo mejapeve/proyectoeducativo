@@ -9,7 +9,7 @@ class TeacherController extends Controller
     //
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['teacher']);
-        return view('roles.teacherindex');
+        return view('roles.teacher.index');
 
     }
 }

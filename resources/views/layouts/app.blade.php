@@ -29,17 +29,15 @@
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-
-
     <link href="{{ asset('falcon/css/theme.css') }}" type="text/css" rel="stylesheet" class="theme-stylesheet">
-    <!-- Link Swiper's CSS -->
+	<!-- select2 CSS -->
+	<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+	<!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" type="text/javascript"></script>
-    <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"
-            type="text/javascript">
-    </script>
+	
+    <script src="{{ asset('js/jquery-3.3.1.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>
 
 </head>
 <body>

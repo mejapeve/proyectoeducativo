@@ -12,7 +12,7 @@ class TutorController extends Controller
 
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
-        return view('roles.tutorindex');
+        return view('roles.tutor.index');
 
     }
 
