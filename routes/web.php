@@ -78,6 +78,9 @@ Route::get('get_companies', 'CompanyController@get_companies')->name('get_compan
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
 Route::get('get_cities', 'CityController@get_cities')->name('get_cities');
 Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
+Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
+
+
 
 Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');
 Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
