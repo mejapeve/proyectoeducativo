@@ -58,10 +58,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             //'user_name' => ['required', 'string', 'max:255','unique:afiliado_empresas'],
-            //'name' => ['required', 'string','min:4', 'max:255'],
+            'name' => ['required', 'string','min:4', 'max:255'],
+			'last_name' => ['required', 'string','min:4', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
+			'country_id' => ['required', 'string', 'max:255'],
             //'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -81,13 +83,13 @@ class RegisterController extends Controller
         //if($asignarNombreUsuario){
             $afiliado_empresa = AfiliadoEmpresa::create([
                 'user_name' => $name_user,
-                'name' => $data['user_name'],
-                'last_name' => $data['user_name'],
+                'name' => $data['name'],
+                'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
-                'country_id' => 42,
-                'department_id' => 11,
-                'city_id' => 149,
+                'country_id' => $data['country_id'],
+                'department_id' => $data['department_id'],
+                'city_id' => $data['city_id'],
             ]);
 
             $companies_affiliated = new CompaniesAffiliated();

@@ -40,8 +40,8 @@ trait CreateUserRelations
         $user_name = $this->name_user_affiliated(array('user_name'=>$request->name));
         $aflidiadoEmpresa->user_name = $user_name;//$request->name;
         $aflidiadoEmpresa->name = $request->name;
-        $aflidiadoEmpresa->last_name = $request->name;
-        $aflidiadoEmpresa->date_birth = $request->name;
+        $aflidiadoEmpresa->last_name = $request->last_name;
+        $aflidiadoEmpresa->date_birth = $request->date_birth;
         $aflidiadoEmpresa->password = Hash::make($user_name);
         $aflidiadoEmpresa->save();
 
@@ -60,8 +60,8 @@ trait CreateUserRelations
     }
 
     public function name_user_affiliated($data) {
-//dd($data);
-        $name_user = $data['user_name'].$data['user_name'].'C';
+
+        $name_user = $data['name'].$data['last_name'].'C';
 
         do{
             if( count(AfiliadoEmpresa::where('user_name',$name_user)->get()) ){

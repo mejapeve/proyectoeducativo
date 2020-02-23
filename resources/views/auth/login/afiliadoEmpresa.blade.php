@@ -11,7 +11,7 @@
 							@csrf
 
 							<div class="form-group">
-								<input placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
 
 								@error('user_name')
 								<span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
 							@csrf
 							
 							<div class="form-group">
-								<input placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
 								@error('correo')
 									<span class="invalid-feedback" role="alert">
 										<strong>{{ $message }}</strong>
@@ -100,26 +100,26 @@
 						</form>
 						<br>
 						<div class="row">
-							<div class="col-md-12 col-lg-12 col-sm-12">
+							<div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
 								<a href="{{ route('user.redirectfacebook',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px">
 								<div class="row">
 									<div class="col-2">
 										<i class="fa fa-facebook"></i> 
 									</div>	
 									<div class="col-10 text-left">	
-									  <span>Entra con Facebook</span>
+									  <span>Entrar con Facebook</span>
 									</div> 
 								</div>
 								</a>
 							</div>
-							<div class="col-md-12 col-lg-12 col-sm-12">
+							<div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
 								<a href="{{ route('user.redirectgmail',encrypt(2)) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);">
 								<div class="row">
 									<div class="col-2">
 										<i class="fa fa-google"></i>
 									</div>	
 									<div class="col-10 text-left">	
-									  <span>Entra con Gmail</span>
+									  <span>Entrar con Gmail</span>
 									</div> 
 								</div>
 								</a>

@@ -19332,3 +19332,10 @@ border-radius: 0!important;
 .arrow-icon { 
 	margin-right: 10px;	
 }
+
+@media(min-width:992px) {
+	.social-button-margin {
+		padding-left: 15%;
+		padding-right: 15%;
+	}
+}

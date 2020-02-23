@@ -12,7 +12,7 @@
             <div class="mb-3" style="margin-bottom: 0px!important;">
                <ul class="nav">
                   <li class="nav-item"><a href="{{ route('home') }}" class="nav-link home">Inicio</a></li>
-                  <li class="nav-item"><a href="{{ route('aboutus') }}" class="nav-link aboutus">Que es conexiones?</a></li>
+                  <li class="nav-item"><a href="{{ route('aboutus') }}" class="nav-link aboutus">Qué es conexiones?</a></li>
                   <li class="nav-item"><a href="{{ route('contactus') }}" class="nav-link contactus">Contáctenos</a></li>
 				  
 				  <!-- Authentication Links -->

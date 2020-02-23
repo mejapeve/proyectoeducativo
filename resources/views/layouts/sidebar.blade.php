@@ -18,7 +18,7 @@
                      <li class="nav-item">
                         <a class="nav-link" href="{{ route('aboutus') }}">
                            <div class="d-flex align-items-center">
-                              <span>Que es conexiones?</span>
+                              <span>Qué es conexiones?</span>
                            </div>
                         </a>
                      </li>
