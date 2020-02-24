@@ -93,15 +93,16 @@ class RegisterController extends Controller
                 'department_id' => $data['department_id'],
                 'city_id' => $data['city_id'],
             ]);
-
+/*
             $companies_affiliated = new CompaniesAffiliated();
             $companies_affiliated->company_id = 1;
             $companies_affiliated->affiliated_id = $afiliado_empresa->id;
             $companies_affiliated->save();
-
+*/
             $affiliated_company_role = new AffiliatedCompanyRole();
-            $affiliated_company_role->affiliated_company_id = $companies_affiliated->id;
+            $affiliated_company_role->affiliated_company_id = $afiliado_empresa->id;
             $affiliated_company_role->rol_id = 3;
+            $affiliated_company_role->company_id = 1;
             $affiliated_company_role->save();
 
             $this->redirectTo = 'conexiones/tutor';

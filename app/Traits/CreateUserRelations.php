@@ -44,15 +44,16 @@ trait CreateUserRelations
         $aflidiadoEmpresa->date_birth = $request->date_birth;
         $aflidiadoEmpresa->password = Hash::make($user_name);
         $aflidiadoEmpresa->save();
-
+/*
         $companies_affiliated = new CompaniesAffiliated();
         $companies_affiliated->company_id = 1;//conexiones
         $companies_affiliated->affiliated_id = $aflidiadoEmpresa->id;
         $companies_affiliated->save();
-
+*/
         $affiliated_company_role = new AffiliatedCompanyRole();
-        $affiliated_company_role->affiliated_company_id = $companies_affiliated->id;
+        $affiliated_company_role->affiliated_company_id = $aflidiadoEmpresa->id;
         $affiliated_company_role->rol_id = 1;//estudiante
+        $affiliated_company_role->company_id = 1;//conexiones
         $affiliated_company_role->save();
 
         return $aflidiadoEmpresa;
@@ -62,10 +63,10 @@ trait CreateUserRelations
     public function name_user_affiliated($data) {
 
         $name_user = $data['name'].$data['last_name'].'C';
+        $asignarNombreUsuario = false;
 		do{
             if( count(AfiliadoEmpresa::where('user_name',$name_user)->get()) ){
                 $name_user = $name_user.rand (0,9);
-				$asignarNombreUsuario = false;
             }else{
                 $asignarNombreUsuario = true;
             }
