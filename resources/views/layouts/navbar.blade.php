@@ -116,10 +116,15 @@
                   </a>
                   <div tabindex="-1" class="dropdown-divider"></div>
                   <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">Ver estado</a>
-				  <a tabindex="0" role="menuitem" class="dropdown-item" href="/pages/profile">Perfíl &amp; cuenta</a>
+				  
+				  @if(Auth::user()->hasAnyRole('tutor'))
+				  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="/conexiones/tutor">Perfíl &amp; cuenta</a>
+			      @endif
 				  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
 				  <div tabindex="-1" class="dropdown-divider"></div>
+				  @if(Auth::user()->hasAnyRole('admin'))
                   <a tabindex="0" role="menuitem" class="dropdown-item" href="/pages/settings">Configuración</a>
+			      @endif
 				  <a tabindex="0" role="menuitem" class="dropdown-item" href="#" 
 					onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
 				  <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">

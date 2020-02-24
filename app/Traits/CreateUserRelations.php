@@ -62,10 +62,10 @@ trait CreateUserRelations
     public function name_user_affiliated($data) {
 
         $name_user = $data['name'].$data['last_name'].'C';
-
-        do{
+		do{
             if( count(AfiliadoEmpresa::where('user_name',$name_user)->get()) ){
                 $name_user = $name_user.rand (0,9);
+				$asignarNombreUsuario = false;
             }else{
                 $asignarNombreUsuario = true;
             }

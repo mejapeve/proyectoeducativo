@@ -14,60 +14,79 @@
                            <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registre sus datos para la creación de su cuenta</h6>
                         </div>
                      </div>
-                     <form method="POST" action="{{ route('register') }}" autocomplete='off'>
+					 <form action="{{ route('register') }}" method="POST" name="registerForm" novalidate>
                         <div class="p-4 pl-6 mr-8 col-12 d-flex justify-content-center align-items-center row">
                            @csrf
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Nombre') }}</label>
-                                 <input autocomplete="off" placeholder="" type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="">
+                                 <input ng-model="name" autofocus required="" autocomplete="off" type="text" name="name" ng-class="{'form-control': true, 'is-invalid': registerForm.name.$dirty && registerForm.name.$invalid}" value="">
                                  @error('name')
                                  <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
+                                   <strong>{{ $message }}</strong>
                                  </span>
                                  @enderror
+								 <span ng-show="registerForm.name.$dirty && registerForm.name.$invalid" class="invalid-feedback" role="alert">
+								   <strong>Campo nombre requerido.</strong>
+                                 </span>
                               </div>
                               <div class="form-group">
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Apellido') }}</label>
-                                 <input autocomplete="off" placeholder="" type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="">
+                                 <input ng-model="lastName" required="" autocomplete="off" type="text" name="last_name" value=""
+								 ng-class="{'form-control': true, 'is-invalid': registerForm.last_name.$dirty && registerForm.last_name.$invalid}">
                                  @error('last_name')
                                  <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
+									<strong>{{ $message }}</strong>
                                  </span>
                                  @enderror
+								 <span ng-show="registerForm.last_name.$dirty && registerForm.last_name.$invalid" class="invalid-feedback" role="alert">
+								   <strong>Campo apellido requerido.</strong>
+                                 </span>
                               </div>
                               <div class="form-group">
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('País donde se encuentra') }}</label>
-                                 <select id="selectCountry" name="country_id" class="select2_multiple form-control @error('country') is-invalid @enderror">
+                                 <select id="selectCountry" name="country_id"  ng-model="country_id" required
+									ng-class="{'select2_multiple':true, 'form-control': true, 'is-invalid': registerForm.country_id.$dirty && registerForm.country_id.$invalid}"
+									>
                                     <option></option>
+									<option value="@{{country.id}}" ng-repeat="country in countries">@{{country.text}}</option>
                                  </select>
-                                 @error('country_id')
+								 @error('country_id')
                                  <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
                                  </span>
                                  @enderror
+								 <span ng-show="registerForm.country_id.$dirty && registerForm.country_id.$invalid" class="invalid-feedback" role="alert">
+								   <strong>Campo país requerido.</strong>
+                                 </span>
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="form-group">
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Ciudad') }}</label>
-                                 <div ng-show="showselectCities">
-                                    <select id="selectCities" name="city_id" class="select2_group form-control @error('city') is-invalid @enderror">
+                                 <div ng-show="showselectCity">
+									<select id="selectCity" ng-model="selectCity" name="selectCity"
+									ng-class="{'select2_group':true, 'form-control':true, ''is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}"
+									class="select2_group form-control @error('city') is-invalid @enderror">
 										<option></option>
 									</select>
                                  </div>
-                                 <div ng-hide="showselectCities">
-                                    <input placeholder="" type="text" name="city" class="form-control @error('city') is-invalid @enderror" value="">
+                                 <div ng-hide="showselectCity">
+                                    <input ng-required="!showselectCity" ng-model="city" type="text" id="city" name="city" autocomplete="off"
+									ng-class="{'form-control': true, 'is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}"/>
                                  </div>
-                                 @error('city')
+								 @error('city')
                                  <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
+									<strong>{{ $message }}</strong>
                                  </span>
                                  @enderror
+								 <span ng-show="registerForm.name.$dirty && registerForm.name.$invalid" class="invalid-feedback" role="alert">
+								   <strong>Campo cuidad requerido.</strong>
+                                 </span>
                               </div>
                               <div class="form-group">
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Correo electrónico') }}</label>
-                                 <input placeholder="" type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="">
+                                 <input autocomplete="off" requeried ng-model="email" placeholder="" type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="">
                                  @error('email')
                                  <span class="invalid-feedback" role="alert">
                                  <strong>{{ $message }}</strong>
@@ -75,15 +94,14 @@
                                  @enderror
                               </div>
                               <div class="form-group">
-                                 <div class="custom-checkbox custom-control">
-                                    <input name="agreeToTerms" id="agreeToTerms" type="checkbox" class="custom-control-input">
-                                    <label class="custom-control-label" for="agreeToTerms">Acepto  <a href="#!"> términos y condiciones</a></label>
-                                 </div>
+                                    <input name="agreeToTerms" type="checkbox" class="" ng-model="agreeToTerms" required="">
+                                    <label class="control-label" >Acepto  <a href="#!"> términos y condiciones</a></label>
                               </div>
                               <div class="form-group">
                                  <input type="hidden" name="password" id="password" value="password"/>
-								 <input type="hidden" name="department_id" id="department_id"  ng-model="departmentId"/>
-                                 <button type="submit" class="btn btn-primary w-100" style="font-size:13px;">
+								 <input ng-show="false" type="text" name="department_id" id="department_id"  ng-model="departmentId"/>
+								 <input ng-show="false" type="text" name="city_id" id="city_id" ng-required="showselectCity" ng-model="city_id"/>
+                                 <button type="submit" class="btn btn-primary w-100" style="font-size:13px;" ng-disabled="registerForm.$invalid">
                                  {{ __('Guardar registro y continuar') }}
                                  </button>
                               </div>

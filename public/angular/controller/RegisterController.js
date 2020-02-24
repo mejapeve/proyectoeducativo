@@ -4,27 +4,47 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 	$scope.cities = null;
 	$scope.countryId = null;
 	$scope.cityId = null;
+	$scope.city = '';
+	$scope.name = '';
 	$scope.departmentId = null;
-	$scope.showselectCities = false;
+	$scope.showselectCity = false;
 
 	$http.get("https://geoip-db.com/json/").then(function (response1) {
 		$scope.country_code = response1.data.country_code;
 		$http.get("/get_countries")
 		.then(function(res){
 			$scope.countries = res.data.data;
-			$("#selectCountry").select2({ 
-				data: $scope.countries,
+			$("#selectCountry").select2({
 				placeholder: "Seleccione...",
 			});
 			
-			if($scope.country_code === 'CO') {
-				$("#selectCountry").val(42).trigger("change")
-				$scope.countryId = 42;
-				$scope.showselectCities = true;
+			setTimeout(function(){
+			 if($scope.country_code === 'CO') {
+				$("#selectCountry").val("42").trigger("change");
+				$scope.countryId = "42";
+				$scope.showselectCity = true;
+				$scope.$apply();
 			}
+			}, 100);
+
+			
+			
 			$('#selectCountry').on('select2:select', function (e) {
 				var country = e.params.data;
-				$scope.showselectCities = country.id === "42";
+				if(country.id === "42") {
+					$scope.showselectCity =  true;
+					$scope.city_id = null;
+					$scope.city = '';
+					$("#selectCity").val(null).trigger("change");
+				}
+				else {
+					if($scope.countryId === "42") { //previous country selected
+						$scope.city = '';	
+					}
+					$scope.showselectCity =  false;
+					$scope.city_id = null;
+					$scope.departmentId = null;
+				}
 				$scope.countryId = country.id;
 				$scope.$apply();
 			});
@@ -57,14 +77,16 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 
 		$scope.departments = departments;
 
-		$('#selectCities').select2({
+		$('#selectCity').select2({
 			placeholder: "Seleccione...",
 			data: departments
 		})
 
-		$('#selectCities').on('select2:select', function (e) {
+		$('#selectCity').on('select2:select', function (e) {
 			var city = e.params.data;
-			$scope.departmentId = city.department_id;
+			$scope.departmentId = Number(city.department_id);
+			$scope.city = city.text;
+			$scope.city_id = city.id;
 			$scope.$apply();
 		});
 

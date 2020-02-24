@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@if (session('status'))
-@endif
     <div class="container" ng-controller="HomePageController" ng-init="init()">
         
         <div class="content">
