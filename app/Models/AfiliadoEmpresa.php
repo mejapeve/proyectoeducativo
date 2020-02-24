@@ -98,5 +98,11 @@ class AfiliadoEmpresa extends Model
         return false;
     }
 
+    public function company_teacher_rol (){
+
+        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
+
+    }
+
 
 }
