@@ -109,5 +109,12 @@ class AfiliadoEmpresa extends Model
         return $this->belongsTo(Country::class,'country_id','id');
 
     }
+	public function cityName (){
+
+        return $this->belongsTo(City::class,'city_id','id');
+
+    }
+	
+
 
 }

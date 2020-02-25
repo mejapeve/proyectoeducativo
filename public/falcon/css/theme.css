@@ -13850,8 +13850,8 @@ label {
 }
 
 .avatar-3xl {
-	height: 3.5rem;
-	width: 3.5rem
+	height: 3.7rem;
+	width: 3.7rem;
 }
 
 .avatar-3xl .avatar-name {
@@ -19339,3 +19339,9 @@ border-radius: 0!important;
 		padding-right: 15%;
 	}
 }
+
+.nav-item-tutor {
+    width: 82px;
+    text-align: center;
+}
+

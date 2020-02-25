@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#2c7be5">
     <link rel="stylesheet" type="text/css" href="{{ asset('falcon/css/falcon.css') }}">
     <!-- Add icon library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('font-awesome/4.7.0/css/font-awesome.min.css') }}">
 
     <link href="{{ asset('falcon/css/theme.css') }}" type="text/css" rel="stylesheet" class="theme-stylesheet">
 	<!-- select2 CSS -->
