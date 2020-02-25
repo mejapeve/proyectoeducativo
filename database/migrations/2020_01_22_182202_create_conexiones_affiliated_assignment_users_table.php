@@ -30,6 +30,6 @@ class CreateConexionesAffiliatedAssignmentUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conexiones_affiliated_assignment_users');
+        Schema::dropIfExists('conection_affiliated_students');
     }
 }
