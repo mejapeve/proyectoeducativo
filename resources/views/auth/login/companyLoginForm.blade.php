@@ -2,13 +2,13 @@
 @section('content')
 <div class="flex-center min-vh-100 py-6 row">
    <div class="col-xxl-5 col-sm-11 col-md-9 col-lg-7 col-xl-6">
-      <a class="text-decoration-none" href="/">
+      
          <div class="d-flex flex-center font-weight-extra-bold fs-5 mb-4">
             <div class="avatar avatar-5xl">
                <img class="rounded-circle " src="{{ $company->url_icon }}" alt="">
             </div>
          </div>
-      </a>
+      
       <div class="text-center card">
          <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>alumno</strong></div>
          <div class="p-5 card-body">
