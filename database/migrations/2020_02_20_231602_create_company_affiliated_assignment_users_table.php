@@ -15,8 +15,8 @@ class CreateCompanyAffiliatedAssignmentUsersTable extends Migration
     {
         Schema::create('company_affiliated_assigment_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('student__company_id')->unsigned();
-            $table->foreign('student__company_id')->references('id')->on('affiliated_company_roles');
+            $table->bigInteger('student_company_id')->unsigned();
+            $table->foreign('student_company_id')->references('id')->on('affiliated_company_roles');
             $table->bigInteger('teacher_company_id')->unsigned();
             $table->foreign('teacher_company_id')->references('id')->on('affiliated_company_roles');
             $table->bigInteger('company_sequence_id')->unsigned();
