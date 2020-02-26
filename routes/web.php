@@ -82,6 +82,7 @@ Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company
 Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->name('get_teachers_company');
 
+Route::get('get_students_tutor', 'TutorController@get_students_tutor')->name('get_students_tutor');
 
 
 Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');
