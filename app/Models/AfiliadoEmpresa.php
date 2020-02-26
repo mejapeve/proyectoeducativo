@@ -14,7 +14,7 @@ class AfiliadoEmpresa extends Model
     protected $table="afiliado_empresas";
 
 
-    protected $guarded = ['id'];
+   // protected $guarded = ['id'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -65,13 +65,7 @@ class AfiliadoEmpresa extends Model
     {
 
         $role = Roles::where('name',$rol) ->first();
-        $company =  Companies::where('name',session('name_company'))->first();
-        /*
-        $affiliatedCompany = CompaniesAffiliated::where([
-           ['company_id',$company->id],
-           ['affiliated_id',auth('afiliadoempresa')->user()->id],
-        ])->first();
-*/
+        $company =  Companies::where('nick_name',session('name_company'))->first();
         if(AffiliatedCompanyRole::where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['rol_id',$role->id],
@@ -92,7 +86,7 @@ class AfiliadoEmpresa extends Model
     }
 
     public function hasCompany($company){
-        if ($this->companies()->where('name', $company)->first()) {
+        if ($this->companies()->where('nick_name', $company)->first()) {
             return true;
         }
         return false;
@@ -114,7 +108,11 @@ class AfiliadoEmpresa extends Model
         return $this->belongsTo(City::class,'city_id','id');
 
     }
-	
+
+    public function affiliated_company (){
+
+        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
+    }
 
 
 }

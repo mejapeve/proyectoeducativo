@@ -12,6 +12,7 @@ class DataAffiliatedCompanyController extends Controller
     public function index($empresa){
 		//if($empresa == 'conexiones')
 		$company = Companies::where('nick_name', $empresa)->first();
+        session(['name_company' => $empresa]);
 		if($company) {
 			if($company->name == 'conexiones') {
 				return view('auth.login.afiliadoEmpresa',['company' => $company ]);
