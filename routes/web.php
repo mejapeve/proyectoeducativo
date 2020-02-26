@@ -73,6 +73,7 @@ Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
 Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
 Route::get('/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
+Route::get('/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 
 Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
@@ -85,3 +86,5 @@ Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_gr
 
 Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');
 Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
+Route::get('import', ['as' => 'import', 'uses'=> 'Admin\UsersController@import']);
+Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
