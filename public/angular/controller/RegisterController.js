@@ -8,6 +8,7 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 	$scope.name = '';
 	$scope.departmentId = null;
 	$scope.showselectCity = false;
+	$scope.messageError = null;
 
 	$http.get("https://geoip-db.com/json/").then(function (response1) {
 		$scope.country_code = response1.data.country_code;
@@ -27,8 +28,6 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 			}
 			}, 100);
 
-			
-			
 			$('#selectCountry').on('select2:select', function (e) {
 				var country = e.params.data;
 				if(country.id === "42") {
@@ -48,11 +47,11 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 				$scope.countryId = country.id;
 				$scope.$apply();
 			});
-
-			$scope.$watch('countryId', function(scope){
-				   
-			}, true);
+		}).catch(function(er){
+			$scope.messageError = 'Error consultando lista de paises';
 		});
+	}).catch(function(e){
+		$scope.messageError = 'Error consultando el pais';
 	});
 
 	
@@ -90,8 +89,8 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 			$scope.$apply();
 		});
 
-	}, function(res){
-		// acciones a realizar cuando se recibe una respuesta de error
+	}).catch(function(error){
+		$scope.messageError = 'Error consultando lista de ciudades';
 	});
 }]);
 

@@ -117,12 +117,12 @@
                   <div tabindex="-1" class="dropdown-divider"></div>
                   <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">Ver estado</a>
 				  
-				  @if(Auth::user()->hasAnyRole('tutor'))
+				  @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
 				  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="/conexiones/tutor">Perfíl &amp; cuenta</a>
 			      @endif
 				  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
 				  <div tabindex="-1" class="dropdown-divider"></div>
-				  @if(Auth::user()->hasAnyRole('admin'))
+				  @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
                   <a tabindex="0" role="menuitem" class="dropdown-item" href="/pages/settings">Configuración</a>
 			      @endif
 				  <a tabindex="0" role="menuitem" class="dropdown-item" href="#" 

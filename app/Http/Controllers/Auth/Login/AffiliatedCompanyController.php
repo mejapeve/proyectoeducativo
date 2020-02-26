@@ -46,8 +46,7 @@ class AffiliatedCompanyController extends DefaultLoginController
 
     public function showLoginForm( $empresa = "conexiones" )
     {
-
-        if(count(Companies::where('name',$empresa)->get())){
+        if(count(Companies::where('nick_name',$empresa)->get())){
             session(['name_company' => $empresa]);
             return redirect()->route('loginform',['empresa'=> $empresa]);
         }else{

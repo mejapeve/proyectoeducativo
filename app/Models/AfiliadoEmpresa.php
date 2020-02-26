@@ -14,7 +14,7 @@ class AfiliadoEmpresa extends Model
     protected $table="afiliado_empresas";
 
 
-    protected $guarded = ['id'];
+   // protected $guarded = ['id'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -64,24 +64,16 @@ class AfiliadoEmpresa extends Model
     public function hasRole($rol)
     {
 
-        $role = Roles::where('name',$rol) ->first();//$this->roles()->where('name', $rol)->first();
-        $company =  Companies::where('name',session('name_company'))->first();
-        $affiliatedCompany = CompaniesAffiliated::where([
-           ['company_id',$company->id],
-           ['affiliated_id',auth('afiliadoempresa')->user()->id],
-        ])->first();
-        //dd($role);
+        $role = Roles::where('name',$rol) ->first();
+        $company =  Companies::where('nick_name',session('name_company'))->first();
         if(AffiliatedCompanyRole::where([
-            ['affiliated_company_id',$affiliatedCompany->id],
+            ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['rol_id',$role->id],
+            ['company_id',$company->id],
         ])->first()){
             return true;
         }
-        /*if ($this->roles()->where('name', $role)->first()) {
-            //dd($this->roles()->where('name', $role)->first());
-            dd(auth('afiliadoempresa')->user());
-            return true;
-        }*/
+
         return false;
     }
 
@@ -90,14 +82,36 @@ class AfiliadoEmpresa extends Model
     ///
     public function companies()
     {
-        return $this->belongsToMany('App\Models\Companies','companies_affiliated','affiliated_id','company_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Companies','affiliated_company_roles','affiliated_company_id','company_id')->withTimestamps();
     }
 
     public function hasCompany($company){
-        if ($this->companies()->where('name', $company)->first()) {
+        if ($this->companies()->where('nick_name', $company)->first()) {
             return true;
         }
         return false;
+    }
+
+    public function company_teacher_rol (){
+
+        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
+
+    }
+
+    public function country (){
+
+        return $this->belongsTo(Country::class,'country_id','id');
+
+    }
+	public function cityName (){
+
+        return $this->belongsTo(City::class,'city_id','id');
+
+    }
+
+    public function affiliated_company (){
+
+        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
     }
 
 

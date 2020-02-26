@@ -21,7 +21,7 @@
 -->
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Conexiones | Plataforma de aprendizaje</title>
+    <title> | Plataforma de aprendizaje</title>
     <link rel="shortcut icon" href="https://falcon.technext.it/favicon.ico">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#2c7be5">
@@ -44,18 +44,8 @@
     <div id="app" ng-app="MyApp">
         <main class="main" id="main">
             <div class="container">
-			   
-			   @include('layouts/sidebar')
-			    
                <div class="content">
-                  
-				  @include('layouts/navbar')
-				  
                   @yield('content')
-				  
-                  <footer>
-					@include('layouts/footer')
-                  </footer>
                </div>
             </div>
          </main>

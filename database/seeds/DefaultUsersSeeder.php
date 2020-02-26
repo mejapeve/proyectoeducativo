@@ -27,22 +27,23 @@ class DefaultUsersSeeder extends Seeder
             $userN->last_name = $user['apellido'];
             $userN->email = $user['correo'];
             $userN->password = \Illuminate\Support\Facades\Hash::make($user['password']);
-            //$userN->empresa_id = $user['empresa_id'];
             $userN->save();
-
+/*
             $affiliatedCompany = new \App\Models\CompaniesAffiliated();
             $affiliatedCompany->affiliated_id = $userN->id;
             $affiliatedCompany->company_id = $user['empresa_id'];
             $affiliatedCompany->save();
-
+*/
             $affiliatedCompanyRoles = new \App\Models\AffiliatedCompanyRole();
-            $affiliatedCompanyRoles->affiliated_company_id = $affiliatedCompany->id;
+            $affiliatedCompanyRoles->affiliated_company_id = $userN->id;
             $affiliatedCompanyRoles->rol_id = 1;
+            $affiliatedCompanyRoles->company_id = $user['empresa_id'];
             $affiliatedCompanyRoles->save();
 
             $affiliatedCompanyRoles = new \App\Models\AffiliatedCompanyRole();
-            $affiliatedCompanyRoles->affiliated_company_id = $affiliatedCompany->id;
+            $affiliatedCompanyRoles->affiliated_company_id = $userN->id;
             $affiliatedCompanyRoles->rol_id = 4;
+            $affiliatedCompanyRoles->company_id = $user['empresa_id'];
             $affiliatedCompanyRoles->save();
 
 

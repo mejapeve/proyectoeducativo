@@ -49,6 +49,7 @@
 									ng-class="{'select2_multiple':true, 'form-control': true, 'is-invalid': registerForm.country_id.$dirty && registerForm.country_id.$invalid}"
 									>
                                     <option></option>
+									<option value="42">Colombia</option>
 									<option value="@{{country.id}}" ng-repeat="country in countries">@{{country.text}}</option>
                                  </select>
 								 @error('country_id')
@@ -66,7 +67,7 @@
                                  <label class=""><i class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Ciudad') }}</label>
                                  <div ng-show="showselectCity">
 									<select id="selectCity" ng-model="selectCity" name="selectCity"
-									ng-class="{'select2_group':true, 'form-control':true, ''is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}"
+									ng-class="{'select2_group':true, 'form-control':true, 'is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}"
 									class="select2_group form-control @error('city') is-invalid @enderror">
 										<option></option>
 									</select>
@@ -105,15 +106,21 @@
                                  {{ __('Guardar registro y continuar') }}
                                  </button>
                               </div>
-							  <ul>
+							  
 								@if ($errors->any())
+									<ul>
 								@foreach ($errors->all() as $error)
-												<li>{{ $error }}</li>
-											@endforeach
+										<li>{{ $error }}</li>
+									@endforeach
+									</ul>
 								@endif
-							  </ul>
+							  <div ng-show="messageError" class="col-md-12">
+								<span class="invalid-feedback btn-block" role="alert">
+									<strong>@{{messageError}}</strong>
+								</span>
+							   </div>
                            </div>
-                        </div>
+						</div>
                      </form>
                   </div>
                </div>
