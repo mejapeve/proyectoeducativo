@@ -28,7 +28,7 @@ class DataAffiliatedCompanyController extends Controller
     }
 
     public function index_admin(){
-
+        session(['name_company' => 'conexiones']);
         return view('auth.login.admin');
 
     }

@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('user.login','4') }}">
                                 @csrf
-
+                                <input hidden id="company" type="text" name="company" value=1>
                                 <div class="form-group row">
                                     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
 
