@@ -93,6 +93,13 @@
 										{{ __('Entrar') }}
 									</button>
 								</div>
+								@if ($errors->any())
+                              <ul>
+                                 @foreach ($errors->all() as $error)
+                                 <li>{{ $error }}</li>
+                                 @endforeach
+                              </ul>
+                              @endif
 								
 								<div class="mt-2 custom-control">
 									<label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>

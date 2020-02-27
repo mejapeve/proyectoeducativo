@@ -77,7 +77,9 @@ class AffiliatedCompanyController extends DefaultLoginController
 
         $user_name = $request->user_name;
         $company = $request->company;
-
+        
+        Auth::logout();
+        
         $user = DB::table('afiliado_empresas')
                   ->join('affiliated_company_roles', 'afiliado_empresas.id', '=', 'affiliated_company_roles.affiliated_company_id')
                   ->where(function ($q) use ($user_name){
@@ -87,7 +89,7 @@ class AffiliatedCompanyController extends DefaultLoginController
                   ->where('affiliated_company_roles.rol_id',$rol)
                   ->where('affiliated_company_roles.company_id',$company)
 				  ->select('afiliado_empresas.id')
-                  ->get();
+                  ->first();
         if($user){
             $this->validateLogin($request);
 
