@@ -10,10 +10,12 @@
             <p>
                El Link al que intenta acceder no es válido, por favor verifique el link de acceso 
                @if($companies)
-               <select onchange="location='../'+this.value+'/loginform'">
+               
+               <select onchange="location=this.value">
                   <option></option>
                   @foreach ($companies as $company)
-                  <option value="{{$company->nick_name}}"> {{$company->name}}</option>
+                  <option value="{{ asset($company->nick_name . '/loginform')}}"> {{$company->name}}</option>
+                  
                   @endforeach
                </select>
                @endif

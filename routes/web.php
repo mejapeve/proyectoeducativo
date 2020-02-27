@@ -90,3 +90,7 @@ Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');
 Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
 Route::get('import', ['as' => 'import', 'uses'=> 'Admin\UsersController@import']);
 Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
+
+Route::get('{company}/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+Route::post('{company}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+  

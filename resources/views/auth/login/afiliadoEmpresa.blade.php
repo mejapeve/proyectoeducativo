@@ -45,7 +45,7 @@
 							</div>
 							
 							<div class="mt-2 custom-control">
-								<label class="label">¿ Olvidó sus datos ?</label>
+								<label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
 							</div>
 							
 						</form>
@@ -93,7 +93,7 @@
 								</div>
 								
 								<div class="mt-2 custom-control">
-									<label class="label">¿ Olvidó sus datos ?</label>
+									<label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
 								</div>
 
 							</div>

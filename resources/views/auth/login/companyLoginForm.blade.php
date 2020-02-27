@@ -11,7 +11,7 @@
       
       <div class="text-center card">
          <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>alumno</strong></div>
-         <div class="p-5 card-body">
+         <div class="p-4 card-body">
             <form method="POST" action="{{ route('user.login','1') }}">
                @csrf
                <div class="form-group">
@@ -42,7 +42,7 @@
                   </div>
                </div>
                <div class="mt-2 custom-control">
-                  <label class="label">¿ Olvidó sus datos ?</label>
+                  <label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
                </div>
             </form>
          </div>
