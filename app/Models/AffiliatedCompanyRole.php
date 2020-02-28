@@ -14,4 +14,16 @@ class AffiliatedCompanyRole extends Model
         return $this->hasMany(ConectionAffiliatedStudents::class,'student_company_id','id');
 
     }
+
+    public function company (){
+
+        return $this->belongsTo(Companies::class,'company_id','id');
+
+    }
+
+    public function rol (){
+
+        return $this->belongsTo(Roles::class,'rol_id','id');
+
+    }
 }

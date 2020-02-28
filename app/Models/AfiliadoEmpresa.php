@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\MyResetPassword;
 class AfiliadoEmpresa extends Model
 {
     //
@@ -116,6 +117,12 @@ class AfiliadoEmpresa extends Model
     public function affiliated_company (){
 
         return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new MyResetPassword($token));
     }
 
 
