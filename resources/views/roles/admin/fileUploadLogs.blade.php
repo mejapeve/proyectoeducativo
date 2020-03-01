@@ -50,7 +50,8 @@
                         <div class="avatar avatar-xl mr-3"><img class="rounded-circle " src="/static/media/1.38f0341f.jpg" alt=""></div>
                     </div>
                     <div class="notification-body">
-                        @{{lines}}
+                    <p class="mb-1">Fecha de carga: <strong>24-Feb-2020 08:00 a.m.</strong></p>
+                    <p class="mb-1">Fecha de carga: <strong>24-Feb-2020 08:00 a.m.</strong></p>
                         <span class="notification-time">
                             <span class="mr-1" role="img" aria-label="Emoji">📄</span>Just Now</span>
                     </div>

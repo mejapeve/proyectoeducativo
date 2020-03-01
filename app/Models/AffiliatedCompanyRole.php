@@ -9,6 +9,13 @@ class AffiliatedCompanyRole extends Model
     //
     protected $table = "affiliated_company_roles";
 
+    protected $fillable=[
+        'id',
+        'affiliated_company_id',
+        'rol_id',
+        'company_id',
+    ];
+
     public function conection_students (){
 
         return $this->hasMany(ConectionAffiliatedStudents::class,'student_company_id','id');

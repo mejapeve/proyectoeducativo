@@ -3,11 +3,15 @@
 @section('content')
 <div class="container" ng-controller="FileUploadController">
     <div class="content">
+        <form action="{{ route('fileuploadAction') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
             <label for="companyLabel" class="">Compañía</label>
             <select name="companySelect" id="companySelect" class="form-control" ng-model="companyId" ng-change="onChangeCompany()">
                 <option value="@{{company.id}}" ng-repeat="company in companies">@{{company.name}}</option>
             </select>
+            <input type="text" style = "display:none" name="company_name" value = "" ng-model="companyName"/>
+
         </div>
         <div class="form-group">
             <label for="sequenceLabel" class="">Secuencia</label>
@@ -30,10 +34,9 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="fileLabel" class="">Seleccione el archivo</label>
             <input name="fileInput" id="fileInput" type="file" class="form-control-file">
         </div>
-        <button class="btn btn-outline-primary">
+        <button type="submit" class="btn btn-outline-primary">
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14 mr-1" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="transform-origin: 0.4375em 0.5em;">
                 <g transform="translate(224 256)">
                     <g transform="translate(0, 0)  scale(0.8125, 0.8125)  rotate(0 0 0)">
@@ -42,6 +45,7 @@
                 </g>
             </svg>Cargar archivo
         </button>
+        </form>
     </div>
 </div>
 @endsection
