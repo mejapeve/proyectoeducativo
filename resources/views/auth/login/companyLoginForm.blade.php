@@ -15,8 +15,9 @@
             <form method="POST" action="{{ route('user.login','1') }}">
                @csrf
                <div class="form-group">
-                  <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
-                  @error('user_name')
+                  <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('email') is-invalid @enderror" 
+                  required autocomplete="name" autofocus>
+                  @error('email')
                   <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
                   </span>
@@ -40,6 +41,13 @@
                      <button type="submit" class="btn btn-primary">
                      {{ __('Entrar') }}
                      </button>
+                     @if ($errors->any())
+                     <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                     </ul>
+                     @endif
                   </div>
                </div>
                <div class="mt-2 custom-control">

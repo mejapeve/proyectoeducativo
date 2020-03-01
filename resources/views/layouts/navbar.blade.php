@@ -115,19 +115,18 @@
                      <span>Go Pro</span>
                   </a>
                   <div tabindex="-1" class="dropdown-divider"></div>
-                  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">Ver estado</a>
-				  
-				   @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-				   <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('tutor',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
-               @elseif(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
-               <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('admin',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
-               @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
-               <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('student',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
-               @endif
-				  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
-				  <div tabindex="-1" class="dropdown-divider"></div>
-				  @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
-                  <a tabindex="0" role="menuitem" class="dropdown-item" href="/pages/settings">Configuración</a>
+				  @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+                  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('tutor',auth('afiliadoempresa')->user()->company_name()) }}">Ver estado</a>
+                  @endif  
+                  @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+                  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('tutorProfile',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
+                  @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
+                  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('student',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
+                  @endif
+                  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
+                  <div tabindex="-1" class="dropdown-divider"></div>
+                  @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
+                  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('admin',auth('afiliadoempresa')->user()->company_name()) }}">Configuración</a>
 			      @endif
 				  <a tabindex="0" role="menuitem" class="dropdown-item" href="#" 
 					onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>

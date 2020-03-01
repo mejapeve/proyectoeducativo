@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Models\Companies;
+use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -46,6 +47,22 @@ class ForgotPasswordController extends Controller
         else {
             return view('page500',['companies'=>Companies::all()]);
         }
-            
+    }
+	
+	public function showResetForm(Request $request, $empresa = null, $token = null)
+    {
+        $company = Companies::where('nick_name', $empresa)->first();
+        if($company) {
+			$email = session('email_session');
+            return $company->nick_name === 'conexiones' ? 
+               view('auth.passwords.reset')->with(
+                ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
+            ): view('auth.passwords.resetCompany')->with(
+                ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
+            ); ;
+        }
+        else {
+            return view('page500',['companies'=>Companies::all()]);
+        } 
     }
 }

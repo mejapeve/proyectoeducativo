@@ -11,20 +11,27 @@
 							@csrf
 
 							<div class="form-group">
-								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" 
+								class="form-control " value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+							</div>
+
+							<div class="form-group">
+								<input placeholder="Contraseña" id="password" type="password" 
+								class="form-control 
+								@if($errors->has('user_name') || $errors->has('email') )
+									@if(session('rol_trans') == 1)
+									is-invalid
+									@endif
+								@endif
+								"
+								name="password" required autocomplete="current-password">
 
 								@error('user_name')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
 								@enderror
-							</div>
-
-							<div class="form-group">
-								
-								<input placeholder="Contraseña" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-								@error('password')
+								@error('email')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -67,16 +74,24 @@
 							@csrf
 							
 							<div class="form-group">
-								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
-								@error('correo')
-									<span class="invalid-feedback" role="alert">
-										<strong>{{ $message }}</strong>
-									</span>
-								@enderror
+								<input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" 
+								class="form-control" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
 							</div>
 							<div class="form-group">
-								<input placeholder="Contraseña" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-								@error('password')
+								<input placeholder="Contraseña" id="password" type="password" 
+								class="form-control 
+								@if($errors->has('user_name') || $errors->has('email') )
+									@if(session('rol_trans') == 3)
+									is-invalid
+									@endif
+								@endif
+								" name="password" required autocomplete="current-password">
+								@error('user_name')
+								<span class="invalid-feedback" role="alert">
+									<strong>{{ $message }}</strong>
+								</span>
+								@enderror
+								@error('email')
 								<span class="invalid-feedback" role="alert">
 									<strong>{{ $message }}</strong>
 								</span>
@@ -96,12 +111,8 @@
 									</button>
 								</div>
 								@if ($errors->any())
-                              <ul>
-                                 @foreach ($errors->all() as $error)
-                                 <li>{{ $error }}</li>
-                                 @endforeach
-                              </ul>
-                              @endif
+								{{ $errors }}
+                              	@endif
 								
 								<div class="mt-2 custom-control">
 									@if (Route::has('password.sendlink'))

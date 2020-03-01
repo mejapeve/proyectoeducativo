@@ -17,8 +17,13 @@ class TutorController extends Controller
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         return view('roles.tutor.index');
-
     }
+	
+    public function showProfile (Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+        return view('roles.tutor.profile');
+    }
+
 
     public function register_student (Request $request) {
 

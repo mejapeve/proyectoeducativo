@@ -56,12 +56,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+		return Validator::make($data, [
             //'user_name' => ['required', 'string', 'max:255','unique:afiliado_empresas'],
             'name' => ['required', 'string','min:4', 'max:255'],
 			'last_name' => ['required', 'string','min:4', 'max:255'],
             'country_id' => ['required', 'string', 'max:255'],
-			'city_id' => ['string', 'max:255'],
 			'city' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -80,6 +79,7 @@ class RegisterController extends Controller
 
         $asignarNombreUsuario = false;
         $name_user = $this->name_user_affiliated($data);
+		
         //if($asignarNombreUsuario){
             $afiliado_empresa = AfiliadoEmpresa::create([
                 'user_name' => $name_user,

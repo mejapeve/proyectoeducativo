@@ -24,6 +24,7 @@
                                        class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Nombre') }}</label>
                                  <input ng-model="name" autofocus required="" autocomplete="off" type="text" name="name"
                                     ng-class="{'form-control': true, 'is-invalid': registerForm.name.$dirty && registerForm.name.$invalid}"
+									class="form-control @error('name') is-invalid @enderror"
                                     value="">
                                  @error('name')
                                  <span class="invalid-feedback" role="alert">
@@ -40,6 +41,7 @@
                                        class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Apellido') }}</label>
                                  <input ng-model="lastName" required="" autocomplete="off" type="text" name="last_name"
                                     value=""
+									class="form-control @error('last_name') is-invalid @enderror"
                                     ng-class="{'form-control': true, 'is-invalid': registerForm.last_name.$dirty && registerForm.last_name.$invalid}">
                                  @error('last_name')
                                  <span class="invalid-feedback" role="alert">
@@ -127,11 +129,7 @@
                               </div>
 
                               @if ($errors->any())
-                              <ul>
-                                 @foreach ($errors->all() as $error)
-                                 <li>{{ $error }}</li>
-                                 @endforeach
-                              </ul>
+                                 <li>{{ $errors }}</li>
                               @endif
                               <div ng-show="messageError" class="col-md-12">
                                  <span class="invalid-feedback btn-block" role="alert">

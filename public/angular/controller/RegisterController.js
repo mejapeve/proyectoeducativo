@@ -3,9 +3,10 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 	$scope.countries = null;
 	$scope.cities = null;
 	$scope.countryId = null;
-	$scope.cityId = null;
+	$scope.cityId = 0;
 	$scope.city = '';
 	$scope.name = '';
+	$scope.email = 'davithc01@gmail.com';
 	$scope.departmentId = null;
 	$scope.showselectCity = false;
 	$scope.messageError = null;
@@ -20,7 +21,7 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 			});
 			
 			setTimeout(function(){
-			 if($scope.country_code === 'CO') {
+			 if($scope.country_code === 'CO1') {
 				$("#selectCountry").val("42").trigger("change");
 				$scope.countryId = "42";
 				$scope.showselectCity = true;

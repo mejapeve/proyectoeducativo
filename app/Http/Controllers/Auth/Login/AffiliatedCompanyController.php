@@ -79,7 +79,8 @@ class AffiliatedCompanyController extends DefaultLoginController
         $company = $request->company;
         
         Auth::logout();
-        
+		session(['rol_trans' => $rol]);
+		
         $user = DB::table('afiliado_empresas')
                   ->join('affiliated_company_roles', 'afiliado_empresas.id', '=', 'affiliated_company_roles.affiliated_company_id')
                   ->where(function ($q) use ($user_name){
@@ -88,9 +89,10 @@ class AffiliatedCompanyController extends DefaultLoginController
                     })
                   ->where('affiliated_company_roles.rol_id',$rol)
                   ->where('affiliated_company_roles.company_id',$company)
-				  ->select('afiliado_empresas.id')
+				  ->select('afiliado_empresas.id','afiliado_empresas.email')
                   ->first();
         if($user){
+			session(['email_session' => $user->email]);
             $this->validateLogin($request);
 
             if (method_exists($this, 'hasTooManyLoginAttempts') &&

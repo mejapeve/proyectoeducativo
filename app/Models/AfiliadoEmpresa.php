@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\MyResetPassword;
+use App\Notifications\WelcomeMail;
+use Illuminate\Auth\Passwords\PasswordBroker;
+
 class AfiliadoEmpresa extends Model
 {
     //
@@ -17,7 +20,12 @@ class AfiliadoEmpresa extends Model
     protected $fillable=[
         'user_name',
         'name',
-        'last_name'
+        'last_name',
+        'email',
+        'country_id',
+        'department_id',
+        'city_id',
+        'city',
     ];
    // protected $guarded = ['id'];
 
@@ -122,8 +130,17 @@ class AfiliadoEmpresa extends Model
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new MyResetPassword($token));
+        $this->notify(new MyResetPassword($token,session('name_company')));
+    }
+	
+	public function sendWelcomeNotification()
+    {
+        $token = app(PasswordBroker::class)->createToken($this);
+        $this->notify(new WelcomeMail($token, session('name_company')));
     }
 
+	public function company_name() {
+        return session('name_company' );
+    }
 
 }

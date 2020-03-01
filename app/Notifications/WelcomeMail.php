@@ -8,12 +8,12 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class MyResetPassword extends Notification
+class WelcomeMail extends Notification
 {
     use Queueable;
     private $token;
-	private $company_name;
-	
+    private $company_name;
+
     /**
      * Create a new notification instance.
      *
@@ -46,13 +46,14 @@ class MyResetPassword extends Notification
     {
 
         $users = AfiliadoEmpresa::where('email',$notifiable->email)->get();
+        
         return (new MailMessage)->markdown(
             'vendor.notifications.email', ['data' => $users]
         )
             ->from(env('MAIL_USERNAME','Conexiones'))
-            ->subject('Recuperar contraseña')
+            ->subject('Bienvenido a la plataforma')
             ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
-            ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
+            ->line('Tu registro ha sido realizado exitosamente en la plataforma, por favor accede al siguiente link para establecer tu contraseña y finalizar el registro.')
             ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token]))
             ->line('Si no realizaste esta solicitud, no se requiere realizar ninguna otra acción.')
             ->salutation('Saludos, '. config('app.name'));

@@ -54,10 +54,9 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     });
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
+	Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor')->name('tutorProfile');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
-
-
 });
 
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
@@ -72,8 +71,8 @@ Auth::routes();
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
 Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
-Route::get('/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
-Route::get('/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
+Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
+Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 
 Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
@@ -91,6 +90,7 @@ Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
 Route::get('import', ['as' => 'import', 'uses'=> 'Admin\UsersController@import']);
 Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
 
-Route::get('{company}/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-Route::post('{company}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-  
+Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.sendlink');
+Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->name('password.reset');
+Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
