@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" ng-controller="FileUploadController">
+<div class="container">
     <div class="content">
+        <div class="row">
+            @include('layouts/sidebarAdmin')
+            <div class="col-md-8">
+                <div class="mb-3 card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Carga Masiva</h5>
+                    </div>
+                    <div class="bg-light card-body">
+                        <div ng-controller="FileUploadController">
         <form action="{{ route('fileuploadAction') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -46,9 +55,18 @@
             </svg>Cargar archivo
         </button>
         </form>
+
+						</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
 @section('js')
 <script src="{{asset('/../angular/controller/FileUploadController.js')}}"></script>
 @endsection
+@extends('layouts.app')
+
