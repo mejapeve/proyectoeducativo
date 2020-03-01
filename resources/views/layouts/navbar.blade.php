@@ -1,4 +1,4 @@
-<nav class="mb-3 navbar-glass fs--1 font-weight-semi-bold row navbar-top sticky-kit navbar navbar-expand-sm navbar-light" ng-controller="navbarController">
+<nav id="navbar" class="mb-3 navbar-glass fs--1 font-weight-semi-bold row navbar-top sticky-kit navbar navbar-expand-sm navbar-light" ng-controller="navbarController">
    <button aria-label="Toggle navigation" id="toggleMenu" type="button" class="navbar-toggler">
 	 <span class="navbar-toggler-icon"></span>
    </button>
@@ -117,9 +117,13 @@
                   <div tabindex="-1" class="dropdown-divider"></div>
                   <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">Ver estado</a>
 				  
-				  @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-				  <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="/conexiones/tutor">Perfíl &amp; cuenta</a>
-			      @endif
+				   @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+				   <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('tutor',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
+               @elseif(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
+               <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('admin',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
+               @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
+               <a tabindex="0" role="menuitem" class="dropdown-item" ng-href="{{ route('student',auth('afiliadoempresa')->user()->company_name()) }}">Perfíl &amp; cuenta</a>
+               @endif
 				  <a href="#!" tabindex="0" role="menuitem" class="dropdown-item">PQRS</a>
 				  <div tabindex="-1" class="dropdown-divider"></div>
 				  @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))

@@ -1,4 +1,4 @@
-@extends('layouts.appCorporate')
+@extends('layouts.appCompany')
 
 @section('content')
 <div class="flex-center min-vh-100 py-6 row">
@@ -15,20 +15,28 @@
             <form method="POST" action="{{ route('password.email',$company) }}">
                @csrf
                <div class="form-group">
-                  <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text"
-                     class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}"
+                  <input autocomplete='off' placeholder="Correo" name="email" id="email" type="text"
+                     value="{{ old('email') }}"
+                     class="form-control @error('email') is-invalid @enderror" 
                      required autocomplete="name" autofocus>
-                  @error('user_name')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+                     @error('email')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
                </div>
                <div class="form-group row mb-0">
                   <div class="col-md-8 offset-md-4">
                      <button type="submit" class="btn btn-primary">
                         {{ __('Enviar link') }}
                      </button>
+                     @if ($errors->any())
+                     <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                     </ul>
+                     @endif
                   </div>
                </div>
             </form>

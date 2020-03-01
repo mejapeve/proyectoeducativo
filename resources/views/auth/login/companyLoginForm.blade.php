@@ -1,4 +1,4 @@
-@extends('layouts.appCorporate')
+@extends('layouts.appCompany')
 @section('content')
 <div class="flex-center min-vh-100 py-6 row">
    <div class="col-xxl-5 col-sm-11 col-md-9 col-lg-7 col-xl-6">
@@ -43,7 +43,7 @@
                   </div>
                </div>
                <div class="mt-2 custom-control">
-                  <label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
+                  <label class="label"><a href="{{route('password.sendlink',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
                </div>
             </form>
          </div>

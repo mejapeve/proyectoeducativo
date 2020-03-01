@@ -46,7 +46,9 @@
 							</div>
 							
 							<div class="mt-2 custom-control">
-								<label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
+								@if (Route::has('password.sendlink'))
+								<label class="label"><a href="{{route('password.sendlink',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
+								@endif
 							</div>
 							
 						</form>
@@ -102,7 +104,9 @@
                               @endif
 								
 								<div class="mt-2 custom-control">
-									<label class="label"><a href="{{route('password.reset',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
+									@if (Route::has('password.sendlink'))
+									<label class="label"><a href="{{route('password.sendlink',$company->nick_name)}}">¿ Olvidó sus datos ?</a></label>
+									@endif
 								</div>
 
 							</div>

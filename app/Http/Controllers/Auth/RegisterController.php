@@ -60,11 +60,10 @@ class RegisterController extends Controller
             //'user_name' => ['required', 'string', 'max:255','unique:afiliado_empresas'],
             'name' => ['required', 'string','min:4', 'max:255'],
 			'last_name' => ['required', 'string','min:4', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-			'country_id' => ['required', 'string', 'max:255'],
+            'country_id' => ['required', 'string', 'max:255'],
 			'city_id' => ['string', 'max:255'],
 			'city' => ['string', 'max:255'],
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -81,7 +80,6 @@ class RegisterController extends Controller
 
         $asignarNombreUsuario = false;
         $name_user = $this->name_user_affiliated($data);
-
         //if($asignarNombreUsuario){
             $afiliado_empresa = AfiliadoEmpresa::create([
                 'user_name' => $name_user,
@@ -92,13 +90,11 @@ class RegisterController extends Controller
                 'country_id' => $data['country_id'],
                 'department_id' => $data['department_id'],
                 'city_id' => $data['city_id'],
+                'city' => $data['city'],
             ]);
-/*
-            $companies_affiliated = new CompaniesAffiliated();
-            $companies_affiliated->company_id = 1;
-            $companies_affiliated->affiliated_id = $afiliado_empresa->id;
-            $companies_affiliated->save();
-*/
+
+            $afiliado_empresa->sendWelcomeNotification();
+
             $affiliated_company_role = new AffiliatedCompanyRole();
             $affiliated_company_role->affiliated_company_id = $afiliado_empresa->id;
             $affiliated_company_role->rol_id = 3;
