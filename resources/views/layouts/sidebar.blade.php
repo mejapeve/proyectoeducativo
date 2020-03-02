@@ -56,13 +56,40 @@
 							@csrf
 						  </form>
 					  </li>
+					  
+					  <li class="nav-item">
+                        <a class="nav-link" href="#">
+                           <div class="d-flex align-items-center">
+                              <span></span>
+							  <span>Notificaciones</span>
+                           </div>
+                        </a>
+                     </li>
+					 <li class="nav-item">
+                        <a class="nav-link" href="#">
+                           <div class="d-flex align-items-center">
+                              <span></span>
+							  <span>Ver Perfíl</span>
+                           </div>
+                        </a>
+                     </li>
+					  
 				  @else
 					  <li class="nav-item">
 						<a class="btn btn-primary btn-sm" href="{{ route('user.login') }}">Iniciar Sesión</a>
 					  </li>
 					  <li class="mt-2 nav-item">
-						<a class="btn btn-secondary btn-sm" href="#" >Registro gratis</a></li>
+						<a class="btn btn-secondary btn-sm" href="{{ route('register') }}" >Registro gratis</a>
+					  </li>
 				  @endauth
+					<li class="nav-item">
+                        <a class="nav-link" href="#">
+                           <div class="d-flex align-items-center">
+                              <span></span>
+							  <span>PQRS</span>
+                           </div>
+                        </a>
+                     </li>
 				  </ul>
                </div>
             </div>
