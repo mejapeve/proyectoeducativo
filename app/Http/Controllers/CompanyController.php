@@ -7,6 +7,7 @@ use App\Models\AfiliadoEmpresa;
 use App\Models\Companies;
 use App\Models\CompanyGroup;
 use Illuminate\Http\Request;
+use DB;
 
 class CompanyController extends Controller
 {
@@ -35,22 +36,13 @@ class CompanyController extends Controller
     }
 
     public function get_teachers_company (Request $request,$company_id){
-
-        return AfiliadoEmpresa::with(['company_teacher_rol'=>function($query)use($company_id){
-            return $query->where([
-                ['company_id',$company_id],
-                ['rol_id',2]
-            ]);
-        }])->whereHas('company_teacher_rol',function($query)use($company_id){
-
-            return $query->where([
-                ['company_id',$company_id],
-                ['rol_id',2]
-            ] );
-
-        })->get();
-
+   
+        return DB::table('afiliado_empresas')
+                  ->join('affiliated_company_roles', 'afiliado_empresas.id', '=', 'affiliated_company_roles.affiliated_company_id')
+                  ->where('affiliated_company_roles.company_id',$company_id)
+                  ->where('affiliated_company_roles.rol_id',3)
+				  ->select('afiliado_empresas.id','afiliado_empresas.name','afiliado_empresas.last_name','affiliated_company_roles.company_id', 'affiliated_company_roles.rol_id')
+                  ->get();
     }
-
 
 }
