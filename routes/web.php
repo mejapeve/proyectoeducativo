@@ -64,10 +64,12 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
 Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
 
-/*
-Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
+/*
+Route::get('login/github', 'Auth\LoginController@redirectToProvider');
+
+
 */
 
 Auth::routes();
