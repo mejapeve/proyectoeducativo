@@ -65,7 +65,7 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->stateless()->user();
 
-        $afiliadoempresa = $this->createAfiliado($user);
+        $afiliadoempresa = $this->createAfiliado($user,'facebook');
         $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         return redirect($redirec);
@@ -92,14 +92,18 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
 
-        $afiliadoempresa = $this->createAfiliado($user);
+        $afiliadoempresa = $this->createAfiliado($user,'gmail');
         $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         return redirect($redirec);
     }
 
-    public function createAfiliado($user){
-        $afiliadoempresa = AfiliadoEmpresa::where('provaider_id',$user->id)->first();
+    public function createAfiliado($user,$tipoProvider){
+        ($tipoProvider === 'gmail')?
+            $afiliadoempresa = AfiliadoEmpresa::where('provaider_facebook',$user->id)->first():
+            $afiliadoempresa = AfiliadoEmpresa::where('provaider_google',$user->id)->first()
+        ;
+
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $afiliadoempresa->nombre = $user->name;
