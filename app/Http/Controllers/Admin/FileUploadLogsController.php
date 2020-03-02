@@ -12,11 +12,50 @@ class FileUploadLogsController extends Controller
     //
     public function index(Request $request)
     {
-        //$lines = file("C:/Users/garzonhs/Documents/testfile2.txt", FILE_SKIP_EMPTY_LINES) or die("Unable to open file!");
-        file("C:/Users/garzonhs/Documents/testfile2.txt", FILE_SKIP_EMPTY_LINES) or die("Unable to open file!");
         
+        if($request->resultFile){
+            return $this->showResult($request->resultFile);
+        }
+        else {
+            return $this->showAllResults();
+        }    
+    }
+
+    private function showAllResults()
+    {
+        $resultsDirectory = public_path() . "/fileUploadDirectory/results/";
+        $fileListResult = [];
+        return view('roles.admin.fileUploadLogs',['fileListResult' => $fileListResult]);    
+    }
+
+    private function showResult($resultFileName) {
+        $resultsDirectory = public_path() . "/fileUploadDirectory/results/";
+
+        $resultData = [];
+        $resultData["errors"] = [];
         
-        return view('roles.admin.fileUploadLogs')->with('request', $request);
-        //return view('roles.admin.fileUploadLogs')->with('lines', $lines);
+        $myfile = fopen($resultsDirectory . $resultFileName, "r"); //-->read only
+
+        //Output lines until EOF is reached
+        while(! feof($myfile)) {
+            $line = fgets($myfile);
+            
+            if(strpos($line, "initProcess ->")) {
+                $resultData["initProcess"] = explode("initProcess ->", $line)[1];
+            }
+            if(strpos($line, "fileName ->")) {
+                dd($resultData);
+                $resultData["fileName"] = explode("fileName ->", $line)[1];
+            }
+            if(strpos($line, "fileSize ->")) {
+                $resultData["fileSize"] = explode("fileSize ->", $line)[1];
+            }
+            if(strpos($line, "error ->")) {
+                $resultData["errors"].add(explode("error ->", $line)[1]);
+            }
+        }
+        fclose($myfile);
+        
+        return view('roles.admin.fileUploadLogs',$resultData);    
     }
 }

@@ -9,7 +9,7 @@
             <hr>
             <p>
                El Link al que intenta acceder no es válido, por favor verifique el link de acceso 
-               @if($companies)
+               @if(!empty($companies))
                
                <select onchange="location=this.value">
                   <option></option>

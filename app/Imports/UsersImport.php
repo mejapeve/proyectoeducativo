@@ -22,11 +22,14 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
      * @param array $row
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    private $request;
-    public function __construct($request)
+
+     private $request;
+     private $resultFile;
+
+    public function __construct($request,$resultFile)
     {
         $this->request = $request;
-
+        $this->resultFile = $resultFile;
     }
 
     public function model(array $row)
@@ -58,14 +61,13 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
 
     public function onFailure(Failure ...$failures)
     {
-       $path =  public_path().'/Documents/testfile2.txt';
         // Handle the failures how you'd like.
         foreach ($failures as $failure) {
             $failure->row(); // row that went wrong
             $failure->attribute(); // either heading key (if using heading row concern) or column index
             $failure->errors(); // Actual error messages from Laravel validator
             $failure->values(); // The values of the row that has failed.
-            $myfile = fopen($path, "a+");
+            $myfile = fopen($this->resultFile, "a+");
             fwrite($myfile, "Error -> Linea: " . $failure->row() . " Causa: " . ' ' . $failure->attribute());
             fwrite($myfile, "\n");
             fclose($myfile);
@@ -80,9 +82,6 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
             '2' => 'required',
             '3' => 'required',
         ];
-        //$myfile = fopen("C:/Users/garzonhs/Documents/testfile2.txt", "a+");
-        //fwrite($myfile, 'entro a rules');
-        //fclose($myfile);
     }
 
     public function customValidationAttributes()
