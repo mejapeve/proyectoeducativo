@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Companies;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +30,7 @@ Route::get('/contactus', function () {
 })->name('contactus');
 
 
-Route::get('{empresa}/loginform', ['as' => 'loginform', 'uses' => 'DataAffiliatedCompanyController@index']);
+Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
 Route::prefix('user')
@@ -52,14 +54,14 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     Route::get('/profile', function () {
         return 'esta loggeado';
     });
-    Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
-    Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
-	Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor')->name('tutorProfile');
-    Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
-    Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
+    Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher','company')->name('teacher');
+    Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor','company')->name('tutor');
+	Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
+    Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student','company')->name('student');
+    Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin','company')->name('admin');
 });
 
-Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->name('tutor.registerStudent');
+Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
 
 /*
@@ -92,8 +94,11 @@ Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
 Route::get('import', ['as' => 'import', 'uses'=> 'Admin\UsersController@import']);
 Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
 
-Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.sendlink');
-Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->name('password.reset');
-Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLinkRequestForm')->middleware('company')->name('password.sendlink');
+Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('company')->name('password.email');
+Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
+Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->middleware('company')->name('password.update');
 
+Route::get('page500', function(){
+    return view('page500',['companies'=>Companies::all()]);
+})->name('page500');

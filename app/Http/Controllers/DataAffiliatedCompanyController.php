@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Companies;
 
 class DataAffiliatedCompanyController extends Controller
-{
+{ 
     //
 
     public function index($empresa){
-		//if($empresa == 'conexiones')
+		
 		$company = Companies::where('nick_name', $empresa)->first();
-        session(['name_company' => $empresa]);
+        //session(['name_company' => $empresa]);
 		if($company) {
 			if($company->name == 'conexiones') {
 				return view('auth.login.afiliadoEmpresa',['company' => $company ]);
@@ -21,15 +21,10 @@ class DataAffiliatedCompanyController extends Controller
 				return view('auth.login.companyLoginForm',['company' => $company ]);
 			}
 		}
-		else {
-			return view('page500',['messageError'=>'Verifique el link de su compañia', 'companies'=>Companies::all()]);
-		}
-
     }
 
     public function index_admin(){
-        session(['name_company' => 'conexiones']);
+        //session(['name_company' => 'conexiones']);
         return view('auth.login.admin');
-
     }
 }

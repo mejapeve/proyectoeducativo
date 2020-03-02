@@ -36,33 +36,21 @@ class ForgotPasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLinkRequestForm($companyName)
+    public function showLinkRequestForm($empresa)
     {
-        $company = Companies::where('nick_name', $companyName)->first();
-        if($company) {
-            return $company->nick_name === 'conexiones' ? 
-            view('auth.passwords.email',['company'=>$company]) : 
-            view('auth.passwords.emailCompany',['company'=>$company]) ;
-        }
-        else {
-            return view('page500',['companies'=>Companies::all()]);
-        }
+        return $empresa === 'conexiones' ? 
+        view('auth.passwords.email',['company'=>$$empresa]) : 
+        view('auth.passwords.emailCompany',['company'=>$$empresa]) ;
     }
 	
 	public function showResetForm(Request $request, $empresa = null, $token = null)
     {
-        $company = Companies::where('nick_name', $empresa)->first();
-        if($company) {
-			$email = session('email_session');
-            return $company->nick_name === 'conexiones' ? 
-               view('auth.passwords.reset')->with(
-                ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
-            ): view('auth.passwords.resetCompany')->with(
-                ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
-            ); ;
-        }
-        else {
-            return view('page500',['companies'=>Companies::all()]);
-        } 
+        $email = session('email_session');
+        return $empresa === 'conexiones' ? 
+            view('auth.passwords.reset')->with(
+            ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
+        ): view('auth.passwords.resetCompany')->with(
+            ['token' => $token, 'empresa'=> $empresa, 'email' => $email]
+        ); ;
     }
 }

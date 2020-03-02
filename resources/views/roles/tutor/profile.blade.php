@@ -31,13 +31,13 @@
                            </li>
                            <li class="nav-item nav-item-tutor mb-3">
                                  <div class="avatar avatar-3xl">
-                                    <a href="{{route('tutor.registerStudent',['empresa'=>'conexiones'])}}">
+                                    <a href="{{route('registerStudent',['empresa'=>'conexiones'])}}">
                                        <img class="rounded-circle mb-3 shadow-sm"
                                           src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
                                     </a>
                                     <p class="fs--2 mb-1">
                                        <a class="text-700"
-                                          href="{{route('tutor.registerStudent',['empresa'=>'conexiones'])}}">
+                                          href="{{route('registerStudent',['empresa'=>'conexiones'])}}">
                                           <small class="font-weight-bold"> Registrar estudiante </small>
                                        </a>
                                     </p>
