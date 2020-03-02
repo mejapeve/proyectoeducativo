@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\AfiliadoEmpresa;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Laravel\Socialite\Facades\Socialite;
@@ -23,6 +24,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    use RegistersUsers;
 
     private $rol = null;
     private $redirectTo = '/';
@@ -106,8 +108,12 @@ class LoginController extends Controller
 
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
-            $afiliadoempresa->nombre = $user->name;
-            $afiliadoempresa->correo = $user->email;
+            $dataProvider = explode( ' ', $afiliadoempresa->name);
+            $data =['name'=>$dataProvider[0],'last_name'=>$dataProvider[1]];
+            $afiliadoempresa->name_user = $this->name_user_affiliated($data);
+            $afiliadoempresa->name = $dataProvider[0];
+            $afiliadoempresa->last_name = $dataProvider[1];
+            $afiliadoempresa->email = $user->email;
             $afiliadoempresa->provaider_id = $user->id;
             $afiliadoempresa->save();
         }
