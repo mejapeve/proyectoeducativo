@@ -22,7 +22,7 @@ class CheckCompany
             return $next($request);
         }
         else {
-            return redirect()->route('page500');
+            return redirect()->route('page500',['companies'=>Companies::all()]);
         }
     }
 }
