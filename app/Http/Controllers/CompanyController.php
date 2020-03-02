@@ -6,6 +6,7 @@ use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\Companies;
 use App\Models\CompanyGroup;
+use App\Models\CompanySequence;
 use Illuminate\Http\Request;
 use DB;
 
@@ -23,11 +24,7 @@ class CompanyController extends Controller
     }
 
     public function get_company_sequences (Request $request,$company_id) {
-//dd(Companies::with(['compani_sequences'])->where('id',$company_id)->get());
-
-        return Companies::with(['compani_sequences'])->where('id',$company_id)->get();
-
-
+        return CompanySequence::where('company_id',$company_id)->get();
     }
 
     public function get_company_groups (Request $request,$company_id){
