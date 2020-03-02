@@ -24,6 +24,10 @@ class TutorController extends Controller
         return view('roles.tutor.profile');
     }
 
+    public function showRegisterStudentForm (Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+        return view('roles.tutor.registerStudent');
+    }
 
     public function register_student (Request $request) {
 

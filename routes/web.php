@@ -59,6 +59,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
 });
 
+Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->name('tutor.registerStudent');
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
 
 /*
@@ -95,3 +96,4 @@ Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLin
 Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->name('password.reset');
 Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+

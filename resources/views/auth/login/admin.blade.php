@@ -10,11 +10,16 @@
                     @csrf
                     <input hidden id="company" type="text" name="company" value=1>
                     <div class="form-group">
-                        <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text"
-                            class="form-control @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}"
+                        <input autocomplete='off' placeholder="Usuario o correo" name="user_name" id="user_name" type="text"
+                            class="form-control @error('user_name') is-invalid @enderror @error('email') is-invalid @enderror" value="{{ old('user_name') }}"
                             required autocomplete="name" autofocus>
 
                         @error('user_name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -39,6 +44,9 @@
                                 {{ __('Entrar') }}
                             </button>
                         </div>
+                        @if ($errors->any())
+                        {{ $errors }}
+                        @endif
                     </div>
 
                     <div class="form-group row mt-3 justify-content-center">
