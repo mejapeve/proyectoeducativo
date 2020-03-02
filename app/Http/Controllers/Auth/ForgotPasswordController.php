@@ -38,9 +38,11 @@ class ForgotPasswordController extends Controller
      */
     public function showLinkRequestForm($empresa)
     {
+        //dd($empresa);
+        $empresa = Companies::where('nick_name',$empresa)->first();
         return $empresa === 'conexiones' ? 
-        view('auth.passwords.email',['company'=>$$empresa]) : 
-        view('auth.passwords.emailCompany',['company'=>$$empresa]) ;
+        view('auth.passwords.email',['company'=>$empresa]) :
+        view('auth.passwords.emailCompany',['company'=>$empresa]) ;
     }
 	
 	public function showResetForm(Request $request, $empresa = null, $token = null)

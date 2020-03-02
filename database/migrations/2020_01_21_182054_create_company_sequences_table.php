@@ -17,8 +17,7 @@ class CreateCompanySequencesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->bigInteger('sequence_id')->unsigned();
-            $table->foreign('sequence_id')->references('id')->on('sequences');
+            $table->string('name');
             $table->timestamps();
         });
     }

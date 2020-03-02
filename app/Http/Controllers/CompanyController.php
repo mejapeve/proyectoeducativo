@@ -23,8 +23,9 @@ class CompanyController extends Controller
     }
 
     public function get_company_sequences (Request $request,$company_id) {
+//dd(Companies::with(['compani_sequences'])->where('id',$company_id)->get());
 
-        return Companies::with(['compani_sequences.sequences'])->where('id',$company_id)->get();
+        return Companies::with(['compani_sequences'])->where('id',$company_id)->get();
 
 
     }

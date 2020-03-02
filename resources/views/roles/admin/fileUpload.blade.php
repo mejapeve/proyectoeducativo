@@ -25,7 +25,7 @@
         <div class="form-group">
             <label for="sequenceLabel" class="">Secuencia</label>
             <select name="sequenceSelect" id="sequenceSelect" class="form-control" ng-model="sequenceId">
-                <option value="@{{sequence.sequences[0].id}}" ng-repeat="sequence in sequences">@{{sequence.sequences[0].name}}</option>
+                <option value="@{{sequence.id}}" ng-repeat="sequence in sequences">@{{sequence.name}}</option>
             </select>
         </div>
         <div class="form-group">

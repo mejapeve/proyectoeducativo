@@ -13,11 +13,4 @@ class CompanySequence extends Model
         'company_id'
     ];
 
-    public function sequences () {
-
-        return $this->hasMany(Sequence::class,'id','sequence_id');
-
-    }
-
-
 }
