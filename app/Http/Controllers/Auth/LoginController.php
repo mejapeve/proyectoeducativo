@@ -69,7 +69,6 @@ class LoginController extends Controller
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
         $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        //return redirect($redirec,['empresa'=>'conexiones']);
         return redirect()->route($redirec, ['empresa' => 'conexiones']);
     }
     /**
@@ -102,9 +101,19 @@ class LoginController extends Controller
 
     public function createAfiliado($user,$tipoProvider){
         ($tipoProvider === 'gmail')?
-            $afiliadoempresa = AfiliadoEmpresa::where('provaider_google',$user->id)->first():
-            $afiliadoempresa = AfiliadoEmpresa::where('provaider_facebook',$user->id)->first()
-        ;
+            $afiliadoempresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query){
+                $query->where([
+                    ['rol_id',3],
+                    ['company_id',1]
+                ]);
+            })->
+            where('provaider_google',$user->id)->orWhere('email',$user->email)->first():
+            $afiliadoempresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query){
+                $query->where([
+                    ['rol_id',3],
+                    ['company_id',1]
+                ]);
+            })->where('provaider_facebook',$user->id)->orWhere('email',$user->email)->first();
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $dataProvider = explode( ' ', $user->name);
