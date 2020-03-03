@@ -24,23 +24,26 @@
         </div>
         <div class="form-group">
             <label for="sequenceLabel" class="">Secuencia</label>
-            <select name="sequenceSelect" id="sequenceSelect" class="form-control" ng-model="sequenceId">
+            <select name="sequenceSelect" id="sequenceSelect" class="form-control" ng-model="sequenceId" ng-change="onChangeSecuence()">
                 <option value="@{{sequence.id}}" ng-repeat="sequence in sequences">@{{sequence.name}}</option>
+               
             </select>
+            <input type="text" style = "display:none" name="sequence_name" value = "" ng-model="sequenceName"/>
+            
         </div>
         <div class="form-group">
             <label for="teacherLabel" class="">Docente</label>
-            <select name="teacherSelect" id="teacherSelect" class="form-control">
-                <option>Cristian Jojoa</option>
-                <option>Catalina Arbelaez</option>
-                <option>Jairo Contreras</option>
+            <select name="teacherSelect" id="teacherSelect" class="form-control" ng-model="teacherId">
+            <option value="@{{teachers.id}}" ng-repeat="teacher in teachers">@{{teacher.name}}</option>
             </select>
+            <input type="text" style = "display:none" name="teacher_name" value = "" ng-model="teacherName"/>
         </div>
         <div class="form-group">
             <label for="groupLabel" class="">Grupo</label>
             <select name="groupSelect" id="groupSelect" class="form-control" ng-model="groupId">
                 <option value="@{{groups.id}}" ng-repeat="group in groups">@{{group.name}}</option>
             </select>
+            <input type="text" style = "display:none" name="group_name" value = "" ng-model="groupName"/>
         </div>
         <div class="form-group">
             <input name="fileInput" id="fileInput" type="file" class="form-control-file">
@@ -69,4 +72,3 @@
 <script src="{{asset('/../angular/controller/FileUploadController.js')}}"></script>
 @endsection
 @extends('layouts.app')
-

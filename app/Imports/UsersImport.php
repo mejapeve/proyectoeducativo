@@ -6,13 +6,12 @@ use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\CompanyAffiliatedAssignmentUser;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Validators\Failure;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsOnFailure;
-use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Validators\Failure;
 
 class UsersImport implements ToModel, WithValidation, SkipsOnFailure
 {
@@ -23,43 +22,46 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
      * @return \Illuminate\Database\Eloquent\Model|null
      */
 
-     private $request;
-     private $resultFile;
+    private $request;
+    private $resultFile;
+    private $rows = 0;
 
-    public function __construct($request,$resultFile)
+    public function __construct($request, $resultFile)
     {
         $this->request = $request;
         $this->resultFile = $resultFile;
+       // dd($resultFile);
     }
 
     public function model(array $row)
     {
-       $user = new  AfiliadoEmpresa();
-       $user->user_name =$row[0];
-       $user->name =$row[1];
-       $user->last_name =$row[2];
-       $user->email =$row[3];
-       $user->save();
-       DB::commit();
+        ++$this->rows;
+        $user = new AfiliadoEmpresa();
+        $user->user_name = $row[0];
+        $user->name = $row[1];
+        $user->last_name = $row[2];
+        $user->email = $row[3];
+        $user->save();
+        DB::commit();
         $userRole = new AffiliatedCompanyRole([
-            'affiliated_company_id'  => $user->id,
-            'rol_id'      => 1,
-            'company_id'  => 1,
+            'affiliated_company_id' => $user->id,
+            'rol_id' => 1,
+            'company_id' => 1,
         ]);
         $userRole->save();
         DB::commit();
         $userAssigment = new CompanyAffiliatedAssignmentUser([
-            'student_company_id'  => $userRole->id,
-            'teacher_company_id'  => 1,
-            'company_sequence_id'  => 1,
-            'company_group_id'  => 1,
+            'student_company_id' => $userRole->id,
+            'teacher_company_id' => 1,
+            'company_sequence_id' => 1,
+            'company_group_id' => 1,
         ]);
 
         //dd($this->request, $userRole);
         return $userAssigment;
     }
 
-    public function onFailure(Failure ...$failures)
+    public function onFailure(Failure...$failures)
     {
         // Handle the failures how you'd like.
         foreach ($failures as $failure) {
@@ -92,5 +94,10 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
             '2' => 'Usuario vacio para la columna last_name',
             '3' => 'Usuario vacio para la columna email',
         ];
+    }
+
+    public function getRowCount(): int
+    {
+        return $this->rows;
     }
 }
