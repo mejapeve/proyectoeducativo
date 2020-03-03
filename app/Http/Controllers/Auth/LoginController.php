@@ -79,7 +79,7 @@ class LoginController extends Controller
      */
     public function redirectToProviderGmail($rol)
     {
-        $this->rol = Crypt::decrypt($rol);
+        $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['redirec' => $this->redirectTo]);
         return Socialite::driver('google')->redirect();
@@ -97,15 +97,14 @@ class LoginController extends Controller
         $afiliadoempresa = $this->createAfiliado($user,'gmail');
         $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($redirec);
+        return redirect()->route($redirec, ['empresa' => 'conexiones']);
     }
 
     public function createAfiliado($user,$tipoProvider){
         ($tipoProvider === 'gmail')?
-            $afiliadoempresa = AfiliadoEmpresa::where('provaider_facebook',$user->id)->first():
-            $afiliadoempresa = AfiliadoEmpresa::where('provaider_google',$user->id)->first()
+            $afiliadoempresa = AfiliadoEmpresa::where('provaider_google',$user->id)->first():
+            $afiliadoempresa = AfiliadoEmpresa::where('provaider_facebook',$user->id)->first()
         ;
-
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $dataProvider = explode( ' ', $user->name);
