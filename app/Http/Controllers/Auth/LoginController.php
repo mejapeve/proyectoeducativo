@@ -51,7 +51,7 @@ class LoginController extends Controller
      */
     public function redirectToProvider($rol)
     {
-        $this->rol = Crypt::decryptString($rol);
+        $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['redirec' => $this->redirectTo]);
         return Socialite::driver('facebook')->redirect();
@@ -69,7 +69,8 @@ class LoginController extends Controller
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
         $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect($redirec);
+        //return redirect($redirec,['empresa'=>'conexiones']);
+        return redirect()->route($redirec, ['empresa' => 'conexiones']);
     }
     /**
      * Redirect the user to the GitHub authentication page.
