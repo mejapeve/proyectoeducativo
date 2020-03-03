@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @foreach($resultData as $data)
+        {{$data}}
+    @endforeach
 <div class="container">
     <div class="content">
         <div class="row">

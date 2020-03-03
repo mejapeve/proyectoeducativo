@@ -89,8 +89,7 @@ class FileUploadLogsController extends Controller
             'teacherName'=>$resultData["teacherName"],
             'errorRecords'=>$resultData["errorRecords"],
             'total'=>$resultData["total"],
-            'resultData' => "resultData",
-
+            'resultData' => $resultData,
             ]
         );    
     }
