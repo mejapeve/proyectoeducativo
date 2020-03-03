@@ -13,7 +13,7 @@
                     </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email',$company) }}">
+                    <form method="POST" action="{{ route('password.email',$company->nick_name) }}">
                         @csrf
                         <div class="form-group p-4">
                             <input autocomplete='off' placeholder="Usuario" name="email" id="email" type="text"
