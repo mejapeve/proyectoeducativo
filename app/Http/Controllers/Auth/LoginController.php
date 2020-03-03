@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Laravel\Socialite\Facades\Socialite;
@@ -24,7 +24,6 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    use RegistersUsers;
 
     private $rol = null;
     private $redirectTo = '/';
@@ -108,14 +107,21 @@ class LoginController extends Controller
 
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
-            $dataProvider = explode( ' ', $afiliadoempresa->name);
+            $dataProvider = explode( ' ', $user->name);
             $data =['name'=>$dataProvider[0],'last_name'=>$dataProvider[1]];
-            $afiliadoempresa->name_user = $this->name_user_affiliated($data);
+            $afiliadoempresa->user_name = $this->name_user_affiliated($data);
             $afiliadoempresa->name = $dataProvider[0];
             $afiliadoempresa->last_name = $dataProvider[1];
             $afiliadoempresa->email = $user->email;
-            $afiliadoempresa->provaider_id = $user->id;
+            ($tipoProvider === 'gmail')?
+                $afiliadoempresa->provaider_google = $user->id:
+                $afiliadoempresa->provaider_facebook = $user->id;
             $afiliadoempresa->save();
+            $affiliated_company_role = new AffiliatedCompanyRole();
+            $affiliated_company_role->affiliated_company_id = $afiliadoempresa->id;
+            $affiliated_company_role->rol_id = 3;//tutor
+            $affiliated_company_role->company_id = 1;//conexiones
+            $affiliated_company_role->save();
         }
         return $afiliadoempresa;
     }
@@ -132,5 +138,22 @@ class LoginController extends Controller
                 $this->redirectTo = "tutor";
                 break;
         }
+    }
+
+    public function name_user_affiliated($data) {
+
+        $name_user = $data['name'].$data['last_name'].'C';
+        $asignarNombreUsuario = false;
+        do{
+            if( count(AfiliadoEmpresa::where('user_name',$name_user)->get()) ){
+                $name_user = $name_user.rand (0,9);
+            }else{
+                $asignarNombreUsuario = true;
+            }
+        }while(!$asignarNombreUsuario);
+
+
+        return $name_user;
+
     }
 }
