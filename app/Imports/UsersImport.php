@@ -25,12 +25,13 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
     private $request;
     private $resultFile;
     private $rows = 0;
+    private $errors= 0;
 
     public function __construct($request, $resultFile)
     {
         $this->request = $request;
         $this->resultFile = $resultFile;
-       // dd($resultFile);
+        //dd($request);
     }
 
     public function model(array $row)
@@ -46,15 +47,15 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
         $userRole = new AffiliatedCompanyRole([
             'affiliated_company_id' => $user->id,
             'rol_id' => 1,
-            'company_id' => 1,
+            'company_id' => $this->request->companySelect,
         ]);
         $userRole->save();
         DB::commit();
         $userAssigment = new CompanyAffiliatedAssignmentUser([
             'student_company_id' => $userRole->id,
-            'teacher_company_id' => 1,
-            'company_sequence_id' => 1,
-            'company_group_id' => 1,
+            'teacher_company_id' => $this->request->teacherSelect,
+            'company_sequence_id' => $this->request->sequenceSelect,
+            'company_group_id' => $this->request->groupSelect,
         ]);
 
         //dd($this->request, $userRole);
@@ -65,6 +66,7 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
     {
         // Handle the failures how you'd like.
         foreach ($failures as $failure) {
+            ++$this->errors;
             $failure->row(); // row that went wrong
             $failure->attribute(); // either heading key (if using heading row concern) or column index
             $failure->errors(); // Actual error messages from Laravel validator
@@ -100,4 +102,11 @@ class UsersImport implements ToModel, WithValidation, SkipsOnFailure
     {
         return $this->rows;
     }
+
+    public function getErrorCount(): int
+    {
+        return $this->errors;
+    }
+
+    
 }

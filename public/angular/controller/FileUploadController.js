@@ -33,6 +33,23 @@ MyApp.controller('FileUploadController', ['$scope', "$http", function ($scope, $
             }
         }
     }
+
+    $scope.onChangeGroups = function () {
+        for (var i = 0; i < $scope.groups.length; i++) {
+            if ($scope.groups[i].id == $scope.groupId) {
+                $scope.groupName = $scope.groups[i].name;
+            }
+        }
+    }
+
+    $scope.onChangeTeachers = function () {
+        for (var i = 0; i < $scope.teachers.length; i++) {
+            if ($scope.teachers[i].id == $scope.teacherId) {
+                $scope.teacherName = $scope.teachers[i].name +' '+ $scope.teachers[i].last_name;
+            }
+        }
+    }
+
     $http.get("/get_companies")
         .then(function (res) {
             $scope.companies = res.data.data;

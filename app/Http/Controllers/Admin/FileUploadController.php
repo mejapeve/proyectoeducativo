@@ -33,7 +33,6 @@ class FileUploadController extends Controller
             $sequenceName = $request->sequence_name;
             $gradeName = $request->group_name;
             $teacherName = $request->teacher_name;
-            dd( $request, $companyName, $sequenceName, $gradeName,  $teacherName);
 
             //if (move_uploaded_file($fileInput['tmp_name'], $uploadDirectory . $fileName)) {
             if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $uploadDirectory . $fileName)) {
@@ -48,7 +47,7 @@ class FileUploadController extends Controller
                 ($import)->import($uploadDirectory . $fileName, null, Excel::XLS);
                 //dd($import->getRowCount());
                 $myfile = fopen($resultFile, "a+");
-               
+
                 fwrite($myfile, "fileName -> " . $fileName . "\n");
                 fwrite($myfile, "fileSize -> " . $fileSize . "\n");
                 fwrite($myfile, "fileType -> " . $fileType . "\n");
@@ -57,14 +56,15 @@ class FileUploadController extends Controller
                 fwrite($myfile, "gradeName -> " . $gradeName . "\n");
                 fwrite($myfile, "teacherName -> " . $teacherName . "\n");
                 fwrite($myfile, "successfullRecords -> " . $import->getRowCount() . "\n");
-                
+                fwrite($myfile, "errorRecords -> " . $import->getErrorCount() . "\n");
+                fwrite($myfile, "total -> " . ($import->getErrorCount() + $import->getRowCount()) . "\n");
+
                 fwrite($myfile, "\n");
-                fwrite($myfile, "initProcess -> " . date("Y-m-d h:i:s") . "\n");
+                fwrite($myfile, "initProcess -> " . date("Y-m-d H:i:s") . "\n");
                 fclose($myfile);
-                
-                
+
                 return redirect()->action('Admin\FileUploadLogsController@index', [
-                    'resultFile' => $fileName . '.info'
+                    'resultFile' => $fileName . '.info',
                 ]);
 
             } else {

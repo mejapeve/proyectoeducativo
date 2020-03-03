@@ -39,9 +39,10 @@
                             <p class="mb-1">Nombre de la secuencia: <strong>{{$sequenceName}}</strong></p>
                             <p class="mb-1">Nombre del tutor: <strong>{{$teacherName}}</strong></p>
                             <p class="mb-1">Nombre del grupo: <strong>{{$gradeName}}</strong></p>
-                            <p class="mb-1">Cantidad de registros: <strong>{{$successfullRecords}}</strong></p>
+                            <p class="mb-1">Cantidad de registros: <strong>{{$total}}</strong></p>
                             <p class="mb-1">Registros exitosos: <strong>{{$successfullRecords}}</strong></p>
-                            
+                            <p class="mb-1">Registros erroneos: <strong>{{$errorRecords}}</strong></p>
+
                             <span class="notification-time">
                                 <span class="mr-1" role="img" aria-label="Emoji">📄</span>Just Now</span>
                         </div>

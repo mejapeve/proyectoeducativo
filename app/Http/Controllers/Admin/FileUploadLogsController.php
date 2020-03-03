@@ -67,6 +67,12 @@ class FileUploadLogsController extends Controller
             else if(strpos($line, "teacherName ->")===0) {
                 $resultData["teacherName"] = explode("teacherName ->", $line)[1];
             }
+            else if(strpos($line, "errorRecords ->")===0) {
+                $resultData["errorRecords"] = explode("errorRecords ->", $line)[1];
+            }
+            else if(strpos($line, "total ->")===0) {
+                $resultData["total"] = explode("total ->", $line)[1];
+            }
         }
         fclose($myfile);
      
@@ -81,6 +87,8 @@ class FileUploadLogsController extends Controller
             'sequenceName'=>$resultData["sequenceName"],
             'gradeName'=>$resultData["gradeName"],
             'teacherName'=>$resultData["teacherName"],
+            'errorRecords'=>$resultData["errorRecords"],
+            'total'=>$resultData["total"],
             'resultData' => "resultData",
 
             ]
