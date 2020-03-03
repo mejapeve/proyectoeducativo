@@ -106,14 +106,19 @@ class LoginController extends Controller
                     ['rol_id',3],
                     ['company_id',1]
                 ]);
-            })->
-            where('provaider_google',$user->id)->orWhere('email',$user->email)->first():
+            })->where(function($query) use ($user){
+                $query->where('provaider_google',$user->id)->orWhere('email',$user->email);
+            })->first():
+
             $afiliadoempresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query){
                 $query->where([
                     ['rol_id',3],
                     ['company_id',1]
                 ]);
-            })->where('provaider_facebook',$user->id)->orWhere('email',$user->email)->first();
+            })->where(function($query) use ($user){
+                $query->where('provaider_facebook',$user->id)->orWhere('email',$user->email)->first();
+            })->first();
+        
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $dataProvider = explode( ' ', $user->name);
