@@ -18,13 +18,13 @@
                         <ul class="nav">
                            <li class="nav-item nav-item-tutor mb-3">
                               <div class="avatar avatar-3xl">
-                                 <a href="{{route('password.reset',['empresa'=>'conexiones','token'=> '1'])}}">
+                                 <a href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1])}}">
                                     <img class="rounded-circle mb-3 shadow-sm"
                                        src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
                                  </a>
                                  <p class="fs--2 mb-1">
                                     <a class="text-700"
-                                       href="{{route('password.reset',['empresa'=>1,'token'=> null])}}">
+                                       href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1])}}">
                                        <small class="font-weight-bold"> Cambio de clave</small></a>
                                  </p>
                               </div>
