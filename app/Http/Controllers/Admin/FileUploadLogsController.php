@@ -9,32 +9,39 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class FileUploadLogsController extends Controller
 {
-    //
+    private $resultsDirectory;
+	
+	public function __construct()
+    {
+       $this->resultsDirectory = public_path() . "/fileUploadDirectory/results/";
+    }
+	
     public function index(Request $request)
     {
-       //dd($request); 
         if($request->resultFile){
-            return $this->showResult($request->resultFile);
+			$resultData = [];
+			array_push($resultData ,$this->parseResult($request->resultFile));
+            return view('roles.admin.fileUploadLogs',['resultData' => $resultData ]);
         }
         else {
-            return $this->showAllResults();
+			$resultData = [];
+			$filesNames  = scandir(str_replace('/','\\',$this->resultsDirectory));
+			for($i = 0; $i < count($filesNames); ++$i) {
+				if($filesNames[$i] !== '.' && $filesNames[$i]!== '..') {
+					array_push($resultData,$this->parseResult($filesNames[$i]));	
+				} 
+			}
+			return view('roles.admin.fileUploadLogs',['resultData' => $resultData ]);
         }   
-    }
+    } 
 
-    private function showAllResults()
-    {
-        $resultsDirectory = public_path() . "/fileUploadDirectory/results/";
-        $fileListResult = [];
-        return view('roles.admin.fileUploadLogs',['showResult'=>false,'fileListResult' => $fileListResult]);    
-    }
-
-    private function showResult($resultFileName) {
-        $resultsDirectory = public_path() . "/fileUploadDirectory/results/";
+    private function parseResult($resultFileName) {
+        
 
         $resultData = [];
         $resultData["errors"] = [];
         
-        $myfile = fopen($resultsDirectory . $resultFileName, "r"); //-->read only
+        $myfile = fopen($this->resultsDirectory . $resultFileName, "r"); //-->read only
         
         //Output lines until EOF is reached
         while(! feof($myfile)) {
@@ -76,22 +83,6 @@ class FileUploadLogsController extends Controller
         }
         fclose($myfile);
      
-        return view('roles.admin.fileUploadLogs',[
-            'showResult'=>true,
-            'successfullRecords'=> $resultData["successfullRecords"] ,
-            'initProcess'=>$resultData["initProcess"],
-            'fileName'=>$resultData["fileName"],
-            'fileSize'=>$resultData["fileSize"],
-            'errors'=>$resultData["errors"],
-            'companyName'=>$resultData["companyName"],
-            'sequenceName'=>$resultData["sequenceName"],
-            'gradeName'=>$resultData["gradeName"],
-            'teacherName'=>$resultData["teacherName"],
-            'errorRecords'=>$resultData["errorRecords"],
-            'total'=>$resultData["total"],
-            'resultData' => "resultData",
-
-            ]
-        );    
+       return $resultData;
     }
 }
