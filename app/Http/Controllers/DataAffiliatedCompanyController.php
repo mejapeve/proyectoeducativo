@@ -13,11 +13,13 @@ class DataAffiliatedCompanyController extends Controller
 		
 		$company = Companies::where('nick_name', $empresa)->first();
         //session(['name_company' => $empresa]);
+        //dd($company);
 		if($company) {
 			if($company->name == 'conexiones') {
 				return view('auth.login.afiliadoEmpresa',['company' => $company ]);
 			}
 			else {
+                session(['name_company' => $empresa]);
 				return view('auth.login.companyLoginForm',['company' => $company ]);
 			}
 		}
