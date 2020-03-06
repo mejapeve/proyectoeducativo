@@ -40,7 +40,6 @@
                        <button class="tab-avatar mr-2 mt-2 btn btn-falcon-warning" data-tab="gafas">Gafas</button>
                     </div>
                  </div>
-                 <input type="hidden" id="colores" class="card" data-colores="#FDF2E9,#EBF5FB,#F7DC6F,#F2CFAF"/>
                  <div id="avatar">
                     <div id="piel">
                        <img class="img-thumbnail activo" src="{{ asset('images/avatars/1_piel/1.png')}}" style="cursor: pointer;">
@@ -70,6 +69,7 @@
                        <img class="img-thumbnail" src="{{ asset('images/avatars/5_gafas/4.png')}}" style="cursor: pointer;">
                     </div>
                  </div>
+                 <input type="hidden" id="colores" class="card" _data-colores="#a1a1a1,#FDF2E9,#EBF5FB,#F7DC6F,#F2CFAF"/>
               </div>
            </div>
         </div>
@@ -86,15 +86,23 @@
     #avatar div img {
         width: 100px;
     }
+    #colors li:first-child {
+        margin-top: 10px;
+    }
+    #colors {
+        padding-left: 20px!important;
+    }
 </style>
 <script>
     $('#avatar').Cubexy();
     $(".avatar-default").click(function(){
         $("#avatar-selected").attr("src",$(this).attr('src'));
         $("#canvas").hide();
+        $("#colors").hide();
         $("#avatar-selected").addClass("d-block");
     });
     $("#colors").parent().addClass("card");
+    $("#colors").hide();
     $("#colors").addClass("mb-0");
     $("#avatar div img").click(function(){
         $("#canvas").show();
@@ -104,9 +112,15 @@
     $(".tab-avatar").click(function(){
         $("#avatar").find("div").addClass("d-none");
         $("#canvas").show();
+        $("#colors").hide();
         $("#avatar-selected").removeClass("d-block").addClass("dnone");
         $("#avatar").find("div").removeClass("d-block");
         $("#" + $(this).attr("data-tab")).addClass("d-block");
-    }); 
+    });
+
+
+    $("#avatar div img").click(function(){
+        $("#colors").show();
+    });
 </script>
 @endsection

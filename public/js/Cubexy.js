@@ -100,7 +100,7 @@ $.fn.extend({Cubexy: function(opciones) {
           }
           var colorRGBS=$('#'+idInputColor).attr('data-colores');
             if(!colorRGBS){
-            colorRGBS='#F2CFAF,#FFA773,#A98F6D,#693C2D,#1abc9c,#2ecc71,#3498db,#9b59b6,#34495e,#16a085,#27ae60,#2980b9,#8e44ad,#2c3e50,#f1c400,#e67e22,#e74c3c,#ecf0f1,#95a5a6,#f39c12,#d35400,#c0392b,#bdc3c7,#7f8c8d,#E51C23,#4CAF50';
+            colorRGBS='#F2CFAF,#FFA773,#A98F6D,#693C2D,#1abc9c,#2ecc71,#3498db,#9b59b6,#34495e,#16a085,#27ae60,#2980b9,#8e44ad,#2c3e50,#f1c400,#e67e22,#e74c3c,#ecf0f1,#95a5a6,#f39c12,#d35400,#c0392b,#bdc3c7,#7f8c8d,#E51C23,#011101';
             }
           var cadena='';
            cadena+='<div ><ul id="colors">';
@@ -120,7 +120,14 @@ $.fn.extend({Cubexy: function(opciones) {
                 } : null;
 			}
 			$('#colors li').click(function(){
+				
+				if($(this).attr('data-rgb') !== "1,17,1") {
+					$('.'+cssCambioColor).attr("data-rgb",$(this).attr('data-rgb'));
+				}
+				else {
 				$('.'+cssCambioColor).attr("data-rgb",$(this).attr('data-rgb'));
+				} 
+				
 				IniciarPintadoAvatar();
 			});
 			$('#'+idDownload).click(function(){
