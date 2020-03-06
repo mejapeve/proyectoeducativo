@@ -51,8 +51,8 @@ trait CreateUserRelations
         $aflidiadoEmpresa->last_name = $request->last_name;
         if(isset($request->date_birth))
             $aflidiadoEmpresa->date_birth = $request->date_birth;
-        if(isset($request->password))
-            $aflidiadoEmpresa->password = Hash::make($user_name);
+        //if(isset($request->password))
+        $aflidiadoEmpresa->password = Hash::make($user_name);
         $aflidiadoEmpresa->save();
 
         //Mail::to()
