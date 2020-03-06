@@ -37,7 +37,8 @@
 	
     <script src="{{ asset('js/jquery-3.3.1.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/select2.full.min.js') }}" type="text/javascript"></script>
-	<script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/Cubexy.js') }}" type="text/javascript"></script>
 
 </head>
 <body>

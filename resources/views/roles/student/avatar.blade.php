@@ -96,9 +96,15 @@
     });
     $("#colors").parent().addClass("card");
     $("#colors").addClass("mb-0");
+    $("#avatar div img").click(function(){
+        $("#canvas").show();
+        $("#avatar-selected").hide();
+        $("#avatar-selected").removeClass("d-block").addClass("dnone");
+    });
     $(".tab-avatar").click(function(){
-        console.log($("#avatar").find("div"))
         $("#avatar").find("div").addClass("d-none");
+        $("#canvas").show();
+        $("#avatar-selected").removeClass("d-block").addClass("dnone");
         $("#avatar").find("div").removeClass("d-block");
         $("#" + $(this).attr("data-tab")).addClass("d-block");
     }); 
