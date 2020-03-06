@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Mail\SendRegisterStudent;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\CompaniesAffiliated;
@@ -9,11 +10,14 @@ use App\Models\CompanyAffiliatedAssignmentUser;
 use App\Models\ConectionAffiliatedStudents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 trait CreateUserRelations
 {
     //
-    public function create_user_relation($idUser,Request $request,$rol){
+    private $user;
+    public function create_user_relation($user,Request $request,$rol){
+        $this->user = $user;
         switch ($rol){
 
             case 'student':
@@ -21,7 +25,7 @@ trait CreateUserRelations
                 $user_company_rol = $this->create_user($request);
 
                 $compayAffiliated = AffiliatedCompanyRole::where([
-                    ['affiliated_company_id',$idUser],
+                    ['affiliated_company_id',$user->id],
                     ['company_id',1],
                     ['rol_id',3],
                 ])->first();
@@ -31,15 +35,17 @@ trait CreateUserRelations
                 $companyAffiliatedAssignmentUser->tutor_company_id = $compayAffiliated->id;
                 $companyAffiliatedAssignmentUser->save();
 
+
+
             break;
 
         }
     }
 
     public function create_user(Request $request){
-
+        //dd($request);
         $aflidiadoEmpresa = new AfiliadoEmpresa();
-        $user_name = $this->name_user_affiliated(array('name'=>$request->name,'last_name'=>$request->name));
+        $user_name = $this->name_user_affiliated(array('name'=>$request->name,'last_name'=>$request->last_name));
         $aflidiadoEmpresa->user_name = $user_name;//$request->name;
         $aflidiadoEmpresa->name = $request->name;
         $aflidiadoEmpresa->last_name = $request->last_name;
@@ -49,6 +55,9 @@ trait CreateUserRelations
             $aflidiadoEmpresa->password = Hash::make($user_name);
         $aflidiadoEmpresa->save();
 
+        //Mail::to()
+         Mail::to( $this->user->email)->send(new SendRegisterStudent($aflidiadoEmpresa,$this->user));
+        //$aflidiadoEmpresa->sendRegisterStudentNotification();
         $affiliated_company_role = new AffiliatedCompanyRole();
         $affiliated_company_role->affiliated_company_id = $aflidiadoEmpresa->id;
         $affiliated_company_role->rol_id = 1;//estudiante

@@ -33,7 +33,9 @@ class TutorController extends Controller
 
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         $rol = "student";
-        $this->create_user_relation(auth('afiliadoempresa')->user()->id,$request,$rol);
+        $this->create_user_relation(auth('afiliadoempresa')->user(),$request,$rol);
+
+
 
         return redirect()->route('tutor',session('name_company' ));
 
