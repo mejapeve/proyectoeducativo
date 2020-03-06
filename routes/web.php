@@ -59,6 +59,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
 	Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student','company')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin','company')->name('admin');
+    Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
 });
 
 Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
