@@ -1,16 +1,17 @@
 @component('mail::message')
     # Hola {{$family->name}} {{$family->last_name}}
-
-Se ha realizado el registro de un estudiante nuevo.
 <br>
-Estas son las credenciales del estudiante:
+    Se ha realizado el registro de un estudiante nuevo.
 <br>
-Usuario:{{$student->user_name}}
+    Estas son las credenciales del estudiante:
 <br>
-Contraseña:{{$student->user_name}}
-
-
-
-    Gracias,<br>
-    {{ config('app.name') }}
+<br>
+<strong>Usuario:{{$student->user_name}}</strong>
+<br>
+<strong>Contraseña:{{$student->user_name}}</strong>
+<br>
+<br>
+Gracias.
+<br>
+{{ config('app.name') }}
 @endcomponent

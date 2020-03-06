@@ -43,7 +43,7 @@ trait CreateUserRelations
     }
 
     public function create_user(Request $request){
-        //dd($request);
+
         $aflidiadoEmpresa = new AfiliadoEmpresa();
         $user_name = $this->name_user_affiliated(array('name'=>$request->name,'last_name'=>$request->last_name));
         $aflidiadoEmpresa->user_name = $user_name;//$request->name;
@@ -51,13 +51,13 @@ trait CreateUserRelations
         $aflidiadoEmpresa->last_name = $request->last_name;
         if(isset($request->date_birth))
             $aflidiadoEmpresa->date_birth = $request->date_birth;
-        //if(isset($request->password))
+
         $aflidiadoEmpresa->password = Hash::make($user_name);
         $aflidiadoEmpresa->save();
 
-        //Mail::to()
+
          Mail::to( $this->user->email)->send(new SendRegisterStudent($aflidiadoEmpresa,$this->user));
-        //$aflidiadoEmpresa->sendRegisterStudentNotification();
+
         $affiliated_company_role = new AffiliatedCompanyRole();
         $affiliated_company_role->affiliated_company_id = $aflidiadoEmpresa->id;
         $affiliated_company_role->rol_id = 1;//estudiante

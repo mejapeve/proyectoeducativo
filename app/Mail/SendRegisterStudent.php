@@ -37,6 +37,8 @@ class SendRegisterStudent extends Mailable
     {
         return
             $this->from('operacionessinergia@estrategica-sinergia.com')
-                ->markdown('vendor.notifications.registerStudent',['family' => $this->family,'student' => $this->student]);
+                ->markdown('vendor.notifications.registerStudent',['family' => $this->family,'student' => $this->student])
+                ->subject('Conexiones - Registro estudiante');
+
     }
 }
