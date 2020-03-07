@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
+
 <!-- Swiper -->
 <div class="swiper-container">
    <div class="swiper-wrapper">
@@ -94,16 +97,18 @@
    </div>
    <div class="mb-1 col-xxl-1 col-6 col-md-4 col-lg-1 bg-white"></div>
 </div>
+
 <script src="{{ asset('/falcon/js/swiper.min.js') }}" defer></script>
+
 <script>
-window.onload = function() {
-   var swiper = new Swiper('.swiper-container', {
-    navigation: {
-   nextEl: '.swiper-button-next',
-   prevEl: '.swiper-button-prev',
-    },
-   });
-};
+   window.onload = function() {
+      var swiper = new Swiper('.swiper-container', {
+      navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+      },
+      });
+   };
 </script>
 
 @endsection

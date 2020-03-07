@@ -17,17 +17,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
+Route::get('/inicio', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/aboutus', function () {
+Route::get('/acercade', function () {
     return view('aboutus');
 })->name('aboutus');
 
-Route::get('/contactus', function () {
+Route::get('/contactenos', function () {
     return view('contactus');
 })->name('contactus');
+
+Route::get('/secuencias', function () {
+    return view('sequencesSearch');
+})->name('search.sequences');
 
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');

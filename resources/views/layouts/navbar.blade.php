@@ -13,6 +13,7 @@
                <ul class="nav">
                   <li class="nav-item"><a href="{{ route('home') }}" class="nav-link home">Inicio</a></li>
                   <li class="nav-item"><a href="{{ route('aboutus') }}" class="nav-link aboutus">Qué es conexiones?</a></li>
+                  <li class="nav-item col-2-5"><a href="{{ route('search.sequences') }}" class="nav-link contactus">Búsqueda de contenidos</a></li>
                   <li class="nav-item"><a href="{{ route('contactus') }}" class="nav-link contactus">Contáctenos</a></li>
 				  
 				  <!-- Authentication Links -->

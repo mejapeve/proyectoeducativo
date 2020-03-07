@@ -5,7 +5,7 @@
     <div class="container">
         <div class="content">
             <div class="row">
-                @include('layouts/sidebarAdmin')
+                @include('roles/admin/sidebar')
 				<div class="col-md-8">
                     <div class="mb-3 card">
                         <div class="card-header"><h5 class="mb-0">VISTA ESTUDIANTE</h5></div>
