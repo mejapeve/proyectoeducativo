@@ -16,7 +16,7 @@
     <meta name="theme-color" content="#2c7be5">
     <link rel="stylesheet" type="text/css" href="{{ asset('falcon/css/falcon.css') }}">
     <!-- Add icon library -->
-    <link rel="stylesheet" href="{{ asset('font-awesome/4.7.0/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome/v5.12.1/css/all.min.css') }}">
 
     <link href="{{ asset('falcon/css/theme.css') }}" type="text/css" rel="stylesheet" class="theme-stylesheet">
 	<!-- select2 CSS -->
@@ -25,6 +25,8 @@
     <script src="{{ asset('js/jquery-3.3.1.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/select2.full.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/Cubexy.js') }}" type="text/javascript"></script>
+
 
 </head>
 <body>
@@ -49,7 +51,8 @@
     </div>
     <script src="{{asset('/../angular/app.js')}}"></script>
 	<script src="{{ asset('/../angular/controller/NavBarController.js') }}" defer></script>
-	<script src="{{ asset('/../angular/controller/ShoppingCardController.js') }}" defer></script>
+    <script src="{{ asset('/../angular/controller/ShoppingCardController.js') }}" defer></script>
+    <script src="{{ asset('font-awesome/v5.12.1/js/all.min.js') }}" type="text/javascript"></script>
     @yield('js')
 </body>
 </html>
