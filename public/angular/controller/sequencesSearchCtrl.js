@@ -14,7 +14,6 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.init = function(company_id)
 	{
 		$scope.defaultCompanySequences = company_id;
-		console.log($scope.defaultCompanySequences,'alksdnad')
 	};
 	function searchTematic(areaName) {
 		for (var i = 0; i < $scope.tematics.length; i++) {

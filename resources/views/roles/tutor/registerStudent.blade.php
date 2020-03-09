@@ -45,4 +45,13 @@
          </form>
       </div>
    </div>
+   <br>
+   <div class="list-group">
+       <h3>Lista de usuarios</h3>
+   <div ng-controller="TutorIndexController" ng-init="init()" >
+       <a href="#" class="list-group-item list-group-item-action" ng-repeat="person in familiary"><img width="40px" height="40px" class="rounded-circle " src="{{asset('/static/media/3.cb95ae1b.jpg')}}" alt=""/>   @{{person.name}} @{{person.last_name}}</a>
+   </div>
+@endsection
+@section('js')
+    <script src="{{asset('/../angular/controller/TutorIndexController.js')}}"></script>
 @endsection

@@ -15,7 +15,7 @@
 							<li class="nav-item nav-item-tutor mb-3">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Inscripciones</small></a>
@@ -26,7 +26,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Productos</small></a>
@@ -38,7 +38,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Calendario</small></a>
@@ -52,7 +52,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Calendario</small></a>
@@ -63,7 +63,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{'/images/welcome/thumbnail/2.47d043fe.svg'}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Historial de pagos</small></a>
@@ -74,7 +74,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Lista de deseos</small></a>
@@ -84,7 +84,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Configuración</small></a>
@@ -94,7 +94,7 @@
 							<li class="nav-item nav-item-tutor">
 								<div class="avatar avatar-3xl">
 								 <a href="/pages/profile">
-									<img class="rounded-circle mb-3 shadow-sm" src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
+									<img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
 								 </a>
 								 <p class="fs--2 mb-1">
 									<a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Salir</small></a>

@@ -1,7 +1,7 @@
 <div class="mb-3 card">
    <div class="card-header  m-auto">
       <div class="avatar avatar-5xl">
-         <img class="rounded-circle " src="http://localhost:8000/static/media/3.cb95ae1b.jpg" alt="">
+         <img class="rounded-circle " src="{{asset('/static/media/3.cb95ae1b.jpg')}}" alt="">
       </div>
       <h5 style="text-align: center;" class="mt-2 mb-0 avatar-name">{{auth('afiliadoempresa')->user()->name }}
          {{auth('afiliadoempresa')->user()->last_name}}</h5>
