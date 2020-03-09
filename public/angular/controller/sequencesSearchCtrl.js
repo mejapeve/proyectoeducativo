@@ -6,6 +6,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.sequencesId = null;
 	$scope.sequenceNames = [];
 	$scope.tematicName = '';
+	$scope.areaName = '';
 	$scope.wordList = null;
 	$scope.keywords = [];
 	$scope.defaultCompanySequences = 1;
@@ -70,6 +71,10 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.onSeachChange = function () {
 		$scope.sequencesId = null;
 		$scope.tematicName = null;
+	};
+	$scope.onAreaChange = function () {
+		$scope.sequencesId = null;
+		$scope.areaName = null;
 	};
 
 	function initAutocompleteList() {
