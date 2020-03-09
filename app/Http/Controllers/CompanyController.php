@@ -27,7 +27,7 @@ class CompanyController extends Controller
         $dt = new \DateTime();
         return CompanySequence::where([
             ['company_id',$company_id],
-            ['expiration_date','<',$dt->format('Y-m-d H:i:s')]
+            ['expiration_date','>',$dt->format('Y-m-d H:i:s')]
         ])->get();
     }
 

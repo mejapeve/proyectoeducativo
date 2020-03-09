@@ -32,7 +32,7 @@
                   <option value="">Temática</option>
                   <option value="@{{tematic}}" ng-repeat="tematic in tematics">@{{tematic}}</option>
                </select>
-               <select ng-change="onAreaChange()" class="ml-2 custom-select custom-select-sm">
+               <select ng-change="onAreaChange()" ng-model="areaName" class="ml-2 custom-select custom-select-sm">
                   <option value="">Area</option>
                </select>
 
