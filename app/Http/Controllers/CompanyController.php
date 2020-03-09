@@ -24,7 +24,11 @@ class CompanyController extends Controller
     }
 
     public function get_company_sequences (Request $request,$company_id) {
-        return CompanySequence::where('company_id',$company_id)->get();
+        $dt = new \DateTime();
+        return CompanySequence::where([
+            ['company_id',$company_id],
+            ['expiration_date','<',$dt->format('Y-m-d H:i:s')]
+        ])->get();
     }
 
     public function get_company_groups (Request $request,$company_id){
