@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div ng-controller="sequencesSearchCtrl">
+<div ng-controller="sequencesSearchCtrl" ng-init="init(1)">
    <div class="bg-light mb-3 card">
       <div class="p-3 card-body">
          <div class="justify-content-center justify-content-sm-between row">

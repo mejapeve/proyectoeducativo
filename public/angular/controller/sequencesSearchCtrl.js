@@ -1,5 +1,4 @@
 MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $http) {
-
 	$scope.sequences = [];
 	$scope.tematics = [];
 	$scope.errorMessageFilter = '';
@@ -9,7 +8,13 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.tematicName = '';
 	$scope.wordList = null;
 	$scope.keywords = [];
+	$scope.defaultCompanySequences = 1;
 
+	$scope.init = function(company_id)
+	{
+		$scope.defaultCompanySequences = company_id;
+		console.log($scope.defaultCompanySequences,'alksdnad')
+	};
 	function searchTematic(areaName) {
 		for (var i = 0; i < $scope.tematics.length; i++) {
 			if ($scope.tematics[i] === areaName) { return true; }
@@ -22,8 +27,11 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 		}
 		return false;
 	}
-	$http.get("http://www.mocky.io/v2/5e632950360000b611e8dcab").then(function (response) {
-		
+	$http({
+		url:"/get_company_sequences/"+$scope.defaultCompanySequences ,
+		method: "GET",
+	}).
+	then(function (response) {
 		$scope.sequences = response.data;
 		var value = null;
 		for(var i = 0; i<$scope.sequences.length; i++) {
