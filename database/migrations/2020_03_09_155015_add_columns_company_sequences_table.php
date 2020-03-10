@@ -21,6 +21,8 @@ class AddColumnsCompanySequencesTable extends Migration
             $table->longText('areas');
             $table->longText('description');
             $table->bigInteger('duration');
+            $table->longText('themes');
+            $table->dateTime('expiration_date');
 
         });
     }
