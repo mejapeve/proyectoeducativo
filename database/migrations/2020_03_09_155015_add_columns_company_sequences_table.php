@@ -23,6 +23,7 @@ class AddColumnsCompanySequencesTable extends Migration
             $table->bigInteger('duration');
             $table->longText('themes');
             $table->dateTime('expiration_date');
+            $table->json('url_images');
 
         });
     }
