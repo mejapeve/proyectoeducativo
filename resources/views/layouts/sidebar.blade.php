@@ -68,63 +68,63 @@
                         </a>
                      </li>
                      @auth('afiliadoempresa')
-                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>Notificaciones</span>
-                           </div>
-                        </a>
-                     </li>
-                     @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-                     <li class="nav-item">
-                        <a class="nav-link"
-                           ng-href="{{ route('tutor',auth('afiliadoempresa')->user()->company_name()) }}">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>Ver estado</span>
-                           </div>
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link"
-                           ng-href="{{ route('tutorProfile',auth('afiliadoempresa')->user()->company_name()) }}">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>Perfíl &amp; cuenta</span>
-                           </div>
-                        </a>
-                     </li>
-                     @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
-                     <li class="nav-item">
-                        <a class="nav-link"
-                           ng-href="{{ route('student',auth('afiliadoempresa')->user()->company_name()) }}">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>Perfíl &amp; cuenta</span>
-                           </div>
-                        </a>
-                     </li>
-                     @endif
-                     @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
-                     <li class="nav-item">
-                        <a class="nav-link"
-                           ng-href="{{ route('admin',auth('afiliadoempresa')->user()->company_name()) }}">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>Configuración</span>
-                           </div>
-                        </a>
-                     </li>
-                     <li class="mt-1 nav-item">
-                        <a class="my-3 btn btn-primary btn-sm btn-block" href="{{ route('user.logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar
-                           Sesión</a>
-                        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-                           @csrf
-                        </form>
-                     </li>
-                     @endif
+						 <li class="nav-item">
+							<a class="nav-link" href="#">
+							   <div class="d-flex align-items-center">
+								  <span></span>
+								  <span>Notificaciones</span>
+							   </div>
+							</a>
+						 </li>
+						 @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+						 <li class="nav-item">
+							<a class="nav-link"
+							   ng-href="{{ route('tutor',auth('afiliadoempresa')->user()->company_name()) }}">
+							   <div class="d-flex align-items-center">
+								  <span></span>
+								  <span>Ver estado</span>
+							   </div>
+							</a>
+						 </li>
+						 <li class="nav-item">
+							<a class="nav-link"
+							   ng-href="{{ route('tutorProfile',auth('afiliadoempresa')->user()->company_name()) }}">
+							   <div class="d-flex align-items-center">
+								  <span></span>
+								  <span>Perfíl &amp; cuenta</span>
+							   </div>
+							</a>
+						 </li>
+						 @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
+						 <li class="nav-item">
+							<a class="nav-link"
+							   ng-href="{{ route('student',auth('afiliadoempresa')->user()->company_name()) }}">
+							   <div class="d-flex align-items-center">
+								  <span></span>
+								  <span>Perfíl &amp; cuenta</span>
+							   </div>
+							</a>
+						 </li>
+						 @endif
+						 @if(auth('afiliadoempresa')->user()->hasAnyRole('admin'))
+						 <li class="nav-item">
+							<a class="nav-link"
+							   ng-href="{{ route('admin',auth('afiliadoempresa')->user()->company_name()) }}">
+							   <div class="d-flex align-items-center">
+								  <span></span>
+								  <span>Configuración</span>
+							   </div>
+							</a>
+						 </li>
+						 @endif						 
+						 <li class="mt-1 nav-item">
+							<a class="my-3 btn btn-primary btn-sm btn-block" href="{{ route('user.logout') }}"
+							   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar
+							   Sesión</a>
+							<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+							   @csrf
+							</form>
+						 </li>
                      @else
                      <li class="nav-item">
                         <a class="btn btn-primary btn-sm" href="{{ route('user.login') }}">Iniciar Sesión</a>
