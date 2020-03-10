@@ -6,9 +6,9 @@
 	<div class="col-sm-auto">
 	   
 	   <ul class="footer-details">
-		<li><i class="fa fa-mobile"></i> XXX XXX XXXX </li>
-		<li><i class="fa fa-facebook"></i> jcontreras@estrategicaco.com </li>
-		<li><i class="fa fa-globe"></i> Bogotá, Colombia  </li>
+		<li><i class="fas fa-mobile-alt"></i> XXX XXX XXXX </li>
+		<li><i class="fab fa-facebook-square"></i> jcontreras@estrategicaco.com </li>
+		<li><i class="fa fa-globe"></i> BogotĂˇ, Colombia  </li>
 	   </ul>
 	   
 	</div>
