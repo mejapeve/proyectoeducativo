@@ -1,12 +1,11 @@
 MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $http) {
 	$scope.sequences = [];
-	$scope.tematics = [];
 	$scope.errorMessageFilter = '';
 	$scope.searchText = '';
-	$scope.sequencesId = null;
-	$scope.sequenceNames = [];
-	$scope.tematicName = '';
-	$scope.areaName = '';
+	$scope.areas = [];
+	$scope.areaName = null;
+	$scope.themesList = [];
+	$scope.themeName = null;
 	$scope.wordList = null;
 	$scope.keywords = [];
 	$scope.defaultCompanySequences = 1;
@@ -15,9 +14,15 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	{
 		$scope.defaultCompanySequences = company_id;
 	};
-	function searchTematic(areaName) {
-		for (var i = 0; i < $scope.tematics.length; i++) {
-			if ($scope.tematics[i] === areaName) { return true; }
+	function searchArea(areaName) {
+		for (var i = 0; i < $scope.areas.length; i++) {
+			if ($scope.areas[i] === areaName) { return true; }
+		}
+		return false;
+	}
+	function searchTheme(themeName) {
+		for (var i = 0; i < $scope.themesList.length; i++) {
+			if ($scope.themesList[i] === themeName) { return true; }
 		}
 		return false;
 	}
@@ -36,11 +41,17 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 		var value = null;
 		for(var i = 0; i<$scope.sequences.length; i++) {
 			value = $scope.sequences[i];
-			$scope.sequenceNames.push(value.name);
 			if (value.areas) {
 				angular.forEach(value.areas.split(','), function (areaName, key) {
-					if (!searchTematic(areaName)) {
-						$scope.tematics.push(areaName);
+					if (!searchArea(areaName)) {
+						$scope.areas.push(areaName);
+					}
+				});
+			}
+			if (value.themes) {
+				angular.forEach(value.themes.split(','), function (themeName, key) {
+					if (!searchTheme(themeName)) {
+						$scope.themesList.push(themeName);
 					}
 				});
 			}
@@ -59,26 +70,22 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 		$scope.errorMessageFilter = 'Error consultando las secuencias';
 	});
 
-	$scope.onSequenceChange = function () {
-		$scope.searchText = '';
-		$scope.tematicName = null;
-	};
-	$scope.onTematicChange = function () {
-		$scope.sequencesId = null;
+	$scope.onThemeChange = function () {
+		$scope.areaName = null;
 		$scope.searchText = '';
 	};
 	$scope.onSeachChange = function () {
-		$scope.sequencesId = null;
-		$scope.tematicName = null;
+		$scope.areaName = null;
+		$scope.themeName = null;
 	};
 	$scope.onAreaChange = function () {
-		$scope.sequencesId = null;
-		$scope.areaName = null;
+		$scope.searchText = '';
+		$scope.themeName = null;
 	};
 
 	function initAutocompleteList() {
 
-		var names = $scope.tematics.concat($scope.sequenceNames);
+		var names = $scope.themesList.concat($scope.areas);
 		var keywordsList = $scope.keywords.concat(names);
 
 		$scope.complete=function(event, string){

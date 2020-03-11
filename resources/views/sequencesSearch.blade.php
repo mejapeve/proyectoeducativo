@@ -24,16 +24,13 @@
                      </div>
                   </div>
 
-               <select ng-change="onSequenceChange()" placeholder="Secuencias" ng-model="sequencesId" class="mr-2 custom-select custom-select-sm">
-                  <option value="">Secuencias</option>
-                  <option value="@{{sequence.id}}" ng-repeat="sequence in sequences">@{{sequence.name}}</option>
-               </select>
-               <select ng-change="onTematicChange()" ng-model="tematicName" class="custom-select custom-select-sm">
+               <select ng-change="onThemeChange()" ng-model="themeName" class="custom-select custom-select-sm">
                   <option value="">Temática</option>
-                  <option value="@{{tematic}}" ng-repeat="tematic in tematics">@{{tematic}}</option>
+                  <option value="@{{theme}}" ng-repeat="theme in themesList">@{{theme}}</option>
                </select>
                <select ng-change="onAreaChange()" ng-model="areaName" class="ml-2 custom-select custom-select-sm">
                   <option value="">Area</option>
+                  <option value="@{{area}}" ng-repeat="area in areas">@{{area}}</option>
                </select>
 
             </div>
@@ -65,10 +62,12 @@
                   </div>
                </div>
             </div>
-            <div class="border-lg-y col-lg-2" ng-repeat="sequence in sequences | filter: searchText | filter : { id : (sequencesId || id) } : true | filter : { areas : tematicName || areas }">
+            <div class="border-lg-y col-lg-2" 
+            
+            ng-repeat="sequence in sequences | filter: searchText | filter : { themes : (themeName || themes) }   | filter : { areas : (areaName || areas) } ">
                <div class="h-100">
                   <div class="text-center p-2">
-                     <img src="images/welcome/swiper-container/swiper-container-1.png" width="160px" height="160px" /> 
+                     <img ng-src="@{{sequence.url_image}}" width="160px" height="160px" /> 
                      <a class="mt-4 btn btn-outline-primary" href="#">Explorar</a>
                   </div>
                </div>
