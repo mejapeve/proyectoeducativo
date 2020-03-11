@@ -62,9 +62,7 @@
                   </div>
                </div>
             </div>
-            <div class="border-lg-y col-lg-2" 
-            
-            ng-repeat="sequence in sequences | filter: searchText | filter : { themes : (themeName || themes) }   | filter : { areas : (areaName || areas) } ">
+            <div class="border-lg-y col-lg-2" ng-repeat="sequence in sequences | filter: searchText">
                <div class="h-100">
                   <div class="text-center p-2">
                      <img ng-src="@{{sequence.url_image}}" width="160px" height="160px" /> 
