@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanyGroupsSeeder::class);
         $this->call(CompanySequencesSeeder::class);
         $this->call(KitTableSeeder::class);
+        $this->call(ElementSeeder::class);
 
 
     }
