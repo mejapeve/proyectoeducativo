@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Kits;
+use App\Models\Kit;
 
 class KitTableSeeder extends Seeder
 {
@@ -29,7 +29,7 @@ class KitTableSeeder extends Seeder
                 ]
             ];
         foreach ($kits as $kit){
-            $kitN = new Kits();
+            $kitN = new Kit();
             $kitN->name = $kit['name'];
             $kitN->description = $kit['description'];
             $kitN->url_image = $kit['url_image'];
