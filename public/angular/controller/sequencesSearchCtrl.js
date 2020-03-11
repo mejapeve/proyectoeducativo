@@ -9,6 +9,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.wordList = null;
 	$scope.keywords = [];
 	$scope.defaultCompanySequences = 1;
+	$scope.responseData = null;
 
 	$scope.init = function(company_id)
 	{
@@ -38,6 +39,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	}).
 	then(function (response) {
 		$scope.sequences = response.data;
+		$scope.responseData = response.data
 		var value = null;
 		for(var i = 0; i<$scope.sequences.length; i++) {
 			value = $scope.sequences[i];
@@ -73,14 +75,37 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.onThemeChange = function () {
 		$scope.areaName = null;
 		$scope.searchText = '';
+		var sequence = null;
+		$scope.sequences = [];
+		if($scope.responseData) {
+			for(var i = 0; i<$scope.responseData.length;i++){
+				sequence = $scope.responseData[i];
+				if(sequence.themes && sequence.themes.toLocaleUpperCase().includes($scope.themeName.toLocaleUpperCase())) {
+					$scope.sequences.push(sequence);
+					 
+				}
+			};
+		}		
 	};
 	$scope.onSeachChange = function () {
 		$scope.areaName = null;
 		$scope.themeName = null;
+		$scope.sequences = $scope.responseData;
 	};
 	$scope.onAreaChange = function () {
 		$scope.searchText = '';
 		$scope.themeName = null;
+		var sequence = null;
+		$scope.sequences = [];
+		if($scope.responseData) {
+			for(var i = 0; i<$scope.responseData.length;i++){
+				sequence = $scope.responseData[i];
+				if(sequence.areas && sequence.areas.toLocaleUpperCase().includes($scope.areaName.toLocaleUpperCase())) {
+					$scope.sequences.push(sequence);
+					 
+				}
+			};
+		}		
 	};
 
 	function initAutocompleteList() {
