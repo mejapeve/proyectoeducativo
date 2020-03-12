@@ -12,7 +12,7 @@ use App\Models\Companies;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
@@ -77,7 +77,6 @@ Route::get('login/github', 'Auth\LoginController@redirectToProvider');
 
 */
 
-Auth::routes();
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
 Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
@@ -105,6 +104,9 @@ Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLin
 Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('company')->name('password.email');
 Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
 Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->middleware('company')->name('password.update');
+
+
+Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

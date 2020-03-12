@@ -8,4 +8,11 @@ class Kit extends Model
 {
     //
     protected $table = "kits";
+
+
+    public function kit_elements(){
+
+        return $this->hasMany(KitElement::class,'kit_id','id')->select('id','kit_id','element_id');
+    }
+
 }
