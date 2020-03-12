@@ -107,6 +107,7 @@ Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->m
 
 
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
+Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);
