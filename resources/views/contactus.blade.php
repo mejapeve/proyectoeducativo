@@ -28,21 +28,31 @@
                      <div class="form-group">
                         <label for="email" class="">Correo</label>
                         <input  name="email" type="email" class="form-control" ng-model="email" autofocus required="" autocomplete="off">
-                        <span class="text-danger" ng-show="contactusForm.email.$invalid && contactusForm.email.$dirty">
-                              campo requerido
-                        </span>
+                        <div ng-messages="contactusForm.email.$error">
+                           <div ng-message="email"><span class="text-danger">Formato de correo no valido.</span></div>
+                           <div ng-message="required" ng-if="contactusForm.email.$invalid && contactusForm.email.$touched"><span class="text-danger">Campo obligatorio</span></div>
+                        </div>
                      </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12">
-                     <div class="form-group"><label for="phone" class="">Telefono</label><input id="phone" type="text" class="form-control"></div>
+                     <div class="form-group">
+                         <label for="phone" class="">Telefono</label>
+                         <input name="phone" id="phone" type="text" class="form-control"  ng-model="phone">
+                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12">
-                     <div class="form-group"><label for="affair" class="">Asunto</label><input id="affair" type="email" class="form-control" ></div>
+                     <div class="form-group">
+                         <label for="affair" class="">Asunto</label>
+                         <input name="affair" id="affair" type="text" class="form-control" ng-model="affair">
+                     </div>
                   </div>
                </div>
                <div class="row">
                   <div class="col-12">
-                     <div class="form-group"><label for="message" class="">Mensanje</label><textarea id="message" type="text" class="form-control"></textarea></div>
+                     <div class="form-group">
+                         <label for="message" class="">Mensanje</label>
+                         <textarea name="message" id="message" type="text" class="form-control" ng-model="message"></textarea>
+                     </div>
                   </div>
                   <div class="d-flex justify-content-end col-12"><button type="submit" class="btn btn-primary" ng-disabled="contactusForm.$invalid">Enviar</button></div>
                </div>

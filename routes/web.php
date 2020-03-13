@@ -105,6 +105,7 @@ Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendReset
 Route::get('{empresa}/password/reset/{token}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
 Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->middleware('company')->name('password.update');
 
+Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')->name('send_email_contactus');
 
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
