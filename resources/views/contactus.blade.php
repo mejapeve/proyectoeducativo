@@ -7,21 +7,31 @@
             <h5 class="mb-0">Contáctenos</h5>
          </div>
          <div class="bg-light card-body">
-            <form class="" ng-submit="insertData()" name="contactusForm" novalidate>
+            <form class="" ng-submit="insertData()" name="contactusForm" id="contactusForm" novalidate>
                <div class="row">
                   <div class="col-lg-12">
                      <div class="form-group">
                         <label for="name" class="">Nombre</label>
-                        <input id="name" type="text" class="form-control" ng-model="name" autofocus required="" autocomplete="off"
-                               ng-class="{'form-control': true, 'is-invalid':contactusForm.name.$dirty &&  contactusForm.name.$invalid }">
-
+                        <input  name="name" type="text" class="form-control"
+                                ng-model="name"  ng-minlength="5" autofocus required autocomplete="off">
+                        <div ng-messages="contactusForm.name.$error">
+                           <div ng-message="minlength"><span class="text-danger">Debe tener minimo 5 caracteres.</span></div>
+                           <div ng-message="required" ng-if="contactusForm.name.$invalid && contactusForm.name.$touched"><span class="text-danger">Campo obligatorio</span></div>
+                        </div>
                      </div>
+
                   </div>
 
                </div>
                <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-12">
-                     <div class="form-group"><label for="email" class="">Correo</label><input id="last-name" type="email" class="form-control" ng-model="insert.email"></div>
+                     <div class="form-group">
+                        <label for="email" class="">Correo</label>
+                        <input  name="email" type="email" class="form-control" ng-model="email" autofocus required="" autocomplete="off">
+                        <span class="text-danger" ng-show="contactusForm.email.$invalid && contactusForm.email.$dirty">
+                              campo requerido
+                        </span>
+                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12">
                      <div class="form-group"><label for="phone" class="">Telefono</label><input id="phone" type="text" class="form-control"></div>
