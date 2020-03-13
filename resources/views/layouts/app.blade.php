@@ -28,6 +28,7 @@
     <!-- load ngmessages -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-messages.js"></script>
     <script src="{{ asset('js/Cubexy.js') }}" type="text/javascript"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 </head>

@@ -14,12 +14,27 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
                     'affair':$scope.affair,
                     'message':$scope.message,
                  }
-                )
-            .success(function(data) {
-                    console.log(data)
-                //habilitar notificación con respuesta de la petición
-                }
-            );
+                ).
+        then(function onSuccess(response) {
+            // Handle success
+            console.log(response)
+            swal("Hello world!");
+            var data = response.data;
+            var status = response.status;
+            var statusText = response.statusText;
+            var headers = response.headers;
+            var config = response.config;
+
+        }, function onError(response) {
+            // Handle error
+            var data = response.data;
+            var status = response.status;
+            var statusText = response.statusText;
+            var headers = response.headers;
+            var config = response.config;
+
+        });
+
     }
 
 }]);
