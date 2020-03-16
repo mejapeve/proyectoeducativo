@@ -1,1 +1,1 @@
-var MyApp = angular.module('MyApp',['ngMessages']);
+var MyApp = angular.module('MyApp',['ngMessages','ngAnimate']);

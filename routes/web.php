@@ -29,10 +29,17 @@ Route::get('/contactenos', function () {
     return view('contactus');
 })->name('contactus');
 
-Route::get('/secuencias', function () {
-    return view('sequencesSearch');
-})->name('search.sequences');
+Route::get('/guias_de_aprendizaje', function () {
+    return view('sequences.search');
+})->name('sequences.search');
 
+Route::get('/guia_de_aprendizaje/{sequence_name}', function () {
+    return view('sequences.get');
+})->name('sequences.get');
+
+Route::get('/implementos_de_laboratorio', function () {
+    return view('elementsKits');
+})->name('elementsKits');
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
@@ -89,6 +96,7 @@ Route::get('get_departments', 'DepartmentController@get_departments')->name('get
 Route::get('get_cities', 'CityController@getCitiesList')->name('get_cities');
 Route::get('get_countries', 'CountryController@getCountriesList')->name('get_countries');
 Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
+Route::get('get_sequence/{sequence_name}', 'SequencesController@get')->name('get_sequence');
 Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->name('get_teachers_company');
 

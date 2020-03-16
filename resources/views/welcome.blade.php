@@ -65,7 +65,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
          <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm" src="{{ asset('images/welcome/thumbnail/1.a8e929d2.svg') }}" width="100" alt=""></a>
-         <h6 class="mb-1"><a href="/pages/profile">Guías de aprendizaje</a></h6>
+         <h6 class="mb-1"><a href="{{route('sequences.search')}}">Guías de aprendizaje</a></h6>
          <p class="fs--2 mb-1"><a class="text-700" href="/pages/people#!">Explora los contenidos educativos y <strong>elige qué deseas aprender</strong>
 </a></p>
       </div>
@@ -74,7 +74,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
          <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm" src="{{ asset('images/welcome/thumbnail/3.67dc7dd1.svg') }}" width="100" alt=""></a>
-         <h6 class="mb-1"><a href="/pages/profile">Kits de laboratorio</a></h6>
+         <h6 class="mb-1"><a href="{{route('elementsKits')}}">Kits de laboratorio</a></h6>
          <p class="fs--2 mb-1"><a class="text-700" href="/pages/people#!">Adquiere materiales para las <strong>prácticas experimentales</strong>
 </a></p>
       </div>
@@ -102,12 +102,12 @@
 
 <script>
    window.onload = function() {
-      var swiper = new Swiper('.swiper-container', {
-      navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-      },
-      });
+         var swiper = new Swiper('.swiper-container', {
+         navigation: {
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
+         },
+         });
    };
 </script>
 

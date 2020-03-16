@@ -14,6 +14,8 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	$scope.init = function(company_id)
 	{
 		$scope.defaultCompanySequences = company_id;
+		$('.d-none-result').removeClass('d-none');
+		
 	};
 	function searchArea(areaName) {
 		for (var i = 0; i < $scope.areas.length; i++) {
@@ -66,10 +68,16 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 			}
 		};
 
+		
 		initAutocompleteList();
+		
+		setTimeout(function(){
+			ellipsizeTextBox();
+		}, 1000);
+		
 
 	}).catch(function (e) {
-		$scope.errorMessageFilter = 'Error consultando las secuencias';
+		$scope.errorMessageFilter = 'Error consultando las secuencias, compruebe su conexión a internet';
 	});
 
 	$scope.onThemeChange = function () {
@@ -85,12 +93,18 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 					 
 				}
 			};
-		}		
+		}
+		setTimeout(function(){
+			ellipsizeTextBox();
+		}, 100);
 	};
 	$scope.onSeachChange = function () {
 		$scope.areaName = null;
 		$scope.themeName = null;
 		$scope.sequences = $scope.responseData;
+		setTimeout(function(){
+			ellipsizeTextBox();
+		}, 100);
 	};
 	$scope.onAreaChange = function () {
 		$scope.searchText = '';
@@ -105,14 +119,21 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 					 
 				}
 			};
-		}		
+		}	
+		setTimeout(function(){
+			ellipsizeTextBox();
+		}, 100);	
 	};
 
 	function initAutocompleteList() {
 
 		var names = $scope.themesList.concat($scope.areas);
 		var keywordsList = $scope.keywords.concat(names);
-
+		if($scope.responseData) {
+			for(var i = 0; i<$scope.responseData.length;i++){
+				keywordsList.push($scope.responseData[i].name);
+			}
+		}
 		$scope.complete=function(event, string){
 			
 			if (event.key === "Enter" || event.key === "Escape"  ) {
@@ -128,11 +149,31 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 			$scope.wordList = output;
 		}
 		$scope.fillTextbox=function(event, keyword){
-			if(event.relatedTarget){
-				console.log(event.relatedTarget);
-			};
-			$scope.searchText = keyword;
+			if(event.relatedTarget && event.relatedTarget.id === 'keywordlist'){
+				$scope.searchText = event.relatedTarget.text;
+			}
+			else {
+				$scope.searchText = keyword;
+			}
+			//$scope.searchText = keyword;
 			$scope.wordList = null;
 		}
 	}
+
+	function ellipsizeTextBox() {
+		if($scope.sequences && $scope.sequences.length ){
+			for(var i=0;i<$scope.sequences.length;i++) {
+				var el = document.getElementById('sequence-description-'+$scope.sequences[i].id);
+				if(!el) continue;
+				var wordArray = el.innerHTML.split(' ');
+				while(el.scrollHeight > el.offsetHeight) {
+					wordArray.pop();
+					el.innerHTML = wordArray.join(' ') + '...';
+				 }
+			}
+			
+		}
+		
+	}
+	
 }]);

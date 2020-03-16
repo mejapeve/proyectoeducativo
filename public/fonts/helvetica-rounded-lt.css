@@ -1,0 +1,8 @@
+@font-face {font-family: "Helvetica Rounded LT";
+    src: url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.eot"); /* IE9*/
+    src: url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.woff2") format("woff2"), /* chrome firefox */
+    url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.woff") format("woff"), /* chrome firefox */
+    url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+    url("http://db.onlinewebfonts.com/t/4633d82b666bc288aaca2e58aeb89690.svg#Helvetica Rounded LT") format("svg"); /* iOS 4.1- */
+}

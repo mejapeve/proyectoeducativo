@@ -1,9 +1,5 @@
 <nav id="sideMenu" class="navbar-vertical navbar-glass navbar navbar-expand-xl navbar-light max-width-sidemenu"
    style="display:none">
-   <a class="text-decoration-none navbar-brand text-left" href="/">
-      <div class="d-flex align-items-center py-3"><img class="mr-2" src="/static/media/falcon.920a9ff0.png" alt="Logo"
-            width="40"><span class="text-sans-serif">falcon</span></div>
-   </a>
    <div class="collapse show navbar-collapse" aria-expanded="true" style="">
       <div class="ScrollbarsCustom trackYVisible"
          style="position: relative; width: 100%; height: 85vh; display: block;">
@@ -24,7 +20,21 @@
                      <li class="nav-item">
                         <a class="nav-link" href="{{ route('aboutus') }}">
                            <div class="d-flex align-items-center">
-                              <span>Qué es conexiones?</span>
+                              <span>Acerca de conexiones</span>
+                           </div>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('sequences.search') }}">
+                           <div class="d-flex align-items-center">
+                              <span>Guías de aprendizaje</span>
+                           </div>
+                        </a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{ route('elementsKits') }}">
+                           <div class="d-flex align-items-center">
+                              <span>Implementos de laboratorio</span>
                            </div>
                         </a>
                      </li>
@@ -33,14 +43,6 @@
                            <div class="d-flex align-items-center">
                               <span></span>
                               <span>Contáctenos</span>
-                           </div>
-                        </a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                           <div class="d-flex align-items-center">
-                              <span></span>
-                              <span>PQRS</span>
                            </div>
                         </a>
                      </li>
@@ -68,14 +70,6 @@
                         </a>
                      </li>
                      @auth('afiliadoempresa')
-						 <li class="nav-item">
-							<a class="nav-link" href="#">
-							   <div class="d-flex align-items-center">
-								  <span></span>
-								  <span>Notificaciones</span>
-							   </div>
-							</a>
-						 </li>
 						 @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
 						 <li class="nav-item">
 							<a class="nav-link"

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="no-gutters row">
+<div class="no-gutters row mt-lg-5 mt-md-3 mt-sm-2">
    <div class="pr-lg-2 mb-3 col-lg-6">
-      <div class="card-header about-header" >
+      <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">¿Qué es Conexiones?</h5>
       </div>
       <div class="about-body">
@@ -21,7 +21,7 @@
       <img class="img-thumbnail img-fluid mb-3 shadow-sm" src="{{ asset('images/trance.jpg') }}" alt="">
    </div>
    <div class="pr-lg-2 mb-3 col-lg-6"  style="margin-left: 10px;">
-      <div class="card-header about-header" >
+      <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">La propuesta de Conexiones</h5>
       </div>
       <div class="about-body" >
@@ -37,7 +37,7 @@
 </div>
 <div class="no-gutters row">
    <div class="pr-lg-2 mb-3 col-lg-6">
-      <div class="card-header about-header" >
+      <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">Razones para elegir Conexiones</h5>
       </div>
       <div class="about-body">
@@ -51,7 +51,7 @@
       <img class="img-thumbnail img-fluid mb-3 shadow-sm" src="{{ asset('images/true_believers_principal.jpg') }}" alt="">
    </div>
 </div>
-<div class="card-header about-header">
+<div class="card-header about-header boder-header p-2 ml-3">
    <h5 class="mb-0">Kit de laboratorio</h5>
 </div>
 <div class="mt-2 about-body card">

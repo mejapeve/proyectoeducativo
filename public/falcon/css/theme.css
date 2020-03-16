@@ -580,33 +580,84 @@ pre code {
 	margin-left: auto
 }
 
+.avatar-logo {
+	height: 3.125rem;
+	width: 3.125rem
+}
+
 @media(min-width:576px) {
 	.container {
-		max-width: 540px
+		/* max-width: 540px */
 	}
+	
+	.avatar-logo {
+		height: 3.125rem;
+		width: 3.125rem
+	}
+
+	.fs--2 {
+		font-size: .39444rem
+	}
+
 }
 
 @media(min-width:768px) {
 	.container {
-		max-width: 720px
+		/* max-width: 720px */
+	}
+	
+	.avatar-logo {
+		height: 4.125rem;
+		width: 4.125rem
+	}
+
+	.fs--2 {
+		font-size: .49444rem
 	}
 }
 
 @media(min-width:992px) {
 	.container {
-		max-width: 960px
+		/* max-width: 960px */
+	}
+	
+	.avatar-logo {
+		height: 4.125rem;
+		width: 4.125rem
+	}
+
+	.fs--2 {
+		font-size: .55444rem
 	}
 }
 
 @media(min-width:1200px) {
 	.container {
-		max-width: 1140px
+		/* max-width: 1140px */
+	}
+	
+	.avatar-logo {
+		height: 5.125rem;
+		width: 5.125rem
+	}
+
+	.fs--2 {
+		font-size: .59444rem
 	}
 }
 
 @media(min-width:1540px) {
 	.container {
-		max-width: 1480px
+		/* max-width: 1480px */
+	}
+
+	.avatar-logo {
+		height: 5.125rem;
+		width: 5.125rem
+	}
+
+	.fs--2 {
+		font-size: .59444rem
 	}
 }
 
@@ -626,7 +677,7 @@ pre code {
 @media(min-width:576px) {
 	.container,
 	.container-sm {
-		max-width: 540px
+		/* max-width: 540px */
 	}
 }
 
@@ -634,7 +685,7 @@ pre code {
 	.container,
 	.container-sm,
 	.container-md {
-		max-width: 720px
+		/* max-width: 720px */
 	}
 }
 
@@ -643,7 +694,7 @@ pre code {
 	.container-sm,
 	.container-md,
 	.container-lg {
-		max-width: 960px
+		/* max-width: 960px */
 	}
 }
 
@@ -653,7 +704,7 @@ pre code {
 	.container-md,
 	.container-lg,
 	.container-xl {
-		max-width: 1140px
+		/* max-width: 1140px */
 	}
 }
 
@@ -691,6 +742,7 @@ pre code {
 .col-2,
 .col-3,
 .col-4,
+.col-4-5
 .col-5,
 .col-6,
 .col-7,
@@ -829,20 +881,44 @@ pre code {
 
 .col-1 {
 	-webkit-box-flex: 0;
-	flex: 0 0 8.33333%;
-	max-width: 8.33333%
+	flex: 0 0 5.33333%;
+	max-width: 5.33333%;
+}
+
+.col-1-5 {
+    -webkit-box-flex: 0;
+    flex: 0 0 10.66667%;
+    max-width: 10.66667%;
+}
+
+.col-1-6 {
+    -webkit-box-flex: 0;
+    flex: 0 0 10.06667%;
+    max-width: 10.06667%;
+}
+
+.col-1-7 {
+	-webkit-box-flex: 0;
+	flex: 0 0 12.86667%;
+	max-width: 12.86667%;
 }
 
 .col-2 {
 	-webkit-box-flex: 0;
-	flex: 0 0 16.66667%;
-	max-width: 16.66667%
+	flex: 0 0 12.66667%;
+	max-width: 12.66667%;
+}
+
+.col-2-3 {
+	-webkit-box-flex: 0;
+	flex: 0 0 17.66667%;
+	max-width: 17.66667%
 }
 
 .col-2-5 {
 	-webkit-box-flex: 0;
-	flex: 0 0 17.66667%;
-	max-width: 17.66667%
+	flex: 0 0 20.66667%;
+	max-width: 20.66667%
 }
 
 .col-3 {
@@ -855,6 +931,12 @@ pre code {
 	-webkit-box-flex: 0;
 	flex: 0 0 33.33333%;
 	max-width: 33.33333%
+}
+
+.col-4-5 {
+	-webkit-box-flex: 0;
+	flex: 0 0 38.33333%;
+	max-width: 38.33333%;
 }
 
 .col-5 {
@@ -9226,7 +9308,7 @@ button.bg-dark:focus {
 }
 
 .p-0 {
-	padding: 0!important
+	padding: 0!important;
 }
 
 .pt-0,
@@ -13881,8 +13963,8 @@ label {
 }
 
 .avatar-4xl {
-	height: 6.125rem;
-	width: 6.125rem
+	height: 5.125rem;
+	width: 5.125rem
 }
 
 .avatar-4xl .avatar-name {
@@ -13890,7 +13972,7 @@ label {
 }
 
 .avatar-4xl .avatar-emoji {
-	font-size: 6.125rem
+	font-size: 5.125rem
 }
 
 .avatar-4xl[class*=status-]:before {
@@ -14025,7 +14107,7 @@ label {
 .search-box .search-input {
 	width: 20rem;
 	padding-left: 1.95rem;
-	font-size: 13px;
+	/* font-size: 23px; */
 }
 
 .search-box .search-box-icon {
@@ -14331,7 +14413,7 @@ label {
 @media(max-width:1199.98px) and (min-width:992px) and (max-width:1199.98px) {
 	.navbar-vertical.navbar-expand-xl+.content .navbar-top {
 		width: 100%;
-		max-width: 960px!important
+		/* max-width: 960px!important */
 	}
 }
 
@@ -14356,7 +14438,7 @@ label {
 @media(max-width:1199.98px) and (min-width:768px) and (max-width:991.98px) {
 	.navbar-vertical.navbar-expand-xl+.content .navbar-top {
 		width: 100%;
-		max-width: 720px!important
+		/* max-width: 720px!important; */
 	}
 }
 
@@ -14381,7 +14463,7 @@ label {
 @media(max-width:1199.98px) and (min-width:576px) and (max-width:767.98px) {
 	.navbar-vertical.navbar-expand-xl+.content .navbar-top {
 		width: 100%;
-		max-width: 540px!important
+		/* max-width: 540px!important */
 	}
 }
 
@@ -18619,7 +18701,7 @@ button.bg-soft-dark:focus {
 }
 
 .fs--2 {
-	font-size: .69444rem
+	font-size: .59444rem
 }
 
 .fs--1 {
@@ -18703,7 +18785,7 @@ button.bg-soft-dark:focus {
 		font-size: .69444rem
 	}
 	.fs-md--1 {
-		font-size: .83333rem
+		font-size: .58333rem;
 	}
 	.fs-md-0 {
 		font-size: 1rem
@@ -18739,7 +18821,7 @@ button.bg-soft-dark:focus {
 		font-size: .69444rem
 	}
 	.fs-lg--1 {
-		font-size: .83333rem
+		font-size: 0.75333rem;
 	}
 	.fs-lg-0 {
 		font-size: 1rem
@@ -19298,13 +19380,6 @@ footer .navbar-light {
 	max-width: 360px!important
 }
 
-
-
-.about-header {
-border-left: 8px solid rgba(0, 0, 0, .7);
-background-color: #edf2f9;
-border-radius: 0!important;
-}
 .about-body {
     padding: 15px;
 }
@@ -19320,10 +19395,14 @@ border-radius: 0!important;
 	}
 }
 
-.about-header {
-	border-left: 8px solid black;
-    background-color: #edf2f9;
+.boder-header {
+	border-left: 5px solid rgba(0, 0, 0, .5);
 	border-radius: 0!important;
+	line-height: 22px!important;
+}
+
+.about-header {
+	background-color: #edf2f9;
 }
 
 .about-body {
@@ -19357,4 +19436,56 @@ border-radius: 0!important;
 
 .caret-square-right {
 	background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='far' data-icon='caret-square-right' class='svg-inline--fa fa-caret-square-right fa-w-14' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='currentColor' d='M176 354.9V157.1c0-10.7 13-16.1 20.5-8.5l98.3 98.9c4.7 4.7 4.7 12.2 0 16.9l-98.3 98.9c-7.5 7.7-20.5 2.3-20.5-8.4zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.text-align {
+	text-align: center;
+}
+
+.fade-message {
+	transition: all linear 0.5s;
+}
+
+.fade-message {
+    opacity: 1;
+}
+.fade-message.ng-hide {
+    opacity: 0;
+}
+
+@media(min-width:992px) and ( max-width: 1161px) {
+	.fs-lg--1 {
+		font-size: 0.55333rem;
+	}
+	.search-box .search-input {
+		width: 143px!important;
+	}
+}
+
+.sequence-description {
+    overflow: hidden;
+    height: 192px;
+    font-size: 10px;
+    text-align: justify;
+}
+
+.sequence-imagen {
+	width: 86%!important;
+    height: 86%;
+    margin-left: auto;
+	margin-right: auto;
+}
+
+.kit-imagen {
+	flex: 0 0 auto;
+	height: 184px!important;
+	width: 276px!important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.kit-description {
+    overflow: hidden;
+    font-size: 10px;
+    text-align: justify;
 }

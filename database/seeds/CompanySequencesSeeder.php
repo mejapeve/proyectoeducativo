@@ -17,6 +17,7 @@ class CompanySequencesSeeder extends Seeder
                 [ "url_slider_images"=>"/images/company-sequences/sequence1-123add2.png|/images/company-sequences/sequence2-123add2.png|/images/company-sequences/sequence3-123add2.png|/images/company-sequences/sequence4-123add2.png",
                   "url_image"=>"/images/company-sequences/sequence1-123add2.png",
                   "themes"=>"ciencia en contexto","areas"=>"Ciencias de la vida",
+                  
                    "id"=>"1","name"=>"Health Wellness","keywords"=>"health,fitness,related,fitness"],
                 [ "url_image"=>"/images/company-sequences/sequence2-123add2.png",
                 "themes"=>"Astronomía","areas"=>"Física","id"=>"2","name"=>"Business Professional","keywords"=>"health,fitness,related,fitness","url_slider_images"=>"/images/company-sequences/sequence1-123add2.png|/images/company-sequences/sequence2-123add2.png|/images/company-sequences/sequence3-123add2.png|/images/company-sequences/sequence4-123add2.png"],
