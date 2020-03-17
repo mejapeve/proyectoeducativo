@@ -19,7 +19,7 @@ class CreateExperiencePartsTable extends Migration
             $table->foreign('moment_experience_id')->references('id')->on('moment_experiences');
             $table->string('tittle');
             $table->string('description');
-            $table->json('frontend');
+            $table->longText('frontend');
             $table->bigInteger('kit_id')->unsigned()->nullable();
             $table->foreign('kit_id')->references('id')->on('kits');
             $table->longText('basic_materials');

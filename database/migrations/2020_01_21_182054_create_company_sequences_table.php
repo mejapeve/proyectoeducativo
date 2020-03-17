@@ -26,10 +26,10 @@ class CreateCompanySequencesTable extends Migration
             $table->bigInteger('duration');
             $table->longText('themes');
             $table->longText('objective');
-            $table->json('section_1')->nullable();
-            $table->json('section_2')->nullable();
-            $table->json('section_3')->nullable();
-            $table->json('url_images')->nullable();
+            $table->longText('section_1')->nullable();
+            $table->longText('section_2')->nullable();
+            $table->longText('section_3')->nullable();
+            $table->longText('url_images')->nullable();
             $table->dateTime('expiration_date')->nullable();
             $table->string('url_slider_images');
             $table->timestamps();

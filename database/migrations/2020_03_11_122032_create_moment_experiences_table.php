@@ -19,8 +19,8 @@ class CreateMomentExperiencesTable extends Migration
             $table->foreign('sequence_moment_id')->references('id')->on('sequence_moments');
             $table->string('tittle');
             $table->string('decription');
-            $table->json('objetives');
-            $table->json('fronted');
+            $table->longText('objetives');
+            $table->longText('fronted');
             $table->bigInteger('kit_id')->nullable()->unsigned();
             $table->foreign('kit_id')->references('id')->on('kits');
             $table->string('basic_materials');
