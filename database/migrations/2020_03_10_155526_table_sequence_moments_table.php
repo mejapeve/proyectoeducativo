@@ -20,14 +20,10 @@ class TableSequenceMomentsTable extends Migration
             $table->bigInteger('order');
             $table->string('name');
             $table->string('description');
-            $table->longText('objetives');
-            $table->longText('frontend');
-            $table->bigInteger('lab_equipment_id');
-            $table->longText('basic_materials');
-            $table->bigInteger('duration');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();
+            $table->longText('section_4')->nullable();
             $table->timestamps();
         });
     }

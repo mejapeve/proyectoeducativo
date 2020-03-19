@@ -18,20 +18,20 @@ class CreateCompanySequencesTable extends Migration
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->string('name');
+            $table->longText('description');
             $table->string('url_image');
-            $table->integer('type');
+            $table->string('url_slider_images');
             $table->longText('keywords');
             $table->longText('areas');
-            $table->longText('description');
-            $table->bigInteger('duration');
             $table->longText('themes');
-            $table->longText('objective');
+            $table->longText('objetives');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();
-            $table->longText('url_images')->nullable();
-            $table->dateTime('expiration_date')->nullable();
-            $table->string('url_slider_images');
+            $table->longText('section_4')->nullable();
+            $table->date('init_date');
+            $table->date('expiration_date')->nullable();
+
             $table->timestamps();
         });
     }

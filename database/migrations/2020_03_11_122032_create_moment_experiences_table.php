@@ -20,11 +20,10 @@ class CreateMomentExperiencesTable extends Migration
             $table->string('tittle');
             $table->string('decription');
             $table->longText('objetives');
-            $table->longText('fronted');
-            $table->bigInteger('kit_id')->nullable()->unsigned();
-            $table->foreign('kit_id')->references('id')->on('kits');
-            $table->string('basic_materials');
-            $table->integer('duration');
+            $table->longText('section_1')->nullable();
+            $table->longText('section_2')->nullable();
+            $table->longText('section_3')->nullable();
+
             $table->timestamps();
         });
     }
