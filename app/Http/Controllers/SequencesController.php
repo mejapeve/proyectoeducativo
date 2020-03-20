@@ -159,6 +159,7 @@ class SequencesController extends Controller {
 
         return response()->json([
             'sequence_id' =>   $sequence->id,
+            'sequence_section_number' =>   $data['section_number'],
             'messagge' => 'secuencia modificada correctamente'
         ],200);
 
