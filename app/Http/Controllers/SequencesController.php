@@ -30,7 +30,6 @@ class SequencesController extends Controller {
             $sequence->areas = isset($data['areas'])?$data['areas']:null;
             $sequence->themes = isset($data['themes'])?$data['themes']:null;
             $sequence->objetives = isset($data['objetives'])?$data['objetives']:null;
-            $sequence->section_1 = null;
             $var_sections = ['section_1','section_2','section_3','section_4'];
             for ($i=0; $i < count($var_sections); $i++ ){
                 if(isset($data[$var_sections[$i]])){
@@ -86,6 +85,84 @@ class SequencesController extends Controller {
             ],500);
 
         }
+
+    }
+
+    public function update (Request $request){
+
+        $data = $request->all();
+
+        $sequence = CompanySequence::findOrFail($request->get('id'));
+
+        if (isset($data['name']))
+            $sequence->name = $data['name'];
+        if (isset($data['description']))
+            $sequence->description = $data['description'];
+        if (isset($data['url_image']))
+            $sequence->url_image = $data['url_image'];
+        if (isset($data['url_slider_images']))
+            $sequence->url_slider_images = $data['url_slider_images'];
+        if (isset($data['keywords']))
+            $sequence->keywords = $data['keywords'];
+        if (isset($data['areas']))
+            $sequence->areas = $data['areas'];
+        if (isset($data['themes']))
+            $sequence->themes = $data['themes'];
+        if (isset($data['objetives']))
+            $sequence->objetives = $data['objetives'];
+        if (isset($data['init_date']))
+            $sequence->init_date = $data['init_date'];
+        if (isset($data['expiration_date']))
+            $sequence->expiration_date = $data['expiration_date'];
+        $sequence->save();
+
+        return response()->json([
+            'sequence_id' =>   $sequence->id,
+            'messagge' => 'secuencia modificada correctamente'
+        ],200);
+
+
+
+    }
+
+    public function update_sequence_section (Request $request){
+
+        $data = $request->all();
+
+        $sequence = CompanySequence::findOrFail($request->get('id'));
+        $test = @json_decode($data['data_section']);
+        if ($test) {
+            switch (intval(($data['section_number']))){
+                case 1:
+                    $sequence->section_1 = $data['data_section'];
+                    break;
+                case 2:
+                    $sequence->section_2 = $data['data_section'];
+                    break;
+                case 3:
+                    $sequence->section_3 = $data['data_section'];
+                    break;
+                case 4:
+                    $sequence->section_4 = $data['data_section'];
+                    break;
+                default:
+                    return response()->json([
+                        'messagge' => 'La sección no existe'
+                    ],400);
+            }
+            $sequence->save();
+        } else{
+            return response()->json([
+                'messagge' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección'
+            ],400);
+        }
+
+        return response()->json([
+            'sequence_id' =>   $sequence->id,
+            'messagge' => 'secuencia modificada correctamente'
+        ],200);
+
+
 
     }
 }

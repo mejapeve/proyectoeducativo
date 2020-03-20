@@ -120,6 +120,9 @@ Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('g
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
 Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
+Route::post('update_sequence', 'SequencesController@update')->name('update_sequence');
+Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section');
+
 
 
 Route::get('page500', function(){
