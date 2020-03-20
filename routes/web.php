@@ -96,7 +96,7 @@ Route::get('get_departments', 'DepartmentController@get_departments')->name('get
 Route::get('get_cities', 'CityController@getCitiesList')->name('get_cities');
 Route::get('get_countries', 'CountryController@getCountriesList')->name('get_countries');
 Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
-Route::get('get_sequence/{sequence_name}', 'SequencesController@get')->name('get_sequence');
+
 Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->name('get_teachers_company');
 
@@ -117,7 +117,8 @@ Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')
 
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
-
+//servicios secuencias
+Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
 Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
 
 

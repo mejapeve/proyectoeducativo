@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MomentExperience;
 use App\Models\SequenceMoment;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
@@ -9,8 +10,10 @@ use App\Models\CompanySequence;
 class SequencesController extends Controller {
 
 
-    public function get (Request $request,$sequence_name) {
-        return CompanySequence::where('name',$sequence_name)->get();
+    public function get (Request $request,$sequence_id) {
+
+        return CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
+
     }
 
     public function create(Request $request){
@@ -66,6 +69,10 @@ class SequencesController extends Controller {
                 $moment = new SequenceMoment();
                 $moment->sequence_company_id = $sequence->id;
                 $moment->save();
+                $experience = new MomentExperience();
+                $experience->sequence_moment_id = $moment->id;
+                $experience->save();
+
             }
             return response()->json([
                 'sequence_id' =>   $sequence->id,
