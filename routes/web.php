@@ -118,6 +118,9 @@ Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 
+Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
+
+
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);
 })->name('page500');

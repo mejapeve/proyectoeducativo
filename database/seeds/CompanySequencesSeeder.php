@@ -42,15 +42,14 @@ class CompanySequencesSeeder extends Seeder
 
         foreach ($secuences as $secuence){
             $sequenceN = new CompanySequence();
+            $sequenceN->company_id = 1;
             $sequenceN->name = $secuence['name'];
-			$sequenceN->company_id = 1;
+            $sequenceN->description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae justo enim. Fusce tellus leo, fringilla ut facilisis at, ultricies a lectus. Ut iaculis facilisis tellus dignissim lacinia. In commodo vulputate mi non cursus. Nulla facilisi. Aenean feugiat, ex id faucibus fermentum, sem sem condimentum lectus, volutpat ullamcorper nulla diam ac mauris. Curabitur eget mauris ligula. Donec sagittis urna et neque rutrum, nec lacinia turpis tincidunt. Morbi sed leo eget felis aliquet mollis non at nunc. Etiam venenatis elementum maximus. Morbi tincidunt ante nec lectus maximus viverra ut consectetur nulla.';
             $sequenceN->url_image = $secuence['url_image'];
+            $sequenceN->url_slider_images = $secuence['url_slider_images'];
             $sequenceN->keywords = $secuence['keywords'];
             $sequenceN->areas = $secuence['areas'];
-            $sequenceN->description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae justo enim. Fusce tellus leo, fringilla ut facilisis at, ultricies a lectus. Ut iaculis facilisis tellus dignissim lacinia. In commodo vulputate mi non cursus. Nulla facilisi. Aenean feugiat, ex id faucibus fermentum, sem sem condimentum lectus, volutpat ullamcorper nulla diam ac mauris. Curabitur eget mauris ligula. Donec sagittis urna et neque rutrum, nec lacinia turpis tincidunt. Morbi sed leo eget felis aliquet mollis non at nunc. Etiam venenatis elementum maximus. Morbi tincidunt ante nec lectus maximus viverra ut consectetur nulla.';
-            $sequenceN->duration = 5;
             $sequenceN->themes = $secuence['themes'];
-            $sequenceN->url_slider_images = $secuence['url_slider_images'];
             $sequenceN->save();
         }
     }
