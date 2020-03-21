@@ -125,6 +125,9 @@ Route::post('update_sequence_section', 'SequencesController@update_sequence_sect
 //servicios momentos
 Route::post('update_moment', 'MomentController@update')->name('update_moment');
 Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section');
+//servicios momentos
+Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
+Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
 
 
 Route::get('page500', function(){
