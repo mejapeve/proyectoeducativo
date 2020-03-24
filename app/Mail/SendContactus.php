@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendRegisterStudent extends Mailable
+class SendContactus extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,16 +16,11 @@ class SendRegisterStudent extends Mailable
      *
      * @return void
      */
-
-    private $student;
-    private $family;
-
-    public function __construct($student,$family)
+    private $data;
+    public function __construct($data)
     {
         //
-        $this->student = $student;
-        $this->family = $family;
-
+        $this->data = $data;
     }
 
     /**
@@ -37,8 +32,7 @@ class SendRegisterStudent extends Mailable
     {
         return
             $this->from('contacto@educonexiones.com')
-                ->markdown('vendor.notifications.registerStudent',['family' => $this->family,'student' => $this->student])
-                ->subject('Conexiones - Registro estudiante');
-
+                ->markdown('vendor.notifications.registerContactus',['data'=>$this->data])
+                ->subject('Conexiones - Notificación contactenos');
     }
 }

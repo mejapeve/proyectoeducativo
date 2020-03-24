@@ -1,4 +1,19 @@
 @extends('layouts.app')
+<style>
+   .buttonload {
+      background-color: #4CAF50; /* Green background */
+      border: none; /* Remove borders */
+      color: white; /* White text */
+      padding: 12px 24px; /* Some padding */
+      font-size: 16px; /* Set a font-size */
+   }
+
+   /* Add a right margin to each icon */
+   .fa {
+      margin-left: -12px;
+      margin-right: 8px;
+   }
+</style>
 @section('content')
 <div class="no-gutters row" ng-controller="contactusController">
    <div class="pr-lg-2 col-lg-12">
@@ -7,7 +22,7 @@
             <h5 class="mb-0">Contáctenos</h5>
          </div>
          <div class="bg-light card-body">
-            <form class="" ng-submit="insertData()" name="contactusForm" id="contactusForm" novalidate>
+            <form class="" ng-submit="insertData(contactusForm)" name="contactusForm" id="contactusForm" novalidate>
                <div class="row">
                   <div class="col-lg-12">
                      <div class="form-group">
@@ -36,12 +51,6 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12">
                      <div class="form-group">
-                         <label for="phone" class="">Telefono</label>
-                         <input name="phone" id="phone" type="text" class="form-control"  ng-model="phone">
-                     </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12">
-                     <div class="form-group">
                          <label for="affair" class="">Asunto</label>
                          <input name="affair" id="affair" type="text" class="form-control" ng-model="affair">
                      </div>
@@ -54,7 +63,9 @@
                          <textarea name="message" id="message" type="text" class="form-control" ng-model="message"></textarea>
                      </div>
                   </div>
-                  <div class="d-flex justify-content-end col-12"><button type="submit" class="btn btn-primary" ng-disabled="contactusForm.$invalid">Enviar</button></div>
+                  <div class="d-flex justify-content-end col-12">
+                     <button id="send" type="submit" class="buttonload btn btn-primary" ng-disabled="contactusForm.$invalid"><i id="move" class=""></i> Enviar</button>
+                  </div>
                </div>
             </form>
          </div>
