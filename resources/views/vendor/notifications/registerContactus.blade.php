@@ -1,10 +1,9 @@
 @component('mail::message')
-# Hola, se ha realizado una nuevo registro de contactenos por parte del correo {{$data['email']}}.
+# Hola, se ha realizado una solicitud por parte del correo {{$data['email']}}.
 <br>
 <strong>Asunto:</strong>
 <br>
 {{$data['affair']}}
-<br>
 <br>
 <strong>Mensaje:</strong>
 <br>
