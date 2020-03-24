@@ -128,7 +128,8 @@ Route::post('update_moment_section', 'MomentController@update_moment_section')->
 //servicios momentos
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
-
+//servcios carrito de comprar
+Route::get('get_shoping_car/{user_id}', 'Shopping\ShoppingCardController@get_shoping_car')->name('get_shoping_car');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

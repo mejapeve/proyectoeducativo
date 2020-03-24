@@ -21,7 +21,7 @@ class RatingPlanSeeder extends Seeder
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>true,
-                    "sequence_include"=>null,
+                    "sequence_include"=>1,
                     "moments_included"=>null,
                     "experiences_included"=>null,
                     "sequence_company_ids"=>'1',

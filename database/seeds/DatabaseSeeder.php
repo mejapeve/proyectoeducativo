@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KitTableSeeder::class);
         $this->call(ElementSeeder::class);
         $this->call(RatingPlanSeeder::class);
-
+        $this->call(ShopingCarSeeder::class);
 
     }
 }
