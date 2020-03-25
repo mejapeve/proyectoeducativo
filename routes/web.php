@@ -115,6 +115,8 @@ Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
 //servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
+Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');
+
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
 Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
