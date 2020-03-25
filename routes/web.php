@@ -113,6 +113,7 @@ Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->m
 Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')->name('send_email_contactus');
 
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
+//servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
