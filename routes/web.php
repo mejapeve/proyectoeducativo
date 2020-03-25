@@ -80,11 +80,6 @@ Route::post('register_student', 'TutorController@register_student')->name('regis
 
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
-/*
-Route::get('login/github', 'Auth\LoginController@redirectToProvider');
-
-
-*/
 
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
@@ -134,6 +129,9 @@ Route::post('update_experience_section', 'ExperienceController@update_experience
 Route::get('get_shoping_car/{user_id}', 'Shopping\ShoppingCardController@get_shoping_car')->name('get_shoping_car');
 //servicio para consultar cursos asignados
 Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
+//servicio para consultar servicios contratados
+Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
+
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);
