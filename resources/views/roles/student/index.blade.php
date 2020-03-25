@@ -8,7 +8,7 @@
                     @include('roles/student/sidebar')
                 </div>
                 <div class="col-md-9">
-                    @yield('section-student')
+					@yield('section-student')
                 </div>
             </div>
         </div>

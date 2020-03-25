@@ -45,7 +45,7 @@ class CompanyController extends Controller
                   ->join('affiliated_company_roles', 'afiliado_empresas.id', '=', 'affiliated_company_roles.affiliated_company_id')
                   ->where('affiliated_company_roles.company_id',$company_id)
                   ->where('affiliated_company_roles.rol_id',2)
-				  ->select('afiliado_empresas.id','afiliado_empresas.name','afiliado_empresas.last_name','affiliated_company_roles.company_id', 'affiliated_company_roles.rol_id')
+                  ->select('afiliado_empresas.id','afiliado_empresas.name','afiliado_empresas.last_name','affiliated_company_roles.company_id', 'affiliated_company_roles.rol_id')
                   ->get();
     }
 

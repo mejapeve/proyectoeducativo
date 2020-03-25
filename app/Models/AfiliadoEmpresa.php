@@ -22,6 +22,7 @@ class AfiliadoEmpresa extends Model
         'name',
         'last_name',
         'email',
+        'url_image',
         'country_id',
         'department_id',
         'city_id',

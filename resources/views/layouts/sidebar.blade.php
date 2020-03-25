@@ -32,7 +32,7 @@
                         </a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="{{ route('elementsKits') }}">
+                        <a class="nav-link" href="{{ route('elementsKits.search') }}">
                            <div class="d-flex align-items-center">
                               <span>Implementos de laboratorio</span>
                            </div>

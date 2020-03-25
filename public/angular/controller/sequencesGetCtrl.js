@@ -22,7 +22,7 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
 						prevEl: '.swiper-button-prev',
 					},
 				});
-			  },2000);
+			  },1000);
 
 			
 

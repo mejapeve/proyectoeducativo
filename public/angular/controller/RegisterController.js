@@ -1,4 +1,4 @@
-MyApp.controller("registerController", ["$scope", "$http", function($scope, $http) {
+MyApp.controller("registerController", ["$scope", "$http", "$templateCache", function($scope, $http, $templateCache) {
 	
 	$scope.countries = null;
 	$scope.cities = null;
@@ -10,6 +10,7 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 	$scope.departmentId = null;
 	$scope.showselectCity = false;
 	$scope.messageError = null;
+	$scope.termsConditions = $('#terms').html();
 
 	$http.get("https://geoip-db.com/json/").then(function (response1) {
 		$scope.country_code = response1.data.country_code;
@@ -93,6 +94,18 @@ MyApp.controller("registerController", ["$scope", "$http", function($scope, $htt
 	}).catch(function(error){
 		$scope.messageError = 'Error consultando lista de ciudades';
 	});
+
+	$scope.onTermsConditions = function() {
+
+		swal({
+					title:'', 
+					text: $scope.termsConditions,
+					button: "Aceptar",
+					html: true,
+					allowOutsideClick: true	
+				});
+	}
+
 }]);
 
 

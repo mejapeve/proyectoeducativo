@@ -38,8 +38,8 @@ Route::get('/guia_de_aprendizaje/{sequence_name}', function () {
 })->name('sequences.get');
 
 Route::get('/implementos_de_laboratorio', function () {
-    return view('elementsKits');
-})->name('elementsKits');
+    return view('elementsKits.search');
+})->name('elementsKits.search');
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
@@ -67,10 +67,12 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     });
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher','company')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor','company')->name('tutor');
-	Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
+    Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student','company')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin','company')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
+    Route::post('{empresa}/update_avatar', 'AvatarController@update_avatar')->name('update_avatar');
+    Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student','company')->name('student.available_sequences');
 });
 
 Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
@@ -98,7 +100,7 @@ Route::get('get_countries', 'CountryController@getCountriesList')->name('get_cou
 Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
 
 Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
-Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->name('get_teachers_company');
+Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->    name('get_teachers_company');
 
 Route::get('get_students_tutor', 'TutorController@get_students_tutor')->name('get_students_tutor');
 
@@ -130,6 +132,8 @@ Route::post('update_experience', 'ExperienceController@update')->name('update_ex
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
 //servcios carrito de comprar
 Route::get('get_shoping_car/{user_id}', 'Shopping\ShoppingCardController@get_shoping_car')->name('get_shoping_car');
+//servicio para consultar cursos asignados
+Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

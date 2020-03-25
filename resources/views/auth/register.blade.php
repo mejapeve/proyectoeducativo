@@ -11,8 +11,7 @@
                   <div class="h-100 no-gutters row">
                      <div class="col-md-12">
                         <div class="p-4" style="padding-bottom: 0px!important;">
-                           <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registre sus datos para la creación de su
-                              cuenta</h6>
+                           <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registre sus datos para la creación de su cuenta</h6>
                         </div>
                      </div>
                      <form action="{{ route('register') }}" method="POST" name="registerForm" novalidate>
@@ -114,7 +113,7 @@
                               <div class="form-group">
                                  <input name="agreeToTerms" type="checkbox" class="" ng-model="agreeToTerms"
                                     required="">
-                                 <label class="control-label">Acepto <a href="#!"> términos y condiciones</a></label>
+                                 <label class="control-label">Acepto <a ng-click="onTermsConditions()" href="#"> términos y condiciones</a></label>
                               </div>
                               <div class="form-group">
                                  <input type="hidden" name="password" id="password" value="password" />
@@ -146,6 +145,10 @@
       </div>
    </div>
 </section>
+
+<script id="terms" type="text/x-jQuery-tmpl">
+   @include('terms-conditions')
+</script>
 @endsection
 @section('js')
 <script src="{{asset('/../angular/controller/RegisterController.js')}}"></script>

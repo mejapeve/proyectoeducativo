@@ -1,6 +1,24 @@
 @extends('roles.student.index')
 
 @section('section-student')
+   <div ng-controller="avatarStudentCtrl" ng-init="init()">
+        @if (isset($success))
+        <div class="fade-message alert alert-success" role="alert" id="alert1" >
+           @{{ $success }}
+           <button type="button" class="close" aria-label="Close" on-click="alert(document.getElementById('alert1'))">
+              <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        @endif
+        @if (isset($errorMessage))
+        <div class="fade-message alert alert-danger" role="alert" id="alert2" >
+           @{{ $errorMessage }}
+           <button type="button" class="close" aria-label="Close" on-click="alert(document.getElementById('alert2'))">
+              <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        @endif
+
     <div class="mb-3 card">
         <div class="card-body">
            <div class="bg-holder bg-card bg-holder-blue">
@@ -10,7 +28,13 @@
                  <h5 class="mb-2 mb-md-0">Crear Avatar</h5>
               </div>
               <div class="col-auto">
-                 <button class="mr-2 btn btn-falcon-default btn-sm">Guardar</button>
+                 <button ng-disabled="!customImage && !urlImage"
+                 class="mr-2 btn btn-falcon-default btn-sm" ng-click="onSaveAvatar()">Guardar</button>
+                 <form action="{{route('update_avatar',auth('afiliadoempresa')->user()->company_name())}}" method="POST" id="save-avatar-form">
+                    @csrf
+                    <input type="hidden" name="url_image" ng-value="urlImage"/>
+                    <input type="hidden" id="custom_image" name="custom_image" ng-value="customImage"/>
+                 </form>
               </div>
            </div>
         </div>
@@ -18,55 +42,64 @@
      <div class="mb-3 overflow-hidden card" style="min-width: 12rem;">
         <div class="bg-holder bg-card bg-holder-blue">
         </div>
-        <div class="position-relative card-body">
+        <div class="position-relative card-body pr-1">
            <h6> Puedes crear tu propio avatar o elegir uno</h6>
            <div class="row mt-3">
               <div class="col-4">
-                 <img class="shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/default/avatar-default-1.png') }}">
-                 <img class="shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/default/avatar-default-2.png') }}">
-                 <img class="shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/default/avatar-default-3.png') }}">
+                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-1.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-1.png')" >
+                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-2.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-2.png')" >
+                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-3.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-3.png')" >
               </div>
               <div class="col-4">
                  <img id="avatar-selected" class="d-none shadow-sm rounded-circle" src="{{ asset('images/avatars/default/avatar-default-3.png') }}">
-                 <canvas class="rounded-circle" width="193" height="133" id="canvas">No Canvas support</canvas>
+                 <canvas class="" width="263" height="300" id="canvas">No Canvas support</canvas>
               </div>
-              <div class="col-4">
-                 <div id="menu" class="">
+              <div class="col-4"  class="card-body">
+                 <div id="menu">
                     <div class="mb-3">
-                       <button class="tab-avatar mr-2 btn btn-falcon-primary" data-tab="piel">Piel</button>
-                       <button class="tab-avatar mr-2 btn btn-falcon-success" data-tab="ojos">Ojos</button>
-                       <button class="tab-avatar mr-2 btn btn-falcon-info" data-tab="boca">Boca</button>
-                       <button class="tab-avatar mt-2 mr-2 btn btn-falcon-danger" data-tab="pelo">Cabello</button>
-                       <button class="tab-avatar mr-2 mt-2 btn btn-falcon-warning" data-tab="gafas">Gafas</button>
+                       <img width="54px" height="50px" src="{{asset('images/avatars/icons/cara-01.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="skin"/>
+                       <img width="54px" height="50px" src="{{asset('images/avatars/icons/rasgos-01.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="features"/>
+                       <img width="54px" height="50px" src="{{asset('images/avatars/icons/cabello-01.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="hair"/>
+                       <img width="54px" height="50px" src="{{asset('images/avatars/icons/accesorios-01.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories"/>
                     </div>
                  </div>
                  <div id="avatar">
-                    <div id="piel">
-                       <img class="img-thumbnail activo" src="{{ asset('images/avatars/1_piel/1.png')}}" style="cursor: pointer;">
+                    <div id="skin" data-top="70" data-left="0" data-width="250" data-height="500">
+                       <img width="65px" style="height:55px;" class="img-thumbnail activo seleccionado" src="{{ asset('images/avatars/skins/1-01.png')}}" style="cursor: pointer;">
+                       <img width="65px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/skins/2-02.png')}}" style="cursor: pointer;">
+                       <img width="65px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/skins/3-03.png')}}" style="cursor: pointer;">
+                       <img width="65px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/skins/4-04.png')}}" style="cursor: pointer;">
                     </div>
-                    <div id="ojos" class="d-none">
-                       <img class="img-thumbnail activo" src="{{ asset('images/avatars/2_ojos/1.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/2_ojos/2.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/2_ojos/3.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/2_ojos/4.png')}}" style="cursor: pointer;">
+                    <div id="features" data-top="140" data-left="68" data-width="120" data-height="125" class="d-none">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/1-18.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/2-19.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/3-20.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/4-21.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/5-22.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/6-23.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/7-24.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/8-25.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/9-26.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/10-27.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/11-28.png')}}" style="cursor: pointer;">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/fatures/12-29.png')}}" style="cursor: pointer;">
                     </div>
-                    <div id="boca" class="d-none">
-                       <img class="img-thumbnail activo" src="{{ asset('images/avatars/3_boca/1.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/3_boca/2.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/3_boca/3.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/3_boca/4.png')}}" style="cursor: pointer;">
+                    <div id="hair" class="d-none">
+                       <img width="55px" style="height:60px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/1-05.png')}}" style="cursor: pointer;" data-top="30" data-left="15" data-width="252" data-height="550">
+                       <img width="55px" style="height:55px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/2-06.png')}}" style="cursor: pointer;" data-top="35" data-left="0" data-width="252" data-height="550">
+                       <img width="55px" style="height:45px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/3-07.png')}}" style="cursor: pointer;" data-top="30" data-left="15" data-width="212" data-height="250">
+                       <img width="55px" style="height:45px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/4-08.png')}}" style="cursor: pointer;" data-top="30" data-left="25" data-width="200" data-height="250">
+                       <img width="55px" style="height:45px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/5-09.png')}}" style="cursor: pointer;" data-top="40" data-left="0" data-width="218" data-height="250">
+                       <img width="55px" style="height:45px;" class="img-thumbnail" src="{{ asset('images/avatars/hair/6-10.png')}}" style="cursor: pointer;" data-top="30" data-left="20" data-width="212" data-height="250">
                     </div>
-                    <div id="pelo" class="d-none">
-                       <img class="img-thumbnail activo" src="{{ asset('images/avatars/4_pelo/1.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/4_pelo/2.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/4_pelo/3.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/4_pelo/4.png')}}" style="cursor: pointer;">
-                    </div>
-                    <div id="gafas" class="d-none">
-                       <img class="img-thumbnail activo" src="{{ asset('images/avatars/5_gafas/1.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/5_gafas/2.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/5_gafas/3.png')}}" style="cursor: pointer;">
-                       <img class="img-thumbnail" src="{{ asset('images/avatars/5_gafas/4.png')}}" style="cursor: pointer;">
+                    <div id="accessories" class="d-none">
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/1-11.png')}}" style="cursor: pointer;" data-top="32" data-left="17" data-width="212" data-height="250"> 
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/2-12.png')}}" style="cursor: pointer;" data-top="32" data-left="17" data-width="212" data-height="250">
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/3-13.png')}}" style="cursor: pointer;" data-top="28" data-left="35" data-width="180" data-height="210">
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/4-14.png')}}" style="cursor: pointer;" data-top="22" data-left="17" data-width="212" data-height="250">
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/5-15.png')}}" style="cursor: pointer;"  data-top="120" data-left="50" data-width="150" data-height="120" >
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/6-16.png')}}" style="cursor: pointer;"  data-top="120" data-left="50" data-width="150" data-height="120" >
+                       <img width="55px" height="35px" class="img-thumbnail" src="{{ asset('images/avatars/accessories/7-17.png')}}" style="cursor: pointer;"  data-top="120" data-left="50" data-width="150" data-height="120" >
                     </div>
                  </div>
                  <input type="hidden" id="colores" class="card" _data-colores="#a1a1a1,#FDF2E9,#EBF5FB,#F7DC6F,#F2CFAF"/>
@@ -74,6 +107,7 @@
            </div>
         </div>
      </div>
+</div>
 <style>
     .avatar-default {
         max-width: 54px;
@@ -83,9 +117,6 @@
     #avatar-selected {
         border-radius: 39%!important;
     }
-    #avatar div img {
-        width: 100px;
-    }
     #colors li:first-child {
         margin-top: 10px;
     }
@@ -94,33 +125,9 @@
     }
 </style>
 <script>
-    $('#avatar').Cubexy();
-    $(".avatar-default").click(function(){
-        $("#avatar-selected").attr("src",$(this).attr('src'));
-        $("#canvas").hide();
-        $("#colors").hide();
-        $("#avatar-selected").addClass("d-block");
-    });
-    $("#colors").parent().addClass("card");
-    $("#colors").hide();
-    $("#colors").addClass("mb-0");
-    $("#avatar div img").click(function(){
-        $("#canvas").show();
-        $("#avatar-selected").hide();
-        $("#avatar-selected").removeClass("d-block").addClass("dnone");
-    });
-    $(".tab-avatar").click(function(){
-        $("#avatar").find("div").addClass("d-none");
-        $("#canvas").show();
-        $("#colors").hide();
-        $("#avatar-selected").removeClass("d-block").addClass("dnone");
-        $("#avatar").find("div").removeClass("d-block");
-        $("#" + $(this).attr("data-tab")).addClass("d-block");
-    });
 
-
-    $("#avatar div img").click(function(){
-        $("#colors").show();
-    });
 </script>
+
+<script src="{{ asset('angular/controller/avatarStudentCtrl.js') }}" defer></script>
+
 @endsection
