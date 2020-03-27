@@ -41,7 +41,7 @@
                <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-12">
                      <div class="form-group">
-                        <label for="email" class="">Correo</label>
+                        <label for="email" class="">Correo electrónico</label>
                         <input  name="email" type="email" class="form-control" ng-model="email" autofocus required="" autocomplete="off">
                         <div ng-messages="contactusForm.email.$error">
                            <div ng-message="email"><span class="text-danger">Formato de correo no valido.</span></div>
