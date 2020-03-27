@@ -14,7 +14,7 @@ class ContactusController extends Controller
 
         try{
             $var = $request->all();
-            Mail::to( $var['email'])->send(new SendContactus($var));
+            Mail::to( 'contacto@educonexiones.com')->send(new SendContactus($var));
             return response()->json([
                     ['messagge'=>'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
                     ['status'=>'success']
