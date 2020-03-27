@@ -20,9 +20,10 @@ class ShoppingCartController extends Controller
 
     public function get_shopping_cart(Request $request,$user_id){
 
+
         $shopingCarts = ShoppingCart::
             with('kit','kit.kit_elements.element','rating_plan')->
-            where('company_affiliated_id',$user_id)->get();
+            where('company_affiliated_id',$request->user('afiliadoempresa')->id)->get();
 
         $shopingCarts = $this->relation_rating_plan($shopingCarts);
 

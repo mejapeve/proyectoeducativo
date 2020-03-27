@@ -48,8 +48,11 @@ class AffiliatedCompanyController extends DefaultLoginController
 
     public function showLoginForm( $empresa = "conexiones" )
     {
-        if(count(Companies::where('nick_name',$empresa)->get())){
+        //cabiar por consulta en cache
+        $company = Companies::where('nick_name', $empresa)->first();
+        if($company){
             session(['name_company' => $empresa]);
+            session(['company_id' => $company->id]);
             return redirect()->route('loginform',['empresa'=> $empresa]);
         }else{
             return 'empresa no existe';
@@ -79,6 +82,7 @@ class AffiliatedCompanyController extends DefaultLoginController
         $company = $request->company;
         
         Auth::logout();
+        //Auth::logout('afiliadoempresa');
 		session(['rol_trans' => $rol]);
 		
         $user = DB::table('afiliado_empresas')
@@ -127,6 +131,8 @@ class AffiliatedCompanyController extends DefaultLoginController
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);
+        session(['name_company' => 'conexiones']);
+        session(['company_id' => 1]);
         switch ($rol){
             case 1:
                 $redirectTo = "student";
@@ -139,7 +145,7 @@ class AffiliatedCompanyController extends DefaultLoginController
                 break;
             case 4:
                 $redirectTo = "admin";
-                session(['name_company' => 'conexiones']);
+
                 break;
         }
 

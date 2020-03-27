@@ -62,9 +62,7 @@ Route::prefix('user')
     });
 
 Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], function() {
-    Route::get('/profile', function () {
-        return 'esta loggeado';
-    });
+
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher','company')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor','company')->name('tutor');
     Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
@@ -73,7 +71,14 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], fu
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
     Route::post('{empresa}/update_avatar', 'AvatarController@update_avatar')->name('update_avatar');
     Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student','company')->name('student.available_sequences');
+
 });
+//servcios carrito de comprar
+Route::group([],function (){
+        Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCartController@index']);
+        Route::get('get_shopping_cart', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart')->middleware('auth:afiliadoempresa');
+    }
+);
 
 Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
@@ -83,7 +88,7 @@ Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')-
 
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
-Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCartController@index']);
+
 Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 Route::post('/fileupload/action', ['as' => 'fileuploadAction', 'uses' => 'Admin\FileUploadController@store']);
@@ -128,9 +133,9 @@ Route::post('update_moment_section', 'MomentController@update_moment_section')->
 //servicios momentos
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
-//servcios carrito de comprar
-Route::get('get_shopping_cart/{user_id}', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');
-//servicio para consultar cursos asignados
+
+
+//servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
 Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
 //servicio para consultar servicios contratados
 Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');

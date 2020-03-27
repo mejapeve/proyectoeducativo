@@ -76,11 +76,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         session(['name_company' => 'conexiones']);
-
+        session(['company_id' => 1]);
         $asignarNombreUsuario = false;
         $name_user = $this->name_user_affiliated($data);
 		
-        //if($asignarNombreUsuario){
+
             $afiliado_empresa = AfiliadoEmpresa::create([
                 'user_name' => $name_user,
                 'name' => $data['name'],
@@ -104,7 +104,7 @@ class RegisterController extends Controller
             $this->redirectTo = 'conexiones/tutor';
 
             return $afiliado_empresa;
-        //}
+
 
 
     }
