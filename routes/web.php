@@ -83,7 +83,7 @@ Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')-
 
 Route::get('testangular', 'HomeController@testangular')->name('testangular');
 
-Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCardController@index']);
+Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCartController@index']);
 Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 Route::post('/fileupload/action', ['as' => 'fileuploadAction', 'uses' => 'Admin\FileUploadController@store']);
@@ -129,7 +129,7 @@ Route::post('update_moment_section', 'MomentController@update_moment_section')->
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
 //servcios carrito de comprar
-Route::get('get_shoping_car/{user_id}', 'Shopping\ShoppingCardController@get_shoping_car')->name('get_shoping_car');
+Route::get('get_shopping_cart/{user_id}', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');
 //servicio para consultar cursos asignados
 Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
 //servicio para consultar servicios contratados

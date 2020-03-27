@@ -52,7 +52,7 @@
     </div>
     <script src="{{asset('/../angular/app.js')}}"></script>
 	<script src="{{ asset('/../angular/controller/NavBarController.js') }}" defer></script>
-	<script src="{{ asset('/../angular/controller/ShoppingCardController.js') }}" defer></script>
+	<script src="{{ asset('/../angular/controller/ShoppingCartController.js') }}" defer></script>
     @yield('js')
 </body>
 </html>

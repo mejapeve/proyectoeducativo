@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="card" ng-controller="shoppingCargController">
+<div class="card" ng-controller="shoppingCartController">
    <div class="card-header">
       <div class="align-items-center row">
          <div class="col">

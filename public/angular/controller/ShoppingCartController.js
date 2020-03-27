@@ -1,4 +1,4 @@
-MyApp.controller('shoppingCargController', ['$scope', function($scope) {
+MyApp.controller('shoppingCartController', ['$scope', function($scope) {
 	  
 	  $scope.cards = [
 	  {"id":1,"name":"Yotopo y los astronautas"},

@@ -13,7 +13,7 @@ class CreateShopingCartsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shoping_carts', function (Blueprint $table) {
+        Schema::create('shopping_carts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('company_affiliated_id')->unsigned()->nullable();
             $table->foreign('company_affiliated_id')->references('id')->on('afiliado_empresas');
@@ -38,6 +38,6 @@ class CreateShopingCartsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shoping_carts');
+        Schema::dropIfExists('shopping_carts');
     }
 }

@@ -62,7 +62,7 @@
     
     <script src="{{asset('angular/app.js')}}"></script>
     <script src="{{ asset('angular/controller/NavBarController.js') }}" defer></script>
-    <script src="{{ asset('angular/controller/ShoppingCardController.js') }}" defer></script>
+    <script src="{{ asset('angular/controller/ShoppingCartController.js') }}" defer></script>
     <script src="{{ asset('font-awesome/v5.12.1/js/all.min.js') }}" type="text/javascript"></script>
     @yield('js')
     

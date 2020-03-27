@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\CompanySequence;
 use App\Models\MomentExperience;
 use App\Models\SequenceMoment;
-use App\Models\ShopingCart;
+use App\Models\ShoppingCart;
 use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 
-class ShoppingCardController extends Controller
+class ShoppingCartController extends Controller
 {
     use RelationRatingPlan;
 
@@ -18,9 +18,9 @@ class ShoppingCardController extends Controller
         return view('shopping.card');
     }
 
-    public function get_shoping_car(Request $request,$user_id){
+    public function get_shopping_cart(Request $request,$user_id){
 
-        $shopingCarts = ShopingCart::
+        $shopingCarts = ShoppingCart::
             with('kit','kit.kit_elements.element','rating_plan')->
             where('company_affiliated_id',$user_id)->get();
 
@@ -32,7 +32,7 @@ class ShoppingCardController extends Controller
     public function create(Request $request){
 
         $data = $request->all();
-        $shopingCart = new ShopingCart();
+        $shopingCart = new ShoppingCart();
         $shopingCart->company_affiliadted_id = $data['company_affiliadted_id'];
         $shopingCart->session_id = $data['session_id'];
         $shopingCart->rating_plan_id = $data['rating_plan_id'];

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\ShopingCart;
+use App\Models\ShoppingCart;
 
-class ShopingCarSeeder extends Seeder
+class ShoppingCarSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -44,7 +44,7 @@ class ShopingCarSeeder extends Seeder
                 ],
             ];
         foreach ($shopingCarts as $shopingCart){
-            $shopingCartN = new ShopingCart();
+            $shopingCartN = new ShoppingCart();
             $shopingCartN->company_affiliated_id = $shopingCart['company_affiliated_id'];
             $shopingCartN->session_id = $shopingCart['session_id'];
             $shopingCartN->rating_plan_id = $shopingCart['rating_plan_id'];

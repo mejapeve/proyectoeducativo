@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShopingCart extends Model
+class ShoppingCart extends Model
 {
     //
-    protected $table = "shoping_carts";
+    protected $table = "shopping_carts";
 
     public function kit(){
 
