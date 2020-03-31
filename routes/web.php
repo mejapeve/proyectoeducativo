@@ -61,18 +61,27 @@ Route::prefix('user')
         Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
 
-Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated'] ], function() {
 
-    Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher','company')->name('teacher');
-    Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor','company')->name('tutor');
-    Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor','company')->name('tutorProfile');
-    Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student','company')->name('student');
-    Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin','company')->name('admin');
+Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'company'] ], function() {
+    Route::get('/profile', function () {
+        return 'esta loggeado';
+    });
+    Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
+    Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
+    Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor')->name('tutorProfile');
+    Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
+    Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
-    Route::post('{empresa}/update_avatar', 'AvatarController@update_avatar')->name('update_avatar');
-    Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student','company')->name('student.available_sequences');
-
+    Route::post('{empresa}/student/update_avatar', 'AvatarController@update_avatar')->middleware('role:student')->name('update_avatar');
+    Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student')->name('student.available_sequences');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
+	Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
+    
+	Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
+	
+    Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('registerStudent');
 });
+
 //servcios carrito de comprar
 Route::group([],function (){
         Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCartController@index']);
