@@ -29,6 +29,13 @@
       -webkit-align-items: center;
       align-items: center;
    }
+   
+  .swiper-wrapper.kit .swiper-slide {
+		max-height: 373px;
+		width: 96vw;
+		background-size: 95vw 29vw;
+		background-repeat: no-repeat;
+	}
 </style>
 
 <div ng-controller="kitsElementsCtrl" ng-init="getKits()">
@@ -40,15 +47,14 @@
    <div class="mb-3 card">
       <div class="card-body">
          <div class="no-gutters row">
-            <div class="d-none-result2 d-none mb-3 col-12">
+            <div class="d-none-result d-none mb-3 col-12">
                <div class="justify-content-center justify-content-sm-between row">
                   <div class="d-none-result d-none d-flex flex-center mt-1 mt-sm-0 col-sm-auto d-none-result d-none">
                      <!-- Swiper -->
                      <div class="swiper-container">
-                        <div class="swiper-wrapper sequence">
-						@{{kit.images}}
+                        <div class="swiper-wrapper kit">
                            <div class="swiper-slide" ng-repeat="imagen in kit.images" 
-                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen}}');">
+                              style="background-image: url('{{env('APP_URL')}}/@{{imagen}}');">
                            </div>
                         </div>
                         <!-- Add Arrows -->
@@ -58,7 +64,7 @@
                   </div>
                </div>
             </div>
-            <div class="d-none-result2 d-none row w-100">
+            <div class="d-none-result d-none row w-100">
 				 <div class="pr-0 col-12 sequence-description ml-2">
 					<h4 class=" boder-header p-1">
 					   @{{kit.name}}

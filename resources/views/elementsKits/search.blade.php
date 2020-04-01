@@ -48,7 +48,7 @@
             </div>
 
             <div class="p-3 border-lg-y col-lg-2 w-100"
-               style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="kits.length > 0">
+               style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="kit_elements">
                cargando...
             </div>
 

@@ -1,4 +1,4 @@
-MyApp.controller("kitsElementsCtrl", ["$scope", "$http", function ($scope, $http) {
+MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
 	$scope.kits = [];
 	$scope.errorMessageFilter = '';
 	$scope.searchText = '';
@@ -49,11 +49,22 @@ MyApp.controller("kitsElementsCtrl", ["$scope", "$http", function ($scope, $http
 				$scope.kit.images = $scope.kit.url_slider_images.split('|');
 			}
 			
-			$scope.kit.type = 'kit'
-			$('#loading').removeClass('show');
-			$('.d-none-result').removeClass('d-none');
+			$scope.kit.type = 'kit';
+			
+			$timeout(function() {
+				
+				$('#loading').removeClass('show');
+				$('.d-none-result').removeClass('d-none');
+				new Swiper('.swiper-container', {
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+				});
+			  },1000);
+			
 		}).catch(function (e) {
-			$scope.errorMessageFilter = 'Error consultando las secuencias';
+			$scope.errorMessageFilter = 'Error consultando los kits de laboratorio';
 			$('#loading').removeClass('show');
 			$('.d-none-result').removeClass('d-none');
 		});
@@ -80,4 +91,4 @@ MyApp.controller("kitsElementsCtrl", ["$scope", "$http", function ($scope, $http
 			$('.d-none-result').removeClass('d-none');
 		});
 	};	
-}]);
+});

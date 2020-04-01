@@ -14,7 +14,17 @@ class StudentController extends Controller
         if($request->user('afiliadoempresa')->url_image == null) {
             return view('roles.student.avatar');
         }
-        else return view('roles.student.profile');
+        else {
+			$age = '';
+			if($request->user('afiliadoempresa')->date_birth) {
+			  $birthDate = explode("/", $request->user('afiliadoempresa')->date_birth);
+			  //get age from date or birthdate
+			  $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
+				? ((date("Y") - $birthDate[2]) - 1)
+				: (date("Y") - $birthDate[2]));
+			}
+			return view('roles.student.profile',['student'=>$request->user('afiliadoempresa'), 'age'=>$age]);
+		}
     }
     
     public function show_available_sequences(Request $request) {

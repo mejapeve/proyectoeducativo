@@ -47,6 +47,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 			value = $scope.sequences[i];
 			if (value.areas) {
 				angular.forEach(value.areas.split(','), function (areaName, key) {
+					areaName = (areaName[0] == ' ') ? areaName.substr(1) : areaName;
 					if (!searchArea(areaName)) {
 						$scope.areas.push(areaName);
 					}
@@ -54,6 +55,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 			}
 			if (value.themes) {
 				angular.forEach(value.themes.split(','), function (themeName, key) {
+					themeName = (themeName[0] == ' ') ? themeName.substr(1) : themeName;
 					if (!searchTheme(themeName)) {
 						$scope.themesList.push(themeName);
 					}
@@ -61,6 +63,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 			}
 			if (value.keywords) {
 				angular.forEach(value.keywords.split(','), function (keyword, key) {
+					keyword = (keyword[0] == ' ') ? keyword.substr(1) : keyword;
 					if (!searchKeyword(keyword)) {
 						$scope.keywords.push(keyword);
 					}

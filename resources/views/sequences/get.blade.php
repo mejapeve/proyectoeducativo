@@ -46,8 +46,9 @@
                      <!-- Swiper -->
                      <div class="swiper-container">
                         <div class="swiper-wrapper sequence">
-                           <div class="swiper-slide" ng-repeat="imagen in sequence.images" 
-                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen}}');">
+						   <div class="swiper-slide" ng-repeat="imagen in sequence.images" width="75px"
+                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen}}');
+									  background-size: 100% 100%; ">
                            </div>
                         </div>
                         <!-- Add Arrows -->
@@ -73,10 +74,10 @@
 				   <div class="row">
 					   <div class="col-lg-4 col-md-6" ng-repeat="kit_element in kit_elements" style="border: 6px solid white;">
 						  <div class="card-body bg-light text-center p-1 row">
-							 <div class="col-5">
+							 <div class="col-7">
 								<img class="kit-imagen col-12 p-0" ng-src="@{{kit_element.url_image}}" width="62px" height="62px" />
 							</div>
-							 <div class="col-7">
+							 <div class="col-5">
 								 <div class="col-12 mt-3 kit-description" id="sequence-description-@{{kit_element.id}}">
 									<h6 class="boder-header p-1  fs-1">
 									   @{{kit_element.name}}

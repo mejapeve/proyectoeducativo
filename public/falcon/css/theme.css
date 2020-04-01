@@ -7667,6 +7667,10 @@ button.bg-dark:focus {
     border-color: #0b1727!important
 }
 
+.border-dark-opacity {
+    border-color: rgba(11,23,39,0.75)!important
+}
+
 .border-white {
     border-color: #fff!important
 }
@@ -17350,6 +17354,10 @@ button.bg-soft-dark:focus {
 .rounded-left-0 {
     border-top-left-radius: 0!important;
     border-bottom-left-radius: 0!important
+}
+
+.rounded-radius-1 {
+    border-radius: 17px!important
 }
 
 @media(min-width:576px) {

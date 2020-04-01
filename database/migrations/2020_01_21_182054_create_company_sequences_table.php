@@ -20,7 +20,7 @@ class CreateCompanySequencesTable extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('url_image');
-            $table->string('url_slider_images');
+			$table->longText('url_slider_images');
             $table->longText('keywords');
             $table->longText('areas');
             $table->longText('themes');

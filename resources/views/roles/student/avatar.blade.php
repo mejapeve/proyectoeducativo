@@ -48,9 +48,10 @@
                            <h6> Puedes crear tu propio avatar o elegir uno</h6>
                            <div class="row mt-3">
                               <div class="col-4">
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-1.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-1.png')" >
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-2.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-2.png')" >
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/default/avatar-default-3.png')}}" ng-click="setAvatar('images/avatars/default/avatar-default-3.png')" >
+                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar1.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar1.png')" >
+                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar2.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar2.png')" >
+                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar3.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar3.png')" >
+								 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar4.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar4.png')" >
                               </div>
                               <div class="col-4">
                                  <img id="avatar-selected" class="d-none shadow-sm rounded-circle" src="{{ asset('images/avatars/default/avatar-default-3.png') }}">

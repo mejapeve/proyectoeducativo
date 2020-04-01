@@ -7,16 +7,16 @@
 <div class="swiper-container">
    <div class="swiper-wrapper">
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container-1.png); background-size: 100vw 50vw;">
+         style="background-image:url(images/sliderCarrucelHome/slide1.jpg); background-size: 96vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container-2.png); background-size: 100vw 50vw;">
+         style="background-image:url(images/sliderCarrucelHome/slide2.jpg); background-size: 96vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container-3.png); background-size: 100vw 50vw;">
+         style="background-image:url(images/sliderCarrucelHome/slide3.jpg); background-size: 96vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container-4.png); background-size: 100vw 50vw;">
+         style="background-image:url(images/sliderCarrucelHome/slide4.jpg); background-size: 96vw 50vw;">
       </div>
    </div>
    <!-- Add Arrows -->
