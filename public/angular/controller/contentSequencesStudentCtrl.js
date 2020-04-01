@@ -51,8 +51,9 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 	
 	function resizeSequenceCard () {
 		var card = $('.background-sequence-card');
-		card.css('height',$('.background-sequence-image').css('height'));
-		
+		if($('.background-sequence-image').css('height')) {
+			card.css('height',$('.background-sequence-image').css('height'));		
+		}
 		var w = card.attr('w');
 		var h = card.attr('h');
 		var newW = card.css('width').replace('px','');
@@ -78,9 +79,14 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 		});
 		
 		$(card).find('[w]').each(function(value,key){
-			var objW = ( $(this).attr('w') * newW / w);
-			$(this).addClass('position-absolute');
-			$(this).css('width',objW+'px');
+			if($(this).attr('w')==='auto') {
+				$(this).css('width','auto');	
+			}
+			else {
+				var objW = ( $(this).attr('w') * newW / w);
+				$(this).addClass('position-absolute');
+				$(this).css('width',objW+'px');	
+			}
 		});
 		
 		$(card).find('[h]').each(function(value,key){
@@ -88,6 +94,8 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 			$(this).addClass('position-absolute');
 			$(this).css('height',objH+'px');
 		});
+		
+		$('.d-none-result').removeClass('d-none');
 		
 	}
 	

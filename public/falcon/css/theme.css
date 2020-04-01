@@ -19550,6 +19550,7 @@ footer .navbar-light {
 
 .background-sequence-card {
     min-width: 615px;
+    min-height: 41vw;
 }
     
 .background-sequence-image {

@@ -84,6 +84,9 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student')->name('student.available_sequences');
     Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
 	Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
+	Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
+	Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
+    																																												  
     
 	Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
 	

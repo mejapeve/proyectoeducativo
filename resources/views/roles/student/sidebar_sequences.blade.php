@@ -26,14 +26,14 @@
 			<img src="{{asset('/images/icons/rutaViaje.png')}}" height= "auto" width="50px">
 			<span class="d-flex" style="top: 69px;width: 45px;">Mapa de ruta</span>
 		</a>
-		<div class="cursor-pointer mt-md-2">
+		<a class="cursor-pointer" href="{{route('student.sequences_section_3',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence->id])}}">
 			<img src="{{asset('/images/icons/GuiaSaberes.png')}}" height= "auto" width="50px">
 			<span class="d-flex" style="top: 69px;width: 45px;">Guía de saberes</span>
-		</div>
-		<div class="cursor-pointer mt-md-2">
+		</a>
+		<a class="cursor-pointer" href="{{route('student.sequences_section_4',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence->id])}}">
 			<img src="{{asset('/images/icons/puntoEncuentro.png')}}" height= "auto" width="50px">
 			<span class="d-flex" style="top: 69px;width: 45px;">Punto de encuentro</span>
-		</div>
+		</a>
 	</nav>
 @endif
 </div>

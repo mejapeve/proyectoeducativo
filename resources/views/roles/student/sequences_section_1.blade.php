@@ -41,10 +41,10 @@
                          <span class="col-auto"><a ng-click="errorMessage = null"><i class="far fa-times-circle"></a></i></span>
                         </div>
 
-                        <div class="mb-3 card background-sequence-card" w="895" h="569">
+                        <div class="d-none-result d-none  mb-3 card background-sequence-card" w="895" h="569">
                             <img src="{{asset($background_image)}}" class="background-sequence-image"/>
                             <div class="card-body pb-0">
-                              @if(isset($sequence))
+                              @if(isset($text1))
                                <div class="font-text card-body col-7" mt="220" fs="12">
                                 {!! $text1 !!}
                                 </div>
