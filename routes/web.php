@@ -42,8 +42,12 @@ Route::get('/implementos_de_laboratorio', function () {
 })->name('elementsKits.search');
 
 Route::get('/kit_de_laboratorio/{kit_id}/{kit_name}', function () {
-    return view('elementsKits.get');
+    return view('elementsKits.getKit');
 })->name('elementsKits.getKit');
+
+Route::get('/elemento_de_laboratorio/{element_id}/{element_name}', function () {
+    return view('elementsKits.getElement');
+})->name('elementsKits.getElement');
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
@@ -131,6 +135,9 @@ Route::post('{empresa}/password/reset', 'Auth\ResetPasswordController@reset')->m
 Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')->name('send_email_contactus');
 
 Route::get('get_kit_elements', 'KitElementController@get_kit_elements')->name('get_kit_elements');
+Route::get('get_kit_element/kit/{kid_id}', 'KitElementController@get_kit')->name('get_kit_by_id');
+Route::get('get_kit_element/element/{element_id}', 'KitElementController@get_element')->name('get_element_by_id');
+
 //servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');

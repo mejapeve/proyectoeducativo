@@ -69,8 +69,11 @@
          <ul class="ml-1 nav collapse navbar-collapse row text-align fs-lg--1">
             <li class="nav-item col-1 p-0"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Inicio</a></li>
             <li class="nav-item col-1-5 p-0"><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>
-            <li class="nav-item col-1-5 p-0"><a href="{{ route('sequences.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'sequences.search') selected @endif">Guías de aprendizaje</a></li>
-            <li class="nav-item col-1-7 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits') selected @endif">Implementos de laboratorio</a></li>
+            <li class="nav-item col-1-5 p-0"><a href="{{ route('sequences.search') }}" class="nav-link p-0 pb-1 
+			@if(\Route::current()->getName() == 'sequences.search') selected @endif
+			@if(\Route::current()->getName() == 'sequences.get') selected @endif
+			">Guías de aprendizaje</a></li>
+            <li class="nav-item col-1-7 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
             <li class="nav-item col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
             <li class="ml-2 nav-item col-2 p-0">
                <a class="btn btn-primary btn-sm fs-md--1 fs-lg--1 badge-pill" href="{{ route('user.login') }}">Inicio de Sesión</a>

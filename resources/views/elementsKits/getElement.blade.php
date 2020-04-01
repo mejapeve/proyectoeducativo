@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div ng-controller="kitsElementsCtrl" ng-init="allKits()">
+<div ng-controller="kitsElementsCtrl" ng-init="getKits()">
 
    <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
@@ -14,21 +14,12 @@
             <div class="mb-3 col-12">
                <div class="justify-content-center justify-content-sm-between row">
                   <div class="text-center col-sm-auto card-header boder-header p-2 ml-3">
-                     <h5 class="d-inline-block">Elementos de laboratorio</h5>
-                  </div>
-                  <div
-                     class="d-none-result d-none d-flex flex-center fs--1 mt-1 mt-sm-0 col-sm-auto d-none-result d-none">
-                     <input ng-change="onSeachChange()" placeholder="Buscar..." aria-label="Search" type="search"
-                        ng-model="searchText" name="searchText" id="searchText" ng-keyup="complete($event, searchText)"
-                        ng-blur="fillTextbox($event,searchText)" class="mr-2 rounded-pill search-input form-control"
-                        style="font-size: 0.85rem;">
-
-
+                     <h5 class="d-inline-block">Elemento de laboratorio</h5>
                   </div>
                </div>
             </div>
             <div class="d-none-result d-none row w-100">
-               <div class="col-lg-4 col-md-6" ng-repeat="kit in kit_elements | filter: searchText"
+               <div class="col-lg-4 col-md-6" ng-repeat="kit in kits"
                   style="border: 6px solid white;">
                   <div class="card-body bg-light text-center p-4 row">
                      <img class="kit-imagen col-12 p-0" ng-src="@{{kit.url_image}}" width="62px" height="62px" />
@@ -39,8 +30,7 @@
                         @{{kit.description}}
                      </div>
                      <div class="col-12 mt-3" style="text-align: left;">
-                        <a ng-show="kit.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/kit_de_laboratorio/@{{kit.id}}/@{{kit.name.replace(' ','_',true)}}">Detalle</a>
-						<a ng-show="kit.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/elemento_de_laboratorio/@{{kit.id}}/@{{kit.name.replace(' ','_')}}">Detalle</a>
+                        <a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Detalle</a>
                         <a class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Comprar</a>
                      </div>
                   </div>
