@@ -93,7 +93,7 @@ class RegisterController extends Controller
                 'city' => $data['city'],
             ]);
 
-            $afiliado_empresa->sendWelcomeNotification();
+
 
             $affiliated_company_role = new AffiliatedCompanyRole();
             $affiliated_company_role->affiliated_company_id = $afiliado_empresa->id;
@@ -101,6 +101,7 @@ class RegisterController extends Controller
             $affiliated_company_role->company_id = 1;
             $affiliated_company_role->save();
 
+            $afiliado_empresa->sendWelcomeNotification($affiliated_company_role->rol_id);
             $this->redirectTo = 'conexiones/tutor';
 
             return $afiliado_empresa;

@@ -49,8 +49,8 @@ class MyResetPassword extends Notification
         return (new MailMessage)->markdown(
             'vendor.notifications.email', ['data' => $users]
         )
-            ->from(env('MAIL_USERNAME','Conexiones'))
-            ->subject('Recuperar contraseña')
+            ->from('operaciones@educonexiones.com')
+            ->subject(' contraseña')
             ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
             ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
             ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token]))

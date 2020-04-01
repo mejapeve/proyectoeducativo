@@ -134,10 +134,10 @@ class AfiliadoEmpresa extends Model
         $this->notify(new MyResetPassword($token,session('name_company')));
     }
 	
-	public function sendWelcomeNotification()
+	public function sendWelcomeNotification($rol)
     {
         $token = app(PasswordBroker::class)->createToken($this);
-        $this->notify(new WelcomeMail($token, session('name_company')));
+        $this->notify(new WelcomeMail($token, session('name_company'),$rol));
     }
 
 	public function company_name() {

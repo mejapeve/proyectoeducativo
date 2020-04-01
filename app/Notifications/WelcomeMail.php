@@ -13,16 +13,18 @@ class WelcomeMail extends Notification
     use Queueable;
     private $token;
     private $company_name;
+    private $rol;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token, $company_name)
+    public function __construct($token, $company_name, $rol)
     {
         $this->company_name = $company_name;
         $this->token = $token;
+        $this->rol = $rol;
     }
 
     /**
@@ -50,11 +52,11 @@ class WelcomeMail extends Notification
         return (new MailMessage)->markdown(
             'vendor.notifications.email', ['data' => $users]
         )
-            ->from(env('MAIL_USERNAME','Conexiones'))
+            ->from('operaciones@educonexiones.com')
             ->subject('Bienvenido a la plataforma')
             ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
             ->line('Tu registro ha sido realizado exitosamente en la plataforma, por favor accede al siguiente link para establecer tu contraseña y finalizar el registro.')
-            ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token]))
+            ->action('Personalizar datos  de acceso', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token, 'rol'=> $this->rol]))
             ->line('Si no realizaste esta solicitud, no se requiere realizar ninguna otra acción.')
             ->salutation('Saludos, '. config('app.name'));
     }

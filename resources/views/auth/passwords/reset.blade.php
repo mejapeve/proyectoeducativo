@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Reset Password') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('password.update',$empresa->nick_name) }}">
+                    <form method="POST" action="{{ route('password.update',[$empresa->nick_name,$rol]) }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
