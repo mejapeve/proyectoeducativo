@@ -6,6 +6,7 @@ use App\Models\Kit;
 use App\Models\SequenceKits;
 use App\Models\Element;
 use App\Models\KitElement;
+use App\Models\SequenceMoment;
 
 class CompanySequencesSeeder extends Seeder
 {
@@ -47,16 +48,24 @@ class CompanySequencesSeeder extends Seeder
             $sequenceN->name = $secuence['name'];
             $sequenceN->description = $secuence['description'];
             $sequenceN->url_image = 'images/sequences/sequence'.$index.'/caratula '.$index.'.png';
-            $sequenceN->url_slider_images = 'images/sequences/sequence'.$index.'/slider_images/slide-1.jpg|images/sequences/sequence'.$index.'/slider_images/slide-2.jpg|images/sequences/sequence'.$index.'/slider_images/slide-3.jpg|images/sequences/sequence'.$index.'/slider_images/slide-4.jpg';
+            $sequenceN->url_slider_images = 'images/sequences/sequence20/slider_images/slide-1.jpg|images/sequences/sequence'.$index.'/slider_images/slide-2.jpg|images/sequences/sequence'.$index.'/slider_images/slide-3.jpg|images/sequences/sequence'.$index.'/slider_images/slide-4.jpg';
             $sequenceN->keywords = 'Unidades medida, medición, longitud, masa, peso, volumen, tiempo';//$secuence['keywords'];
             $sequenceN->areas = $secuence['areas'];
             $sequenceN->themes = $secuence['themes'];
-			$sequenceN->objetives = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed';
-			$sequenceN->section_1 = '{"background_image":"images/sequences/sequence1/situacion-generadora.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
+			$sequenceN->objectives = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed';
+			$sequenceN->section_1 = '';
 			$sequenceN->section_2 = '';
 			$sequenceN->save();
 			
 			if($index == "20") {
+				$moment = new SequenceMoment();
+				$moment->sequence_company_id = $sequenceN->id;
+				$moment->order = 1;	
+				$moment->name = "Un mundo lleno de medidas";
+				$moment->description = "";
+				$moment->objectives = "Comparar, agrupar y ordenar objetos a partir de sus características|Identificar la necesidad de medir en la vida cotidiana";
+				$moment->save();
+				
 				$kits = 
 					[
 						["name"=>"Kit de canicas",

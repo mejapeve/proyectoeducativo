@@ -19,7 +19,7 @@ class CreateMomentExperiencesTable extends Migration
             $table->foreign('sequence_moment_id')->references('id')->on('sequence_moments');
             $table->string('tittle');
             $table->string('decription');
-            $table->longText('objetives');
+            $table->longText('objectives');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();

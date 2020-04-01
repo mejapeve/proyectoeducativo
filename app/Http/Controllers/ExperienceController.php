@@ -18,8 +18,8 @@ class ExperienceController extends Controller
             $experience->name = $data['tittle'];
         if (isset($data['description']))
             $experience->description = $data['description'];
-        if (isset($data['objetives']))
-            $experience->description = $data['description'];
+        if (isset($data['objectives']))
+            $experience->objectives = $data['objectives'];
         $experience->save();
 
         return response()->json([

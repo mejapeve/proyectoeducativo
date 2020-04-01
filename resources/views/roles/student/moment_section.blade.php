@@ -42,7 +42,9 @@
                         </div>
 
                         <div class="mb-3 card background-sequence-card" w="895" h="569">
-                            <img src="{{asset($background_image)}}" class="background-sequence-image"/>
+                            @if(isset($background_image))
+							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
+							@endif
                             <div class="card-body pb-0">
                               @if(isset($button1_w))
                                   <button href="{{route('student.show_moment_section',

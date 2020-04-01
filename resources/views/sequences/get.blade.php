@@ -84,9 +84,9 @@
 									</h6>
 									@{{kit_element.description}}
 								 </div>
-								 <div class="col-12 p-2 mt-3 text-aling-left">
+								 <div class="col-12 p-0 mt-3 text-aling-left">
 									<a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Detalle</a>
-									<a class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Agregar</a>
+									<a class="pl-3 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Agregar</a>
 								 </div>
 							</div>
 						  </div>

@@ -37,6 +37,7 @@ class StudentController extends Controller
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
 		$sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
+		$sequence->section_1 = '{"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
 		if($sequence->section_1) {
 			$section = json_decode($sequence->section_1, true);
 			$data = array_merge(['sequence'=>$sequence],$section);
@@ -49,11 +50,15 @@ class StudentController extends Controller
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
 		$sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
-		$sequence->section_2='{"background_image":"images/sequences/sequence1/rutaViaje-01.jpg",
-		"button1_mt":100,"button1_ml":10,"button1_w":256,"button1_h":92,
-		"button2_mt":213,"button2_ml":1,"button2_w":256,"button2_h":92,
-		"button3_mt":318,"button3_ml":10,"button3_w":256,"button3_h":92,
-		"button4_mt":423,"button4_ml":125,"button4_w":256,"button4_h":92
+		$sequence->section_2='{"background_image":"images/sequences/sequence20/rutaViaje-20.jpg",
+		"button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92,
+		"button2_mt":249,"button2_ml":13,"button2_w":240,"button2_h":92,
+		"button3_mt":361,"button3_ml":44,"button3_w":256,"button3_h":92,
+		"button4_mt":461,"button4_ml":150,"button4_w":256,"button4_h":92,
+		"button5_mt":143,"button5_ml":639,"button5_w":256,"button5_h":92,
+		"button6_mt":254,"button6_ml":623,"button6_w":256,"button6_h":92,
+		"button7_mt":357,"button7_ml":614,"button7_w":256,"button7_h":92,
+		"button8_mt":463,"button8_ml":541,"button8_w":256,"button8_h":92
 		}';
         $section = json_decode($sequence->section_2, true);
 		$data = array_merge(['sequence'=>$sequence],$section);
@@ -64,7 +69,7 @@ class StudentController extends Controller
 		}
     }
 	
-	public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section) {
+	public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         //$sequence = CompanySequence::with('moments')->where('id',$sequence_id)->get();
 		
@@ -72,7 +77,7 @@ class StudentController extends Controller
 			where('sequence_moments.sequence_company_id', $sequence_id )
 			->where('sequence_moments.order',$order_moment_id )
 			->get()[0];
-		$moment['section_'.$section] = '{"background_image":"images/sequences/sequence1/rutaViaje-01.png","title":"¿Por qué medimos las cosas?"}';
+		$moment['section_'.$section] = '{"image1":"images/sequences/sequence20/rutaViaje-01.png","title":"¿Por qué medimos las cosas?"}';
 		if($moment['section_'.$section]) {
 			$section = json_decode($moment['section_'.$section], true);
 			$data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment],$section);

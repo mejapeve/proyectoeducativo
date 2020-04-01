@@ -9,14 +9,43 @@
                style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; direction: ltr; overflow: hidden scroll; padding-right: 20px; margin-right: -21px;">
                <div class="ScrollbarsCustom-Content"
                   style="box-sizing: border-box; padding: 0.05px; min-height: 100%; min-width: 100%;">
-                  <ul class="navbar-nav flex-column">
-                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">
-                           <div class="d-flex align-items-center">
-                              <span>Inicio</span>
-                           </div>
-                        </a>
-                     </li>
+                  
+				  <ul class="navbar-nav flex-column">
+				  @auth('afiliadoempresa')
+					@if(auth('afiliadoempresa')->user())
+					 @if(auth('afiliadoempresa')->user()->hasAnyRole('student'))
+						<li class="nav-item">
+							<a class="nav-link" aria-expanded="false" href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" >
+							   <div class="d-flex align-items-center">
+								  <span class="ml-2 mr-2 nav-link-icon">
+									 <i class="fas fa-user fs-1"></i>
+								  </span>
+								  Mi perfíl
+							   </div>
+							</a>
+						</li>
+					 
+						<li class="nav-item">
+							<a class="nav-link" aria-expanded="false" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" >
+							   <div class="d-flex align-items-center">
+								  <span class="ml-2 mr-2 nav-link-icon">
+									 <i class="fas fa-book-open fs-1"></i>
+								  </span>
+								  Mis cursos
+							   </div>
+							</a>
+						</li>
+					  @endif
+				    @endif
+			      @endauth
+						 
+					 <li class="nav-item">
+						<a class="nav-link" href="{{ route('home') }}">
+						   <div class="d-flex align-items-center">
+							  <span>Inicio</span>
+						   </div>
+						</a>
+					 </li>
                      <li class="nav-item">
                         <a class="nav-link" href="{{ route('aboutus') }}">
                            <div class="d-flex align-items-center">

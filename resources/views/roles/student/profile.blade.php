@@ -6,10 +6,10 @@
             <div class="col-8 mt-4 ml-auto mr-auto">
                 <div class="border border-light rounded-radius-1 card card-body border-dark_opacity"  style="min-width: 12rem;">
 					<div class="position-relative card-body border border-dark_opacity rounded-radius-1 row h-75 m-1">
-						<div class="col-5">
+						<div class="col-md-5 p-0">
 						<img src="{{asset($student->url_image)}}" width="264px" height="auto"/>
 						</div>   
-						<div class="col-7 mt-auto mb-auto">
+						<div class="col-md-7 mt-3 mb-auto">
 							<h5> Nombres </h5>
 							<h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->name}} <small></h5>
 							<h5> Apellidos </h5>

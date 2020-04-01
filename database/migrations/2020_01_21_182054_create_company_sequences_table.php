@@ -24,7 +24,7 @@ class CreateCompanySequencesTable extends Migration
             $table->longText('keywords');
             $table->longText('areas');
             $table->longText('themes');
-            $table->longText('objetives');
+            $table->longText('objectives');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();

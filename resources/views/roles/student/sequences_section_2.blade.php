@@ -59,22 +59,22 @@
                                   <button class="cursor-pointer fade" ml="{{$button2_ml}}" mt="{{$button2_mt}}" w="{{$button2_w}}" h="{{$button2_h}}">button2</button>
 							  @endif
 							  @if(isset($button3_w))
-                                  <button class="cursor-pointer" ml="{{$button3_ml}}" mt="{{$button3_mt}}" w="{{$button3_w}}" h="{{$button3_h}}">button3</button>
+                                  <button class="cursor-pointer fade" ml="{{$button3_ml}}" mt="{{$button3_mt}}" w="{{$button3_w}}" h="{{$button3_h}}">button3</button>
 							  @endif
 							  @if(isset($button4_w))
-                                  <button class="cursor-pointer" ml="{{$button4_ml}}" mt="{{$button4_mt}}" w="{{$button4_w}}" h="{{$button4_h}}">button4</button>
+                                  <button class="cursor-pointer fade" ml="{{$button4_ml}}" mt="{{$button4_mt}}" w="{{$button4_w}}" h="{{$button4_h}}">button4</button>
 							  @endif
 							  @if(isset($button5_w))
-                                  <button class="cursor-pointer" ml="{{$button5_ml}}" mt="{{$button5_mt}}" w="{{$button5_w}}" h="{{$button5_h}}">button5</button>
+                                  <button class="cursor-pointer fade" ml="{{$button5_ml}}" mt="{{$button5_mt}}" w="{{$button5_w}}" h="{{$button5_h}}">button5</button>
 							  @endif
 							  @if(isset($button6_w))
-                                  <button class="cursor-pointer" ml="{{$button6_ml}}" mt="{{$button6_mt}}" w="{{$button6_w}}" h="{{$button6_h}}">button6</button>
+                                  <button class="cursor-pointer fade" ml="{{$button6_ml}}" mt="{{$button6_mt}}" w="{{$button6_w}}" h="{{$button6_h}}">button6</button>
 							  @endif
 							  @if(isset($button7_w))
-                                  <button class="cursor-pointer" ml="{{$button7_ml}}" mt="{{$button7_mt}}" w="{{$button7_w}}" h="{{$button7_h}}">button7</button>
+                                  <button class="cursor-pointer fade" ml="{{$button7_ml}}" mt="{{$button7_mt}}" w="{{$button7_w}}" h="{{$button7_h}}">button7</button>
 							  @endif
 							  @if(isset($button8_w))
-                                  <button class="cursor-pointer" ml="{{$button8_ml}}" mt="{{$button8_mt}}" w="{{$button8_w}}" h="{{$button8_h}}">button8</button>
+                                  <button class="cursor-pointer fade" ml="{{$button8_ml}}" mt="{{$button8_mt}}" w="{{$button8_w}}" h="{{$button8_h}}">button8</button>
 							  @endif
 
 

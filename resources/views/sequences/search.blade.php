@@ -51,10 +51,10 @@
 				<ul class="nav row fs--1 text-align mt-1">
 				<li class="ml-auto" style="width:87px;"><img src="{{asset('images/icons/situacionGeneradora.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Situación generadora </span></li>
 				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/rutaViaje.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Ruta de viaje </span></li>
-				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/pEncuentro.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Punto de encuentro </span></li>
+				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/puntoEncuentro.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Punto de encuentro </span></li>
 				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/GuiaSaberes.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Guía de saberes </span></li>
 				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/pCentral.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Pregunta Central </span></li>
-				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/cienciaCotidiana.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Experiencia Científica </span></li>
+				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/iconoExperiencia.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Experiencia Científica </span></li>
 				<li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:87px;"><img src="{{asset('images/icons/cienciaCotidiana.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Ciencia cotidiana </span></li>
 				<li class="mr-auto" style="width:87px;"><img src="{{asset('images/icons/masConexiones.png')}}" width="60px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> + Conexiones </span></li>
 				</ul>

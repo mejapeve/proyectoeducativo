@@ -20,6 +20,7 @@ class TableSequenceMomentsTable extends Migration
             $table->bigInteger('order');
             $table->string('name');
             $table->string('description');
+            $table->longText('objectives');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();

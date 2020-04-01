@@ -29,7 +29,7 @@ class SequencesController extends Controller {
             $sequence->keywords = isset($data['keywords'])?$data['keywords']:null;
             $sequence->areas = isset($data['areas'])?$data['areas']:null;
             $sequence->themes = isset($data['themes'])?$data['themes']:null;
-            $sequence->objetives = isset($data['objetives'])?$data['objetives']:null;
+            $sequence->objectives = isset($data['objectives'])?$data['objectives']:null;
             $var_sections = ['section_1','section_2','section_3','section_4'];
             for ($i=0; $i < count($var_sections); $i++ ){
                 if(isset($data[$var_sections[$i]])){
@@ -108,8 +108,8 @@ class SequencesController extends Controller {
             $sequence->areas = $data['areas'];
         if (isset($data['themes']))
             $sequence->themes = $data['themes'];
-        if (isset($data['objetives']))
-            $sequence->objetives = $data['objetives'];
+        if (isset($data['objectives']))
+            $sequence->objectives = $data['objectives'];
         if (isset($data['init_date']))
             $sequence->init_date = $data['init_date'];
         if (isset($data['expiration_date']))
