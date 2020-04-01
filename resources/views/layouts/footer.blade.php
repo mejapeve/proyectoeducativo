@@ -1,15 +1,16 @@
  <div class="navbar-light justify-content-between fs--1 no-gutters row mt-3">
 	<div class="col-sm-auto navbar-brand">
-	   <img class="mr-2" src="{{ asset('images/logo.png') }}" alt="Logo" width="40">
-	   <span class="text-sans-serif">Conexiones</span>
+	   <img class="mr-2" src="{{ asset('images/icons/logoEstrategica.png') }}" alt="Logo" width="240">
 	</div>
 	<div class="col-sm-auto">
 	   
-	   <ul class="footer-details">
-		<li><i class="fas fa-mobile-alt"></i> XXX XXX XXXX </li>
-		<li><i class="fab fa-facebook-square"></i> jcontreras@estrategicaco.com </li>
-		<li><i class="fa fa-globe"></i> BogotĂˇ, Colombia  </li>
+	   <ul class="footer-details fs--1">
+		<li><i class="fas fa-mobile-alt"></i> ( +57 ) ( 1 ) 7020012 </li>
+		<li><i class="far fa-envelope"></i> contacto@educonexiones.com </li>
 	   </ul>
 	   
 	</div>
  </div>
+
+ 
+ 

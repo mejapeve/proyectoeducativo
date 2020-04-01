@@ -39,7 +39,7 @@ class StudentController extends Controller
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
 		$sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
-		$sequence->section_2='{"background_image":"images/sequences/sequence1/rutaViaje-01.png",
+		$sequence->section_2='{"background_image":"images/sequences/sequence1/rutaViaje-01.jpg",
 		"button1_mt":100,"button1_ml":10,"button1_w":256,"button1_h":92,
 		"button2_mt":213,"button2_ml":1,"button2_w":256,"button2_h":92,
 		"button3_mt":318,"button3_ml":10,"button3_w":256,"button3_h":92,

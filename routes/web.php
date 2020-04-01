@@ -33,13 +33,17 @@ Route::get('/guias_de_aprendizaje', function () {
     return view('sequences.search');
 })->name('sequences.search');
 
-Route::get('/guia_de_aprendizaje/{sequence_name}', function () {
+Route::get('/guia_de_aprendizaje/{sequence_id}/{sequence_name}', function () {
     return view('sequences.get');
 })->name('sequences.get');
 
 Route::get('/implementos_de_laboratorio', function () {
     return view('elementsKits.search');
 })->name('elementsKits.search');
+
+Route::get('/kit_de_laboratorio/{kit_id}/{kit_name}', function () {
+    return view('elementsKits.get');
+})->name('elementsKits.getKit');
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);

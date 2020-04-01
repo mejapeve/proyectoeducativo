@@ -161,7 +161,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 	}
 
 	function ellipsizeTextBox() {
-		if($scope.sequences && $scope.sequences.length ){
+		/*if($scope.sequences && $scope.sequences.length ){
 			for(var i=0;i<$scope.sequences.length;i++) {
 				var el = document.getElementById('sequence-description-'+$scope.sequences[i].id);
 				if(!el) continue;
@@ -172,7 +172,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
 				 }
 			}
 			
-		}
+		}*/
 		
 	}
 	

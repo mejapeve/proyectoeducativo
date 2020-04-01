@@ -7,19 +7,16 @@
 <div class="swiper-container">
    <div class="swiper-wrapper">
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container/swiper-container-1.png); background-size: 92vw 50vw;">
+         style="background-image:url(images/welcome/swiper-container-1.png); background-size: 100vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container/swiper-container-2.png); background-size: 92vw 50vw;">
+         style="background-image:url(images/welcome/swiper-container-2.png); background-size: 100vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container/swiper-container-3.png); background-size: 92vw 50vw;">
+         style="background-image:url(images/welcome/swiper-container-3.png); background-size: 100vw 50vw;">
       </div>
       <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container/swiper-container-4.png); background-size: 92vw 50vw;">
-      </div>
-      <div class="swiper-slide"
-         style="background-image:url(images/welcome/swiper-container/swiper-container-5.png); background-size: 92vw 50vw;">
+         style="background-image:url(images/welcome/swiper-container-4.png); background-size: 100vw 50vw;">
       </div>
    </div>
    <!-- Add Arrows -->
@@ -55,16 +52,17 @@
 
    .img-thumbnail {
       height: 79px;
+	  width: 79px;
    }
 </style>
 
 <div class="text-center fs--1 no-gutters row">
    <div class="mb-1 col-xxl-1 col-0 col-md-0 col-lg-1 bg-white"></div>
-   <div class="mb-1 col-xxl-2 col-6 col-md-4 col-lg-2">
+      <div class="mb-1 col-xxl-2 col-6 col-md-4 col-lg-2">
       <div class="thumbnail bg-white p-3 h-100">
          <a href="/pages/profile">
             <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-               src="{{ asset('images/welcome/H6 menú.png') }}" alt="">
+               src="{{ asset('images/icons/enfoquePedagogico_Mesa de trabajo 1.png') }}" alt="">
          </a>
          <h6 class="mb-1">
             <a href="/pages/profile">Enfoque pedagógico</a>
@@ -82,7 +80,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
             <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-               src="{{ asset('images/welcome/H7 menú.png') }}" width="100" alt=""></a>
+               src="{{ asset('images/icons/guiasAprendizaje_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
          <h6 class="mb-1"><a href="{{route('sequences.search')}}">Guías de aprendizaje</a></h6>
          <p class="fs--2 mb-1">
             <a class="text-700" href="/pages/people#!">
@@ -97,7 +95,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
             <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-               src="{{ asset('images/welcome/H8 menú.jpg') }}" width="100" alt=""></a>
+               src="{{ asset('images/icons/implementoLaboratorio_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
          <h6 class="mb-1"><a href="{{route('elementsKits.search')}}">Kits de laboratorio</a></h6>
          <p class="fs--2 mb-1">
             <a class="text-700" href="/pages/people#!">
@@ -112,7 +110,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
             <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-               src="{{ asset('images/welcome/H9 menú.jpg') }}" width="100" alt=""></a>
+               src="{{ asset('images/icons/guiasAprendizaje_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
          <h6 class="mb-1"><a href="/pages/profile">Planes de acceso</a></h6>
          <p class="fs--2 mb-1">
             <a class="text-700" href="/pages/people#!">
@@ -126,7 +124,7 @@
       <div class="bg-white p-3 h-100">
          <a href="/pages/profile">
             <img class="img-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-               src="{{ asset('images/welcome/caratula 14.png') }}" width="100" alt=""></a>
+               src="{{ asset('images/icons/pruebaGratuita_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
          <h6 class="mb-1"><a href="/pages/profile">Prueba Gratuita</a></h6>
          <p class="fs--2 mb-1">
             <a class="text-700" href="/pages/people#!">Elige el plan de acceso que

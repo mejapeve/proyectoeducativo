@@ -18,6 +18,7 @@ class TableElementsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('url_image');
+			$table->string('url_slider_images');
             $table->bigInteger('price');
             $table->timestamps();
         });
