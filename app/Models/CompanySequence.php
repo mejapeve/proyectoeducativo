@@ -18,4 +18,10 @@ class CompanySequence extends Model
        return $this->hasMany(SequenceMoment::class,'sequence_company_id','id');
     }
 
+    public function sequence_kit(){
+
+        return $this->hasMany(SequenceKit::class,'company_sequence_id','id');
+
+    }
+
 }
