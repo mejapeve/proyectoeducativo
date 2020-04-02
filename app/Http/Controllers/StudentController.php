@@ -120,9 +120,7 @@ class StudentController extends Controller
 		"imagen1_url":"images/sequences/sequence20/moments/momento1-parte-01.png",
 		"imagen2_mt":0,"imagen2_ml":0,"imagen2_w":240,"imagen2_h":92,
 		"imagen2_url":"images/sequences/sequence20/moments/momento1-01.png",
-		"imagen3_mt":149,"imagen3_ml":151,"imagen3_w":250,"imagen3_h":192,
-		"imagen3_url":"images/sequences/sequence20/moments/momento1-parte-01.png",
-		"button1_label":"","button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92, "button1_class":"",
+		"button1_label":"","button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92
 		}';
 		
 		if($moment['section_'.$section]) {

@@ -1,3 +1,5 @@
 *.env
 .idea
 vendor/*
+public/images/avatars/users_images/*
+
