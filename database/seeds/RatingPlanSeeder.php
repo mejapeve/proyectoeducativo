@@ -21,12 +21,9 @@ class RatingPlanSeeder extends Seeder
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>true,
-                    "sequence_include"=>1,
-                    "moments_included"=>null,
-                    "experiences_included"=>null,
-                    "sequence_company_ids"=>'1',
-                    "sequence_moment_ids"=>null,
-                    "sequence_experience_ids"=>15,
+                    "type_rating_plan_id"=>1,//secuencia
+                    "count"=>1,
+                    "days"=>15
                 ],
                 [
                     "name"=>"Plan por 2 meses",
@@ -34,12 +31,9 @@ class RatingPlanSeeder extends Seeder
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
-                    "sequence_include"=>1,
-                    "moments_included"=>null,
-                    "experiences_included"=>null,
-                    "sequence_company_ids"=>'1',
-                    "sequence_moment_ids"=>null,
-                    "sequence_experience_ids"=>30,
+                    "type_rating_plan_id"=>1,//secuencia
+                    "count"=>1,
+                    "days"=>60
                 ],
                 [
                     "name"=>"Plan por 4 meses",
@@ -47,28 +41,61 @@ class RatingPlanSeeder extends Seeder
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
-                    "sequence_include"=>2,
-                    "moments_included"=>null,
-                    "experiences_included"=>null,
-                    "sequence_company_ids"=>'1,2',
-                    "sequence_moment_ids"=>null,
-                    "sequence_experience_ids"=>60,
+                    "type_rating_plan_id"=>1,//secuencia
+                    "count"=>2,
+                    "days"=>120
+                ],
+                [
+                    "name"=>"Plan por 8 meses",
+                    "descrption"=>'acceso completo a 4 guías de aprendizaje, acceso por 8 meses',
+                    "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
+                    "price"=>"198000",
+                    "is_free"=>false,
+                    "type_rating_plan_id"=>1,//secuencia
+                    "count"=>4,
+                    "days"=>240
+                ],
+                [
+                    "name"=>"Plan por 12 meses",
+                    "descrption"=>'acceso completo a 6 guías de aprendizaje, acceso por 12 meses',
+                    "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
+                    "price"=>"198000",
+                    "is_free"=>false,
+                    "type_rating_plan_id"=>1,//secuencia
+                    "count"=>6,
+                    "days"=>360
+                ],
+                [
+                    "name"=>"Plan por momento",
+                    "descrption"=>'acceso completo a los momentos que desee de guia de aprendiazaje',
+                    "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
+                    "price"=>"198000",
+                    "is_free"=>false,
+                    "type_rating_plan_id"=>2,//momento
+                    "count"=>0,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
+                    "days"=>10
+                ],
+                [
+                    "name"=>"Plan por experiencia",
+                    "descrption"=>'acceso completo a las experiencias que desee de guia de aprendiazaje',
+                    "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
+                    "price"=>"198000",
+                    "is_free"=>false,
+                    "type_rating_plan_id"=>3,//experiencia
+                    "count"=>0,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
+                    "days"=>10
                 ]
             ];
         foreach ($rating_plans as $rating_plan){
             $ratingPlan = new RatingPlan();
             $ratingPlan->name = $rating_plan['name'];
-            $ratingPlan->name = $rating_plan['name'];
             $ratingPlan->description = $rating_plan['descrption'];
             $ratingPlan->image_url  = $rating_plan['url_image'];
             $ratingPlan->price = $rating_plan['price'];
             $ratingPlan->is_free = $rating_plan['is_free'];
-            $ratingPlan->sequences_included = $rating_plan['sequence_include'];
-            $ratingPlan->moments_included = $rating_plan['moments_included'];
-            $ratingPlan->experiences_included = $rating_plan['experiences_included'];
-            $ratingPlan->sequence_company_ids = $rating_plan['sequence_company_ids'];
-            $ratingPlan->sequence_moment_ids = $rating_plan['sequence_moment_ids'];
-            $ratingPlan->sequence_experience_ids = $rating_plan['sequence_experience_ids'];
+            $ratingPlan->type_rating_plan_id = $rating_plan['type_rating_plan_id'];
+            $ratingPlan->count = $rating_plan['count'];
+            $ratingPlan->days = $rating_plan['days'];
             $ratingPlan->save();
         }
 

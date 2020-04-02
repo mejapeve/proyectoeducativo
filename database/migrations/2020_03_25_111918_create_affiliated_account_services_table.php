@@ -24,6 +24,10 @@ class CreateAffiliatedAccountServicesTable extends Migration
             $table->bigInteger('payment_status')->unsigned();
             $table->date('payment_init_date');
             $table->date('payment_end_date');
+            $table->integer('rating_plan_type');
+            $table->string('sequence_ids');
+            $table->string('moment_ids');
+            $table->string('experience_ids');
             $table->timestamps();
         });
     }
