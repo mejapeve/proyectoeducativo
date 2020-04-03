@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ElementSeeder::class);
         $this->call(TypesRatigPlanSeeder::class);
         $this->call(RatingPlanSeeder::class);
+        $this->call(PaymentStatusSeeder::class);
         $this->call(ShoppingCarSeeder::class);
         $this->call(AffiliatedAccountServicesSeeder::class);
 

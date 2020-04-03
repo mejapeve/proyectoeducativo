@@ -24,15 +24,8 @@ class CreateRatingPlansTable extends Migration
             $table->foreign('type_rating_plan_id')->references('id')->on('types_rating_plans');
             $table->integer('count');
             $table->integer('days');
-
-            /*
-            $table->boolean('sequences_included')->nullable();
-            $table->boolean('moments_included')->nullable();
-            $table->boolean('experiences_included')->nullable();
-            $table->integer('sequence_company_count')->nullable();
-            $table->integer('sequence_moment_count')->nullable();
-            $table->integer('sequence_experience_count')->nullable();
-            */
+            $table->bigInteger('sequence_free_id')->nullable();
+            $table->string('moment_free_ids')->nullable();
             $table->timestamps();
         });
     }

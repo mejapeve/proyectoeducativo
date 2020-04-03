@@ -17,7 +17,9 @@ class CreateShoppingCartProductsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('shopping_cart_id')->unsigned();
             $table->foreign('shopping_cart_id')->references('id')->on('shopping_carts');
-            $table->string('product_ids');
+            $table->bigInteger('type_product')->unsigned();
+            $table->string('product_id');
+            $table->bigInteger('company_sequence_id');
             $table->timestamps();
         });
     }
