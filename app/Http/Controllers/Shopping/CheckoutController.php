@@ -41,8 +41,7 @@ class CheckoutController extends Controller
         $item->quantity = 1;
         $item->unit_price = 75.56;
         $preference->items = array($item);
-        $preference->save();
-        dd($preference);
+        $preference->save();    
         return view('shopping.checkout')->with([$preference]);
     }
 
