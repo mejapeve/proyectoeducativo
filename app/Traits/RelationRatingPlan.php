@@ -11,7 +11,7 @@ trait RelationRatingPlan
     //
     public function relation_rating_plan ($shopingCarts){
         $sequencesCache = cache()->tags('connection_sequences')->rememberForever('sequences',function(){
-           return CompanySequence::all();
+            return CompanySequence::all();
         });
         $momentsCache = cache()->tags('connection_moments')->rememberForever('moments',function(){
             return SequenceMoment::all();
@@ -21,20 +21,30 @@ trait RelationRatingPlan
         });
         for ($i=0; $i < count($shopingCarts); $i++) {
             if (isset($shopingCarts[$i]->rating_plan)) {
-                if ($shopingCarts[$i]->rating_plan->sequences_included !== null) {
-                    $sequences = explode(',', $shopingCarts[$i]->rating_plan->sequence_company_ids);
-                    $shopingCarts[$i]['rating_plan']['sequences'] = $sequencesCache->whereIn('id', $sequences);
-                } else {
-                    if ($shopingCarts[$i]->rating_plan->moments_included !== null) {
-                        $moments = explode(',', $shopingCarts[$i]->rating_plan->sequence_moment_ids);
-                        $shopingCarts[$i]['rating_plan']['moments'] = $momentsCache->whereIn('id', $moments);
-                    } else {
-                        if ($shopingCarts[$i]->rating_plan->experiences_included !== null) {
-                            $experiences = explode(',', $shopingCarts[$i]->rating_plan->sequence_experience_ids);
-                            $shopingCarts[$i]['rating_plan']['experiences'] = $experiencesCache->whereIn('id', $experiences);
+                $ids = explode(',', $shopingCarts[$i]->shopping_cart_product->product_ids);
+                switch ($shopingCarts[$i]->rating_plan->type_rating_plan_id){
+                    case 1:
+                        $sequences = array();
+                        foreach ($sequencesCache->whereIn('id', $ids) as $sequenceA){
+                            array_push($sequences,$sequenceA);
                         }
+                        $shopingCarts[$i]['shopping_cart_product']['sequences'] = $sequences;
 
-                    }
+                        break;
+                    case 2:
+                        $moments = array();
+                        foreach ($momentsCache->whereIn('id', $ids) as $momentA){
+                            array_push($moments,$momentA);
+                        }
+                        $shopingCarts[$i]['shopping_cart_product']['moments'] = $moments;
+                        break;
+                    case 3:
+                        $experiences = array();
+                        foreach ($experiencesCache->whereIn('id', $ids) as $experienceA){
+                            array_push($experiences,$experienceA);
+                        }
+                        $shopingCarts[$i]['shopping_cart_product']['experiences'] = $experiences;
+                        break;
                 }
             }
         }

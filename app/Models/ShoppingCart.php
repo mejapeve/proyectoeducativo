@@ -21,4 +21,10 @@ class ShoppingCart extends Model
 
     }
 
+    public function shopping_cart_product(){
+
+        return $this->hasOne(ShoppingCartProduct::class,'shopping_cart_id','id');
+
+    }
+
 }
