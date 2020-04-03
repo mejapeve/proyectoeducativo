@@ -97,6 +97,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 Route::group([],function (){
         Route::get('shoppingcard', ['as' => 'shoppingcard', 'uses' => 'Shopping\ShoppingCartController@index']);
         Route::get('get_shopping_cart/{user}', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');
+        Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
     }
 );
 
