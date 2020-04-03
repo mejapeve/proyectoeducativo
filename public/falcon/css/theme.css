@@ -582,7 +582,11 @@ pre code {
 
 .avatar-logo {
     height: 3.125rem;
-    width: 3.125rem
+    width: 3.125rem;
+    -webkit-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    -moz-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    -o-transition:width 300ms ease-in-out, height 300ms ease-in-out;
+    transition:width 300ms ease-in-out, height 300ms ease-in-out;
 }
 
 @media(min-width:576px) {
@@ -637,8 +641,8 @@ pre code {
     }
     
     .avatar-logo {
-        height: 4.125rem;
-        width: 4.125rem;
+        height: auto;
+        width: 100px;
     }
 
     .fs--2 {
@@ -901,8 +905,8 @@ pre code {
 
 .col-1-7 {
     -webkit-box-flex: 0;
-    flex: 0 0 12.86667%;
-    max-width: 12.86667%;
+    flex: 0 0 9.86667%;
+    max-width: 9.86667%;
 }
 
 .col-2 {
@@ -1352,7 +1356,7 @@ pre code {
         width: auto;
         max-width: 100%
     }
-	.col-md-0_5 {
+    .col-md-0_5 {
         -webkit-box-flex: 0;
         flex: 0 0 5.33333%;
         max-width: 5.33333%
@@ -1412,7 +1416,7 @@ pre code {
         flex: 0 0 91.66667%;
         max-width: 91.66667%
     }
-	.col-md-11_5 {
+    .col-md-11_5 {
         -webkit-box-flex: 0;
         flex: 0 0 94.56667%;
         max-width: 94.56667%
@@ -4936,9 +4940,9 @@ input[type=button].btn-block {
     padding-top: -.046rem;
     padding-bottom: -.046rem;
     margin-right: 1rem;
-    font-size: 1.728rem;
+    font-size: 0.728rem;
     line-height: inherit;
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .navbar-brand:hover,
@@ -18854,13 +18858,13 @@ button.bg-soft-dark:focus {
 
 @media(min-width:992px) {
     .fs-lg--2 {
-        font-size: .69444rem
+        font-size: .55444rem;
     }
     .fs-lg--1 {
         font-size: 0.75333rem;
     }
     .fs-lg-0 {
-        font-size: 1rem
+        font-size: 0.8rem;
     }
     .fs-lg-1 {
         font-size: 1.2rem
@@ -19573,8 +19577,6 @@ footer .navbar-light {
     background-repeat: no-repeat;
 }
 
-
-
 #loading.fade {
     transition: all linear 1s;
     opacity: 1;
@@ -19582,5 +19584,29 @@ footer .navbar-light {
 
 #loading.fade:not(.show) {
     opacity: 0;
-	transition: none 0;
+    transition: none 0;
+}
+
+.avatar-logo.small {
+    height: 3.125rem;
+    width: 3.125rem
+}
+
+#slogan {
+    color :#FFA015;
+    -webkit-transition:width 1500ms ease-in-out, height 1500ms ease-in-out;
+    -moz-transition:width 1500ms ease-in-out, height 1500ms ease-in-out;
+    -o-transition:width 1500ms ease-in-out, height 1500ms ease-in-out;
+    transition:width 1500ms ease-in-out, height 1500ms ease-in-out;
+}
+
+.sticky-top-ie {
+    position:fixed;
+    width:100vw;
+    z-index:99;
+    top:0px;
+} 
+
+.nav-small-fs--1 {
+    font-size: 11px;    
 }

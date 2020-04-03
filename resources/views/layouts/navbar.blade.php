@@ -1,21 +1,22 @@
-<nav id="navbar" class="pb-0 mb-1 navbar-glass fs--1 font-weight-semi-bold row navbar-top sticky-kit navbar navbar-expand-lg navbar-light" ng-controller="navbarController">
+<nav id="navbar" class="pb-0 mb-sm-2 mb-md-3 mb-lg-4 navbar-glass sticky-top-ie row navbar-top sticky-kit navbar navbar-expand-lg navbar-light" ng-controller="navbarController">
   <button aria-label="Toggle navigation" id="toggleMenu" type="button" class="navbar-toggler">
   <span class="navbar-toggler-icon"></span>
   </button>
   <a class="text-decoration-none navbar-brand text-left ml-3" id="topLogo" href="#">
 	 <div class="d-flex align-items-center">
 		<img class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
-		<div class="text-sans-serif text-center fs--2">
-		   <span class="" style="color:#FFA015;"> Experiencias científicas <br/> para conocer el mundo <br/> natural</span>
+		<div class="text-sans-serif text-center fs-lg-0 fs-md--2 fs-sm--2 w-50 font-weight-semi-bold">
+		   <span id="slogan" >Experiencias científicas <br/> para conocer el mundo <br/> natural</span>
 		</div>
 	 </div>
   </a>
   @auth('afiliadoempresa')
   @if(auth('afiliadoempresa')->user())
 	 @if(auth('afiliadoempresa')->user()->hasAnyRole('student'))
-	 <ul class="nav collapse navbar-collapse row text-align-rigth fs-lg-0 row">
+	 <ul class="nav collapse navbar-collapse row text-align-rigth row">
 		<li class="nav-item ml-lg-14 col-2-2 d-flex ml-xl-10 ml-lg-8">
-		   <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
+		   <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" 
+			  class="nav-link  mr-2 p-0 pb-1
 			  @if(\Route::current()->getName() == 'avatar') selected @endif
 			  @if(\Route::current()->getName() == 'student') selected @endif">
 			  Mi perfíl
@@ -37,7 +38,7 @@
 		</form>
 	 </ul>
 	 @elseif(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-	 <ul class="nav collapse navbar-collapse row text-align-rigth fs-lg-0 row">
+	 <ul class="nav collapse navbar-collapse row text-align-rigth row">
 		<!--
 		<li class="nav-item ml-lg-14 col-2-2 d-flex ml-xl-10 ml-lg-8">
 		   <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
@@ -66,9 +67,9 @@
   @endif
   @endauth
   @guest('afiliadoempresa')
-	 <ul class="ml-1 nav collapse navbar-collapse row text-align fs-lg--1">
-		<li class="nav-item col-1 p-0"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Inicio</a></li>
-		<li class="nav-item col-1-5 p-0"><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>
+	 <ul class="ml-1 nav collapse navbar-collapse row text-align fs--1 font-weight-semi-bold">
+		<li class="nav-item col-1 p-0 nav-small-fs--1"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home' || Route::current()->getName() == '') selected @endif">Inicio</a></li>
+		<li class="nav-item col-1-5 p-0 "><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>
 		<li class="nav-item col-1-5 p-0"><a href="{{ route('sequences.search') }}" class="nav-link p-0 pb-1 
 		@if(\Route::current()->getName() == 'sequences.search') selected @endif
 		@if(\Route::current()->getName() == 'sequences.get') selected @endif
@@ -76,10 +77,10 @@
 		<li class="nav-item col-1-7 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
 		<li class="nav-item col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
 		<li class="ml-2 nav-item col-2 p-0">
-		   <a class="btn btn-primary btn-sm fs-md--1 fs-lg--1 badge-pill" href="{{ route('user.login') }}">Inicio de Sesión</a>
+		   <a class="btn btn-primary btn-sm badge-pill fs-lg--1" href="{{ route('user.login') }}">Inicio de Sesión</a>
 		</li>
 		<li class="ml-2 nav-item p-0">
-		   <a class="btn btn-secondary btn-sm fs-md--1 fs-lg--1 badge-pill" href="{{ route('register') }}">Registro</a>
+		   <a class="btn btn-secondary btn-sm badge-pill  fs-lg--1" href="{{ route('register') }}">Registro</a>
 		</li>
 		<li class="nav-item">
 		   <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="/shoppingcard">
@@ -95,7 +96,7 @@
 		</li>
 		<li class="nav-item ml-auto mr-auto">
 		   <form class="search-box form-inline ng-pristine ng-valid">
-			  <input placeholder="Buscar..." aria-label="Search" type="search" class="rounded-pill search-input form-control fs-md--1 fs-lg--1">
+			  <input placeholder="Buscar..." aria-label="Search" type="search" class="rounded-pill search-input form-control">
 			  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16 position-absolute text-400 search-box-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 				 <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
 			  </svg>
