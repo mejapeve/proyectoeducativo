@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ConectionAffiliatedStudents extends Model
 {
     //
-    protected $table = "conection_affiliated_students";
+    protected $table = "connection_affiliated_students";
 
 }

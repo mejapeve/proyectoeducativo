@@ -18,12 +18,12 @@ class ShoppingCartController extends Controller
         return view('shopping.card');
     }
 
-    public function get_shopping_cart(Request $request,$user_id){
-
+    public function get_shopping_cart(Request $request,$user){
 
         $shopingCarts = ShoppingCart::
-            with('kit','kit.kit_elements.element','rating_plan')->
-            where('company_affiliated_id',$request->user('afiliadoempresa')->id)->get();
+            with('kit','kit.kit_elements.element','rating_plan','shopping_cart_product')->
+            //where('company_affiliated_id',$request->user('afiliadoempresa')->id)->get();
+            where('company_affiliated_id',$user)->get();
 
         $shopingCarts = $this->relation_rating_plan($shopingCarts);
 

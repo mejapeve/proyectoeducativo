@@ -13,7 +13,7 @@ class CreateConexionesAffiliatedAssignmentUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('conection_affiliated_students', function (Blueprint $table) {
+        Schema::create('connection_affiliated_students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('student_company_id')->unsigned();
             $table->foreign('student_company_id')->references('id')->on('affiliated_company_roles');
@@ -30,6 +30,6 @@ class CreateConexionesAffiliatedAssignmentUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conection_affiliated_students');
+        Schema::dropIfExists('connection_affiliated_students');
     }
 }
