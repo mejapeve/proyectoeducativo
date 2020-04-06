@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="flex-center min-vh-100 py-6 row">
+<div class="flex-center min-vh-100 py-6 row ">
    <div class="col-xxl-5 col-sm-11 col-md-9 col-lg-7 col-xl-6">
       <a class="text-decoration-none" href="/">
          <div class="d-flex flex-center font-weight-extra-bold fs-5 mb-4"><img class="mr-2" src="/static/media/falcon.920a9ff0.png" alt="Logo" width="58"><span class="text-sans-serif">falcon</span></div>

@@ -9,7 +9,8 @@ MyApp.controller("avatarStudentCtrl", function ($scope, $http) {
     $scope.onSaveAvatar = function() {
         var canvas = document.getElementById('canvas');
         if($scope.customImage) {
-            document.getElementById('custom_image').value = canvas.toDataURL("image/png");
+            document.getElementById('custom_image').value = canvas.toDataURL("image/jpeg");
+			
         }
         
         document.getElementById('save-avatar-form').submit();    

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
+    <div class="container "  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
         <div class="content">
             <div class="row">
                 <div class="col-md-12">

@@ -15,7 +15,7 @@
    }
 </style>
 @section('content')
-<div class="no-gutters row" ng-controller="contactusController">
+<div class="no-gutters row " ng-controller="contactusController">
    <div class="pr-lg-2 col-lg-12">
       <div class="mb-3 card">
          <div class="card-header">

@@ -36,6 +36,10 @@
     <!-- sweetalert JS -->
     <link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet" />
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+    
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
+    <script src="{{ asset('/falcon/js/swiper.min.js') }}" defer></script>
 
 </head>
 
@@ -49,8 +53,9 @@
                 <div class="content">
 
                     @include('layouts/navbar')
-
-                    @yield('content')
+                    <div class="sticky-margin-top-ie">
+                        @yield('content')
+                    </div>
 
                     <footer>
                         @include('layouts/footer')

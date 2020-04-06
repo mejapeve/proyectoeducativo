@@ -5,7 +5,6 @@ $.fn.extend({
     defaults = {
       idInputColor: 'colores',
       idDownload: 'Descargar',
-      idPreview: 'Preview',
       CanvasSalida: 'canvas',
       attImagenGrande: 'src',
       cssDefault: true,
@@ -19,7 +18,7 @@ $.fn.extend({
 
     var idInputColor = opciones.idInputColor;
     var idDownload = opciones.idDownload;
-    var idPreview = opciones.idPreview;
+    
 
     var CanvasSalida = opciones.CanvasSalida;
     var attImagenGrande = opciones.attImagenGrande;
@@ -35,7 +34,7 @@ $.fn.extend({
       $('body').before(Estilos);
     }
 
-    $('#' + idInputColor).before('<canvas style="display:none" id="tmpCanvas" width="300" height="300"></canvas>');
+    $('#' + idInputColor).before('<canvas style="display:none" id="tmpCanvas" width="700" height="700"></canvas>');
     var canvas = document.getElementById(opciones.CanvasSalida);
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, ctx.width, ctx.height);
@@ -59,53 +58,86 @@ $.fn.extend({
     function IniciarPintadoAvatar() {
       cimgContext = 0;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+	  
       $('#' + id + ' > div').each(function () {
         idParte = $(this).attr('id');
         $('#' + idParte + ' >img').each(function () {
-
           if ($(this).hasClass(cssParteActiva)) {
             base_image[cimgContext] = new Image();
             base_image[cimgContext].src = $(this).attr(attImagenGrande);
             base_image[cimgContext].enabled = true;
-            var top = $(this).attr('data-top') || $(this).parent().attr('data-top');
-            var left = $(this).attr('data-left') || $(this).parent().attr('data-left');
-            var width = $(this).attr('data-width') || $(this).parent().attr('data-width');
-            var height = $(this).attr('data-height') || $(this).parent().attr('data-height');
+            var top = Number($(this).attr('data-top') || $(this).parent().attr('data-top'));
+            var left = Number($(this).attr('data-left') || $(this).parent().attr('data-left'));
+            var width = Number($(this).attr('data-width') || $(this).parent().attr('data-width'));
+            var height = Number($(this).attr('data-height') || $(this).parent().attr('data-height'));
+			
+			
+			if($(this).parent().attr('id') === "hair" && $(this).attr("data-ears")) {
+				var skinY = Number($('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top'));
+				var skinH = Number($('#skin .activo').attr('data-height') || $('#skin .activo').parent().attr('data-height'));
+				var skinEars = Number($('#skin .activo').attr('data-ears'));
+				var ears = Number($(this).attr('data-ears'));
+				height = height*skinEars/ears;
+			}
+			else if($(this).parent().attr('id') === "accessories1") {
+				var skinEars = Number($('#skin .activo').attr('data-ears'));
+				var skinY = $('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top');
+				skinY = Number(skinY);
+				top = skinY + ( skinEars - skinY )*5/12 + top;
+				
+			}
+			else if($(this).parent().attr('id') === "accessories2") {
+				var y = $('#skin .activo').attr('data-top');
+				//top = Number(y) + top;
+			}
+			else if($(this).parent().attr('id') === "features") {
+				var y = $('#skin .activo').attr('data-top');
+				var x = $('#skin .activo').attr('data-mouth');
+				var skinW = $('#skin .activo').attr('data-width') || $('#skin .activo').parent().attr('data-width');
+				left = x - width / 8;
+			}
 
             if ($(this).parent().attr('data-rgb')) {
-              var theRGB = $(this).parent().attr('data-rgb');
-              var RGBColor = theRGB.split(',');
-              base_image[cimgContext].onload = function () {
-                alterImage(this,
-                  left, top, width, height,
-                  RGBColor[0], RGBColor[1], RGBColor[2]);
-              }
+              
             } else {
               base_image[cimgContext].onload = function () {
-                ctx.drawImage(this, left, top, width, 100 * height / width);
+                ctx.drawImage(this, left, top, width, height);
               }
             }
             cimgContext++;
           }
         });
+		
+		// get the image data object
+		var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		// get the image data values 
+		var imageData = image.data,
+		length = imageData.length;
+		// set every fourth value to 50
+		for(var i=0; i < length; i+=1){  
+			imageData[i] = 255;
+		}
+		// after the manipulation, reset the data
+		image.data = imageData;
+		// and put the imagedata back to the canvas
+		ctx.putImageData(image, 0, 0);
       });
-
-
     }
 
     function alterImage(imageObj, left, top, width, height, r, g, b) {
       cvstmp = document.getElementById("tmpCanvas");
-      var context = cvstmp.getContext("2d");
-      context.drawImage(imageObj, 0, 0);
-      var id = context.getImageData(0, 0, cvstmp.width, cvstmp.height);
+      var ctxTmp = cvstmp.getContext("2d");
+	  
+      ctxTmp.drawImage(imageObj, left, top);
+	  ctxTmp.clearRect(0,0, canvas.width, canvas.height);
+      var id = ctxTmp.getImageData(left, top, width, height);
       for (var i = 0; i < id.data.length; i += 4) {
-        if (id.data[i] + id.data[i + 1] + id.data[i + 2] == 0)
-          id.data[i] = r;// red
+        id.data[i] = r;// red
         id.data[i + 1] = g;// Green
         id.data[i + 2] = b; //blue
       }
-      context.putImageData(id, 0, 0);
-      ctx.drawImage(cvstmp, left, top, width, 100 * height / width);
+      ctxTmp.putImageData(id, 0, 0);
+      ctx.drawImage(cvstmp, left, top, width, height);
     }
     var colorRGBS = $('#' + idInputColor).attr('data-colores');
     if (!colorRGBS) {
@@ -145,10 +177,6 @@ $.fn.extend({
       $('#' + idDownload).attr('download', "Archivo.png");
 
     });
-    $('#' + idPreview).click(function () {
-      $('#' + idPreview).attr('target', '_blank');
-      var dataURL = canvas.toDataURL('image/png');
-      $('#' + idPreview).attr('href', dataURL);
-    });
+    
   }
 });

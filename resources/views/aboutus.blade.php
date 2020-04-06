@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="no-gutters row mt-lg-4 mt-md-3 mt-sm-2">
+<div class="no-gutters row mt-lg-4 mt-md-3 mt-sm-2 ">
    <div class="pr-lg-2 col-lg-6">
       <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">Acerca de Conexiones</h5>
@@ -41,8 +41,8 @@
          <p>Todas las guías de aprendizaje que hacen parte de &nbsp;<strong><span style="color:#002060;">Conexiones,</span></strong> han sido creadas por maestros y maestras con amplia experiencia en la enseñanza de las ciencias naturales, que han diseñado una propuesta educativa propia con la intención de aportar a los procesos de aprendizaje de las niñas, los niños y jóvenes.&nbsp;</p>
          <p>Este equipo se acompaña de un grupo experto en diseño, realización audiovisual y programación web, que han hecho posible el desarrollo de los contenidos y la plataforma que los integra, para ofrecer una experiencia de uso agradable e intuitiva.&nbsp;</p>
       </div>
-	  <div class="about-body text-justify">
-		 <a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--1" target="_blank" href="{{asset('docs/Terminosycondiciones_educonexiones.pdf')}}">Descargar términos y condiciones</a>
+      <div class="about-body text-justify">
+         <a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--1" target="_blank" href="{{asset('docs/Terminosycondiciones_educonexiones.pdf')}}">Descargar términos y condiciones</a>
       </div>
    </div>
 </div>
