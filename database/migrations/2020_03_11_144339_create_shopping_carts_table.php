@@ -20,6 +20,7 @@ class CreateShoppingCartsTable extends Migration
             $table->longText('session_id')->nullable();
             $table->bigInteger('rating_plan_id')->unsigned()->nullable();
             $table->foreign('rating_plan_id')->references('id')->on('rating_plans');
+            $table->bigInteger('type_product_id')->unsigned()->nullable();
             $table->bigInteger('payment_status_id')->unsigned()->nullable();
             $table->foreign('payment_status_id')->references('id')->on('payment_status');
             $table->bigInteger('payment_transaction_id')->unsigned()->nullable();

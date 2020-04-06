@@ -3,6 +3,8 @@
 namespace App\Traits;
 
 use App\Models\CompanySequence;
+use App\Models\Element;
+use App\Models\Kit;
 use App\Models\MomentExperience;
 use App\Models\SequenceMoment;
 
@@ -10,6 +12,7 @@ trait RelationRatingPlan
 {
     //
     public function relation_rating_plan ($shopingCarts){
+        //cache()->flush();
         $sequencesCache = cache()->tags('connection_sequences')->rememberForever('sequences',function(){
             return CompanySequence::all();
         });
@@ -19,33 +22,46 @@ trait RelationRatingPlan
         $experiencesCache = cache()->tags('connection_experiences')->rememberForever('experiences',function(){
             return MomentExperience::all();
         });
-        for ($i=0; $i < count($shopingCarts); $i++) {
-            if (isset($shopingCarts[$i]->rating_plan)) {
-                $ids = explode(',', $shopingCarts[$i]->shopping_cart_product->product_ids);
-                switch ($shopingCarts[$i]->rating_plan->type_rating_plan_id){
-                    case 1:
-                        $sequences = array();
-                        foreach ($sequencesCache->whereIn('id', $ids) as $sequenceA){
-                            array_push($sequences,$sequenceA);
-                        }
-                        $shopingCarts[$i]['shopping_cart_product']['sequences'] = $sequences;
+        $kitsCache = cache()->tags('connection_experiences')->rememberForever('kits',function(){
+            return Kit::all();
+        });
+        $elementCache = cache()->tags('connection_experiences')->rememberForever('elements',function(){
+            return Element::all();
+        });
 
-                        break;
-                    case 2:
-                        $moments = array();
-                        foreach ($momentsCache->whereIn('id', $ids) as $momentA){
-                            array_push($moments,$momentA);
+        for ($i=0; $i < count($shopingCarts); $i++) {
+            switch (intval($shopingCarts[$i]->type_product_id)) {
+                case 1://sequence
+                    foreach ($shopingCarts[$i]['shopping_cart_product'] as $sequenceA){
+                         $sequenceA['sequence'] = $sequencesCache->where('id', $sequenceA['product_id']);
+                    }
+                    break;
+                case 2://moment
+                    foreach ($shopingCarts[$i]['shopping_cart_product'] as $sequenceA){
+                        $id = $momentsCache->where('id', $sequenceA['product_id'])->pluck('sequence_company_id')->toArray();
+                        foreach ($sequencesCache->whereIn('id', $id) as $sequenceB){
+                            $sequenceA['sequenceStruct_moment'] = $sequenceB;
                         }
-                        $shopingCarts[$i]['shopping_cart_product']['moments'] = $moments;
-                        break;
-                    case 3:
-                        $experiences = array();
-                        foreach ($experiencesCache->whereIn('id', $ids) as $experienceA){
-                            array_push($experiences,$experienceA);
+                    }
+                    break;
+                case 3://experience
+                    foreach ($shopingCarts[$i]['shopping_cart_product'] as $sequenceA){
+                        $id = $experiencesCache->where('id', $sequenceA['product_id'])->pluck('sequence_moment_id')->toArray();
+                        foreach ($sequencesCache->whereIn('id', $momentsCache->whereIn('id', $id)->pluck('sequence_company_id')->toArray()) as $sequenceB){
+                            $sequenceA['sequenceStruct_experience'] = $sequenceB;
                         }
-                        $shopingCarts[$i]['shopping_cart_product']['experiences'] = $experiences;
-                        break;
-                }
+                    }
+                    break;
+                case 4: //kit
+                    foreach ($shopingCarts[$i]['shopping_cart_product'] as $kit){
+                        $kit['kiStruct'] = $kitsCache->where('id',$kit['product_id']);
+                    }
+                    break;
+                case 5: //element
+                    foreach ($shopingCarts[$i]['shopping_cart_product'] as $element){
+                        $element['elementStruct'] = $elementCache->where('id',$element['product_id']);
+                    }
+                    break;
             }
         }
         return $shopingCarts;
