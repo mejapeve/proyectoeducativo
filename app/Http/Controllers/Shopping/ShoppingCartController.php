@@ -35,6 +35,7 @@ class ShoppingCartController extends Controller
     }
 
     public function create(Request $request){
+
         DB::beginTransaction();
         try {
             $data = $request->all();
@@ -48,13 +49,18 @@ class ShoppingCartController extends Controller
                             ['type_product_id',4],
                             ['payment_status_id',1]
                         ])->first();
+                        $shipping_price = $shoppingCart->shipping_price;
+                        //;
                         if($shoppingCart){
-                            foreach (explode(',',$data['products']) as $product){
+                            foreach (json_decode($data['products']) as $product){
                                 $shopingCartProduct = new ShoppingCartProduct();
                                 $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-                                $shopingCartProduct->product_id = $product;
+                                $shopingCartProduct->product_id = $product->id;
                                 $shopingCartProduct->save();
+                                $shipping_price += intval($product->shipping_price);
                             }
+                            $shoppingCart->shipping_price = $shipping_price;
+                            $shoppingCart->save();
                         }else{
                             $shoppingCart = $this->create_shopping($data);
                         }
@@ -65,13 +71,17 @@ class ShoppingCartController extends Controller
                             ['type_product_id',5],
                             ['payment_status_id',1]
                         ])->first();
+                        $shipping_price = $shoppingCart->shipping_price;
                         if($shoppingCart){
-                            foreach (explode(',',$data['products']) as $product){
+                            foreach (json_decode($data['products']) as $product){
                                 $shopingCartProduct = new ShoppingCartProduct();
                                 $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-                                $shopingCartProduct->product_id = $product;
+                                $shopingCartProduct->product_id = $product->id;
                                 $shopingCartProduct->save();
+                                $shipping_price += intval($product->shipping_price);
                             }
+                            $shoppingCart->shipping_price = $shipping_price;
+                            $shoppingCart->save();
                         }else{
                             $shoppingCart = $this->create_shopping($data);
                         }
@@ -81,12 +91,12 @@ class ShoppingCartController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            //return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
-            return response()->json(['data'=>'','messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            //return response()->json(['data'=>'','messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
             //throw $e;
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['data'=>'','messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
             //throw $e;
         }
 
@@ -122,7 +132,11 @@ class ShoppingCartController extends Controller
         try {
             $data = $request->all();
             $ids = explode(',',$data['ids']);
-            $update = ShoppingCart::whereIn('id',$ids)->update(array('payment_status_id' => $data['payment_status_id']));
+            $update = ShoppingCart::whereIn('id',$ids)
+                ->update(array(
+                    'payment_status_id' => $data['payment_status_id'],
+                    'payment_transaction_id' => $data['payment_transaction_id']
+                ));
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -132,7 +146,7 @@ class ShoppingCartController extends Controller
             return response()->json(['data'=>'','messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
         }
 
-        return response()->json(['data'=>$update,'messagge'=> 'se se ha modificado el producto correctamente'],200);
+        return response()->json(['data'=>$update,'messagge'=> 'se ha modificado el producto correctamente'],200);
 
     }
 }
