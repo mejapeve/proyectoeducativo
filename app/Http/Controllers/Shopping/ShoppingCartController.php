@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shopping;
 
 use App\Http\Controllers\Controller;
+use App\Models\AffiliatedAccountService;
 use App\Models\CompanySequence;
 use App\Models\MomentExperience;
 use App\Models\SequenceMoment;
@@ -137,13 +138,38 @@ class ShoppingCartController extends Controller
                     'payment_status_id' => $data['payment_status_id'],
                     'payment_transaction_id' => $data['payment_transaction_id']
                 ));
+            if( intval($data['payment_status_id']) === 3 ){
+                $shoppingCarts = ShoppingCart::with('shopping_cart_product')
+                    ->whereIn('id',$ids)->where('rating_plan_id','!=',null)->get();
+                foreach ( $shoppingCarts as $shoppingCart ){
+                    foreach ( $shoppingCart->shopping_cart_product as $shopping_cart_product ){
+                        $affiliatedAccountService = new AffiliatedAccountService();
+                        $affiliatedAccountService->company_affiliated_id = 1; //auth user
+                        $affiliatedAccountService->type_product_id = $shoppingCart->type_product_id;
+                        switch ($shoppingCart->type_product_id){
+                            case 1:
+                                $affiliatedAccountService->company_sequence_id = $shopping_cart_product->product_id;
+                                break;
+                            case 2:
+                                $affiliatedAccountService->sequence_moment_id = $shopping_cart_product->product_id;
+                                break;
+                            case 3:
+                                $affiliatedAccountService->company_sequence_id = $shopping_cart_product->product_id;
+                                break;
+                        }
+                        $affiliatedAccountService->init_date = null;
+                        $affiliatedAccountService->end_date = null;
+                        $affiliatedAccountService->save();
+                    }
+                }
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['data'=>'','messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
+            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['data'=>'','messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
+            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
         }
 
         return response()->json(['data'=>$update,'messagge'=> 'se ha modificado el producto correctamente'],200);
