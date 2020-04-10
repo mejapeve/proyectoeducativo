@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="row p-lg-5 p-md-3 p-sm-2 ">
+
     <!-- Swiper -->
     <div class="swiper-container">
        <div class="swiper-wrapper">
@@ -97,12 +97,13 @@
        </div>
        <div class="mb-1 col-xxl-2 col-6 col-md-4 col-lg-2">
           <div class="bg-white p-3 h-100">
-             <a href="/pages/profile">
+             <a href="{{route('ratingPlan.list')}}">
                 <img class="welcome-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-                   src="{{ asset('images/icons/guiasAprendizaje_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
-             <h6 class="mb-1"><a href="/pages/profile">Planes de acceso</a></h6>
+                   src="{{ asset('images/icons/guiasAprendizaje_Mesa de trabajo 1.png') }}" width="100" alt="">
+             </a>
+             <h6 class="mb-1"><a href="{{route('ratingPlan.list')}}">Planes de acceso</a></h6>
              <p class="fs--2 mb-1">
-                <a class="text-700" href="/pages/people#!">
+                <a class="text-700" href="{{route('ratingPlan.list')}}">
                    Tenemos diferentes planes de acceso a los contenidos educativos de <strong> Conexiones </strong>, 
                    de manera que  se puede elegir tener acceso a las guías de aprendizaje completas, o seleccionar las partes de estas que les interesan <a href="#"> (Ver +).</a>
                 </a>
@@ -124,7 +125,7 @@
        </div>
        <div class="mb-1 col-xxl-1 col-6 col-md-4 col-lg-1 bg-white"></div>
     </div>
-</div>
+
 
 
 <script>

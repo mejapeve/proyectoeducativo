@@ -49,6 +49,10 @@ Route::get('/elemento_de_laboratorio/{element_id}/{element_name}', function () {
     return view('elementsKits.getElement');
 })->name('elementsKits.getElement');
 
+Route::get('/planes_de_acceso', function () {
+    return view('ratingPlan.list');
+})->name('ratingPlan.list');
+
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
@@ -83,13 +87,13 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::post('{empresa}/student/update_avatar', 'AvatarController@update_avatar')->middleware('role:student')->name('update_avatar');
     Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student')->name('student.available_sequences');
     Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
-	Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
-	Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
-	Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
-    																																												  
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
+                                                                                                                                                                                      
     
-	Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
-	
+    Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
+    
     Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('registerStudent');
 });
 

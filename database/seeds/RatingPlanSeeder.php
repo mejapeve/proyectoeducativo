@@ -17,7 +17,8 @@ class RatingPlanSeeder extends Seeder
             [
                 [
                     "name"=>"Prueba gratuita por 15 días",
-                    "descrption"=>'acceso limitado a 1 guía de aprendizaje, esta prueba solo estará activa por 15 días',
+                    "descrption"=>'Acceso limitado a 1 guía de aprendizaje, esta prueba solo estará activa por 15 días',
+                    "description_items"=>'Acceso limitado a 1 guía de aprendizaje|Esta prueba solo estará activa por 15 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>true,
@@ -28,6 +29,7 @@ class RatingPlanSeeder extends Seeder
                 [
                     "name"=>"Plan por 2 meses",
                     "descrption"=>'acceso completo a 1 guía de aprendizaje, acceso por 2 meses',
+                    "description_items"=>'Acceso completo a 1 guía de aprendizaje|Acceso por 2 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -38,6 +40,7 @@ class RatingPlanSeeder extends Seeder
                 [
                     "name"=>"Plan por 4 meses",
                     "descrption"=>'acceso completo a 2 guías de aprendizaje, acceso por 4 meses',
+                    "description_items"=>'Acceso completo a 2 guías de aprendizaje|Acceso por 4 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -48,6 +51,7 @@ class RatingPlanSeeder extends Seeder
                 [
                     "name"=>"Plan por 8 meses",
                     "descrption"=>'acceso completo a 4 guías de aprendizaje, acceso por 8 meses',
+                    "description_items"=>'Acceso completo a 4 guías de aprendizaje|Acceso por 8 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -58,6 +62,7 @@ class RatingPlanSeeder extends Seeder
                 [
                     "name"=>"Plan por 12 meses",
                     "descrption"=>'acceso completo a 6 guías de aprendizaje, acceso por 12 meses',
+                    "description_items"=>'Acceso completo a 6 guías de aprendizaje|Acceso por 12 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -67,7 +72,8 @@ class RatingPlanSeeder extends Seeder
                 ],
                 [
                     "name"=>"Plan por momento",
-                    "descrption"=>'acceso completo a los momentos que desee de guia de aprendiazaje',
+                    "descrption"=>'acceso completo a los momentos que desee de guia de aprendizaje',
+                    "description_items"=>'Acceso completo a los momentos que desee de guia de aprendizaje|Acceso por 10 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -77,7 +83,8 @@ class RatingPlanSeeder extends Seeder
                 ],
                 [
                     "name"=>"Plan por experiencia",
-                    "descrption"=>'acceso completo a las experiencias que desee de guia de aprendiazaje',
+                    "descrption"=>'acceso completo a las experiencias que desee de guia de aprendizaje',
+                    "description_items"=>'Acceso completo a las experiencias que desee de guia de aprendizaje|Acceso por 10 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
                     "price"=>"198000",
                     "is_free"=>false,
@@ -90,6 +97,9 @@ class RatingPlanSeeder extends Seeder
             $ratingPlan = new RatingPlan();
             $ratingPlan->name = $rating_plan['name'];
             $ratingPlan->description = $rating_plan['descrption'];
+            if(isset($rating_plan['description_items'])) {
+            $ratingPlan->description_items = $rating_plan['description_items'];
+            }
             $ratingPlan->image_url  = $rating_plan['url_image'];
             $ratingPlan->price = $rating_plan['price'];
             $ratingPlan->is_free = $rating_plan['is_free'];

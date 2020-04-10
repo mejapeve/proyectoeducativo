@@ -83,8 +83,8 @@
         @if(\Route::current()->getName() == 'sequences.search') selected @endif
         @if(\Route::current()->getName() == 'sequences.get') selected @endif
         ">Guías de aprendizaje</a></li>
-        <li class="nav-item col-1-7 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
-        <li class="nav-item col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
+        <li class="nav-item col-2 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
+        <li class="nav-item ml-2 col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
         <li class="ml-2 nav-item col-2 p-0">
            <a class="btn btn-primary btn-sm badge-pill fs-lg--1" href="{{ route('user.login') }}">Inicio de Sesión</a>
         </li>

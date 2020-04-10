@@ -33,8 +33,8 @@
                                     <h5 class="ml-2">Guías de aprendizaje</h5>
                                </div>
                                 <div class="d-none-result d-none position-relative card-body pr-1 row">
-                                   <div class="mt-3 col-lg-2 col-md-4 col-sm-12" ng-repeat="sequence in sequences">
-                                    <img width="120px" height="120px" src="{{asset('/')}}@{{sequence.url_image}}" />
+                                   <div class="mt-3 col-lg-2 col-md-3 col-sm-4 col-6" ng-repeat="sequence in sequences">
+                                    <img width="132px" height="auto" src="{{asset('/')}}@{{sequence.url_image}}" />
                                     <a class="ml-2 mt-2 btn btn-outline-primary fs--2"
                                     href="{{Request::server(env('APP_URL')).'/'.auth('afiliadoempresa')->user()->company_name()}}/student/secuencia/@{{sequence.id}}/situacion_generadora"
                                      class="col-6">Explorar</a>

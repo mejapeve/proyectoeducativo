@@ -45,7 +45,7 @@
                   </div>
                </div>
             </div>
-            <div class="pr-lg-2 col-lg-12">
+            <div class="pr-lg-2 col-lg-12 text-justify">
                 <p>Todas las <strong>guías de aprendizaje</strong> que hacen parte de <strong>Conexiones</strong>, usan como metáfora &nbsp;para estructurar sus contenidos la idea de viaje, como una invitación &nbsp;para explorar, conocer y comprender a través de la indagación el mundo natural del que hacemos parte . Así, cada <strong>guía de aprendizaje</strong>&nbsp; está compuesta por una <strong>situación generadora</strong> o punto de partida, un <strong>mapa de ruta</strong> flexible, un entramado <strong>saberes </strong>a desarrollar y un <strong>punto de encuentro</strong> o propósito que integra un conjunto amplio de recursos didácticos orientados al desarrollo de pensamiento científico. Cada <strong>guía de aprendizaje</strong> propone una ruta de <strong>ocho momentos </strong>&nbsp;o estaciones que se componen &nbsp;a su vez de preguntas, experiencias científicas, explicaciones en contexto y enlaces sugeridos para + conexiones. <strong>(Ver + haciendo clic en cada ícono)</strong></p>
                 
                 <ul class="nav row fs--1 text-align mt-1">
@@ -60,18 +60,18 @@
                 </ul>
                 
             </div>
-            <div class="d-none-result d-none row w-100">
-               <div class=" col-lg-6 col-md-6" ng-repeat="sequence in sequences | filter: searchText" style="border: 10px solid white;">
-                  <div class="card card-body bg-dark text-center p-2 row" style="height: 325px">
-                     <div class="col-6 row">
+            <div class="d-none-result d-none row w-100 p-3">
+               <div class=" col-lg-6" ng-repeat="sequence in sequences | filter: searchText" style="border: 10px solid white;">
+                  <div class="card card-body bg-dark text-center p-3 row sequence-div">
+                     <div class="col-5">
                         <img ng-src="@{{sequence.url_image}}" width="162px" height="162px" class="col-12 p-0 sequence-imagen"/> 
                      </div>
-                     <div class="p-3 col-6 sequence-description ml-2 text-justify fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
+                     <div class="col-7 pl-0 sequence-description ml-2 text-justify fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
                         <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequence.name}} </span></h5>  
                         <p class="mt-4 ml-2"> @{{sequence.description}}</p>
-                        <div class="position-absolute fs--2" style="bottom: 11px;">
-                        <a class="btn btn-outline-primary" ng-href="/guia_de_aprendizaje/@{{sequence.id}}/@{{sequence.name.replace(' ','_')}}">Detalle</a>
-                        <a class="ml-2 btn btn-outline-primary" href="#" class="col-auto">Comprar</a>
+                        <div class="mt-auto mb-auto">
+                        <a class="btn btn-outline-primary" ng-href="/guia_de_aprendizaje/@{{sequence.id}}/@{{sequence.name.replace(' ','_')}}"><span class="fs-lg-0 fs-xl-0 fs-md-0 fs-sm--1">Detalle</span></a>
+                        <a class="ml-2 btn btn-outline-primary" href="#" class="col-auto"><span class="fs-lg-0 fs-xl-0 fs-md-0 fs-sm--1">Comprar</span></a>
                         </div>
                      </div>
                   </div>

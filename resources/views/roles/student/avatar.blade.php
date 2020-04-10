@@ -49,7 +49,7 @@
                                  <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar1.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar1.png')" >
                                  <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar2.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar2.png')" >
                                  <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar3.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar3.png')" >
-								 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar4.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar4.png')" >
+                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar4.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar4.png')" >
                               </div>
                               <div class="col-4">
                                  <img id="avatar-selected" class="d-none shadow-sm rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}">
@@ -62,7 +62,7 @@
                                        <img width="65px" height="65px" src="{{asset('images/avatars/icons/rasgo.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="features"/>
                                        <img width="65px" height="65px" src="{{asset('images/avatars/icons/cabello.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="hair"/>
                                        <img width="65px" height="65px" src="{{asset('images/avatars/icons/accesorio11.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories1"/>
-									   <img width="65px" height="65px" src="{{asset('images/avatars/icons/accesorio2.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories2"/>
+                                       <img width="65px" height="65px" src="{{asset('images/avatars/icons/accesorio2.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories2"/>
                                     </div>
                                  </div>
                                  <div id="avatar">
@@ -70,7 +70,7 @@
                                        <img width="65px" height="65px" class="img-thumbnail cursor-pointer activo seleccionado" src="{{ asset('images/avatars/cara/1-01.png')}}" data-ears="165" data-mouth="85"/>
                                        <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/2-02.png')}}" data-ears="135" data-mouth="85"/>
                                        <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/3-03.png')}}" data-ears="150" data-mouth="85"/>
-									   <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/4-04.png')}}" data-ears="145" data-mouth="85"/>
+                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/4-04.png')}}" data-ears="145" data-mouth="85"/>
                                     </div>
                                     <div id="features" class="d-none" data-top="90" data-left="80" data-width="123" data-height="117">
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/rasgos/1.png')}}">
@@ -98,15 +98,15 @@
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/5-15.png')}}"  data-top="-0" data-left="45" data-width="170" data-height="72"/>
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/6-16.png')}}"  data-top="-5" data-left="25" data-width="209" data-height="89"/>
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/7-17.png')}}"  data-top="-5" data-left="30" data-width="209" data-height="86"/>
-									   <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/8-18.png')}}"  data-top="-5" data-left="40" data-width="190" data-height="66"/>
-									   <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/eraser.png')}}"/>
+                                       <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/8-18.png')}}"  data-top="-5" data-left="40" data-width="190" data-height="66"/>
+                                       <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorio_cara/eraser.png')}}"/>
                                     </div>
-									<div id="accessories2" class="d-none">
-									   <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/1-11.png')}}"  data-width="223" data-height="132" data-top="10" data-left="20"/>
+                                    <div id="accessories2" class="d-none">
+                                       <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/1-11.png')}}"  data-width="223" data-height="132" data-top="10" data-left="20"/>
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/2-12.png')}}"  data-width="223" data-height="132" data-top="0" data-left="40" />
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/3-13.png')}}"  data-width="228" data-height="145" data-top="0" data-left="25"/>
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/4-14.png')}}"  data-width="178" data-height="105" data-top="10" data-left="45"/>
-									   <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/eraser.png')}}"/>
+                                       <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/accesorios_cabeza/eraser.png')}}"/>
                                     </div>
                                  </div>
                                  <!--input type="hidden" id="colores" class="card" _data-colores="#a1a1a1,#FDF2E9,#EBF5FB,#F7DC6F,#F2CFAF"/-->

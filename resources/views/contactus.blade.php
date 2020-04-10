@@ -1,21 +1,7 @@
 @extends('layouts.app')
-<style>
-   .buttonload {
-      background-color: #4CAF50; /* Green background */
-      border: none; /* Remove borders */
-      color: white; /* White text */
-      padding: 12px 24px; /* Some padding */
-      font-size: 16px; /* Set a font-size */
-   }
 
-   /* Add a right margin to each icon */
-   .fa {
-      margin-left: -12px;
-      margin-right: 8px;
-   }
-</style>
 @section('content')
-<div class="no-gutters row " ng-controller="contactusController">
+<div class="ml-auto mr-auto row " ng-controller="contactusController">
    <div class="pr-lg-2 col-lg-12">
       <div class="mb-3 card">
          <div class="card-header">
@@ -59,7 +45,7 @@
                <div class="row">
                   <div class="col-12">
                      <div class="form-group">
-                         <label for="message" class="">Mensanje</label>
+                         <label for="message" class="">Mensaje</label>
                          <textarea name="message" id="message" type="text" class="form-control" ng-model="message"></textarea>
                      </div>
                   </div>
