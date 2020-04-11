@@ -25,7 +25,7 @@ class CompanyController extends Controller
 
     public function get_company_sequences (Request $request,$company_id) {
         
-        return CompanySequence::with('moments','moments.experiences','sequence_kit.kit.kit_elements.element')->where('company_id',$company_id)
+        return CompanySequence::with('moments','moments.experiences','sequence_kit.kit.kit_elements.element','element')->where('company_id',$company_id)
             ->where(function ($query) {
                 $dt = new \DateTime();
                 $query->where('expiration_date','>',$dt->format('Y-m-d H:i:s'))

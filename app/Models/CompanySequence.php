@@ -23,5 +23,9 @@ class CompanySequence extends Model
         return $this->hasMany(SequenceKit::class,'company_sequence_id','id');
 
     }
+    public function element(){
 
+        return $this->hasMany(SequenceKit::class,'element_id','id');
+
+    }
 }
