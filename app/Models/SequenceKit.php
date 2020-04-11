@@ -12,4 +12,8 @@ class SequenceKit extends Model
     public function kit(){
         return $this->belongsTo(Kit::class,'kit_id','id');
     }
+    public function element(){
+        return $this->belongsTo(Element::class,'element_id','id');
+    }
+
 }
