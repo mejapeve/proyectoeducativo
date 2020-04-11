@@ -10,11 +10,16 @@ use Illuminate\Http\Request;
 
 class RatingPlanController extends Controller
 {
-    //
+
     public function get_rating_plans(Request $request){
 
         $ratingPlan = RatingPlan::with('type_plan')->get();
 
+        return response()->json(['data'=>$ratingPlan],200);
+    }
+    
+    public function get_rating_plan_detail(Request $request, $rating_plan_id){
+        $ratingPlan = RatingPlan::where('id', $rating_plan_id)->get();
         return response()->json(['data'=>$ratingPlan],200);
     }
 

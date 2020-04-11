@@ -78,7 +78,7 @@ class RatingPlanSeeder extends Seeder
                     "price"=>"198000",
                     "is_free"=>false,
                     "type_rating_plan_id"=>2,//momento
-                    "count"=>0,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
+                    "count"=>4,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
                     "days"=>10
                 ],
                 [

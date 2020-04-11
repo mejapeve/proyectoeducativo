@@ -17,7 +17,7 @@ class CreateRatingPlansTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->longText('description');
-			$table->longText('description_items');
+            $table->longText('description_items');
             $table->string('image_url');
             $table->bigInteger('price');
             $table->boolean('is_free');

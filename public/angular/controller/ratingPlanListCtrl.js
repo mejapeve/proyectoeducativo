@@ -14,6 +14,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
         $scope.ratingPlans = response.data ? response.data.data || response.data : response;
         $scope.ratingPlans = $scope.ratingPlans.map(function(value) {
             value.description_items = value.description_items ?value.description_items.split('|'):[];
+            value.name_url = value.name.replace(/\s/g,'_').toLowerCase();
           return value;
         });
         
@@ -22,5 +23,20 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
     }).catch(function (e) {
         $scope.errorMessageFilter = 'Error consultando las secuencias, compruebe su conexión a internet';
     });
+    
+    $scope.onRatingPlanFree = function(ratingPlanId) {
+        swal({
+          title: "Estas seguro?",
+          text: "Confirmas que deseas adquirir una prueba gratuita?",
+          icon: "warning",
+          buttons: true,
+          dangerMode: false,
+        })
+        .then((willConfirm) => {
+          if (willConfirm) {
+            swal("Tu solicitud está siendo procesada!");
+          }
+        });
+    };
     
 }]);

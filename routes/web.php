@@ -53,6 +53,11 @@ Route::get('/planes_de_acceso', function () {
     return view('ratingPlan.list');
 })->name('ratingPlan.list');
 
+Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
+    return view('ratingPlan.detail');
+})->name('ratingPlan.detailSequence');
+
+
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
@@ -151,6 +156,7 @@ Route::get('get_kit_element/element/{element_id}', 'KitElementController@get_ele
 
 //servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
+Route::get('get_rating_plan/{rating_plan_id}', 'RatingPlanController@get_rating_plan_detail')->name('get_rating_plan');
 Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');
 
 //servicios secuencias

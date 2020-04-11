@@ -61,7 +61,7 @@
                 
             </div>
             <div class="d-none-result d-none row w-100 p-3">
-               <div class=" col-lg-6" ng-repeat="sequence in sequences | filter: searchText" style="border: 10px solid white;">
+               <div class="col-lg-6 border-white-extent" ng-repeat="sequence in sequences | filter: searchText">
                   <div class="card card-body bg-dark text-center p-3 row sequence-div">
                      <div class="col-5">
                         <img ng-src="@{{sequence.url_image}}" width="162px" height="162px" class="col-12 p-0 sequence-imagen"/> 

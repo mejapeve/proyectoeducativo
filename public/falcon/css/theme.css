@@ -3399,7 +3399,8 @@ fieldset:disabled a.btn {
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
     color: #2c7be5;
-    background-color: transparent
+    background-color: transparent;
+    cursor: not-allowed;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active,
@@ -19544,9 +19545,9 @@ footer .navbar-light {
 .swal-button {
     padding: 7px 19px;
     border-radius: 2px;
-    background-color: #4962B3;
+    /* background-color: #4962B3; */
     font-size: 12px;
-    border: 1px solid #3e549a;
+    border: 1px solid rgba(0, 0, 0, 0.3);
     text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
   }
 
@@ -19685,7 +19686,7 @@ footer .navbar-light {
 
 @media(min-width:768px) {
     .sequence-div {
-        height: 327px;
+        height: 374px;
     }
 }
 
@@ -19697,6 +19698,82 @@ footer .navbar-light {
     
 @media(min-width:1200px) {
     .sequence-div {
+        height: 287px;
+    }
+}
+
+.sequence_div_responsive {
+    height: 287px;
+    width: auto;
+}
+
+@media(min-width:576px) {
+    .sequence_div_responsive {
+        height: 353px;
+    }
+}
+
+@media(min-width:768px) {
+    .sequence_div_responsive {
+        height: 293px;
+    }
+}
+
+@media(min-width:992px) {
+    .sequence_div_responsive {
+        height: 277px;
+    }
+}
+    
+@media(min-width:1200px) {
+    .sequence_div_responsive {
+        height: 287px;
+    }
+}
+
+.moment_div_responsive {
+    width: 91%;
+    height: 87%;
+    position: absolute;
+    top: 36px;
+    left: 47px;
+    overflow-y: auto;
+}
+
+
+.border-white-extent {
+    border: 10px solid white;
+}
+
+.transform-scale-2{
+    transform : scale(2);
+}
+
+.elementKit_div_responsive {
+    height: 189px;
+    width: auto;
+}
+
+@media(min-width:576px) {
+    .elementKit_div_responsive {
+        height: 243px;
+    }
+}
+
+@media(min-width:768px) {
+    .elementKit_div_responsive {
+        height: 293px;
+    }
+}
+
+@media(min-width:992px) {
+    .elementKit_div_responsive {
+        height: 277px;
+    }
+}
+    
+@media(min-width:1200px) {
+    .elementKit_div_responsive {
         height: 287px;
     }
 }

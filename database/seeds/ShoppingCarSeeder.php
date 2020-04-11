@@ -13,6 +13,7 @@ class ShoppingCarSeeder extends Seeder
      */
     public function run()
     {
+        return;
         //
         $shoppingCarts =
             [
@@ -39,6 +40,7 @@ class ShoppingCarSeeder extends Seeder
             5=>elemento
         }
         */
+        
             for($i=1; $i<4; $i++){
                 foreach ($shoppingCarts as $shoppingCart){
                     $shoppingCartN = new ShoppingCart();

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Kit;
+use App\Models\Element;
+use App\Models\KitElement;
 
 class KitTableSeeder extends Seeder
 {
@@ -37,5 +39,38 @@ class KitTableSeeder extends Seeder
             $kitN->url_slider_images = $kit['url_slider_images'];
             $kitN->save();
         }
+        
+        
+        
+        /// Others Kits
+        
+        $kitN = new Kit();
+        $kitN->name = 'Kit de canicas';
+        $kitN->description = 'Kit de canicas + Telescopio.';
+        $kitN->url_image = '/images/kits-elements/kit-2/dotacionLaboratorio2.jpg';
+        $kitN->price = '99999';
+        $kitN->url_slider_images = '/images/kits-elements/kit-2/dotacionLaboratorio2.jpg|/images/kits-elements/kit-2/Captura de Pantalla 2020-03-13 a la(s) 4.38.32 p. m.png';
+        $kitN->save();
+        
+        $elementN = new Element();
+        $elementN->name='Telescopio';
+        $elementN->description='Telescopio que permite realizar la guia de aprendizaje "A la medida de tu imaginación".';
+        $elementN->url_image="/images/kits-elements/element-1/telescopio.png";
+        $elementN->url_slider_images="/images/kits-elements/element-1/telescopio.png|/images/kits-elements/element-1/telescopio2.jpg";
+        $elementN->price = '90';
+        $elementN->save();
+        
+        $kitElementN = new KitElement();
+        $kitElementN->kit_id = $kitN->id;
+        $kitElementN->element_id = $elementN->id;
+        $kitElementN->save();
+
+        $kitN = new Kit();
+        $kitN->name = 'Kit de laboratorio';
+        $kitN->description = 'Kit de laboratorio';
+        $kitN->url_image = '/images/kits-elements/kit-1/dotacionLaboratorios1.jpg';
+        $kitN->price ='9999';
+        $kitN->url_slider_images = '/images/kits-elements/kit-1/dotacionLaboratorios1.jpg|/images/kits-elements/kit-1Captura de Pantalla 2020-03-13 a la(s) 4.38.18 p. m..png';
+        $kitN->save();
     }
 }

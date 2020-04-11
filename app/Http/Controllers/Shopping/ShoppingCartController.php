@@ -39,55 +39,17 @@ class ShoppingCartController extends Controller
 
         DB::beginTransaction();
         try {
+            
             $data = $request->all();
-            if ( isset($data['rating_plan_id']) === true  && $data['rating_plan_id'] !== null){
-                $shoppingCart = $this->create_shopping($data);
-            }else{
-                switch (intval($data['type_product_id'])){
-                    case 4://kit
-                        $shoppingCart = ShoppingCart::where([
-                            ['company_affiliated_id',1],
-                            ['type_product_id',4],
-                            ['payment_status_id',1]
-                        ])->first();
-                        $shipping_price = $shoppingCart->shipping_price;
-                        //;
-                        if($shoppingCart){
-                            foreach (json_decode($data['products']) as $product){
-                                $shopingCartProduct = new ShoppingCartProduct();
-                                $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-                                $shopingCartProduct->product_id = $product->id;
-                                $shopingCartProduct->save();
-                                $shipping_price += intval($product->shipping_price);
-                            }
-                            $shoppingCart->shipping_price = $shipping_price;
-                            $shoppingCart->save();
-                        }else{
-                            $shoppingCart = $this->create_shopping($data);
-                        }
-                        break;
-                    case 5://element
-                        $shoppingCart = ShoppingCart::where([
-                            ['company_affiliated_id',1],
-                            ['type_product_id',5],
-                            ['payment_status_id',1]
-                        ])->first();
-                        $shipping_price = $shoppingCart->shipping_price;
-                        if($shoppingCart){
-                            foreach (json_decode($data['products']) as $product){
-                                $shopingCartProduct = new ShoppingCartProduct();
-                                $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-                                $shopingCartProduct->product_id = $product->id;
-                                $shopingCartProduct->save();
-                                $shipping_price += intval($product->shipping_price);
-                            }
-                            $shoppingCart->shipping_price = $shipping_price;
-                            $shoppingCart->save();
-                        }else{
-                            $shoppingCart = $this->create_shopping($data);
-                        }
-                        break;
+            if(gettype($data) == 'array') {
+                $shoppingCart = [];
+                for($i = 0; $i < count($data); ++$i) {
+                    $shoppingPart = $this->add_shoppingCart($request,$data[$i]);
+                    array_push($shoppingCart,$shoppingPart);
                 }
+            }
+            else if(gettype($data) == 'object') {
+                $shoppingCart = $this->add_shoppingCart($request,$data);
             }
             DB::commit();
         } catch (\Exception $e) {
@@ -104,26 +66,59 @@ class ShoppingCartController extends Controller
         return response()->json(['data'=>$shoppingCart,'messagge'=> 'se ha registrado el producto correctamente'],200);
     }
 
-    public function create_shopping($data){
-
-        $shoppingCart = new ShoppingCart();
-        $shoppingCart->company_affiliadted_id = $data['company_affiliadted_id'];
-        $shoppingCart->session_id = $data['session_id'];
+    public function add_shoppingCart($request,$data){
+        
+        $payment_status_default = 1;
+        
+        if($request->user('afiliadoempresa')) {
+            $shoppingCart = ShoppingCart::where([
+                ['company_affiliated_id',$request->user('afiliadoempresa')->id],
+                ['type_product_id',intval($data['type_product_id'])],
+                ['payment_status_id',$payment_status_default]
+            ])->first();
+            //$shipping_price = $shoppingCart->shipping_price;
+            
+            if(!$shoppingCart) {
+                $shoppingCart = new ShoppingCart();
+                $shoppingCart->company_affiliated_id = $request->user('afiliadoempresa')->id;    
+            }
+        }
+        else {
+            if ( session_id() == "" ) {
+                session_start();
+            }
+            
+            $shoppingCart = ShoppingCart::where([
+                ['session_id',session_id()],
+                ['type_product_id',intval($data['type_product_id'])],
+                ['payment_status_id',$payment_status_default]
+            ])->first();
+            
+            if(!$shoppingCart) {
+                $shoppingCart = new ShoppingCart();
+                $shoppingCart->session_id = session_id();
+            }
+        }
+        if($shoppingCart->type_product_id != 4 || $shoppingCart->type_product_id != 5 ) {
+            $shoppingCart->shopping_cart_product()->delete();
+        }
+        
         if(isset($data['rating_plan_id']))
-            $shoppingCart->payment_status = intval($data['rating_plan_id']);
-        if(isset($data['payment_status']))
-            $shoppingCart->payment_status = intval($data['payment_status']);
-        if(isset($data['payment_transaction_id']))
-            $shoppingCart->payment_transaction_id = intval($data['payment_transaction_id']);
-        if(isset($data['payment_init_date']))
-            $shoppingCart->payment_init_date = intval($data['payment_init_date']);
-        if(isset($data['shipping_price']))
-            $shoppingCart->shipping_price = intval($data['shipping_price']);
+          $shoppingCart->rating_plan_id = intval($data['rating_plan_id']);
+        
+        $shoppingCart->type_product_id = intval($data['type_product_id']);
+        
+        if(isset($data['payment_status_id']))
+            $shoppingCart->payment_status_id = intval($data['payment_status_id']);
+        else $shoppingCart->payment_status_id = $payment_status_default;
+        
         $shoppingCart->save();
-        foreach ($data['products'] as $products){
+        
+        foreach ($data['products'] as $product){
             $shopingCartProduct = new ShoppingCartProduct();
             $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-            $shopingCartProduct->product_id = $products['id'];
+            $shopingCartProduct->product_id = $product['id'];
+            $shopingCartProduct->save();
         }
         return $shoppingCart;
     }
