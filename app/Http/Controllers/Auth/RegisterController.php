@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\CompaniesAffiliated;
 use App\Models\AfiliadoEmpresa;
+use App\Models\RatingPlan;
 use App\Traits\CreateUserRelations;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -75,9 +77,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //dd($data);
         session(['name_company' => 'conexiones']);
         session(['company_id' => 1]);
         $asignarNombreUsuario = false;
+
         $name_user = $this->name_user_affiliated($data);
         
 
@@ -105,7 +109,35 @@ class RegisterController extends Controller
             
             //TODO: $data->rating_plan_ids;
             
-            
+            if(isset($data['free_rating_plan_ids'])){
+               $ratingPlan = RatingPlan::find(1);
+               if( $ratingPlan->moment_free_ids == null || $ratingPlan->moment_free_ids == '' ){
+                   $affiliatedAccountService = new AffiliatedAccountService();
+                   $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+                   $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
+                   $affiliatedAccountService->type_product_id = 1;
+                   $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
+                   $affiliatedAccountService->init_date = null;
+                   $affiliatedAccountService->end_date = null;
+                   $affiliatedAccountService->save();
+
+               }else{
+                   $ids = explode(',',$ratingPlan->moment_free_ids);
+                    foreach ($ids as $id){
+                        $affiliatedAccountService = new AffiliatedAccountService();
+                        $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+                        $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
+                        $affiliatedAccountService->type_product_id = 2;
+                        $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
+                        $affiliatedAccountService->company_moment_id = $id;
+                        $affiliatedAccountService->init_date = null;
+                        $affiliatedAccountService->end_date = null;
+                        $affiliatedAccountService->save();
+                    }
+               }
+            }
+
+
             
             $this->redirectTo = 'conexiones/tutor';
 
