@@ -6,6 +6,7 @@ use App\Models\CompanySequence;
 use App\Models\MomentExperience;
 use App\Models\RatingPlan;
 use App\Models\SequenceMoment;
+use App\Models\AffiliatedAccountService;
 use Illuminate\Http\Request;
 
 class RatingPlanController extends Controller
@@ -58,5 +59,36 @@ class RatingPlanController extends Controller
 
     }
 
+    public function validate_free_plan(Request $request,$rating_plan_id){
+		
+		$ratingPlan = RatingPlan::find($rating_plan_id);
+		
+        if(!$ratingPlan || !$ratingPlan->is_free) {
+            return view('page404',['message'=>'Plan gratuito no encontrado']);
+        }
+        
+        $user = $request->user('afiliadoempresa');
+        if($user) {
+            //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
+			if($user->hasRole('tutor')) {
+				$accountService = new AffiliatedAccountService();
+				$accountService->company_affiliated_id = $user->id;
+				$accountService->rating_plan_id = $rating_plan_id;
+				$accountService->init_date = date('Y-m-d');
+				$accountService->rating_plan_type = $ratingPlan->type_rating_plan_id;
+				$accountService->sequence_ids = $ratingPlan->sequence_free_id;
+				$accountService->moment_ids = $ratingPlan->moment_free_ids;
+				$accountService->save();
+				
+				return redirect('conexiones/tutor');
+			}
+        }
+        else {
+            
+            $request->session()->put('free_rating_plan_ids',$rating_plan_id);
+            
+            return redirect()->action('Auth\RegisterController@show_register');
+        }
+    }
 
 }

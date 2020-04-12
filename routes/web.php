@@ -57,9 +57,14 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
     return view('ratingPlan.detail');
 })->name('ratingPlan.detailSequence');
 
+Route::get('registro_afiliado/{ratingPlanId}', 'RatingPlanController@validate_free_plan')->name('validate_free_plan');
+Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name('registerForm');
+
 
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
+
+
 
 Route::prefix('user')
     ->as('user.')
@@ -104,7 +109,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 
 //servcios carrito de comprar
 Route::group([],function (){
-		Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
+        Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
         Route::get('get_shopping_cart/{user}', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
         Route::post('update_shopping_cart', 'Shopping\ShoppingCartController@update')->name('update_shopping_cart');//->middleware('auth:afiliadoempresa');

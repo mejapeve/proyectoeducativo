@@ -89,7 +89,7 @@
            <a class="btn btn-primary btn-sm badge-pill fs-lg--1" href="{{ route('user.login') }}">Inicio de Sesión</a>
         </li>
         <li class="ml-2 nav-item p-0">
-           <a class="btn btn-secondary btn-sm badge-pill  fs-lg--1" href="{{ route('register') }}">Registro</a>
+           <a class="btn btn-secondary btn-sm badge-pill  fs-lg--1" href="{{ route('registerForm') }}">Registro</a>
         </li>
         <li class="nav-item">
            <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="{{route('shoppingCart')}}">

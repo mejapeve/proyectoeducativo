@@ -287,7 +287,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             var message = response.data.message || 'Se ha registrado el producto correctamente';
             swal('Conexiones',message,'success');
             $('#move').next().removeClass('d-none');
-			window.location = '/shoppingCart';
+            window.location = '/carrito_de_compras';
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, compruebe su conexión a internet';

@@ -21,7 +21,7 @@
                                        class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Nombre') }}</label>
                                  <input ng-model="name" autofocus required="" autocomplete="off" type="text" name="name"
                                     ng-class="{'form-control': true, 'is-invalid': registerForm.name.$dirty && registerForm.name.$invalid}"
-									class="form-control @error('name') is-invalid @enderror"
+                                    class="form-control @error('name') is-invalid @enderror"
                                     value="">
                                  @error('name')
                                  <span class="invalid-feedback" role="alert">
@@ -38,7 +38,7 @@
                                        class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Apellido') }}</label>
                                  <input ng-model="lastName" required="" autocomplete="off" type="text" name="last_name"
                                     value=""
-									class="form-control @error('last_name') is-invalid @enderror"
+                                    class="form-control @error('last_name') is-invalid @enderror"
                                     ng-class="{'form-control': true, 'is-invalid': registerForm.last_name.$dirty && registerForm.last_name.$invalid}">
                                  @error('last_name')
                                  <span class="invalid-feedback" role="alert">
@@ -114,7 +114,10 @@
                                  <label class="control-label">Acepto <a ng-click="onTermsConditions()" href="#"> términos y condiciones</a></label>
                               </div>
                               <div class="form-group">
-                                 <input class="d-none-result d-none" type="hidden" name="password" id="password" value="password" />
+                                 <input type="hidden" name="password" id="password" value="password" />
+                                 @if(isset($free_rating_plan_ids))
+                                 <input class="d-none-result d-none" ng-show="false" type="text" name="free_rating_plan_ids" value="{{$free_rating_plan_ids}}" value="free_rating_plan_ids" />
+                                 @endif
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="department_id" id="department_id" ng-model="departmentId" />
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="city_id" id="city_id"
                                     ng-required="showselectCity" ng-model="city_id" />
@@ -127,7 +130,7 @@
                               @if ($errors->any())
                                  <li>{{ $errors }}</li>
                               @endif
-							  -->
+                              -->
                               <div ng-show="messageError" class="col-md-12 d-none-result d-none">
                                  <span class="invalid-feedback btn-block" role="alert">
                                     <strong>@{{messageError}}</strong>
@@ -150,4 +153,5 @@
 @endsection
 @section('js')
 <script src="{{asset('/../angular/controller/RegisterController.js')}}"></script>
+
 @endsection

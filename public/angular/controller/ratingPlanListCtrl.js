@@ -35,6 +35,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
         .then((willConfirm) => {
           if (willConfirm) {
             swal("Tu solicitud está siendo procesada!");
+            window.location='/registro_afiliado/'+ratingPlanId;
           }
         });
     };

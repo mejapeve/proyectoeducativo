@@ -8,7 +8,7 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
 	$scope.name = '';
 	$scope.email = '';
 	$scope.departmentId = null;
-	$scope.showselectCity = false;
+	$scope.showselectCity = true;
 	$scope.messageError = null;
 	$scope.termsConditions = $('#terms').html();
 

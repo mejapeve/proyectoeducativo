@@ -56,12 +56,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-		return Validator::make($data, [
+        return Validator::make($data, [
             //'user_name' => ['required', 'string', 'max:255','unique:afiliado_empresas'],
             'name' => ['required', 'string','min:4', 'max:255'],
-			'last_name' => ['required', 'string','min:4', 'max:255'],
+            'last_name' => ['required', 'string','min:4', 'max:255'],
             'country_id' => ['required', 'string', 'max:255'],
-			'city' => ['string', 'max:255'],
+            'city' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -79,7 +79,7 @@ class RegisterController extends Controller
         session(['company_id' => 1]);
         $asignarNombreUsuario = false;
         $name_user = $this->name_user_affiliated($data);
-		
+        
 
             $afiliado_empresa = AfiliadoEmpresa::create([
                 'user_name' => $name_user,
@@ -102,6 +102,11 @@ class RegisterController extends Controller
             $affiliated_company_role->save();
 
             $afiliado_empresa->sendWelcomeNotification($affiliated_company_role->rol_id);
+            
+            //TODO: $data->rating_plan_ids;
+            
+            
+            
             $this->redirectTo = 'conexiones/tutor';
 
             return $afiliado_empresa;
@@ -114,5 +119,13 @@ class RegisterController extends Controller
     protected function guard()
     {
         return Auth::guard('afiliadoempresa');
+    }
+    
+    public function show_register(Request $request) {
+        
+        $free_rating_plan_ids = $request->session()->pull('free_rating_plan_ids');
+        
+        return view('auth.register',['free_rating_plan_ids'=>$free_rating_plan_ids]);
+        
     }
 }
