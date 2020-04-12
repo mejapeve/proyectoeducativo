@@ -2,10 +2,8 @@
 @section('content')
 <section class="py-0" ng-controller="registerController">
    <div class="container-fluid">
-      <div class="min-vh-100 flex-center no-gutters row">
+      <div class="flex-center no-gutters row">
          <div class="col-xxl-5 col-lg-8">
-            <img class="bg-auth-circle-shape" src="/static/media/bg-shape.49213c49.png" alt="" width="250">
-            <img class="bg-auth-circle-shape-2" src="/static/media/shape-1.e7c6d73f.png" alt="" width="150">
             <div class="overflow-hidden z-index-1 card">
                <div class="p-0 card-body">
                   <div class="h-100 no-gutters row">

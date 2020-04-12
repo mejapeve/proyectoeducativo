@@ -39,12 +39,12 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
                     }
                 });
             }*/
-            swal('Conexiones',response.data[0]['messagge'],response.data[1]['status']);
+            swal('Conexiones',response.data[0]['message'],response.data[1]['status']);
         }, function onError(response) {
             $('#move').removeClass('fa fa-spinner fa-spin');
             $('#send').attr('disabled',false);
             console.log(response)
-            swal('Conexiones',response.data[0]['messagge'],response.data[1]['status']);
+            swal('Conexiones',response.data[0]['message'],response.data[1]['status']);
 
         });
     }

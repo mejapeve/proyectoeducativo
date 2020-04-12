@@ -50,12 +50,12 @@ class SequencesController extends Controller {
                                 break;
                             default:
                                 return response()->json([
-                                    'messagge' => 'Algo salio mal'
+                                    'message' => 'Algo salio mal'
                                 ],500);
                         }
                     } else {
                         return response()->json([
-                            'messagge' => 'El formato para guardar los datos de la seccion(es) no es el correcto, no se pudo crear la secuencia'
+                            'message' => 'El formato para guardar los datos de la seccion(es) no es el correcto, no se pudo crear la secuencia'
                         ],400);
                     }
 
@@ -75,13 +75,13 @@ class SequencesController extends Controller {
             }
             return response()->json([
                 'sequence_id' =>   $sequence->id,
-                'messagge' => 'secuencia creada correctamente'
+                'message' => 'secuencia creada correctamente'
             ],200);
         }catch (\Exception $e){
 
             return response()->json([
                 'error' =>   $e->getMessage(),
-                'messagge' => 'La secuencia no pudo ser creada, revise que los campos esten correctos'
+                'message' => 'La secuencia no pudo ser creada, revise que los campos esten correctos'
             ],500);
 
         }
@@ -118,7 +118,7 @@ class SequencesController extends Controller {
 
         return response()->json([
             'sequence_id' =>   $sequence->id,
-            'messagge' => 'secuencia modificada correctamente'
+            'message' => 'secuencia modificada correctamente'
         ],200);
 
 
@@ -147,20 +147,20 @@ class SequencesController extends Controller {
                     break;
                 default:
                     return response()->json([
-                        'messagge' => 'La sección no existe'
+                        'message' => 'La sección no existe'
                     ],400);
             }
             $sequence->save();
         } else{
             return response()->json([
-                'messagge' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección'
+                'message' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección'
             ],400);
         }
 
         return response()->json([
             'sequence_id' =>   $sequence->id,
             'sequence_section_number' =>   $data['section_number'],
-            'messagge' => 'secuencia modificada correctamente'
+            'message' => 'secuencia modificada correctamente'
         ],200);
 
 

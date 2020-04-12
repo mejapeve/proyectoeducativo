@@ -78,7 +78,7 @@
                   </ul>
                   <ul class="navbar-nav flex-column">
                      <li class="nav-item">
-                        <a class="nav-link" aria-expanded="false" href="{{ route('shoppingcard') }}">
+                        <a class="nav-link" aria-expanded="false" href="{{ route('shoppingCart') }}">
                            <div class="d-flex align-items-center">
                               <span class="mr-3 nav-link-icon">
                                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart"

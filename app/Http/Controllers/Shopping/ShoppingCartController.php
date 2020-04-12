@@ -18,7 +18,7 @@ class ShoppingCartController extends Controller
     use RelationRatingPlan;
 
     public function index(){
-        return view('shopping.card');
+        return view('shopping.pending_shopping_cart');
     }
 
     public function get_shopping_cart(Request $request,$user){
@@ -54,16 +54,16 @@ class ShoppingCartController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
-            //return response()->json(['data'=>'','messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            return response()->json(['data'=>$e->getMessage(),'message'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            //return response()->json(['data'=>'','message'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
             //throw $e;
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
+            return response()->json(['data'=>$e->getMessage(),'message'=> 'no se ha registrado el producto correctamente, intente de nuevo'],400);
             //throw $e;
         }
 
-        return response()->json(['data'=>$shoppingCart,'messagge'=> 'se ha registrado el producto correctamente'],200);
+        return response()->json(['data'=>$shoppingCart,'message'=> 'se ha registrado el producto correctamente'],200);
     }
 
     public function add_shoppingCart($request,$data){
@@ -161,13 +161,13 @@ class ShoppingCartController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
+            return response()->json(['data'=>$e->getMessage(),'message'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
         } catch (\Throwable $e) {
             DB::rollback();
-            return response()->json(['data'=>$e->getMessage(),'messagge'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
+            return response()->json(['data'=>$e->getMessage(),'message'=> 'no se ha modificado el producto correctamente'],400);//throw $e;
         }
 
-        return response()->json(['data'=>$update,'messagge'=> 'se ha modificado el producto correctamente'],200);
+        return response()->json(['data'=>$update,'message'=> 'se ha modificado el producto correctamente'],200);
 
     }
 }

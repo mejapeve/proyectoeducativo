@@ -16,13 +16,13 @@ class ContactusController extends Controller
             $var = $request->all();
             Mail::to( 'contacto@educonexiones.com')->send(new SendContactus($var));
             return response()->json([
-                    ['messagge'=>'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
+                    ['message'=>'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
                     ['status'=>'success']
 
             ],200);
         }catch (\Exception $e){
             return response()->json([
-                    ['messagge'=>'No se ha podido notificar su mesaje, intente de nuevo, gracias'.$e],
+                    ['message'=>'No se ha podido notificar su mesaje, intente de nuevo, gracias'.$e],
                     ['status'=>'error']
             ],500);
         }

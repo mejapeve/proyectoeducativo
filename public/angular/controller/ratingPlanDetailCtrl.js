@@ -168,7 +168,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         
         function searchElementKit(elementKit) {
             for(var i=0;i<$scope.elementsKits.length;i++) {
-                if($scope.elementsKits[0].type === elementKit.type && $scope.elementsKits[0].id === elementKit.id)
+                if($scope.elementsKits[i].type === elementKit.type && $scope.elementsKits[i].id === elementKit.id)
                 return true;
             }
             return false;
@@ -184,22 +184,27 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 for(var i=0;i<sequenceTmp.sequence_kit.length;i++) {
                     kit = sequenceTmp.sequence_kit[i].kit;
                     if(kit) {
-						kit.type = 'kit';
-						if(!searchElementKit(kit)) {
-							$scope.elementsKits.push(kit);
-						}
-						for(var j=0;j<kit.kit_elements.length;j++) {
-							element = kit.kit_elements[j].element;
-							element.type = 'element';
-							if(!searchElementKit(element)) {
-								$scope.elementsKits.push(element);
-							}
-						}
-					}
-					else {
-						if(element)
-						element = sequenceTmp.sequence_kit[i].element;
-					}
+                        kit.type = 'kit';
+                        if(!searchElementKit(kit)) {
+                            $scope.elementsKits.push(kit);
+                        }
+                        for(var j=0;j<kit.kit_elements.length;j++) {
+                            element = kit.kit_elements[j].element;
+                            element.type = 'element';
+                            if(!searchElementKit(element)) {
+                                $scope.elementsKits.push(element);
+                            }
+                        }
+                    }
+                    else {
+                        element = sequenceTmp.sequence_kit[i].element;
+                        if(element) {
+                            element.type = 'element';
+                            if(!searchElementKit(element)) {
+                                $scope.elementsKits.push(element);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -215,10 +220,20 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             var sequenceTmp = $scope.sequences[s];
             if(sequenceTmp.isSelected) {
                 if($scope.ratingPlan.type_rating_plan_id === type_sequence) {
-                    products.push({id:sequenceTmp.id});    
+                    products.push({id:sequenceTmp.id});
                 }
                 if($scope.ratingPlan.type_rating_plan_id === type_moment) {
+                    
                     for(var i=0; i < sequenceTmp.moments.length; i++ ) {
+                        var moment = sequenceTmp.moments[i];
+                        if(moment.isSelected) {
+                            products.push({id:moment.id});        
+                        }
+                    }
+                }
+                
+                if($scope.ratingPlan.type_rating_plan_id === type_experience) {
+                        for(var i=0; i < sequenceTmp.moments.length; i++ ) {
                         moment = sequenceTmp.moments[i];
                         if(moment.experiences) {
                             for(var j=0; j<moment.experiences.length;j++) {
@@ -230,15 +245,6 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                         }
                     }
                 }
-                if($scope.ratingPlan.type_rating_plan_id === type_experience) {
-                    for(var i=0; i < sequenceTmp.moments.length; i++ ) {
-                        var moment = sequenceTmp.moments[i];
-                        if(moment.isSelected) {
-                            products.push({id:moment.id});        
-                        }
-                    }
-                }
-                
             }
         }
         
@@ -268,15 +274,25 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             data.push(elementsData);
         }
         
+        $('#move').addClass('fa fa-spinner fa-spin');
+        $('#move').next().addClass('d-none');
+        
         $http({
             url:"/create_shopping_cart",
             method: "POST",
             data: data
         }).
         then(function (response) {
-            console.log('response add shopping cart',response);
+            $('#move').removeClass('fa fa-spinner fa-spin');
+            var message = response.data.message || 'Se ha registrado el producto correctamente';
+            swal('Conexiones',message,'success');
+            $('#move').next().removeClass('d-none');
+			window.location = '/shoppingCart';
+            
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, compruebe su conexión a internet';
+            swal('Conexiones',message,'error');
+            $('#move').next().removeClass('d-none');
         });
     }
 }]);

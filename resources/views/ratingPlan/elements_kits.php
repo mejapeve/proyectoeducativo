@@ -2,7 +2,7 @@
     <div class="modal-backdrop fade show"></div>
     <div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
         <div class="card col-12">
-          <div ng-click="elementsKits.length =0" class="position_absolute fs-2" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> x </div>
+          <div ng-click="elementsKits.length =0" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
           <div class="card-body w-100 d-none-result d-none mb-3">
             <h4 class=" boder-header p-1 pl-3">
                Elementos de Laboratorio
@@ -26,7 +26,9 @@
                 </div>
             </div>
             <div class="col-12 text-right">
-               <button ng-click="onContinuePayment()" class="ml-3 mt-3 btn btn-primary fs-0" href="#" class="col-6"><i class="fas fa-arrow-right"></i> Continuar compra</button>
+               <button ng-click="onContinuePayment()" class="ml-3 mt-3 btn btn-primary fs-0" href="#" class="col-6">
+               <i id="move" class=""></i>
+               <i class="fas fa-arrow-right"></i> Continuar compra</button>
             </div>
           </div>
         </div>

@@ -92,7 +92,7 @@
            <a class="btn btn-secondary btn-sm badge-pill  fs-lg--1" href="{{ route('register') }}">Registro</a>
         </li>
         <li class="nav-item">
-           <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="/shoppingcard">
+           <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="{{route('shoppingCart')}}">
               <span class="notification-indicator-number">0</span>
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18 fs-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="transform-origin: 0.5625em 0.5em;">
                  <g transform="translate(288 256)">

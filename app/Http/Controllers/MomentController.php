@@ -33,7 +33,7 @@ class MomentController extends Controller
             }else{
                 return response()->json([
                     'sequence_id' =>   $moment->id,
-                    'messagge' => 'el numero de orden no esta en el rango de 1 a 8'
+                    'message' => 'el numero de orden no esta en el rango de 1 a 8'
                 ],400);
             }
         }
@@ -46,7 +46,7 @@ class MomentController extends Controller
 
         return response()->json([
             'moment_id' =>   $moment->id,
-            'messagge' => 'momento modificado correctamente'
+            'message' => 'momento modificado correctamente'
         ],200);
 
 
@@ -74,20 +74,20 @@ class MomentController extends Controller
                     break;
                 default:
                     return response()->json([
-                        'messagge' => 'La sección no existe'
+                        'message' => 'La sección no existe'
                     ],400);
             }
             $moment->save();
         } else{
             return response()->json([
-                'messagge' => 'El formato para guardar los datos del momento no es el correcto, no se pudo modificar el momento'
+                'message' => 'El formato para guardar los datos del momento no es el correcto, no se pudo modificar el momento'
             ],400);
         }
 
         return response()->json([
             'moment_id' =>   $moment->id,
             'moment_section_number' =>   $data['section_number'],
-            'messagge' => 'momento modificado correctamente'
+            'message' => 'momento modificado correctamente'
         ],200);
 
 

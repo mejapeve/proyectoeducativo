@@ -24,7 +24,7 @@ class ExperienceController extends Controller
 
         return response()->json([
             'moment_id' =>   $experience->id,
-            'messagge' => 'experiencia modificada correctamente'
+            'message' => 'experiencia modificada correctamente'
         ],200);
 
 
@@ -52,20 +52,20 @@ class ExperienceController extends Controller
                     break;
                 default:
                     return response()->json([
-                        'messagge' => 'La sección no existe'
+                        'message' => 'La sección no existe'
                     ],400);
             }
             $moment->save();
         } else{
             return response()->json([
-                'messagge' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección '
+                'message' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección '
             ],400);
         }
 
         return response()->json([
             'experience_id' =>   $moment->id,
             'experience_section_number' =>   $data['section_number'],
-            'messagge' => 'experiencia modificada correctamente'
+            'message' => 'experiencia modificada correctamente'
         ],200);
 
 
