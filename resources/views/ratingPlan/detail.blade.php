@@ -41,7 +41,7 @@
              
              <div class="col-12 ml-2 mt-1 row" ng-show="sequences">
                
-               <div ng-class="{'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
+               <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
                                'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
                     ng-repeat="sequence in sequences" style="border: 10px solid white;">
                   <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">

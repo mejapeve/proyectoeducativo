@@ -34,9 +34,9 @@
     <script src="{{ asset('js/ngMessages.js') }}"></script>
     <script src="{{ asset('js/Cubexy.js') }}" type="text/javascript"></script>
     
-    <!-- sweetalert JS -->
-    <link href="{{ asset('css/sweetalert.css') }}" rel="stylesheet" />
-    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
+    <!-- sweetalert2 JS -->
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">

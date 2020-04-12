@@ -99,7 +99,7 @@ class ShoppingCartController extends Controller
                 $shoppingCart->session_id = session_id();
             }
         }
-        if($shoppingCart->type_product_id != 4 || $shoppingCart->type_product_id != 5 ) {
+        if($shoppingCart->type_product_id != 4 && $shoppingCart->type_product_id != 5 ) {
             $shoppingCart->shopping_cart_product()->delete();
         }
         

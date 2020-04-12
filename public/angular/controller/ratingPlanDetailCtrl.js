@@ -63,7 +63,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 sequence.isSelected = false;
                 swal({
                   title: "Número máximo de secuencias permitidas",
-                  icon: "error",
+                  type: "error",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -102,7 +102,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 moment.isSelected = false;
                 swal({
                   title: "Número máximo de momentos permitidos",
-                  icon: "error",
+                  type: "error",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -143,7 +143,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 moment.isSelected = false;
                 swal({
                   title: "Número máximo de experiencias permitidas",
-                  icon: "error",
+                  type: "error",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -291,7 +291,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, compruebe su conexión a internet';
-            swal('Conexiones',message,'error');
+            swal('Conexiones',$scope.errorMessageFilter,'error');
             $('#move').next().removeClass('d-none');
         });
     }

@@ -110,15 +110,16 @@ class RegisterController extends Controller
             //TODO: $data->rating_plan_ids;
             
             if(isset($data['free_rating_plan_ids'])){
-               $ratingPlan = RatingPlan::find(1);
+               $ratingPlan = RatingPlan::find($data['free_rating_plan_ids']);
+               if($ratingPlan->is_free)
                if( $ratingPlan->moment_free_ids == null || $ratingPlan->moment_free_ids == '' ){
                    $affiliatedAccountService = new AffiliatedAccountService();
                    $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
                    $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
                    $affiliatedAccountService->type_product_id = 1;
                    $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
-                   $affiliatedAccountService->init_date = null;
-                   $affiliatedAccountService->end_date = null;
+                   $affiliatedAccountService->init_date = date('Y-m-d');
+                   $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
                    $affiliatedAccountService->save();
 
                }else{
@@ -130,8 +131,8 @@ class RegisterController extends Controller
                         $affiliatedAccountService->type_product_id = 2;
                         $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
                         $affiliatedAccountService->company_moment_id = $id;
-                        $affiliatedAccountService->init_date = null;
-                        $affiliatedAccountService->end_date = null;
+                        $affiliatedAccountService->init_date = date('Y-m-d');
+                        $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
                         $affiliatedAccountService->save();
                     }
                }

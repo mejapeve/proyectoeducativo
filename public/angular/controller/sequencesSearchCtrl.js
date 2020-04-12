@@ -179,4 +179,17 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
         
     }
     
+    $scope.onSequenceBuy = function(sequence) {
+        swal({
+            title: 'Input something',
+            input: 'select',
+            inputOptions: {
+              15: 'Serbia',
+              20: 'Ukraine',
+              37: 'Croatia'
+            },
+            inputValue: 20
+          });
+    }
+    
 }]);

@@ -31,7 +31,7 @@
    }
 </style>
 
-<div ng-controller="sequencesGetCtrl" ng-init="init()">
+<div ng-controller="sequencesGetCtrl" ng-init="init()" class="w-100">
    <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
       <span class="col">@{{ errorMessageFilter }}</span>

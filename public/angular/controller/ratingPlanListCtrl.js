@@ -25,16 +25,18 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
     });
     
     $scope.onRatingPlanFree = function(ratingPlanId) {
+        
+
         swal({
           title: "Estas seguro?",
           text: "Confirmas que deseas adquirir una prueba gratuita?",
-          icon: "warning",
+          type: "warning",
           buttons: true,
           dangerMode: false,
         })
         .then((willConfirm) => {
           if (willConfirm) {
-            swal("Tu solicitud está siendo procesada!");
+            swal({text:'Tu solicitud está siendo procesada!',showConfirmButton: false,showCancelButton: false});
             window.location='/registro_afiliado/'+ratingPlanId;
           }
         });

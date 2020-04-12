@@ -71,7 +71,7 @@
                         <p class="mt-4 ml-2"> @{{sequence.description}}</p>
                         <div class="mt-auto mb-auto">
                         <a class="btn btn-outline-primary" ng-href="/guia_de_aprendizaje/@{{sequence.id}}/@{{sequence.name.replace(' ','_')}}"><span class="fs-lg-0 fs-xl-0 fs-md-0 fs-sm--1">Detalle</span></a>
-                        <a class="ml-2 btn btn-outline-primary" href="#" class="col-auto"><span class="fs-lg-0 fs-xl-0 fs-md-0 fs-sm--1">Comprar</span></a>
+                        <a ng-click="onSequenceBuy(sequence)" class="ml-2 btn btn-outline-primary" href="#" class="col-auto"><span class="fs-lg-0 fs-xl-0 fs-md-0 fs-sm--1">Comprar</span></a>
                         </div>
                      </div>
                   </div>
