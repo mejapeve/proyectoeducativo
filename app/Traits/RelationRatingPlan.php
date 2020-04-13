@@ -60,7 +60,9 @@ trait RelationRatingPlan
                     break;
                 case 4: //kit
                     foreach ($shopingCarts[$i]['shopping_cart_product'] as $kit){
-                        $kit['kiStruct'] = $kitsCache->where('id',$kit['product_id']);
+                        foreach ($kitsCache->where('id',$kit['product_id']) as $arrayData){
+                            $kit['kiStruct'] = $arrayData;
+                        }
                     }
                     break;
                 case 5: //element
