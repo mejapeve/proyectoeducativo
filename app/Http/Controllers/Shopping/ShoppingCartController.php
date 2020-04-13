@@ -30,30 +30,40 @@ class ShoppingCartController extends Controller
         $item->quantity = 1;
         $item->unit_price = 100;
         $item->currency_id = 'USD';
-        
+
         //dd($preference->payment_methods);
         $preference->items = array($item);
         $preference->payment_methods = array("excluded_payment_types" => array(
-                array("id" => "ticket",
-                      
-                      
-                ),
+            array("id" => "ticket",
+
             ),
+        ),
         );
         $preference->save();
         //dd($preference);
         return view('shopping.pending_shopping_cart')->with("preference", $preference);
     }
 
-    public function get_shopping_cart(Request $request, $user)
+    public function get_shopping_cart(Request $request)
     {
-
-        $shopingCarts = ShoppingCart::
-            with('rating_plan', 'shopping_cart_product')->
-            where([
-            ['company_affiliated_id', $user],
-            ['payment_status_id', 1],
-        ])->get();
+        if ($request->user('afiliadoempresa')) {
+            $shopingCarts = ShoppingCart::
+                with('rating_plan', 'shopping_cart_product')->
+                where([
+                ['company_affiliated_id', $request->user('afiliadoempresa')->id],
+                ['payment_status_id', 1],
+            ])->get();
+        } else {
+            if (session_id() == "") {
+                session_start();
+            }
+            $shopingCarts = ShoppingCart::
+                with('rating_plan', 'shopping_cart_product')->
+                where([
+                ['session_id', session_id()],
+                ['payment_status_id', 1],
+            ])->get();
+        }
 
         $shopingCarts = $this->relation_rating_plan($shopingCarts);
         //return $shopingCarts;

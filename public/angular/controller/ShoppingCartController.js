@@ -9,11 +9,11 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
 	$scope.shopping_cart = null;
 	$scope.totalPrices = 0;
 	$scope.cards = [];
-	$scope.company_affiliated_id = "9";
+	//$scope.company_affiliated_id = "9";
 	$scope.init = function (company_affiliated_id) {
 		$('.d-none-result').removeClass('d-none');
 		$http({
-			url: "/get_shopping_cart/" + $scope.company_affiliated_id,
+			url: "/get_shopping_cart/",
 			method: "GET",
 		}).
 			then(function (response) {
