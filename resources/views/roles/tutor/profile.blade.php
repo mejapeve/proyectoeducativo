@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roles.tutor.tutor_layout')
 
 @section('content')
 <div class="container" ng-controller="TutorIndexController">

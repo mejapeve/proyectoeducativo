@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roles.student.student_layout')
 
 @section('content')
     <div class="container "  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
@@ -43,21 +43,21 @@
 
                         <div class="mb-3 card background-sequence-card" w="895" h="569">
                             @if(isset($background_image))
-							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
-							@endif
+                            <img src="{{asset($background_image)}}" class="background-sequence-image"/>
+                            @endif
                             <div class="card-body pb-0">
-							  @if(isset($button1_w))
+                              @if(isset($button1_w))
                                   <button class="cursor-pointer fade" ml="{{$button1_ml}}" mt="{{$button1_mt}}" w="{{$button1_w}}" h="{{$button1_h}}">{{$button1_label}}</button>
-							  @endif
+                              @endif
                               @if(isset($imagen1_mt))
                                   <img src="{{asset($imagen1_url)}}" ml="{{$imagen1_ml}}" mt="{{$imagen1_mt}}" w="{{$imagen1_w}}" h="{{$imagen1_h}}"/>
-							  @endif
-							  @if(isset($imagen2_mt))
+                              @endif
+                              @if(isset($imagen2_mt))
                                   <img src="{{asset($imagen2_url)}}" ml="{{$imagen2_ml}}" mt="{{$imagen2_mt}}" w="{{$imagen2_w}}" h="{{$imagen2_h}}"/>
-							  @endif
-							  @if(isset($imagen3_mt))
+                              @endif
+                              @if(isset($imagen3_mt))
                                   <img src="{{asset($imagen3_url)}}" ml="{{$imagen3_ml}}" mt="{{$imagen3_mt}}" w="{{$imagen3_w}}" h="{{$imagen3_h}}"/>
-							  @endif
+                              @endif
 
                               @if(isset($text1))
                                <div class="font-text card-body col-7" mt="180" fs="12">

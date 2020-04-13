@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 <div ng-controller="kitsElementsCtrl" ng-init="allKits()">
 
@@ -39,8 +40,8 @@
                         @{{kit.description}}
                      </div>
                      <div class="col-12 mt-3" style="text-align: left;">
-                        <a ng-show="kit.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/kit_de_laboratorio/@{{kit.id}}/@{{kit.name.replace(' ','_',true)}}">Detalle</a>
-						<a ng-show="kit.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/elemento_de_laboratorio/@{{kit.id}}/@{{kit.name.replace(' ','_')}}">Detalle</a>
+                        <a ng-show="kit.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/kit_de_laboratorio/@{{kit.id}}/@{{kit.name_url_value}}">Detalle</a>
+                        <a ng-show="kit.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/elemento_de_laboratorio/@{{kit.id}}/@{{kit.name_url_value}}">Detalle</a>
                         <a ng-click="onAddShoppingCart(kit)" class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Comprar</a>
                      </div>
                   </div>
@@ -50,6 +51,11 @@
             <div class="p-3 border-lg-y col-lg-2 w-100"
                style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="kit_elements">
                cargando...
+            </div>
+            
+            <div class="d-none-result d-none p-3 border-lg-y col-lg-2 w-100"
+               style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-show="searchText.length > 0 && kit_elements.length > 0">
+               No se encontraron elementos de laboratorio que coincidan con la búsqueda @{{searchText}}
             </div>
 
          </div>

@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 <div ng-controller="ratingPlanListCtrl" ng-init="init(1)">
    
@@ -38,14 +39,14 @@
                             <li class="fs--3 small pr-3 mt-4 ml-2"> @{{item}}</li>
                         </ul>
                         <div class="position-absolute" style="bottom: -40px;">
-							<a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-hide="ratingPlan.is_free"
-								ng-href="/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url}}" class="col-auto">
-								<span>Adquirir</span>
-							</a>
-							<a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-show="ratingPlan.is_free" href="#"
-								ng-click="onRatingPlanFree(ratingPlan.id)" class="col-auto">
-								<span>Plan gratuito</span>
-							</a>
+                            <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-hide="ratingPlan.is_free"
+                                ng-href="/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url}}" class="col-auto">
+                                <span>Adquirir</span>
+                            </a>
+                            <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-show="ratingPlan.is_free" href="#"
+                                ng-click="onRatingPlanFree(ratingPlan.id)" class="col-auto">
+                                <span>Plan gratuito</span>
+                            </a>
                         </div>
                      </div>
                   </div>

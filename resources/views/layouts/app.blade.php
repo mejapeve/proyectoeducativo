@@ -48,20 +48,7 @@
     <div id="app" ng-app="MyApp">
         <main class="main" id="main">
             <div class="container">
-
-                @include('layouts/sidebar')
-
-                <div class="content">
-
-                    @include('layouts/navbar')
-                    <div class="row p-lg-4 p-md-3 p-sm-2 sticky-margin-top-ie">
-                        @yield('content')
-                    </div>
-
-                    <footer>
-                        @include('layouts/footer')
-                    </footer>
-                </div>
+				@yield('content_layout')
             </div>
         </main>
     </div>

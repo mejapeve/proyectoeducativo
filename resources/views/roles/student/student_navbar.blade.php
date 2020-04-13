@@ -10,8 +10,63 @@
         </div>
      </div>
   </a>
-
-     
+  @auth('afiliadoempresa')
+  @if(auth('afiliadoempresa')->user())
+     @if(auth('afiliadoempresa')->user()->hasAnyRole('student'))
+     <ul class="nav collapse navbar-collapse row text-align-rigth row">
+        <li class="nav-item ml-lg-14 col-2-2 d-flex ml-xl-10 ml-lg-8">
+           <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" 
+              class="nav-link  mr-2 p-0 pb-1
+              @if(\Route::current()->getName() == 'avatar') selected @endif
+              @if(\Route::current()->getName() == 'student') selected @endif">
+              Mi perfíl
+           </a>
+              <i class="fas fa-user fs-1"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-auto d-flex">
+           <a href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
+           @if(Route::current()->getName() == 'student.available_sequences' ||  
+               Route::current()->getName() == 'student.sequences_section_1'  ) 
+               selected @endif">Mis cursos</a>
+           <i class="fas fa-book-open fs-1"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Logros</a><i class="fas fa-star fs-1"></i></li>
+        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Calendario</a><i class="fas fa-calendar-alt fs-1"></i></li>
+        <li class="nav-item ml-lg-14 col-2 d-flex"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  mr-2 p-0 pb-1" >Salir</a><i class="fas fa-door-open fs-1"></i></li>
+        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+           @csrf
+        </form>
+     </ul>
+     @elseif(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+     <ul class="nav collapse navbar-collapse row text-align-rigth row">
+        <!--
+        <li class="nav-item ml-lg-14 col-2-2 d-flex ml-xl-10 ml-lg-8">
+           <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
+              @if(\Route::current()->getName() == 'avatar') selected @endif
+              @if(\Route::current()->getName() == 'student') selected @endif">
+              Mi perfil
+           </a>
+              <i class="fas fa-user fs-1"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-auto d-flex">
+           <a href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
+           @if(Route::current()->getName() == 'student.available_sequences' ||  
+               Route::current()->getName() == 'student.sequences_section_1'  ) 
+               selected @endif">Mis cursos</a>
+           <i class="fas fa-book-open fs-1"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Logros</a><i class="fas fa-star fs-1"></i></li>
+        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Calendario</a><i class="fas fa-calendar-alt fs-1"></i></li>
+        -->
+        <li class="nav-item ml-lg-14 col-2 d-flex"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  mr-2 p-0 pb-1" >Salir</a><i class="fas fa-door-open fs-1"></i></li>
+        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+           @csrf
+        </form>
+     </ul>
+     @endif
+  @endif
+  @endauth
+  @guest('afiliadoempresa')
      <ul class="ml-1 nav collapse navbar-collapse row text-align fs--1 font-weight-semi-bold">
         <li class="nav-item col-1 p-0 nav-small-fs--1"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home' || Route::current()->getName() == '') selected @endif">Inicio</a></li>
         <li class="nav-item col-1-5 p-0 "><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>
@@ -21,32 +76,12 @@
         ">Guías de aprendizaje</a></li>
         <li class="nav-item col-2 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
         <li class="nav-item ml-2 col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
-        @guest('afiliadoempresa')
         <li class="ml-2 nav-item col-2 p-0">
            <a class="btn btn-primary btn-sm badge-pill fs-lg--1" href="{{ route('user.login') }}">Inicio de Sesión</a>
         </li>
         <li class="ml-2 nav-item p-0">
            <a class="btn btn-secondary btn-sm badge-pill  fs-lg--1" href="{{ route('registerForm') }}">Registro</a>
         </li>
-        @endguest
-        
-        @auth('afiliadoempresa')
-        @if(auth('afiliadoempresa')->user()->hasAnyRole('student'))
-        <li class="ml-1 col-2-3 d-flex">
-            <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
-            <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
-        </li>
-        @endif
-
-        @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-        <li class="ml-1 col-2-3 d-flex">
-            <a href="{{ route('tutor', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
-            <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
-        </li>
-        @endif
-        @endauth
-        
-        @if(!auth('afiliadoempresa')->user() || auth('afiliadoempresa')->user()->hasAnyRole('tutor') || auth('afiliadoempresa')->user()->hasAnyRole('teacher'))
         <li class="nav-item">
            <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="{{route('shoppingCart')}}">
               <span class="notification-indicator-number">0</span>
@@ -59,8 +94,6 @@
               </svg>
            </a>
         </li>
-        @endif
-        
         <li class="nav-item ml-auto mr-auto">
            <form class="search-box form-inline ng-pristine ng-valid">
               <input placeholder="Buscar..." aria-label="Search" type="search" class="rounded-pill search-input form-control">
@@ -70,4 +103,5 @@
            </form>
         </li>
      </ul>
+  @endguest
 </nav>

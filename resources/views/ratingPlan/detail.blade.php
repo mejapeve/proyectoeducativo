@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 
 <div class="w-100" ng-controller="ratingPlanDetailCtrl" ng-init="init(1)">
