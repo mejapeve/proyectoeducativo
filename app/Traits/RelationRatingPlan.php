@@ -30,11 +30,17 @@ trait RelationRatingPlan
         });
 
         for ($i=0; $i < count($shopingCarts); $i++) {
+            //$data = array();
             switch (intval($shopingCarts[$i]->type_product_id)) {
                 case 1://sequence
                     foreach ($shopingCarts[$i]['shopping_cart_product'] as $sequenceA){
-                         $sequenceA['sequence'] = $sequencesCache->where('id', $sequenceA['product_id']);
+                        //dd($sequencesCache->where('id', $sequenceA['product_id']));
+                        foreach ($sequencesCache->where('id', $sequenceA['product_id']) as $dataArray){
+                            $sequenceA['sequence'] = $dataArray;
+                        }
+
                     }
+
                     break;
                 case 2://moment
                     foreach ($shopingCarts[$i]['shopping_cart_product'] as $sequenceA){
