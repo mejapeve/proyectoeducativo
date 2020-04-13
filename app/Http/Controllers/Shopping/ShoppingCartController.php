@@ -34,7 +34,7 @@ class ShoppingCartController extends Controller
         //dd($preference->payment_methods);
         $preference->items = array($item);
         $preference->payment_methods = array("excluded_payment_types" => array(
-                array("id" => "account_money",
+                array("id" => "ticket",
                       
                       
                 ),
