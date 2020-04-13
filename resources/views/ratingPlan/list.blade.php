@@ -40,7 +40,7 @@
                         </ul>
                         <div class="position-absolute" style="bottom: -40px;">
                             <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-hide="ratingPlan.is_free"
-                                ng-href="/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url}}" class="col-auto">
+                                ng-href="/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url_value}}" class="col-auto">
                                 <span>Adquirir</span>
                             </a>
                             <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-show="ratingPlan.is_free" href="#"
