@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
 
 @section('content')
 <div class="ml-auto mr-auto row " ng-controller="contactusController">

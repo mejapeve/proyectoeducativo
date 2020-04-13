@@ -21,7 +21,7 @@ class KitElementController extends Controller
 
     }
 	
-	public function get_elements (Request $request, $element_id) {
+	public function get_element (Request $request, $element_id) {
 
         return Element::where('id',$element_id)->get();
 

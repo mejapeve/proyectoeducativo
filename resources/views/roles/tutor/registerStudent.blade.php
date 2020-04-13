@@ -1,4 +1,5 @@
 @extends('roles.tutor.profile')
+
 @section('content-tutor-profile')
    <div class="d-flex justify-content-center align-items-center col-md-7">
       <div class="flex-grow-1">

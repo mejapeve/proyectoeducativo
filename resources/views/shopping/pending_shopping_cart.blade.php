@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 
 <div class="card" ng-controller="shoppingCartController">
@@ -32,10 +33,10 @@
          <div class="py-3 px-2 px-md-3 col-8">
             <div class="align-items-center media">
                <a href="/e-commerce/product-details/af194a20-3682-11ea-9324-99bbd1dcb23a">
-			   <img class="rounded mr-3 d-none d-md-block" src="/static/media/2.faaeef66.jpg" alt="" width="60"></a>
+               <img class="rounded mr-3 d-none d-md-block" src="/static/media/2.faaeef66.jpg" alt="" width="60"></a>
                <div class="media-body">
                   <h5 class="fs-0"><a class="text-900" href="/e-commerce/product-details/af194a20-3682-11ea-9324-99bbd1dcb23a">
-				  @{{card.name}}</a></h5>
+                  @{{card.name}}</a></h5>
                   <div class="fs--2 fs-md--1 text-danger cursor-pointer">Remove</div>
                </div>
             </div>

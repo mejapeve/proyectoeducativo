@@ -14,7 +14,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
         $scope.ratingPlans = response.data ? response.data.data || response.data : response;
         $scope.ratingPlans = $scope.ratingPlans.map(function(value) {
             value.description_items = value.description_items ?value.description_items.split('|'):[];
-            value.name_url = value.name.replace(/\s/g,'_').toLowerCase();
+            value.name_url_value = value.name.replace(/\s/g,'_').toLowerCase();
           return value;
         });
         
@@ -31,8 +31,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
           title: "Estas seguro?",
           text: "Confirmas que deseas adquirir una prueba gratuita?",
           type: "warning",
-          buttons: true,
-          dangerMode: false,
+          showConfirmButton: true,showCancelButton: true
         })
         .then((willConfirm) => {
           if (willConfirm) {

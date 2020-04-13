@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 <section class="py-0" ng-controller="registerController">
    <div class="container-fluid">

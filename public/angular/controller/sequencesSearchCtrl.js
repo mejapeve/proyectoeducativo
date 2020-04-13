@@ -45,6 +45,7 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
         var value = null;
         for(var i = 0; i<$scope.sequences.length; i++) {
             value = $scope.sequences[i];
+            value.name_url_value = value.name.replace(/\s/g,'_').toLowerCase()
             if (value.areas) {
                 angular.forEach(value.areas.split(','), function (areaName, key) {
                     areaName = (areaName[0] == ' ') ? areaName.substr(1) : areaName;
@@ -180,16 +181,34 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
     }
     
     $scope.onSequenceBuy = function(sequence) {
+        var ratingPlans = {
+              2: 'Plan por 2 meses',
+              3: 'Plan por 4 meses',
+              4: 'Plan por 8 meses',
+              4: 'Plan por 12 meses'
+        };
         swal({
-            title: 'Input something',
+            title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
             input: 'select',
-            inputOptions: {
-              15: 'Serbia',
-              20: 'Ukraine',
-              37: 'Croatia'
-            },
-            inputValue: 20
-          });
+            inputOptions: ratingPlans,
+            inputValue: 2,
+            showConfirmButton: true,showCancelButton: true
+        })
+        .then((result) => {
+          if (result) {
+            //TODO: redireccionar a detalle del plan seleccionando la guia
+            var name = ratingPlans[result] ? ratingPlans[result].replace(/\s/g,'_').toLowerCase() : '';
+            window.location = '/plan_de_acceso/'+result+'/'+name;
+          }
+        });
+    }
+
+    $scope.setPositionScroll = function () {
+        
+        if(window.scrollY <= 50) {
+            var eTop = $('#divSearch').offset().top;
+            window.scrollTo( 0, eTop - 80 );
+        }
     }
     
 }]);

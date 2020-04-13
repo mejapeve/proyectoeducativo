@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('roles.student.student_layout')
 
 @section('content')
     <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
@@ -8,16 +8,16 @@
                     @include('roles/student/timeline_sequences')
                 </div>
                 <div class="col-md-3 open" id="sidemenu-sequences"  >
-					<div class="mb-3 card fade show" id="sidemenu-sequences-content">
-						@include('roles/student/sidebar_sequences')
-					</div>
-					<div class="h-75 mb-3 fade show d-none card w-10" id="sidemenu-sequences-empty">
-					</div>
-					<div class="d-none d-md-block text-sans-serif dropdown position-absolute cursor-pointer" style="top: 91px; right:7px;" ng-click="toggleSideMenu()">
-						<i class="far fa-caret-square-left" id="sidemenu-sequences-button"></i>
-					</div>
+                    <div class="mb-3 card fade show" id="sidemenu-sequences-content">
+                        @include('roles/student/sidebar_sequences')
+                    </div>
+                    <div class="h-75 mb-3 fade show d-none card w-10" id="sidemenu-sequences-empty">
+                    </div>
+                    <div class="d-none d-md-block text-sans-serif dropdown position-absolute cursor-pointer" style="top: 91px; right:7px;" ng-click="toggleSideMenu()">
+                        <i class="far fa-caret-square-left" id="sidemenu-sequences-button"></i>
+                    </div>
                 </div>
-				
+                
                 <div class="col-md-9" id="content-section-sequences">
                    <div>
                         @if (isset($success))
@@ -57,9 +57,9 @@
         </div>
     </div>
     <script src="{{ asset('angular/controller/contentSequencesStudentCtrl.js') }}" defer></script>
-	<style>
-		#sidemenu-sequences-button:not(.show) {
-			
-		}
-	</style>
+    <style>
+        #sidemenu-sequences-button:not(.show) {
+            
+        }
+    </style>
 @endsection

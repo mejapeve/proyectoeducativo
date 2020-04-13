@@ -7,4 +7,3 @@ MyApp.controller('shoppingCartController', ['$scope', function($scope) {
 	  ]
   
 }]);
-

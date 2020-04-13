@@ -58,7 +58,7 @@ $.fn.extend({
     function IniciarPintadoAvatar() {
       cimgContext = 0;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-	  
+      
       $('#' + id + ' > div').each(function () {
         idParte = $(this).attr('id');
         $('#' + idParte + ' >img').each(function () {
@@ -70,32 +70,32 @@ $.fn.extend({
             var left = Number($(this).attr('data-left') || $(this).parent().attr('data-left'));
             var width = Number($(this).attr('data-width') || $(this).parent().attr('data-width'));
             var height = Number($(this).attr('data-height') || $(this).parent().attr('data-height'));
-			
-			
-			if($(this).parent().attr('id') === "hair" && $(this).attr("data-ears")) {
-				var skinY = Number($('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top'));
-				var skinH = Number($('#skin .activo').attr('data-height') || $('#skin .activo').parent().attr('data-height'));
-				var skinEars = Number($('#skin .activo').attr('data-ears'));
-				var ears = Number($(this).attr('data-ears'));
-				height = height*skinEars/ears;
-			}
-			else if($(this).parent().attr('id') === "accessories1") {
-				var skinEars = Number($('#skin .activo').attr('data-ears'));
-				var skinY = $('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top');
-				skinY = Number(skinY);
-				top = skinY + ( skinEars - skinY )*5/12 + top;
-				
-			}
-			else if($(this).parent().attr('id') === "accessories2") {
-				var y = $('#skin .activo').attr('data-top');
-				//top = Number(y) + top;
-			}
-			else if($(this).parent().attr('id') === "features") {
-				var y = $('#skin .activo').attr('data-top');
-				var x = $('#skin .activo').attr('data-mouth');
-				var skinW = $('#skin .activo').attr('data-width') || $('#skin .activo').parent().attr('data-width');
-				left = x - width / 8;
-			}
+            
+            
+            if($(this).parent().attr('id') === "hair" && $(this).attr("data-ears")) {
+                var skinY = Number($('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top'));
+                var skinH = Number($('#skin .activo').attr('data-height') || $('#skin .activo').parent().attr('data-height'));
+                var skinEars = Number($('#skin .activo').attr('data-ears'));
+                var ears = Number($(this).attr('data-ears'));
+                height = height*skinEars/ears;
+            }
+            else if($(this).parent().attr('id') === "accessories1") {
+                var skinEars = Number($('#skin .activo').attr('data-ears'));
+                var skinY = $('#skin .activo').attr('data-top') || $('#skin .activo').parent().attr('data-top');
+                skinY = Number(skinY);
+                top = skinY + ( skinEars - skinY )*5/12 + top;
+                
+            }
+            else if($(this).parent().attr('id') === "accessories2") {
+                var y = $('#skin .activo').attr('data-top');
+                //top = Number(y) + top;
+            }
+            else if($(this).parent().attr('id') === "features") {
+                var y = $('#skin .activo').attr('data-top');
+                var x = $('#skin .activo').attr('data-mouth');
+                var skinW = $('#skin .activo').attr('data-width') || $('#skin .activo').parent().attr('data-width');
+                left = x - width / 8;
+            }
 
             if ($(this).parent().attr('data-rgb')) {
               
@@ -107,29 +107,29 @@ $.fn.extend({
             cimgContext++;
           }
         });
-		
-		// get the image data object
-		var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
-		// get the image data values 
-		var imageData = image.data,
-		length = imageData.length;
-		// set every fourth value to 50
-		for(var i=0; i < length; i+=1){  
-			imageData[i] = 255;
-		}
-		// after the manipulation, reset the data
-		image.data = imageData;
-		// and put the imagedata back to the canvas
-		ctx.putImageData(image, 0, 0);
+        
+        // get the image data object
+        var image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        // get the image data values 
+        var imageData = image.data,
+        length = imageData.length;
+        // set every fourth value to 50
+        for(var i=0; i < length; i+=1){  
+            imageData[i] = 255;
+        }
+        // after the manipulation, reset the data
+        image.data = imageData;
+        // and put the imagedata back to the canvas
+        ctx.putImageData(image, 0, 0);
       });
     }
 
     function alterImage(imageObj, left, top, width, height, r, g, b) {
       cvstmp = document.getElementById("tmpCanvas");
       var ctxTmp = cvstmp.getContext("2d");
-	  
+      
       ctxTmp.drawImage(imageObj, left, top);
-	  ctxTmp.clearRect(0,0, canvas.width, canvas.height);
+      ctxTmp.clearRect(0,0, canvas.width, canvas.height);
       var id = ctxTmp.getImageData(left, top, width, height);
       for (var i = 0; i < id.data.length; i += 4) {
         id.data[i] = r;// red

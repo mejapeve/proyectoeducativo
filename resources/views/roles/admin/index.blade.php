@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
+@extends('layouts.app_side')
 
 @section('content')
     <div class="container">
         <div class="content">
             <div class="row">
                 @include('roles/admin/sidebar')
-				<div class="col-md-8">
+                <div class="col-md-8">
                     <div class="mb-3 card">
                         <div class="card-header"><h5 class="mb-0">VISTA ESTUDIANTE</h5></div>
                         <div class="bg-light card-body">

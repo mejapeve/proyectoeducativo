@@ -15,10 +15,12 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
             for(var i=0; i<kits.length; i++){
                 var kit = kits[i];
                 kit.type="kit";
+				kit.name_url_value = kit.name.replace(/\s/g,'_').toLowerCase();
                 $scope.kit_elements.push(kit);
                 if(kit.kit_elements && kit.kit_elements[0] ) {
                     var element = kit.kit_elements[0].element;
                     element.type="element";
+					element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
                     $scope.kit_elements.push(element);    
                 }
             }
@@ -33,7 +35,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
     
     $scope.getKits = function() {
         var params = window.location.href.split('/');
-        var kidName = window.location.href.split('/')[params.length - 1].replace('%20','');
+        var kidName = window.location.href.split('/')[params.length - 1];
         var kidId = window.location.href.split('/')[params.length - 2];
 
         $('.d-none-result').removeClass('d-none');
@@ -72,7 +74,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
     
     $scope.getElement = function() {
         var params = window.location.href.split('/');
-        var elementName = window.location.href.split('/')[params.length - 1].replace('%20','');
+        var elementName = window.location.href.split('/')[params.length - 1];
         var elementId = window.location.href.split('/')[params.length - 2];
 
         $('.d-none-result').removeClass('d-none');
@@ -86,7 +88,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         }).catch(function (e) {
-            $scope.errorMessageFilter = 'Error consultando las secuencias';
+            $scope.errorMessageFilter = 'Error consultando el elemento de laboratorio';
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         });
@@ -107,7 +109,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
             data.products = [kitElement];
             addShoppingCart([data]);
           }
-        });
+        }).catch(swal.noop);
     }
     
     function addShoppingCart(data) {

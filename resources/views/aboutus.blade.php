@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
 <div class="no-gutters row mt-lg-4 mt-md-3 mt-sm-2 ">
    <div class="pr-lg-2 col-lg-6">

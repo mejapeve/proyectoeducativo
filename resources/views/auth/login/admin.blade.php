@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
 
 @section('content')
 <div class="row">
@@ -64,12 +64,12 @@
 </div>
 
 <script>
-   	var navbarH = $("#navbar").height();
+       var navbarH = $("#navbar").height();
     var footerH = $("#footer").height();
     var $winHeight = $(window).height();
-	
+    
     $("#content").height($winHeight-footerH-navbarH);
-	
+    
 
 </script>
 @endsection

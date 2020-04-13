@@ -1,6 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app_side')
+
 @section('content')
-<div ng-controller="kitsElementsCtrl" ng-init="getKits()">
+<div ng-controller="kitsElementsCtrl" ng-init="getElement()">
 
    <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
@@ -19,7 +20,7 @@
                </div>
             </div>
             <div class="d-none-result d-none row w-100">
-               <div class="col-lg-4 col-md-6" ng-repeat="kit in kits"
+               <div class="col-lg-4 col-md-6"
                   style="border: 6px solid white;">
                   <div class="card-body bg-light text-center p-4 row">
                      <img class="kit-imagen col-12 p-0" ng-src="@{{kit.url_image}}" width="62px" height="62px" />

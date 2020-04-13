@@ -1,6 +1,6 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.app_side')
 
+@section('content')
 
     <!-- Swiper -->
     <div class="swiper-container">
