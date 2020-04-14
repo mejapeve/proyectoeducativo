@@ -182,6 +182,7 @@ Route::get('get_available_sequences/{company_id}', 'StudentController@get_availa
 //servicio para consultar servicios contratados
 Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
 
+Route::get('get_advance_line', 'AdvanceLineController@get')->name('get_advance_line');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

@@ -97,8 +97,6 @@ class RegisterController extends Controller
                 'city' => $data['city'],
             ]);
 
-
-
             $affiliated_company_role = new AffiliatedCompanyRole();
             $affiliated_company_role->affiliated_company_id = $afiliado_empresa->id;
             $affiliated_company_role->rol_id = 3;
@@ -137,14 +135,8 @@ class RegisterController extends Controller
                     }
                }
             }
-
-
-            
             $this->redirectTo = 'conexiones/tutor';
-
             return $afiliado_empresa;
-
-
 
     }
 

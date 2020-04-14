@@ -18,14 +18,16 @@ class DatabaseSeeder extends Seeder
         $this->call(DepartmentSeeder::class);
         $this->call(CitySeeder::class);
         $this->call(CompanyGroupsSeeder::class);
-        $this->call(CompanySequencesSeeder::class);
         $this->call(KitTableSeeder::class);
         $this->call(ElementSeeder::class);
+        $this->call(CompanySequencesSeeder::class);
+
         $this->call(TypesRatigPlanSeeder::class);
         $this->call(RatingPlanSeeder::class);
         $this->call(PaymentStatusSeeder::class);
         $this->call(ShoppingCarSeeder::class);
-        $this->call(AffiliatedAccountServicesSeeder::class);
+        $this->call(ConnectionStructContentSeeder::class);
+        //$this->call(AffiliatedAccountServicesSeeder::class);
 
     }
 }

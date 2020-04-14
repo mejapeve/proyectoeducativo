@@ -14,4 +14,9 @@ class AffiliatedAccountService extends Model
         return $this->belongsTo(RatingPlan::class,'rating_plan_id','id');
 
     }
+    public function advance_line(){
+
+        return $this->hasMany(AdvanceLine::class,'affiliated_account_service_id','id');
+
+    }
 }
