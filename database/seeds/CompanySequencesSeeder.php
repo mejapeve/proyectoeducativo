@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\CompanySequence;
 use App\Models\Kit;
-use App\Models\SequenceKits;
+use App\Models\MomentKits;
 use App\Models\Element;
 use App\Models\KitElement;
 use App\Models\SequenceMoment;
@@ -67,20 +67,7 @@ class CompanySequencesSeeder extends Seeder
             $this->addMoment($sequenceN->id, 7, 2);
             $this->addMoment($sequenceN->id, 8, 2);
             
-            $sequenceKitsN = new SequenceKits();
-            $sequenceKitsN->company_sequence_id = $sequenceN->id;
-            $sequenceKitsN->kit_id = 3;
-            $sequenceKitsN->save();
-            
-            $sequenceKitsN = new SequenceKits();
-            $sequenceKitsN->company_sequence_id = $sequenceN->id;
-            $sequenceKitsN->kit_id = 4;
-            $sequenceKitsN->save();
-            
-            $sequenceKitsN = new SequenceKits();
-            $sequenceKitsN->company_sequence_id = $sequenceN->id;
-            $sequenceKitsN->element_id = 1;
-            $sequenceKitsN->save();
+
         }
     }
     
@@ -101,5 +88,20 @@ class CompanySequencesSeeder extends Seeder
                 $experienceN->objectives = '';
                 $experienceN->save();
             }
+
+            $sequenceKitsN = new MomentKits();
+            $sequenceKitsN->sequence_moment_id = $momentN->id;
+            $sequenceKitsN->kit_id = 3;
+            $sequenceKitsN->save();
+
+            $sequenceKitsN = new MomentKits();
+            $sequenceKitsN->sequence_moment_id = $momentN->id;
+            $sequenceKitsN->kit_id = 4;
+            $sequenceKitsN->save();
+
+            $sequenceKitsN = new MomentKits();
+            $sequenceKitsN->sequence_moment_id = $momentN->id;
+            $sequenceKitsN->element_id = 1;
+            $sequenceKitsN->save();
     }
 }
