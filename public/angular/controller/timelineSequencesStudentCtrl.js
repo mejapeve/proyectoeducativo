@@ -31,7 +31,6 @@ console.log(12);
                     flag = true;
                     console.log('ingresa')
                 }else{
-
                     if(moment == value.number_moment){
                        if(++count == 4){
                            console.log('cantidad',count)
@@ -41,6 +40,7 @@ console.log(12);
                         console.log('ingresa2',moment,value.number_moment,count)
                     }else{
                         count = 1;
+                        flag = false;
                     }
                 }
             });
