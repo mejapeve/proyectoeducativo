@@ -177,34 +177,37 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         $scope.elementsKits = [];
         for(var s=0;s<$scope.sequences.length;s++) {
             var sequenceTmp = $scope.sequences[s];
-            if(sequenceTmp.isSelected && sequenceTmp.sequence_kit ) {
+            if(sequenceTmp.isSelected && sequenceTmp.moments ) {
                 var mbAdd = true;
-                var kit = null;
-                var element = null;
-                for(var i=0;i<sequenceTmp.sequence_kit.length;i++) {
-                    kit = sequenceTmp.sequence_kit[i].kit;
-                    if(kit) {
-                        kit.type = 'kit';
-                        if(!searchElementKit(kit)) {
-                            $scope.elementsKits.push(kit);
-                        }
-                        for(var j=0;j<kit.kit_elements.length;j++) {
-                            element = kit.kit_elements[j].element;
-                            element.type = 'element';
-                            if(!searchElementKit(element)) {
-                                $scope.elementsKits.push(element);
-                            }
-                        }
-                    }
-                    else {
-                        element = sequenceTmp.sequence_kit[i].element;
-                        if(element) {
-                            element.type = 'element';
-                            if(!searchElementKit(element)) {
-                                $scope.elementsKits.push(element);
-                            }
-                        }
-                    }
+                var kit,moment,element = null;
+				
+                for(var i=0;i<sequenceTmp.moments.length;i++) {
+                    moment = sequenceTmp.moments[i];
+					for(var j=0;j<moment.moment_kit.length;i++) {
+						kit = moment.moment_kit[i].kit;
+						if(kit) {
+							kit.type = 'kit';
+							if(!searchElementKit(kit)) {
+								$scope.elementsKits.push(kit);
+							}
+							for(var j=0;j<kit.kit_elements.length;j++) {
+								element = kit.kit_elements[j].element;
+								element.type = 'element';
+								if(!searchElementKit(element)) {
+									$scope.elementsKits.push(element);
+								}
+							}
+						}
+						else {
+							element = moment.moment_kit[i].element;
+							if(element) {
+								element.type = 'element';
+								if(!searchElementKit(element)) {
+									$scope.elementsKits.push(element);
+								}
+							}
+						}
+					}
                 }
             }
         }

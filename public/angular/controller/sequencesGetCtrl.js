@@ -1,7 +1,7 @@
 MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
     $scope.sequence = null;
     $scope.errorMessageFilter = '';
-    $scope.kits = [];
+    $scope.elementsKits = [];
     
     var params = window.location.href.split('/');
     $scope.sequenceName = window.location.href.split('/')[params.length - 1];
@@ -19,21 +19,52 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
             if($scope.sequence.url_slider_images) {
                 $scope.sequence.images = $scope.sequence.url_slider_images.split('|');
             }
+			
+			function searchElementKit(elementKit) {
+				for(var i=0;i<$scope.elementsKits.length;i++) {
+					if($scope.elementsKits[i].type === elementKit.type && $scope.elementsKits[i].id === elementKit.id)
+					return true;
+				}
+				return false;
+			}
             
-            $scope.kit_elements = [];
-            if($scope.sequence.sequence_kit){
-                for(var i=0; i<$scope.sequence.sequence_kit.length; i++){
-                    var kit = $scope.sequence.sequence_kit[i].kit;
-                    kit.type="kit";
-					kit.name_url_value = kit.name.replace(/\s/g,'_').toLowerCase();
-                    $scope.kit_elements.push(kit);
-                    if(kit.kit_elements && kit.kit_elements[0] ) {
-                        var element = kit.kit_elements[0].element;
-                        element.type="element";
-						element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
-                        $scope.kit_elements.push(element);    
-                    }
+            
+			var kit = moment = element = null;
+			$scope.elementsKits = [];
+			if($scope.sequence.moments){
+                for(var i=0; i<$scope.sequence.moments.length; i++){
                     
+					moment = $scope.sequence.moments[i];
+					if(moment.moment_kit) {
+						for(var j=0; j<moment.moment_kit.length; j++){
+							kit = moment.moment_kit[i].kit;
+							if(kit) { 
+								kit.type="kit";
+								kit.name_url_value = kit.name.replace(/\s/g,'_').toLowerCase();
+								if(!searchElementKit(kit)) {
+									$scope.elementsKits.push(kit);
+								}
+								if(kit.elementsKits && kit.elementsKits[0] ) {
+									element = kit.elementsKits[0].element;
+									element.type="element";
+									element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
+									if(!searchElementKit(element)) {
+										$scope.elementsKits.push(element);
+									}
+								}
+							}
+							else {
+								element = moment.moment_kit[i].element;
+								if(element) {
+									element.type="element";
+									element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
+									if(!searchElementKit(element)) {
+										$scope.elementsKits.push(element);
+									}
+								}
+							}
+						}
+					}
                 }
             }
             

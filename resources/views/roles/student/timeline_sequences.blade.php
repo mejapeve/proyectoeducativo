@@ -15,6 +15,21 @@
 		/*transform: translateX(-100%);*/
 		transform: translateY(40%);
 	}
+	
+	.avatarTimeLine {
+		position: absolute;
+			top: 22px;
+			left: 79px;
+			background-color: black;
+			color: white;
+			width: 126px;
+			height: 23px;
+			padding-top: 2px;
+			padding-left: 10px;
+			border-radius: 0 12px 12px;
+			z-index: 1;
+		}
+	}
 </style>
 <div ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
 	<div ng-show="errorMessage" class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
@@ -23,9 +38,9 @@
 	</div>
 	<div class="mb-3 card">
 		<div class="card-body row">
-			<div class="col-md-1 col-sm-12" >
-				<img style="width:70px" class="shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
-				<span style="font-size: 10px">CristianJojoa</span>
+			<span style="top: 10px" class="avatarTimeLine fs--1">{{auth('afiliadoempresa')->user()->name}}</span>
+			<div class="col-md-1 col-sm-12" style="z-index: 2">
+				<img width="70px" class="shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
 			</div>
 			<div ng-controller="timelineSequencesStudentCtrl" ng-init="init()" class="col-md-11 col-sm-12">
 				@for($j = 1; $j < 9 ; $j++)

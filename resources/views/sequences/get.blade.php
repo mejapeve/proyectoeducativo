@@ -71,10 +71,10 @@
                     <i class="fas fa-shopping-cart"></i> Comprar</a>
                  </div>
                  
-                 <div class="col-12 ml-2 mt-3" ng-show="kit_elements">
+                 <div class="col-12 ml-2 mt-3" ng-show="elementsKits.length > 0">
                    <h5 class="p-1">Esta guía requiere instrumentos y materiales de laboratorio </h5>
                    <div class="row">
-                       <div class="col-lg-4 col-md-6" ng-repeat="kit_element in kit_elements" style="border: 6px solid white;">
+                       <div class="col-lg-4 col-md-6" ng-repeat="kit_element in elementsKits" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
                              <div class="col-7">
                                 <img class="kit-imagen col-12 p-0" ng-src="@{{kit_element.url_image}}" width="62px" height="62px" />
@@ -87,8 +87,8 @@
                                     @{{kit_element.description}}
                                  </div>
                                  <div class="col-12 p-0 mt-3 text-aling-left">
-									<a ng-show="kit_element.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../kit_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
-									<a ng-show="kit_element.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../elemento_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
+                                    <a ng-show="kit_element.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../kit_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
+                                    <a ng-show="kit_element.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../elemento_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
                                     <a class="pl-3 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Agregar</a>
                                  </div>
                             </div>
