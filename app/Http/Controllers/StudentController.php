@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedCompanyRole;
+use App\Models\AffiliatedContentAccountService;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
 use DB;
@@ -145,9 +146,10 @@ class StudentController extends Controller
                 ['rol_id',1]
             ]);
         })->first();
-        dd(AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
+        $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
-        })->get());
+        })->pluck('id');
+       return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get();
 
 
 

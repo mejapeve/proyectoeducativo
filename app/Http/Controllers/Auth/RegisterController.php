@@ -123,7 +123,7 @@ class RegisterController extends Controller
                    $affiliatedContentAccountService = new AffiliatedContentAccountService();
                    $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
                    $affiliatedContentAccountService->type_product_id = 1;
-                   $affiliatedContentAccountService->secuence_id = $ratingPlan->sequence_free_id;
+                   $affiliatedContentAccountService->sequence_id = $ratingPlan->sequence_free_id;
                    $affiliatedAccountService->init_date = date('Y-m-d');
                    $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
                    $affiliatedContentAccountService->save();
@@ -143,7 +143,7 @@ class RegisterController extends Controller
                         $affiliatedContentAccountService = new AffiliatedContentAccountService();
                         $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
                         $affiliatedContentAccountService->type_product_id = 1;
-                        $affiliatedContentAccountService->secuence_id = $ratingPlan->sequence_free_id;
+                        $affiliatedContentAccountService->sequence_id = $ratingPlan->sequence_free_id;
                         $affiliatedContentAccountService->moment_id = $id;
                         $affiliatedContentAccountService->init_date = date('Y-m-d');
                         $affiliatedContentAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));

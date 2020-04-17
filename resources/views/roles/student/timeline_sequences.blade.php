@@ -28,7 +28,7 @@
 			padding-left: 10px;
 			border-radius: 0 12px 12px;
 			z-index: 1;
-		}
+
 	}
 </style>
 <div ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
@@ -63,7 +63,7 @@
 						<rect width="35" height="1" style="fill:rgb(0,0,255);stroke-width:0.5;stroke:rgb(0,0,0)" />
 					</svg>
 					<svg width="50" height="80" xmlns="http://www.w3.org/2000/svg">
-							<path id="star{{$j}}" fill="#f1f1f1"  style="transform:translate(12px, 22px) scale(.22,.22) rotate(-1deg);" stroke="black" stroke-width="6"
+							<path  id="star{{$j}}" fill="#f1f1f1"  style="transform:translate(12px, 22px) scale(.22,.22) rotate(-1deg);" stroke="black" stroke-width="6"
 								  d="m135.78 50.46c0-2.01-1.52-3.259-4.564-3.748l-40.897-5.947-18.331-37.07c-1.031-2.227-2.363-3.34-3.992-3.34-1.629
 								  0-2.96 1.113-3.992 3.34l-18.332 37.07-40.899 5.947c-3.041.489-4.562 1.738-4.562 3.748 0 1.141.679 2.445 2.037
 								  3.911l29.656 28.841-7.01 40.736c-.109.761-.163 1.305-.163 1.63 0 1.141.285 2.104.855 2.893.57.788 1.425 1.181
