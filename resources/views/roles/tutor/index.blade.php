@@ -14,11 +14,11 @@
                             <ul class="nav">
                             <li class="nav-item nav-item-tutor mb-3">
                                 <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
+                                 <a href={{$route}}>
                                     <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
                                  </a>
                                  <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Inscripciones</small></a>
+                                    <a class="text-700" href={{$route}}><small class="font-weight-bold"> Inscripciones</small></a>
                                  </p>
                               </div>
                             </li>

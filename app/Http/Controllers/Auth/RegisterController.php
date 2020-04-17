@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedCompanyRole;
+use App\Models\AffiliatedContentAccountService;
 use App\Models\CompaniesAffiliated;
 use App\Models\AfiliadoEmpresa;
 use App\Models\RatingPlan;
@@ -119,19 +120,34 @@ class RegisterController extends Controller
                    $affiliatedAccountService->init_date = date('Y-m-d');
                    $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
                    $affiliatedAccountService->save();
+                   $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                   $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                   $affiliatedContentAccountService->type_product_id = 1;
+                   $affiliatedContentAccountService->secuence_id = $ratingPlan->sequence_free_id;
+                   $affiliatedAccountService->init_date = date('Y-m-d');
+                   $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
+                   $affiliatedContentAccountService->save();
 
                }else{
                    $ids = explode(',',$ratingPlan->moment_free_ids);
+                   $affiliatedAccountService = new AffiliatedAccountService();
+                   $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+                   $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
+                   $affiliatedAccountService->type_product_id = 2;
+                   $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
+                   //$affiliatedAccountService->company_moment_id = $id;
+                   $affiliatedAccountService->init_date = date('Y-m-d');
+                   $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
+                   $affiliatedAccountService->save();
                     foreach ($ids as $id){
-                        $affiliatedAccountService = new AffiliatedAccountService();
-                        $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
-                        $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
-                        $affiliatedAccountService->type_product_id = 2;
-                        $affiliatedAccountService->company_sequence_id = $ratingPlan->sequence_free_id;
-                        $affiliatedAccountService->company_moment_id = $id;
-                        $affiliatedAccountService->init_date = date('Y-m-d');
-                        $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
-                        $affiliatedAccountService->save();
+                        $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                        $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                        $affiliatedContentAccountService->type_product_id = 1;
+                        $affiliatedContentAccountService->secuence_id = $ratingPlan->sequence_free_id;
+                        $affiliatedContentAccountService->moment_id = $id;
+                        $affiliatedContentAccountService->init_date = date('Y-m-d');
+                        $affiliatedContentAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
+                        $affiliatedContentAccountService->save();
                     }
                }
             }

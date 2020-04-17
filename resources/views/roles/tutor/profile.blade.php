@@ -1,5 +1,4 @@
 @extends('roles.tutor.tutor_layout')
-
 @section('content')
 <div class="container" ng-controller="TutorIndexController">
    <div class="content">
@@ -18,13 +17,13 @@
                         <ul class="nav">
                            <li class="nav-item nav-item-tutor mb-3">
                               <div class="avatar avatar-3xl">
-                                 <a href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1])}}">
+                                 <a href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1,'rol'=>3])}}">
                                     <img class="rounded-circle mb-3 shadow-sm"
                                        src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
                                  </a>
                                  <p class="fs--2 mb-1">
                                     <a class="text-700"
-                                       href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1])}}">
+                                       href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1,'rol'=>3])}}">
                                        <small class="font-weight-bold"> Cambio de clave</small></a>
                                  </p>
                               </div>
@@ -49,9 +48,6 @@
                   <div class="bg-light card-body">
                         @yield('content-tutor-profile')
                   </div>
-
-
-                  
                </div>
             </div>
          </div>

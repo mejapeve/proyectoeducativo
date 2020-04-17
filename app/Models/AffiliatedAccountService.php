@@ -19,4 +19,9 @@ class AffiliatedAccountService extends Model
         return $this->hasMany(AdvanceLine::class,'affiliated_account_service_id','id');
 
     }
+    public function company_affilated (){
+
+        return $this->belongsTo(AffiliatedCompanyRole::class,'company_affiliated_id','affiliated_company_id');
+
+    }
 }

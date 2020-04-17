@@ -16,7 +16,8 @@ class TutorController extends Controller
 
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
-        return view('roles.tutor.index');
+        $route = route('registerStudent',session('name_company'));
+        return view('roles.tutor.index')->with('route',$route);
     }
 	
     public function showProfile (Request $request){
@@ -26,6 +27,7 @@ class TutorController extends Controller
 
     public function showRegisterStudentForm (Request $request, $empresa){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+
         return view('roles.tutor.registerStudent');
     }
 

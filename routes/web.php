@@ -118,7 +118,6 @@ Route::group([],function (){
     }
 );
 
-Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('company')->name('registerStudent');
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
 
 Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');

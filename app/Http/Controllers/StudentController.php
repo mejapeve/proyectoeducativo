@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AffiliatedAccountService;
+use App\Models\AffiliatedCompanyRole;
+use App\Models\AfiliadoEmpresaRoles;
+use App\Models\ConectionAffiliatedStudents;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
@@ -130,12 +134,26 @@ class StudentController extends Controller
         }
     }
     
-    public function get_available_sequences (Request $request){
+    public function get_available_sequences (Request $request,$company_id){
         
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        
-        // retorna la lista de todas secuencias indicando en un flag si el alumno tiene activa alguna o no company_sequences.*, 
-        return  DB::select('SELECT company_sequences.*,
+        $tutor_id = ConectionAffiliatedStudents::select('id','tutor_company_id')
+            ->whereHas('student_family',function($query)use($request,$company_id){
+            $query->where([
+                ['affiliated_company_id',$request->user('afiliadoempresa')->id],
+                ['company_id',$company_id],
+                ['rol_id',1]
+            ]);
+        })->first();
+        dd(AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
+            $query->where('id',$tutor_id->tutor_company_id);
+        })->get());
+
+
+
+        //AffiliatedAccountService::
+        // retorna la lista de todas secuencias indicando en un flag si el alumno tiene activa alguna o no company_sequences.*,
+       /* return  DB::select('SELECT company_sequences.*,
                             IF(affiliated_account_services.id IS NULL, \'false\',\'true\' ) AS isAvailable 
                             FROM company_sequences 
                             LEFT JOIN affiliated_account_services  
@@ -144,6 +162,8 @@ class StudentController extends Controller
                             WHERE company_sequences.init_date <= CURRENT_DATE  
                             AND ( company_sequences.expiration_date >= CURRENT_DATE or company_sequences.expiration_date IS NULL )', 
                         [$request->user('afiliadoempresa')->id]);
-               
+
+*/
+
     }
 }

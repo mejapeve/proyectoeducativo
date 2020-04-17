@@ -106,6 +106,10 @@ class RatingPlanSeeder extends Seeder
             $ratingPlan->type_rating_plan_id = $rating_plan['type_rating_plan_id'];
             $ratingPlan->count = $rating_plan['count'];
             $ratingPlan->days = $rating_plan['days'];
+            if($rating_plan['is_free']){
+                $ratingPlan->sequence_free_id = 1;
+                $ratingPlan->moment_free_ids = '1,2,3';
+            }
             $ratingPlan->save();
         }
 
