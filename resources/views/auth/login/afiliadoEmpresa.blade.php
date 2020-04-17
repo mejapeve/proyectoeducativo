@@ -5,9 +5,9 @@
         <div style="margin-top: 15px" class="border-top-4 col-md-6 col-sm-12 justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Ingresa tus datos para iniciar sesión como ') }}
-                        <strong>estudiante</strong>
-                        <img class="mt-3 d-flex" src="{{asset('images/icons/iconoEstudiante-80.png')}}" width="110px" height="110px"/>
+                    <div class="card-header">
+					<img class="ml-8" src="{{asset('images/icons/register-student.png')}}" width="auto" height="70px" />
+                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoEstudiante-80.png')}}" width="110px" height="110px"/>
                     </div>
                     
                     <div class="card-body">
@@ -72,9 +72,9 @@
         <div style="margin-top: 15px" class="border-top-4 col-md-6 col-sm-12 justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Ingresa tus datos para iniciar sesión como ') }}
-                        <strong>familiar</strong>
-                        <img class="mt-3 d-flex" src="{{asset('images/icons/iconoAdulto-80.png')}}" width="110px" height="110px"/>
+                    <div class="card-header">
+						<img class="ml-8" src="{{asset('images/icons/register-tutor.png')}}" width="auto" height="70px" />
+                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoAdulto-80.png')}}" width="110px" height="110px"/>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.login','3') }}">
