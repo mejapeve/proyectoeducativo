@@ -111,7 +111,7 @@ Route::group([],function (){
         Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
         Route::get('registryWithPendingShoppingCart', function(){
             session(['redirect_to_shoppingcart'=>true]);
-			
+            
             return redirect()->route('register');
         })->name('registryWithPendingShoppingCart');
         Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');

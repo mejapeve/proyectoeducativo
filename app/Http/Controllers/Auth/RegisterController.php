@@ -8,6 +8,7 @@ use App\Models\AffiliatedContentAccountService;
 use App\Models\CompaniesAffiliated;
 use App\Models\AfiliadoEmpresa;
 use App\Models\RatingPlan;
+use App\Models\ShoppingCart;
 use App\Traits\CreateUserRelations;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -111,10 +112,17 @@ class RegisterController extends Controller
         
             if(isset($free_rating_plan_id)){
                 $ratingPlanFree = RatingPlan::find($free_rating_plan_id);
-				if($ratingPlanFree && $ratingPlanFree->is_free) {
-					$this->addFreeRatingPlan($ratingPlanFree,$afiliado_empresa);
-				}
+                if($ratingPlanFree && $ratingPlanFree->is_free) {
+                    $this->addFreeRatingPlan($ratingPlanFree,$afiliado_empresa);
+                }
             }
+			if (session_id() == "") {
+                session_start();
+            }
+			ShoppingCart:: where('session_id', session_id())
+					 ->where('payment_status_id', 1)
+					 ->update(['company_affiliated_id' => $afiliado_empresa->id, 'session_id'=>'null']);
+					 
             if(isset($redirect_shoppingcart)){
                 $this->redirectTo = 'carrito_de_compras';
             }
@@ -133,7 +141,7 @@ class RegisterController extends Controller
     public function show_register(Request $request) {
         
         $free_rating_plan_id = $request->session()->pull('free_rating_plan_id');
-		$redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart');
+        $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart');
         
         return view('auth.register',['free_rating_plan_id'=>$free_rating_plan_id, 'redirect_to_shoppingcart'=>$redirect_to_shoppingcart]);
         
