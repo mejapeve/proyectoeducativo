@@ -77,12 +77,11 @@ Route::prefix('user')
             });
         Route::get('home', 'Home\AfiliadoHomeController@index')->name('home');
 
-        Route::get('redirectfacebook/{rol}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
+        Route::post('redirectfacebook/{rol}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
         Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
-        Route::get('redirectgmail/{rol}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
+        Route::post('redirectgmail/{rol}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
         Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
-
 
 Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'company'] ], function() {
     Route::get('/profile', function () {
@@ -104,12 +103,17 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     
     Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
     
-    Route::get('{empresa}/tutor/registry_student/', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('registerStudent');
+    Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('registerStudent');
 });
 
 //servcios carrito de comprar
 Route::group([],function (){
         Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
+        Route::get('registryWithPendingShoppingCart', function(){
+            session(['redirect_to_shoppingcart'=>true]);
+			
+            return redirect()->route('register');
+        })->name('registryWithPendingShoppingCart');
         Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
         Route::post('update_shopping_cart', 'Shopping\ShoppingCartController@update')->name('update_shopping_cart');//->middleware('auth:afiliadoempresa');

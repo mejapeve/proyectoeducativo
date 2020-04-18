@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RegisterController;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -49,11 +51,13 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider($rol)
-    {
+    public function redirectToProvider(Request $request,$rol)
+    {   if(isset($request->free_rating_plan_id)) {
+            session(['free_rating_plan_id' => $request->free_rating_plan_id]);    
+        }
         $this->rol = decrypt($rol);
         $this->rolLogin();
-        session(['redirec' => $this->redirectTo]);
+        session(['redirect_to_portal' => $this->redirectTo]);
         return Socialite::driver('facebook')->redirect();
     }
 
@@ -65,11 +69,26 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-
+        
+        $free_rating_plan_id = session()->pull('free_rating_plan_id');
+        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
+        
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
-        $redirec = session('redirec');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect()->route($redirec, ['empresa' => 'conexiones']);
+        
+        if($free_rating_plan_id) {
+            $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
+            if($ratingPlan->is_free) {
+                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                return redirect()->route('registerStudent',['empresa' => 'conexiones']);
+            }
+        }
+        if($redirect_shoppingcart) {
+            return redirect()->route('shoppingCart');
+        }
+        
+        $redirect_to_portal = session('redirect_to_portal');
+        return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
     }
     /**
      * Redirect the user to the GitHub authentication page.
@@ -80,7 +99,10 @@ class LoginController extends Controller
     {
         $this->rol = decrypt($rol);
         $this->rolLogin();
-        session(['redirec' => $this->redirectTo]);
+		if(isset($request->free_rating_plan_id)) {
+            session(['free_rating_plan_id' => $request->free_rating_plan_id]);    
+        }
+        session(['redirect_to_portal' => $this->redirectTo]);
         return Socialite::driver('google')->redirect();
     }
 
@@ -94,9 +116,25 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
 
         $afiliadoempresa = $this->createAfiliado($user,'gmail');
-        $redirec = session('redirec');
-        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        return redirect()->route($redirec, ['empresa' => 'conexiones']);
+		Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+		
+		$free_rating_plan_id = session()->pull('free_rating_plan_id');
+        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
+        
+        if($free_rating_plan_id) {
+            $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
+            if($ratingPlan->is_free) {
+                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                return redirect()->route('registerStudent',['empresa' => 'conexiones']);
+            }
+        }
+        if($redirect_shoppingcart) {
+            return redirect()->route('shoppingCart');
+        }
+		else {
+			$redirect_to_portal = session('redirect_to_portal');
+			return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+		}
     }
 
     public function createAfiliado($user,$tipoProvider){
@@ -107,7 +145,7 @@ class LoginController extends Controller
                     ['company_id',1]
                 ]);
             })->where(function($query) use ($user){
-                $query->where('provaider_google',$user->id)->orWhere('email',$user->email);
+                $query->where('provider_google',$user->id)->orWhere('email',$user->email);
             })->first():
 
             $afiliadoempresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query){
@@ -116,7 +154,7 @@ class LoginController extends Controller
                     ['company_id',1]
                 ]);
             })->where(function($query) use ($user){
-                $query->where('provaider_facebook',$user->id)->orWhere('email',$user->email)->first();
+                $query->where('provider_facebook',$user->id)->orWhere('email',$user->email)->first();
             })->first();
         
         if($afiliadoempresa === null){
@@ -128,8 +166,8 @@ class LoginController extends Controller
             $afiliadoempresa->last_name = $dataProvider[1];
             $afiliadoempresa->email = $user->email;
             ($tipoProvider === 'gmail')?
-                $afiliadoempresa->provaider_google = $user->id:
-                $afiliadoempresa->provaider_facebook = $user->id;
+                $afiliadoempresa->provider_google = $user->id:
+                $afiliadoempresa->provider_facebook = $user->id;
             $afiliadoempresa->save();
             $affiliated_company_role = new AffiliatedCompanyRole();
             $affiliated_company_role->affiliated_company_id = $afiliadoempresa->id;

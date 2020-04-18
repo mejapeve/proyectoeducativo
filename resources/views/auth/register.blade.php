@@ -116,8 +116,8 @@
                               </div>
                               <div class="form-group">
                                  <input type="hidden" name="password" id="password" value="password" />
-                                 @if(isset($free_rating_plan_ids))
-                                 <input class="d-none-result d-none" ng-show="false" type="text" name="free_rating_plan_ids" value="{{$free_rating_plan_ids}}" value="free_rating_plan_ids" />
+                                 @if(isset($free_rating_plan_id))
+                                 <input class="d-none-result d-none" ng-show="false" type="text" name="free_rating_plan_id" value="{{$free_rating_plan_id}}" value="free_rating_plan_id" />
                                  @endif
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="department_id" id="department_id" ng-model="departmentId" />
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="city_id" id="city_id"
@@ -126,6 +126,21 @@
                                     ng-disabled="registerForm.$invalid">
                                     {{ __('Guardar registro y continuar') }}
                                  </button>
+                                 <div class="row">
+                                    <div id="formFacebook" action="{{ route('user.redirectfacebook',encrypt(3)) }}" class="col-6 mt-2 mr-1"  style="height:43px">
+                                        <button type="button" class="btn btn-primary btn-block d-flex h-100" ng-click="goToFacebook()">
+                                            <i class="fab fa-facebook fs-3"></i>
+                                            <span class="fs--1">Entrar con Facebook</span>
+                                        </button>
+                                    </div>
+                                    <div id="formGmail" action="{{ route('user.redirectgmail',encrypt(3)) }}" class="col-5" style="height:43px">
+                                        <button type="button" class="btn btn-primary btn-block  d-flex mt-2 h-100" 
+                                        style="background-color: #dd4b39;border-color: rgb(221, 75, 57);" ng-click="goToGmail()">
+                                          <i class="fab fa-google fs-2 mr-2 mr-1"></i>
+                                          <span class="fs--1">Entrar con Gmail</span>
+                                        </button>
+                                    </div>
+                                 </div>
                               </div>
                               <!--
                               @if ($errors->any())
@@ -139,6 +154,15 @@
                               </div>
                            </div>
                         </div>
+                     </form>
+                     <form id="goToProvider" method="POST">
+                        @csrf
+                        @if(isset($free_rating_plan_id))
+                           <input class="d-none-result d-none" ng-show="false" type="text" name="free_rating_plan_id" value="{{$free_rating_plan_id}}" value="free_rating_plan_id" />
+                        @endif
+                        @if(isset($redirect_to_shoppingcart))
+                           <input class="d-none-result d-none" ng-show="false" type="text" name="redirect_to_shoppingcart" value="{{$redirect_to_shoppingcart}}" value="redirect_to_shoppingcart" />
+                        @endif
                      </form>
                   </div>
                </div>

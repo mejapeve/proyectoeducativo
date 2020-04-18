@@ -23,8 +23,8 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->string('url_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('provaider_facebook')->nullable();
-            $table->string('provaider_google')->nullable();
+            $table->string('provider_facebook')->nullable();
+            $table->string('provider_google')->nullable();
             $table->bigInteger('country_id')->nullable()->unsigned();
             $table->foreign('country_id')->references('id')->on('countries');
             $table->bigInteger('department_id')->nullable()->unsigned();

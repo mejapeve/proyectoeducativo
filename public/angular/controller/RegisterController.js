@@ -99,11 +99,23 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
 
         swal({
                     title:'', 
-                    text: $scope.termsConditions,
-                    button: "Aceptar",
-                    html: true,
-                    allowOutsideClick: true    
+                    html: $scope.termsConditions,
+                    allowOutsideClick: true,
+                    showCancelButton: false,
+                    showConfirmButton: false,
                 });
+    }
+    
+    $scope.goToFacebook = function() {
+        var action = $('#formFacebook').attr('action');
+        $('#goToProvider').attr("action",action) //set the form attributes
+        document.getElementById('goToProvider').submit();
+    }
+    
+    $scope.goToGmail = function() {
+        var action = $('#formGmail').attr('action');
+        $('#goToProvider').attr("action",action) //set the form attributes
+        document.getElementById('goToProvider').submit();
     }
 
 }]);
