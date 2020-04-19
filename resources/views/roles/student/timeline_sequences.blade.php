@@ -1,42 +1,22 @@
-<style>
-    .svgelem{
-        position: relative;
-        left: 0%;
-        -webkit-transform: translateX(30%);
-        -ms-transform: translateX(30%);
-        /*transform: translateX(20%);*/
-        transform: translateY(-20%);
-    }
-    .svgelem2{
-        position: relative;
-        left: 0%;
-        -webkit-transform: translateX(-100%);
-        -ms-transform: translateX(-100%);
-        /*transform: translateX(-100%);*/
-        transform: translateY(40%);
-    }
-    
-    .nameTimeLine {
-        position: absolute;
-        top: 19px;
-        left: 184px;
-        background-color: #748194;
-        color: white;
-        width: 126px;
-        height: 23px;
-        padding-top: 2px;
-        padding-left: 10px;
-        border-radius: 0 12px 12px;
-        z-index: 1;
-    }
-</style>
 <div ng-controller="contentSequencesStudentCtrl" ng-init="init(1)" class="row">
     <div class="col-auto pr-0">
-        <img class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
-        <img width="70px" class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold shadow-sm avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
+        <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
+        <img width="70px" class="avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
         <span class="nameTimeLine fs--1">{{auth('afiliadoempresa')->user()->name}}</span>
+        <div class="position-absolute d-flex" style="top: 12px;left: 213px;">
+            <a class="ml-8 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-home fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-left fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-right fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-book-open fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-star fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-calendar-alt fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-door-open fs-1"></i></a>
+			<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+           @csrf
+        </form>
+        </div>
     </div>
-    <div class="col-9 pt-4">
+    <div class="col-9" style="height: 109px;top: 32px;">
         <div ng-controller="timelineSequencesStudentCtrl" ng-init="init()" >
             @for($j = 1; $j < 9 ; $j++)
                 @for($i = 1; $i < 5 ; $i++)

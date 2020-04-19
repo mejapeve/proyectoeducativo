@@ -19865,3 +19865,45 @@ display: flex;
     padding: 10px;
     font-size: 13px;
 }
+
+.svgelem{
+    position: relative;
+    left: 0%;
+    -webkit-transform: translateX(30%);
+    -ms-transform: translateX(30%);
+    /*transform: translateX(20%);*/
+    transform: translateY(-20%);
+}
+.svgelem2{
+    position: relative;
+    left: 0%;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    /*transform: translateX(-100%);*/
+    transform: translateY(40%);
+}
+
+.nameTimeLine {
+    position: absolute;
+    top: 19px;
+    left: 174px;
+    background-color: #748194;
+    color: white;
+    width: 153px;
+    height: 23px;
+    padding-top: 2px;
+    padding-left: 18px;
+    border-radius: 10px 151px 52px 245px;
+    z-index: 1;
+}
+
+.avatar-logo-sequence {
+    height: 5.125rem;
+    width: auto;
+}
+
+@media(max-width:769px) {
+    .nameTimeLine {
+        
+    }
+}
