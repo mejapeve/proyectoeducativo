@@ -19,18 +19,12 @@ class CreateAffiliatedAccountServicesTable extends Migration
             $table->foreign('company_affiliated_id')->references('id')->on('afiliado_empresas');
             $table->bigInteger('rating_plan_id')->unsigned()->nullable();
             $table->foreign('rating_plan_id')->references('id')->on('rating_plans');
+			$table->integer('rating_plan_type')->nullable();
+			$table->foreign('rating_plan_id')->references('id')->on('types_rating_plans');
+			$table->bigInteger('shopping_cart_id')->unsigned()->	nullable();
+			$table->foreign('shopping_cart_id')->references('id')->on('shopping_cart_products');
             $table->date('init_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->bigInteger('payment_status')->unsigned()->nullable();
-            $table->date('payment_init_date')->nullable();
-            $table->date('payment_end_date')->nullable();
-            $table->integer('rating_plan_type')->nullable();
-            $table->string('sequence_ids')->nullable();
-            $table->string('moment_ids')->nullable();
-            $table->string('experience_ids')->nullable();
-            $table->string('company_sequence_id')->nullable();
-            $table->string('company_moment_id')->nullable();
-            $table->bigInteger('type_product_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

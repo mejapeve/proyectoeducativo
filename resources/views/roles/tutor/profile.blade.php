@@ -1,57 +1,81 @@
-@extends('roles.tutor.tutor_layout')
-@section('content')
-<div class="container" ng-controller="TutorIndexController">
-   <div class="content">
+<div class="mb-3 card">
+   <div class="card-header  m-auto">
+      <div class="avatar avatar-5xl">
+         <img class="rounded-circle " src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="100px">
+      </div>
+      <h5 style="text-align: center;" class="mt-2 mb-0 avatar-name">{{auth('afiliadoempresa')->user()->name }}
+         {{auth('afiliadoempresa')->user()->last_name}}</h5>
+   </div>
+   <div class="bg-light border-top card-body">
+
       <div class="row">
-         <div class="col-md-4">
-            @include('roles/tutor/sidebar')
-         </div>
-         <div class="col-md-8">
-            <div class="mb-3 card">
-               <div class="card-header">
-                    <h5>Perfíl Tutor</h5> 
+         <div class="mt-2 col-12">
+            <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">Información de cuenta</h6>
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Usuario</p>
                </div>
-               <div class="bg-light card-body">
-                  <div class="justify-content-center align-items-center">
-                     <div class="flex-grow-1">
-                        <ul class="nav">
-                           <li class="nav-item nav-item-tutor mb-3">
-                              <div class="avatar avatar-3xl">
-                                 <a href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1,'rol'=>3])}}">
-                                    <img class="rounded-circle mb-3 shadow-sm"
-                                       src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700"
-                                       href="{{route('password.reset',['empresa'=>'conexiones','token'=> 1,'rol'=>3])}}">
-                                       <small class="font-weight-bold"> Cambio de clave</small></a>
-                                 </p>
-                              </div>
-                           </li>
-                           <li class="nav-item nav-item-tutor mb-3">
-                                 <div class="avatar avatar-3xl">
-                                    <a href="{{route('registerStudent',['empresa'=>'conexiones'])}}">
-                                       <img class="rounded-circle mb-3 shadow-sm"
-                                          src="http://localhost:8000/images/welcome/thumbnail/2.47d043fe.svg" alt="">
-                                    </a>
-                                    <p class="fs--2 mb-1">
-                                       <a class="text-700"
-                                          href="{{route('registerStudent',['empresa'=>'conexiones'])}}">
-                                          <small class="font-weight-bold"> Registrar estudiante </small>
-                                       </a>
-                                    </p>
-                                 </div>
-                              </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class="bg-light card-body">
-                        @yield('content-tutor-profile')
-                  </div>
+               <div class="col">{{auth('afiliadoempresa')->user()->user_name}}</div>
+            </div>
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Correo</p>
                </div>
+               <div class="col">{{auth('afiliadoempresa')->user()->email}}</div>
+            </div>
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Creado</p>
+               </div>
+               <div class="font-italic text-400 col">{{auth('afiliadoempresa')->user()->created_at}}</div>
             </div>
          </div>
+         <div class="mt-4 col-12">
+            <h6 class="font-weight-semi-bold ls mb-3 text-uppercase">INFORMACIÓN DE COBRO</h6>
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Dirección</p>
+               </div>
+               <div class="col">
+                  <p class="mb-1">8962 Lafayette St.<br>Oswego, NY 13126</p>
+               </div>
+            </div>
+            @if(auth('afiliadoempresa')->user()->country_id )
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Pais</p>
+               </div>
+               <div class="col">{{auth('afiliadoempresa')->user()->country->name}}</div>
+            </div>
+            @endif
+            @if(auth('afiliadoempresa')->user()->city_id )
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-0">Ciudad</p>
+               </div>
+               <div class="col">
+                  {{auth('afiliadoempresa')->user()->cityName->name}}
+               </div>
+            </div>
+            @else
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-0">Estado</p>
+               </div>
+               <div class="col">
+                  <p class="font-weight-semi-bold mb-0">{{auth('afiliadoempresa')->user()->city}}</p>
+               </div>
+            </div>
+            @endif
+            <div class="row">
+               <div class="col-5 col-sm-4">
+                  <p class="font-weight-semi-bold mb-1">Teléfono</p>
+               </div>
+               <div class="col btn-outline-primary">+1-202-555-0110</div>
+            </div>
+
+         </div>
       </div>
+
    </div>
 </div>
-@endsection

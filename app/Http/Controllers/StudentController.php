@@ -21,12 +21,12 @@ class StudentController extends Controller
         }
         else {
             $age = '';
-            if($request->user('afiliadoempresa')->date_birth) {
-              $birthDate = explode("/", $request->user('afiliadoempresa')->date_birth);
-              //get age from date or birthdate
-              $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md")
-                ? ((date("Y") - $birthDate[2]) - 1)
-                : (date("Y") - $birthDate[2]));
+            if(isset($request->user('afiliadoempresa')->birthday) && $request->user('afiliadoempresa')->birthday>0 ) {
+              $birthday = explode("/", $request->user('afiliadoempresa')->birthday);
+              //get age from date or birthday
+              $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
+                ? ((date("Y") - $birthday[2]) - 1)
+                : (date("Y") - $birthday[2]));
             }
             return view('roles.student.profile',['student'=>$request->user('afiliadoempresa'), 'age'=>$age]);
         }

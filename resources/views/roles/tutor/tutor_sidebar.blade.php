@@ -109,15 +109,6 @@
 							   </div>
 							</a>
 						 </li>
-						 <li class="nav-item">
-							<a class="nav-link"
-							   ng-href="{{ route('tutorProfile',auth('afiliadoempresa')->user()->company_name()) }}">
-							   <div class="d-flex align-items-center">
-								  <span></span>
-								  <span>Perfíl &amp; cuenta</span>
-							   </div>
-							</a>
-						 </li>
 						 @elseif(auth('afiliadoempresa')->user()->hasAnyRole('student'))
 						 <li class="nav-item">
 							<a class="nav-link"

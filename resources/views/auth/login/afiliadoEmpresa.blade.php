@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-					<img class="ml-8" src="{{asset('images/icons/register-student.png')}}" width="auto" height="70px" />
+                    <img class="ml-8" src="{{asset('images/icons/register-student.png')}}" width="auto" height="70px" />
                         <img class="ml-3 d-flex" src="{{asset('images/icons/iconoEstudiante-80.png')}}" width="110px" height="110px"/>
                     </div>
                     
@@ -73,7 +73,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-						<img class="ml-8" src="{{asset('images/icons/register-tutor.png')}}" width="auto" height="70px" />
+                        <img class="ml-8" src="{{asset('images/icons/register-tutor.png')}}" width="auto" height="70px" />
                         <img class="ml-3 d-flex" src="{{asset('images/icons/iconoAdulto-80.png')}}" width="110px" height="110px"/>
                     </div>
                     <div class="card-body">

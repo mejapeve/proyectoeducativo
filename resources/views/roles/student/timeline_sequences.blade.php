@@ -20,7 +20,7 @@
 		position: absolute;
 			top: 22px;
 			left: 79px;
-			background-color: black;
+			background-color: #748194;
 			color: white;
 			width: 126px;
 			height: 23px;

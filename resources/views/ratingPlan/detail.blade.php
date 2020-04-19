@@ -51,7 +51,7 @@
                      </div>
 
                      <div class="col-5">
-                        <img ng-src="../../@{{sequence.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
+                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
                      </div>
                      <div class="col-7 pl-0 ml-2 text-justify fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
                         <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequence.name}} </span></h5>  

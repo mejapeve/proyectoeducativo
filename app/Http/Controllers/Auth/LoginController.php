@@ -56,6 +56,9 @@ class LoginController extends Controller
     {   if(isset($request->free_rating_plan_id)) {
             session(['free_rating_plan_id' => $request->free_rating_plan_id]);    
         }
+        if(isset($request->redirect_to_shoppingcart)) {
+            session(['redirect_to_shoppingcart' => $request->redirect_to_shoppingcart]);
+        }
         $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['redirect_to_portal' => $this->redirectTo]);
@@ -71,26 +74,24 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->stateless()->user();
         
-        $free_rating_plan_id = session()->pull('free_rating_plan_id');
-        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
-        
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
         
+        $free_rating_plan_id = session()->pull('free_rating_plan_id');
         if($free_rating_plan_id) {
             $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
             if($ratingPlan->is_free) {
                 RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
-                return redirect()->route('registerStudent',['empresa' => 'conexiones']);
             }
         }
-		if (session_id() == "") {
+        if (session_id() == "") {
             session_start();
         }        
-        ShoppingCart:: where('affiliated_company_id', session_id())
-					 ->where('payment_status_id', 1)
-					 ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'']);
-            
+        ShoppingCart:: where('session_id', session_id())
+                     ->where('payment_status_id', 1)
+                     ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+        
+        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');        
         if($redirect_shoppingcart) {
             return redirect()->route('shoppingCart');
         }
@@ -133,17 +134,16 @@ class LoginController extends Controller
             $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
             if($ratingPlan->is_free) {
                 RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
-                return redirect()->route('registerStudent',['empresa' => 'conexiones']);
             }
         }
-		
-		if (session_id() == "") {
-			session_start();
-		}
-		ShoppingCart:: where('affiliated_company_id', session_id())
-					 ->where('payment_status_id', 1)
-					 ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'']);
-					 
+        
+        if (session_id() == "") {
+            session_start();
+        }
+        ShoppingCart:: where('session_id', session_id())
+                     ->where('payment_status_id', 1)
+                     ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+                     
         if($redirect_shoppingcart) {
             return redirect()->route('shoppingCart');
         }

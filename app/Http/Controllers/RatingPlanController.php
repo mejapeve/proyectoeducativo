@@ -59,37 +59,4 @@ class RatingPlanController extends Controller
 
     }
 
-    public function validate_free_plan(Request $request,$rating_plan_id){
-        
-        $ratingPlanFree = RatingPlan::find($rating_plan_id);
-        
-        if(!$ratingPlanFree || !$ratingPlanFree->is_free) {
-            return view('page404',['message'=>'Plan gratuito no encontrado']);
-        }
-        
-        $user = $request->user('afiliadoempresa');
-        if($user) {
-            //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
-            if($user->hasRole('tutor')) {
-                $accountService = new AffiliatedAccountService();
-                $accountService->company_affiliated_id = $user->id;
-                $accountService->rating_plan_id = $rating_plan_id;
-                $accountService->init_date = date('Y-m-d');
-                $accountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
-                $accountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;
-                $accountService->sequence_ids = $ratingPlanFree->sequence_free_id;
-                $accountService->moment_ids = $ratingPlanFree->moment_free_ids;
-                $accountService->save();
-                
-                return redirect('conexiones/tutor');
-            }
-        }
-        else {
-            
-            $request->session()->put('free_rating_plan_id',$rating_plan_id);
-            
-            return redirect()->action('Auth\RegisterController@show_register');
-        }
-    }
-
 }

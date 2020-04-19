@@ -1,120 +1,27 @@
-@extends('roles.tutor.tutor_layout')
+@extends('roles.tutor.layout')
 
-@section('content')
-    <div class="container" ng-controller="TutorIndexController">
-        <div class="content">
-            <div class="row">
-                <div class="col-md-4">
-                    @include('roles/tutor/sidebar')
-                </div>
-                <div class="col-md-8">
-                    <div class="mb-3 card">
-                        <div class="card-header">
-                            <div class="mb-3">
-                            <ul class="nav">
-                            <li class="nav-item nav-item-tutor mb-3">
-                                <div class="avatar avatar-3xl">
-                                 <a href={{$route}}>
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href={{$route}}><small class="font-weight-bold"> Inscripciones</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Productos</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Calendario</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            
-                            
-                            
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Calendario</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{'/images/welcome/thumbnail/2.47d043fe.svg'}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Historial de pagos</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Lista de deseos</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="/pages/profile">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="/pages/people#!"><small class="font-weight-bold"> Configuración</small></a>
-                                 </p>
-                              </div>
-                            </li>
-                            <li class="nav-item nav-item-tutor">
-                                <div class="avatar avatar-3xl">
-                                 <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <img class="rounded-circle mb-3 shadow-sm" src="{{asset('/images/welcome/thumbnail/2.47d043fe.svg')}}" alt="">
-                                 </a>
-                                 <p class="fs--2 mb-1">
-                                    <a class="text-700" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
-									<small class="font-weight-bold"> Salir</small></a>
-									<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-									   @csrf
-									</form>
-                                 </p>
-                              </div>
-                            </li>
-                            
-                            </ul></div>
-                        
-                        </div>
-                        <div class="bg-light card-body">
-                                @yield('content-tutor-index')
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+@section('content-tutor-index')
+    <div class="" ng-controller="TutorIndexController">
+        <h5 class="mt-3">Mi perfíl</h5>
+		<div class="row pl-4 pb-4 pt-4 pr-4">
+			<div class="col-3">Imagen de peril</div>
+			<div class="col-6"><img class="rounded-pill" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="60px" style="margin:-15px;"></div>
+			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
+		</div>
+		<div class="row pl-4 pb-4 pt-1 pr-4">
+			<div class="col-3">Nombre</div>
+			<div class="col-6">{{'nombre'}}</div>
+			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
+		</div>
+		<div class="row pl-4 pb-4 pt-1 pr-4">
+			<div class="col-3">Apellido</div>
+			<div class="col-6">{{'nombre'}}</div>
+			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
+		</div>
+		<div class="row pl-4 pb-4 pt-1 pr-4">
+			<div class="col-3">Teléfono</div>
+			<div class="col-6">{{'nombre'}}</div>
+			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
+		</div>
     </div>
 @endsection

@@ -20,7 +20,7 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('email')->nullable();
-            $table->string('url_image')->nullable();
+            $table->string('url_image')->nullable()->default('images/icons/default-avatar.png');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('provider_facebook')->nullable();
@@ -32,7 +32,7 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->bigInteger('city_id')->nullable()->unsigned();
             $table->foreign('city_id')->references('id')->on('cities');
             $table->string('city')->nullable();
-            $table->string('date_birth')->nullable();
+            $table->date('birthday')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

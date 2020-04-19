@@ -82,7 +82,7 @@
                        <div class="col-lg-4 col-md-6" ng-repeat="kit_element in kit_elements" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
                              <div class="col-5">
-                                <img class="kit-imagen col-12 p-0" ng-src="@{{kit_element.url_image}}" width="62px" height="62px" />
+                                <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit_element.url_image}}" width="62px" height="62px" />
                             </div>
                              <div class="col-7">
                                  <div class="col-12 mt-3 kit-description">

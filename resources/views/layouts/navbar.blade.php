@@ -36,13 +36,19 @@
             <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
             <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
         </li>
-        @endif
-
-        @if(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
+        @elseif(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
         <li class="ml-1 col-2-3 d-flex">
             <a href="{{ route('tutor', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
             <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
         </li>
+		@else
+		<li class="ml-1 col-2-3 d-flex">
+			<a class="my-3 btn btn-primary btn-sm btn-block" href="{{ route('user.logout') }}"
+			   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
+			<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+			   @csrf
+			</form>
+		</li>
         @endif
         @endauth
         

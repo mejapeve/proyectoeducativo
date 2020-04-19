@@ -44,22 +44,23 @@ trait CreateUserRelations
 
     public function create_user(Request $request){
 
-        $aflidiadoEmpresa = new AfiliadoEmpresa();
+        $afiliadoEmpresa = new AfiliadoEmpresa();
         $user_name = $this->name_user_affiliated(array('name'=>$request->name,'last_name'=>$request->last_name));
-        $aflidiadoEmpresa->user_name = $user_name;//$request->name;
-        $aflidiadoEmpresa->name = $request->name;
-        $aflidiadoEmpresa->last_name = $request->last_name;
-        if(isset($request->date_birth))
-            $aflidiadoEmpresa->date_birth = $request->date_birth;
+        $afiliadoEmpresa->user_name = $user_name;//$request->name;
+        $afiliadoEmpresa->name = $request->name;
+        $afiliadoEmpresa->last_name = $request->last_name;
+        if(isset($request->birthday)) {
+            $afiliadoEmpresa->birthday = $request->birthday;
+		}
 
-        $aflidiadoEmpresa->password = Hash::make($user_name);
-        $aflidiadoEmpresa->save();
+        $afiliadoEmpresa->password = Hash::make($user_name);
+        $afiliadoEmpresa->save();
 
 
-         Mail::to( $this->user->email)->send(new SendRegisterStudent($aflidiadoEmpresa,$this->user));
+         Mail::to( $this->user->email)->send(new SendRegisterStudent($afiliadoEmpresa,$this->user));
 
         $affiliated_company_role = new AffiliatedCompanyRole();
-        $affiliated_company_role->affiliated_company_id = $aflidiadoEmpresa->id;
+        $affiliated_company_role->affiliated_company_id = $afiliadoEmpresa->id;
         $affiliated_company_role->rol_id = 1;//estudiante
         $affiliated_company_role->company_id = 1;//conexiones
         $affiliated_company_role->save();

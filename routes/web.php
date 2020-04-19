@@ -57,7 +57,7 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
     return view('ratingPlan.detail');
 })->name('ratingPlan.detailSequence');
 
-Route::get('registro_afiliado/{ratingPlanId}', 'RatingPlanController@validate_free_plan')->name('validate_free_plan');
+Route::get('validate_registry_free_plan/{ratingPlanId}', 'Auth\RegisterController@validate_registry_free_plan')->name('validate_registry_free_plan');
 Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name('registerForm');
 
 
@@ -89,7 +89,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     });
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
-    Route::get('{empresa}/tutor/profile', 'TutorController@showProfile')->middleware('role:tutor')->name('tutorProfile');
+    Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
@@ -103,7 +103,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     
     Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
     
-    Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('registerStudent');
+    Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('tutor.registerStudentForm');
 });
 
 //servcios carrito de comprar

@@ -23,7 +23,7 @@
                <div class="col-lg-4 col-md-6"
                   style="border: 6px solid white;">
                   <div class="card-body bg-light text-center p-4 row">
-                     <img class="kit-imagen col-12 p-0" ng-src="@{{kit.url_image}}" width="62px" height="62px" />
+                     <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit.url_image}}" width="62px" height="62px" />
                      <div class="col-12 mt-3 kit-description" id="sequence-description-@{{kit.id}}">
                         <h6 class="boder-header p-1  fs-1">
                            @{{kit.name}}

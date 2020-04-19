@@ -19777,3 +19777,91 @@ footer .navbar-light {
         height: 287px;
     }
 }
+
+.tutor-button-head {
+    width: 79px;
+    height: 60px;
+    cursor: pointer;
+}
+.tutor-button-head:hover {
+    border: 1px solid #edf2f9;
+    border-radius: 16px;
+    background: linear-gradient(70deg, #edf2f9, white);
+}
+.tutor-button-head .icon {
+    width: 64px;
+    height: 29px;
+    margin-bottom: -6px;
+    color: #5e6e82!important;
+}
+.tutor-button-head small{
+    display: inline-flex;
+}
+
+.student-tutor-inscription {
+    
+border: 1px solid rgba(94, 110, 130, 0.3);
+    
+margin-bottom: 15px;
+    
+border-radius: 50px;
+    
+text-align: left;
+    
+padding-left: 34px;
+    
+display: flex;
+}    
+
+.register-form-aling-top {
+    margin-top: -68px;
+}
+
+@media(max-width:769px) {
+    .register-form-aling-top {
+        margin-top: 0px;
+    }
+}
+
+.register-avatar-kid {
+    width:130px;
+    padding-top: 8px;
+	margin: auto;
+}
+
+.register-avatar-kid.selected, 
+.register-avatar-kid:hover {
+    border: 1px solid;
+    border-radius: 16px;
+    background: linear-gradient(70deg, #edf2f9, white);
+}
+
+.register-avatar-kid img {
+    margin-left: 12px;
+}
+
+.register-avatar-kid span {
+    margin-left: 44px;
+}
+
+.student-tutor-inscription img {
+	width: 48px;
+	height: auto;
+	margin-left: -13px;
+}
+
+.student-tutor-inscription p {
+    margin-top: auto;
+    margin-left: 12px;
+}
+
+
+.min_height_panel {
+    min-height: 330px;
+}
+
+.register-band-addon {
+    border-bottom: 1px solid green;
+    padding: 10px;
+    font-size: 13px;
+}
