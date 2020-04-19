@@ -48,7 +48,7 @@
     <div id="app" ng-app="MyApp">
         <main class="main" id="main">
             <div class="container">
-				@yield('content_layout')
+                @yield('content_layout')
             </div>
         </main>
     </div>

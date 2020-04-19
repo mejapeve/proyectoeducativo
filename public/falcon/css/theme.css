@@ -19826,7 +19826,7 @@ display: flex;
 .register-avatar-kid {
     width:130px;
     padding-top: 8px;
-	margin: auto;
+    margin: auto;
 }
 
 .register-avatar-kid.selected, 
@@ -19845,9 +19845,9 @@ display: flex;
 }
 
 .student-tutor-inscription img {
-	width: 48px;
-	height: auto;
-	margin-left: -13px;
+    width: 48px;
+    height: auto;
+    margin-left: -13px;
 }
 
 .student-tutor-inscription p {

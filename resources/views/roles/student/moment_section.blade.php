@@ -1,4 +1,4 @@
-@extends('roles.student.student_layout')
+@extends('roles.student.layout')
 
 @section('content')
     <div class="container "  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">

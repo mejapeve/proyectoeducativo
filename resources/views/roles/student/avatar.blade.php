@@ -1,4 +1,4 @@
-@extends('roles.student.student_layout')
+@extends('roles.student.layout')
 
 @section('content')
     <div class="container ">
