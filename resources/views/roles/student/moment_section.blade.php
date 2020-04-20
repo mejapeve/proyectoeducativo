@@ -1,4 +1,4 @@
-@extends('roles.student.layout')
+@extends('roles.student.sequences_layout')
 
 @section('content')
     <div class="container "  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
@@ -56,11 +56,11 @@
                                   <img src="{{asset($imagen2_url)}}" ml="{{$imagen2_ml}}" mt="{{$imagen2_mt}}" w="{{$imagen2_w}}" h="{{$imagen2_h}}"/>
                               @endif
                               @if(isset($imagen3_mt))
-                                  <img src="{{asset($imagen3_url)}}" ml="{{$imagen3_ml}}" mt="{{$imagen3_mt}}" w="{{$imagen3_w}}" h="{{$imagen3_h}}"/>
+                                  <img src="{{asset($imagen3_url)}}" ml="" mt="{{$imagen3_mt}}" w="{{$imagen3_w}}" h="{{$imagen3_h}}"/>
                               @endif
 
                               @if(isset($text1))
-                               <div class="font-text card-body col-7" mt="180" fs="12">
+                               <div class="font-text card-body col-7" mt="{{$text1_mt}}" fs="{{$text1_fs}}">
                                 {!! $text1 !!}
                                 </div>
                               @endif

@@ -112,25 +112,22 @@ class StudentController extends Controller
         }
     }
     
-    public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section=1) {
+    public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        //$sequence = CompanySequence::with('moments')->where('id',$sequence_id)->get();
         
         $moment = SequenceMoment::
             where('sequence_moments.sequence_company_id', $sequence_id )
             ->where('sequence_moments.order',$order_moment_id )
             ->get()[0];
-        $moment['section_'.$section] = '{"title":"¿Por qué medimos las cosas?",
-        "imagen1_mt":90,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":465,
-        "imagen1_url":"images/sequences/sequence20/moments/momento1-parte-01.png",
-        "imagen2_mt":0,"imagen2_ml":0,"imagen2_w":240,"imagen2_h":92,
-        "imagen2_url":"images/sequences/sequence20/moments/momento1-01.png",
-        "button1_label":"","button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92
-        }';
         
-        if($moment['section_'.$section]) {
-            $section = json_decode($moment['section_'.$section], true);
-            $data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment],$section);
+        if($moment['section_'.$section_id]) {
+            $section = json_decode($moment['section_'.$section_id], true);
+            $section_1 = json_decode($moment->section_1, true);
+            $section_2 = json_decode($moment->section_2, true);
+            $section_3 = json_decode($moment->section_3, true);
+            $section_4 = json_decode($moment->section_4, true);
+            $data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section);
+//            dd($data);
             return view('roles.student.moment_section',$data);
         }
     }

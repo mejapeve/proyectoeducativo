@@ -78,6 +78,12 @@ class CompanySequencesSeeder extends Seeder
             $momentN->name = "moment ".$moment_order;
             $momentN->description = "";
             $momentN->objectives = "Comparar, agrupar y ordenar objetos a partir de sus características|Identificar la necesidad de medir en la vida cotidiana";
+            
+            $momentN->section_1 = '{"section":{"id":1,"type":2,"name":"Ciencia en contexto"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
+            $momentN->section_2 = '{"section":{"id":2,"type":1,"name":"Pregunta Central"},"title":"Un vistazo a diversas creaciones","text1":"CienciaCotidiana","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/preguntaCentral.png"}';
+            $momentN->section_3 = '{"section":{"id":3,"type":3,"name":"Experiencia científica"},"title":"Crea y moldea","text1":"CienciaCotidiana","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/iconoExperiencia.png"}';
+            $momentN->section_4 = '{"section":{"id":4,"type":4,"name":"+ Conexiones"},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
+                
             $momentN->save();
             
             for($i = 0; $i < $experiences; ++$i) {
