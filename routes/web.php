@@ -186,6 +186,12 @@ Route::get('get_available_sequences/{company_id}', 'StudentController@get_availa
 Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
 
 Route::get('get_advance_line', 'AdvanceLineController@get')->name('get_advance_line');
+//servicio consultar usuario
+Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user');
+//servicio editar usuario
+Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student');
+//servicio validar nombre de usuario
+Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

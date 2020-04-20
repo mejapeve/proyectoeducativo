@@ -39,7 +39,7 @@
            </div>
            <div class="form-group col-lg-4">
               <label class="">{{ __('Fecha de nacimiento') }}</label>
-              <input placeholder="día/mes/año" type="text" name="birthday"  ng-model="newStudent.birthday"
+              <input placeholder="día/mes/año" type="date" name="birthday"  ng-model="newStudent.birthday"
                     class="form-control @error('birthday') is-invalid @enderror" value="">
               @error('birthday')
               <span class="invalid-feedback" role="alert">

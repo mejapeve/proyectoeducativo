@@ -17,7 +17,8 @@ class TutorController extends Controller
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         $route = route('tutor.registerStudentForm',session('name_company'));
-        return view('roles.tutor.index')->with('route',$route);
+        $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+        return view('roles.tutor.index')->with('route',$route)->with('tutor',$tutor);
     }
     
     public function showRegisterStudentForm (Request $request){
@@ -27,7 +28,8 @@ class TutorController extends Controller
     
     public function showInscriptions (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
-        return view('roles.tutor.inscriptions');
+        $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+        return view('roles.tutor.inscriptions')->with('tutor',$tutor);
     }
 
     public function register_student (Request $request) {

@@ -10,16 +10,16 @@
 		</div>
 		<div class="row pl-4 pb-4 pt-1 pr-4">
 			<div class="col-3">Nombre</div>
-			<div class="col-6">{{'nombre'}}</div>
+			<div class="col-6">{{$tutor->name}}</div>
 			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
 		</div>
 		<div class="row pl-4 pb-4 pt-1 pr-4">
 			<div class="col-3">Apellido</div>
-			<div class="col-6">{{'nombre'}}</div>
+			<div class="col-6">{{$tutor->last_name}}</div>
 			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
 		</div>
 		<div class="row pl-4 pb-4 pt-1 pr-4">
-			<div class="col-3">Teléfono</div>
+			<div class="col-3">Número de estudiantes registrados</div>
 			<div class="col-6">{{'nombre'}}</div>
 			<div class="col-3"><button class="btn btn-sm btn-primary">Cambiar</button></div>
 		</div>
