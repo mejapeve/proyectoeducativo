@@ -8,7 +8,7 @@
                     @include('roles/student/timeline_sequences')
                 </div>
                 <div class="col-md-3 open" id="sidemenu-sequences"  >
-                    <div class="mb-3 card fade show" id="sidemenu-sequences-content">
+                    <div class="mb-3 card fade show d-none d-lg-block" id="sidemenu-sequences-content">
                         @include('roles/student/sidebar_sequences')
                     </div>
                     <div class="h-75 mb-3 fade show d-none card w-10" id="sidemenu-sequences-empty">
@@ -17,7 +17,6 @@
                         <i class="far fa-caret-square-left" id="sidemenu-sequences-button"></i>
                     </div>
                 </div>
-                
                 <div class="col-md-9" id="content-section-sequences">
                    <div>
                         @if (isset($success))
@@ -52,7 +51,11 @@
                             </div>   
                         </div>
                     </div>
-                </div>
+                
+					<div class="mb-3 card fade show d-md-none d-sm-block" id="sidemenu-sequences-content">
+                        @include('roles/student/sidebar_sequences')
+					</div>
+				</div>
             </div>
         </div>
     </div>

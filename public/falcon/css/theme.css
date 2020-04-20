@@ -19565,7 +19565,7 @@ footer .navbar-light {
 }
 
 .background-sequence-card {
-    min-width: 615px;
+    min-width: 781px;
     min-height: 41vw;
 }
     
@@ -19906,4 +19906,20 @@ display: flex;
     .nameTimeLine {
         
     }
+}
+
+
+.lineTimeLine {
+    top: 32px;
+    min-width: 512px;
+    position: absolute;
+    right: 0;
+}
+
+.lineTimeLine.small {
+    top: 32px;
+    width: 722px;
+    max-width: 722px;
+    position: absolute;
+    left: 176px;
 }
