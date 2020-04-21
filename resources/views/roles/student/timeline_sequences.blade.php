@@ -1,4 +1,4 @@
-<div ng-controller="timelineSequencesStudentCtrl" ng-init="init(1)" class="row">
+<div ng-controller="timelineSequencesStudentCtrl" ng-init=init(1,"{{$account_service_id}}","{{$sequence_id}}") class="row">
     <div class="col-5 pr-0" style="height: 106px;">
         <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
         <img width="70px" class="avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
@@ -30,7 +30,7 @@
                         </svg>
                     @endif
                     <svg class="svgelem"  width="35px" height="40px" style="margin-right:-10px" xmlns="http://www.w3.org/2000/svg">
-                        <circle id="circle{{$j}}{{$i+4}}" cx="25" cy="25" r="5" fill="#f1f1f1" stroke="green"
+                        <circle id="circle{{$j}}{{$i}}" cx="25" cy="25" r="5" fill="#f1f1f1" stroke="green"
                                 stroke-width="2%"/>
                     </svg>
                 @endfor

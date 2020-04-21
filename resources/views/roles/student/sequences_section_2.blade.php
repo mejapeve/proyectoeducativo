@@ -49,7 +49,8 @@
                                   [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                     'sequence_id'=>$sequence->id, 
                                     'order_moment_id'=>1,
-                                    'section'=>1
+                                    'section'=>1,
+                                    'account_service_id'=>$account_service_id
                                   ])}}'"
                               class="cursor-pointer" ml="{{$button1_ml}}" mt="{{$button1_mt}}" w="{{$button1_w}}" h="{{$button1_h}}">button1</button>
                               @endif
@@ -59,7 +60,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>2,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               class="cursor-pointer " ml="{{$button2_ml}}" mt="{{$button2_mt}}" w="{{$button2_w}}" h="{{$button2_h}}">button2</button>
                               @endif
@@ -69,7 +71,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>3,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button3_ml}}" mt="{{$button3_mt}}" w="{{$button3_w}}" h="{{$button3_h}}">button3</button>
                               @endif
@@ -79,7 +82,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>4,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button4_ml}}" mt="{{$button4_mt}}" w="{{$button4_w}}" h="{{$button4_h}}">button4</button>
                               @endif
@@ -89,7 +93,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>5,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button5_ml}}" mt="{{$button5_mt}}" w="{{$button5_w}}" h="{{$button5_h}}">button5</button>
                               @endif
@@ -99,7 +104,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>6,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button6_ml}}" mt="{{$button6_mt}}" w="{{$button6_w}}" h="{{$button6_h}}">button6</button>
                               @endif
@@ -109,7 +115,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>7,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button7_ml}}" mt="{{$button7_mt}}" w="{{$button7_w}}" h="{{$button7_h}}">button7</button>
                               @endif
@@ -119,7 +126,8 @@
                               [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
                                 'sequence_id'=>$sequence->id, 
                                 'order_moment_id'=>8,
-                                'section'=>1
+                                'section'=>1,
+                                'account_service_id'=>$account_service_id
                               ])}}'"
                               ml="{{$button8_ml}}" mt="{{$button8_mt}}" w="{{$button8_w}}" h="{{$button8_h}}">button8</button>
                               @endif

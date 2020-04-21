@@ -95,13 +95,13 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
     Route::post('{empresa}/student/update_avatar', 'AvatarController@update_avatar')->middleware('role:student')->name('update_avatar');
     Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student')->name('student.available_sequences');
-    Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
-    Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
-    Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
-    Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora/{account_service_id}', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta/{account_service_id}', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes/{account_service_id}', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
+    Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro/{account_service_id}', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
                                                                                                                                                                                       
     
-    Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
+    Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}/{account_service_id}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
     
     Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('tutor.registerStudentForm');
 });
@@ -186,7 +186,7 @@ Route::get('get_available_sequences/{company_id}', 'StudentController@get_availa
 //servicio para consultar servicios contratados
 Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
 
-Route::get('get_advance_line', 'AdvanceLineController@get')->name('get_advance_line');
+Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line');
 //servicio consultar usuario
 Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user');
 //servicio editar usuario

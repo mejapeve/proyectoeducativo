@@ -22,7 +22,7 @@ class StudentController extends Controller
         else {
             $age = '';
             if(isset($request->user('afiliadoempresa')->birthday) && $request->user('afiliadoempresa')->birthday>0 ) {
-              $birthday = explode("/", $request->user('afiliadoempresa')->birthday);
+              $birthday = explode("-", $request->user('afiliadoempresa')->birthday);
               //get age from date or birthday
               $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
                 ? ((date("Y") - $birthday[2]) - 1)
@@ -37,7 +37,7 @@ class StudentController extends Controller
         return view('roles.student.available_sequences');
     }
     
-    public function show_sequences_section_1(Request $request,$empresa, $sequence_id) {
+    public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::where('id',$sequence_id)->get();
@@ -46,11 +46,11 @@ class StudentController extends Controller
         if($sequence->section_1) {
             $section = json_decode($sequence->section_1, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data);
+            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
 
-    public function show_sequences_section_2(Request $request,$empresa, $sequence_id) {
+    public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::where('id',$sequence_id)->get();
@@ -70,11 +70,11 @@ class StudentController extends Controller
         if($sequence->section_2) {
             $section = json_decode($sequence->section_2, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_2',$data);
+            return view('roles.student.sequences_section_2',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     
-    public function show_sequences_section_3(Request $request,$empresa, $sequence_id) {
+    public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
         $sequence = CompanySequence::where('id',$sequence_id)->get();
@@ -93,11 +93,11 @@ class StudentController extends Controller
         if($sequence->section_3) {
             $section = json_decode($sequence->section_3, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_3',$data);
+            return view('roles.student.sequences_section_3',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     
-    public function show_sequences_section_4(Request $request,$empresa, $sequence_id) {
+    public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
@@ -108,11 +108,11 @@ class StudentController extends Controller
         if($sequence->section_4) {
             $section = json_decode($sequence->section_4, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_4',$data);
+            return view('roles.student.sequences_section_4',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     
-    public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section_id=1) {
+    public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section_id=1,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
         $moment = SequenceMoment::
@@ -128,7 +128,7 @@ class StudentController extends Controller
             $section_4 = json_decode($moment->section_4, true);
             $data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section);
 //            dd($data);
-            return view('roles.student.moment_section',$data);
+            return view('roles.student.moment_section',$data)->with('account_service_id',$account_service_id);
         }
     }
     
@@ -146,6 +146,7 @@ class StudentController extends Controller
         $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
         })->pluck('id');
+        //dd(AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get());
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get();
 
 
