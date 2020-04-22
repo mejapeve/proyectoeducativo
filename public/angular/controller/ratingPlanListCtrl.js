@@ -28,8 +28,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
         
 
         swal({
-          title: "Estas seguro?",
-          text: "Confirmas que deseas adquirir una prueba gratuita?",
+          text: "Confirma para acceder a nuestra prueba gratuita",
           type: "warning",
           showConfirmButton: true,showCancelButton: true
         })

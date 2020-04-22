@@ -59,8 +59,6 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
 
 Route::get('validate_registry_free_plan/{ratingPlanId}', 'Auth\RegisterController@validate_registry_free_plan')->name('validate_registry_free_plan');
 Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name('registerForm');
-
-
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
@@ -112,13 +110,13 @@ Route::group([],function (){
         Route::get('formulario_de_envio', 'Shopping\shippingFormController@index')->name('shippingForm');
         Route::get('registryWithPendingShoppingCart', function(){
             session(['redirect_to_shoppingcart'=>true]);
-            
-            return redirect()->route('register');
+            return redirect()->route('registerForm');
         })->name('registryWithPendingShoppingCart');
         Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
         Route::post('update_shopping_cart', 'Shopping\ShoppingCartController@update')->name('update_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');//->middleware('auth:afiliadoempresa');
+        Route::post('notification_gwpayment_callback', 'Shopping\ShoppingCartController@notificacion_callback')->name('create_shopping_cart');//->middleware('auth:afiliadoempresa');
 
     }
 );

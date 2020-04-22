@@ -31,16 +31,14 @@ class ShoppingCartController extends Controller
         $item->unit_price = 100;
         $item->currency_id = 'USD';
 
-        //dd($preference->payment_methods);
+        $preference->notification_url = 'https://localhost8080/notification_gwpayment_callback    ';
         $preference->items = array($item);
         $preference->payment_methods = array("excluded_payment_types" => array(
             array("id" => "ticket",
-
             ),
         ),
         );
         $preference->save();
-        //dd($preference);
         return view('shopping.pending_shopping_cart')->with("preference", $preference);
     }
 
