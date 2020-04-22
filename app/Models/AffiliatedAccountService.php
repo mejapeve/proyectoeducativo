@@ -24,4 +24,9 @@ class AffiliatedAccountService extends Model
         return $this->belongsTo(AffiliatedCompanyRole::class,'company_affiliated_id','affiliated_company_id');
 
     }
+    public function affiliated_content_account_service(){
+
+        return $this->hasMany(AffiliatedContentAccountService::class,'affiliated_account_service_id','id');
+
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\AdvanceLine;
 use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AffiliatedContentAccountService;
+use App\Models\AfiliadoEmpresa;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
 use DB;
@@ -40,6 +41,7 @@ class StudentController extends Controller
     
     public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $this->validation_access_sequence_content($account_service_id);
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
@@ -53,6 +55,7 @@ class StudentController extends Controller
 
     public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $this->validation_access_sequence_content($account_service_id);
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
@@ -77,6 +80,7 @@ class StudentController extends Controller
     
     public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $this->validation_access_sequence_content($account_service_id);
         
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
@@ -100,6 +104,7 @@ class StudentController extends Controller
     
     public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $this->validation_access_sequence_content($account_service_id);
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
         $sequence->section_4='{
@@ -157,24 +162,33 @@ class StudentController extends Controller
         $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
         })->pluck('id');
-        //dd(AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get());
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get();
 
+    }
 
-
-        //AffiliatedAccountService::
-        // retorna la lista de todas secuencias indicando en un flag si el alumno tiene activa alguna o no company_sequences.*,
-       /* return  DB::select('SELECT company_sequences.*,
-                            IF(affiliated_account_services.id IS NULL, \'false\',\'true\' ) AS isAvailable 
-                            FROM company_sequences 
-                            LEFT JOIN affiliated_account_services  
-                            ON company_sequences.id = company_sequences.id
-                            AND affiliated_account_services.company_affiliated_id = ?
-                            WHERE company_sequences.init_date <= CURRENT_DATE  
-                            AND ( company_sequences.expiration_date >= CURRENT_DATE or company_sequences.expiration_date IS NULL )', 
-                        [$request->user('afiliadoempresa')->id]);
-
-*/
+    public function validation_access_sequence_content($account_service_id){
+        $affiliatedAccountService = AffiliatedAccountService::find($account_service_id);
+        $AfiliadoEmpresaRolesId = AfiliadoEmpresaRoles::select('id')->where([
+            ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
+            ['company_id',1],//conexiones
+            ['rol_id',1]//estudiante
+        ])->first();
+        if($affiliatedAccountService->exists() && $AfiliadoEmpresaRolesId->exists()){
+            if($affiliatedAccountService->rating_plan_type == 1 ||$affiliatedAccountService->rating_plan_type == 2){//tiene acceso a plan por secuencia o por momentos
+                $afiliadoEmpresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($AfiliadoEmpresaRolesId){
+                    $query->whereHas('conection_tutor',function($query)use($AfiliadoEmpresaRolesId){
+                        $query->where('student_company_id',$AfiliadoEmpresaRolesId->id);
+                    })->where('rol_id',3);
+                })->find($affiliatedAccountService->company_affiliated_id);
+                if(!$afiliadoEmpresa->exists())
+                    dd('no tiene permiso para ingresar, no esta vinculado para ver este contenido');
+            }else{
+                dd('No tiene permiso para ingresar, no es plan por secuencias ni por momentos');
+            }
+        }else{
+            dd('no tiene permiso para ingresar');
+        }
 
     }
+
 }
