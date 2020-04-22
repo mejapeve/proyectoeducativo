@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdvanceLine;
 use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AffiliatedContentAccountService;
@@ -119,7 +120,17 @@ class StudentController extends Controller
             where('sequence_moments.sequence_company_id', $sequence_id )
             ->where('sequence_moments.order',$order_moment_id )
             ->get()[0];
-        
+
+        $item = AdvanceLine::firstOrNew(
+            array(
+                'affiliated_account_service_id' => $account_service_id,
+                'affiliated_company_id' => auth('afiliadoempresa')->user()->id,
+                'sequence_id' => $sequence_id,
+                'moment_id' => $order_moment_id,
+                'moment_section_id' => $section_id
+            )
+        );
+        $item->save();
         if($moment['section_'.$section_id]) {
             $section = json_decode($moment['section_'.$section_id], true);
             $section_1 = json_decode($moment->section_1, true);

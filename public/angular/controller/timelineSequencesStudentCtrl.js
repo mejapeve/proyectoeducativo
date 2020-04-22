@@ -28,7 +28,7 @@ console.log(12);
             $(data.data).each(function (key, value) {
                 $(`#circle${value.moment_id}${value.moment_section_id}`).attr('fill', 'yellow');
                 if(!flag){
-                    moment = value.number_moment;
+                    moment = value.moment_id;
                     flag = true;
                     console.log('ingresa')
                 }else{
