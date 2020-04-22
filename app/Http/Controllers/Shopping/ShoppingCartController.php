@@ -15,15 +15,22 @@ class ShoppingCartController extends Controller
 {
     use RelationRatingPlan;
 
-    public function index()
+    public function index(Request $request)
     {
         // return view('shopping.pending_shopping_cart');
         //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
         //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
         MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
-        # Create a preference object
+        
+		
+		# Create a preference object
         $preference = new MercadoPago\Preference();
-        // Crea un ítem en la preferencia
+		/*DC: simular pago ************************/
+		$preference = new Preference();
+		/*************************/
+        
+		
+		// Crea un ítem en la preferencia
         $item = new MercadoPago\Item();
         //dd(MercadoPago\SDK::config());
         $item->title = 'Yotopo y los astroamigos';
@@ -31,16 +38,32 @@ class ShoppingCartController extends Controller
         $item->unit_price = 100;
         $item->currency_id = 'USD';
 
-        //dd($preference->payment_methods);
+        $preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
         $preference->items = array($item);
         $preference->payment_methods = array("excluded_payment_types" => array(
             array("id" => "ticket",
-
             ),
         ),
         );
         $preference->save();
-        //dd($preference);
+        
+		
+		/*DC: simular pago ************************/
+		$key = 1;
+        $keys = array_merge(range(0, 9));
+        for ($i = 0; $i < 9; $i++) {
+           $key .= $keys[array_rand($keys)];
+        }
+        $preference->id = $key;
+		if($request->user('afiliadoempresa')) {
+			ShoppingCart::
+				where([
+				['company_affiliated_id', $request->user('afiliadoempresa')->id],
+				['payment_status_id', 1],
+			])->update(['payment_transaction_id'=>$key]);
+		}
+		/*************************/
+
         return view('shopping.pending_shopping_cart')->with("preference", $preference);
     }
 
@@ -207,6 +230,43 @@ class ShoppingCartController extends Controller
         }
 
         return response()->json(['data' => $update, 'message' => 'se ha modificado el producto correctamente'], 200);
-
     }
+}
+
+
+
+
+class Preference {
+    public $id;
+    public $auto_return;
+    public $back_urls;
+    public $notification_url;
+    public $init_point;
+    public $sandbox_init_point;
+    public $operation_type;
+    public $additional_info;
+    public $external_reference;
+    public $expires;
+    public $expiration_date_from;
+    public $expiration_date_to;
+    public $collector_id;
+    public $client_id;
+    public $marketplace;
+    public $marketplace_fee;
+    public $differential_pricing;
+    public $payment_methods;
+    public $items;
+    public $payer;
+    public $shipments;
+    public $date_created;
+    public $sponsor_id;
+    public $processing_modes;
+    public $binary_mode;
+    public $taxes;
+    public $metadata;
+    public $tracks;
+	public function save($options = [])
+    { 
+	}
+
 }

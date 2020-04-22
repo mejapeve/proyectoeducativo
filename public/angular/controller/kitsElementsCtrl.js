@@ -15,12 +15,12 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
             for(var i=0; i<kits.length; i++){
                 var kit = kits[i];
                 kit.type="kit";
-				kit.name_url_value = kit.name.replace(/\s/g,'_').toLowerCase();
+                kit.name_url_value = kit.name.replace(/\s/g,'_').toLowerCase();
                 $scope.kit_elements.push(kit);
                 if(kit.kit_elements && kit.kit_elements[0] ) {
                     var element = kit.kit_elements[0].element;
                     element.type="element";
-					element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
+                    element.name_url_value = element.name.replace(/\s/g,'_').toLowerCase();
                     $scope.kit_elements.push(element);    
                 }
             }

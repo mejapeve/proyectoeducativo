@@ -9,25 +9,39 @@
             <h5 class="mb-sm-0">Carrito de Compras</h5>
          </div>
          <div class="text-sm-right col-sm-auto">
+            @guest('afiliadoempresa')
             <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
-               <a class="btn btn-outline-primary" ng-href="/guias_de_aprendizaje">
-               <span class="fs-lg-0 fs-md-0 fs-sm--1">Sigue Comprando</span></a>
+               <button class="btn btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
+               <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
+            </h5>
+            @endguest
+			<form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
+               @csrf
+			   <input type="text" name="payment_transaction_id" value="{{$preference->id}}"/>
+               </form>
+            @auth('afiliadoempresa')
+			@if($preference->id)
+            <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+               <button class="btn btn-outline-primary" onclick="event.preventDefault(); document.getElementById('simulate-form').submit();">
+               <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
             </h5>
             <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
                <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
                <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
             </h5>
+			@endif
+            @endauth
          </div>
       </div>
    </div>
    <div class="p-0 card-body">
       <div class="bg-200 text-900 px-1 fs--1 font-weight-semi-bold no-gutters row">
-	      <div class="p-2 px-md-3 col-9 col-md-8">Nombre</div>
-	      <div class="px-3 col-3 col-md-4">
-		      <div class="row">
-			      <div class="text-right p-2 px-md-3col-md-4">Precio</div>
-		      </div>
-	      </div>
+          <div class="p-2 px-md-3 col-9 col-md-8">Nombre</div>
+          <div class="px-3 col-3 col-md-4">
+              <div class="row">
+                  <div class="text-right p-2 px-md-3col-md-4">Precio</div>
+              </div>
+          </div>
       </div>
       <div class="align-items-center px-1 border-bottom border-200 no-gutters row" ng-repeat="shopping_cart in shopping_carts">
          <div ng-show="shopping_cart.rating_plan">
@@ -58,11 +72,23 @@
             </div>
          </div>
       </div>
-   </div>
-   <div class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
-         <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
-         <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
-   </div>
+    </div>
+    @guest('afiliadoempresa')
+    <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+       <button class="btn btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
+       <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
+    </h5>
+    @endguest
+    @auth('afiliadoempresa')
+    <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+       <button class="btn btn-outline-primary" ng-click="onSimulateTest()">
+       <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
+    </h5>
+    <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+       <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
+       <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
+    </h5>
+    @endauth
 </div>
 
 <script src="{{ asset('/../angular/controller/ShoppingCartController.js') }}" defer></script>

@@ -104,8 +104,8 @@ class RegisterController extends Controller
         $affiliated_company_role->save();
 
         $afiliado_empresa->sendWelcomeNotification($affiliated_company_role->rol_id);
+
         session()->pull('free_rating_plan_id'); //remove cache to session
-        
         if(isset($data['free_rating_plan_id'])){
             $free_rating_plan_id = $data['free_rating_plan_id'];    
             $ratingPlanFree = RatingPlan::find($free_rating_plan_id);
@@ -120,16 +120,14 @@ class RegisterController extends Controller
                  ->where('payment_status_id', 1)
                  ->update(['company_affiliated_id' => $afiliado_empresa->id, 'session_id'=>'NULL']);
         
-        
-        session()->pull('redirect_to_shoppingcart'); //remove cache to session        
-        
-        if(isset($data->redirect_to_shoppingcart)){
-            $redirect_shoppingcart = $data->redirect_to_shoppingcart;
+        if(isset($data['redirect_to_shoppingcart'])){
             $this->redirectTo = 'carrito_de_compras';
+            
         }
         else {
             $this->redirectTo = 'conexiones/tutor';
         }
+        $this->redirectTo = 'carrito_de_compras';
         return $afiliado_empresa;
     }
 
@@ -142,7 +140,7 @@ class RegisterController extends Controller
     public function show_register(Request $request) {
         
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
-        $redirect_to_shoppingcart = $request->session()->get('redirect_to_shoppingcart');
+        $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
         return view('auth.register',['free_rating_plan_id'=>$free_rating_plan_id, 'redirect_to_shoppingcart'=>$redirect_to_shoppingcart]);
     }
     
