@@ -120,7 +120,7 @@ class StudentController extends Controller
     
     public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section_id=1,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        
+        $this->validation_access_sequence_content($account_service_id,true,$sequence_id,$order_moment_id);
         $moment = SequenceMoment::
             where('sequence_moments.sequence_company_id', $sequence_id )
             ->where('sequence_moments.order',$order_moment_id )
@@ -166,8 +166,8 @@ class StudentController extends Controller
 
     }
 
-    public function validation_access_sequence_content($account_service_id){
-        $affiliatedAccountService = AffiliatedAccountService::find($account_service_id);
+    public function validation_access_sequence_content($account_service_id,$validation_moments = false,$sequence_id = null,$moment_id = null){
+        $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->find($account_service_id);
         $AfiliadoEmpresaRolesId = AfiliadoEmpresaRoles::select('id')->where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['company_id',1],//conexiones
@@ -182,6 +182,17 @@ class StudentController extends Controller
                 })->find($affiliatedAccountService->company_affiliated_id);
                 if(!$afiliadoEmpresa->exists())
                     dd('no tiene permiso para ingresar, no esta vinculado para ver este contenido');
+                if($validation_moments){
+                    if(isset($affiliatedAccountService->affiliated_content_account_service)){
+                        if(count($affiliatedAccountService->affiliated_content_account_service->where(
+                            'sequence_id',$sequence_id
+                        )->where('moment_id',$moment_id))==0){
+                            dd('no tiene permiso para acceder a este momento');
+                        }
+                    }else{
+                        dd('algo salio mal asignando los contenidos del plan, comunicarse con conexiones');
+                    }
+                }
             }else{
                 dd('No tiene permiso para ingresar, no es plan por secuencias ni por momentos');
             }
