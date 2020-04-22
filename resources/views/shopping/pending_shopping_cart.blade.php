@@ -15,15 +15,21 @@
                <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
             </h5>
             @endguest
+			<form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
+               @csrf
+			   <input type="text" name="payment_transaction_id" value="{{$preference->id}}"/>
+               </form>
             @auth('afiliadoempresa')
+			@if($preference->id)
             <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
-               <button class="btn btn-outline-primary" ng-click="onSimulateTest()">
-               <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Compra</span></button>
+               <button class="btn btn-outline-primary" onclick="event.preventDefault(); document.getElementById('simulate-form').submit();">
+               <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
             </h5>
             <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
                <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
                <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
             </h5>
+			@endif
             @endauth
          </div>
       </div>
@@ -76,7 +82,7 @@
     @auth('afiliadoempresa')
     <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
        <button class="btn btn-outline-primary" ng-click="onSimulateTest()">
-       <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Compra</span></button>
+       <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
     </h5>
     <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
        <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">

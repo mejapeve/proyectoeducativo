@@ -39,10 +39,6 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
         window.location = 'registryWithPendingShoppingCart';
     }
     
-    $scope.onSimulateTest = function() {
-        
-    }
-    
 
 });
 
