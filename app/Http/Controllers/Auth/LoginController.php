@@ -47,6 +47,7 @@ class LoginController extends Controller
     {
         $this->registerController = $registerController;
         $this->middleware('guest')->except('logout');
+
     }
 
     /**
@@ -111,6 +112,7 @@ class LoginController extends Controller
     {
         $this->rol = decrypt($rol);
         $this->rolLogin();
+        session(['name_company' => 'conexiones' ]);
         if(isset($request->free_rating_plan_id)) {
             session(['free_rating_plan_id' => $request->free_rating_plan_id]);
         }
