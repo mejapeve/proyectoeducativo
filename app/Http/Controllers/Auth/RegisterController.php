@@ -143,7 +143,7 @@ class RegisterController extends Controller
         return view('auth.register',['free_rating_plan_id'=>$free_rating_plan_id, 'redirect_to_shoppingcart'=>$redirect_to_shoppingcart]);
     }
     
-    public function addFreeRatingPlan($ratingPlanFree,$afiliado_empresa) {
+    public static function addFreeRatingPlan($ratingPlanFree,$afiliado_empresa) {
         
         if($ratingPlanFree->is_free) {
             if( $ratingPlanFree->moment_free_ids == null || $ratingPlanFree->moment_free_ids == '' ){
