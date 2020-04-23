@@ -82,7 +82,7 @@ class LoginController extends Controller
         if($free_rating_plan_id) {
             $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
-                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                $this->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
         }
         if (session_id() == "") {
@@ -134,7 +134,7 @@ class LoginController extends Controller
         if($free_rating_plan_id) {
             $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
-                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                $this->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
         }
         
