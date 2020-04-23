@@ -36,7 +36,6 @@ class NotifyCallbackController extends Controller
 					break;
 			}
 		}
-
 		
         $paid_amount = 0;
 		if($merchant_order)
@@ -73,7 +72,7 @@ class NotifyCallbackController extends Controller
 					where([
 					['company_affiliated_id', $afiliado_empresa->id],
 					['payment_transaction_id',$payment_transaction_id]
-				])->update(['payment_status_id'=>1]);
+				])->update(['payment_status_id'=>3]);
 				
 				if($shoppingCartUpdated > 0) {
 					
@@ -82,7 +81,7 @@ class NotifyCallbackController extends Controller
 						where([
 						['company_affiliated_id', $request->user('afiliadoempresa')->id],
 						['payment_transaction_id', $payment_transaction_id],
-						['payment_status_id', 1],
+						['payment_status_id', 3],
 					])->get();
 					
 					foreach($shoppingCarts as $shoppingCart) {
