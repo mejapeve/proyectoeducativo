@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Shopping;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RegisterController;
 use App\Models\AffiliatedAccountService;
+use App\Models\AffiliatedContentAccountService;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartProduct;
+use App\Models\CompanySequence;
+use App\Models\SequenceMoment;
 use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,16 +62,73 @@ class NotifyCallbackController extends Controller
 		
 		
 		if(isset($_GET["payment_transaction_id"])) {
-			if($request->user('afiliadoempresa')) {
-				ShoppingCart::
-					where([
-					['company_affiliated_id', $request->user('afiliadoempresa')->id],
-					['payment_transaction_id',$_GET["payment_transaction_id"]]
-				])->update(['payment_status_id'=>2]);
-			}
 			
+			$payment_transaction_id = $_GET["payment_transaction_id"];
+			
+			if($request->user('afiliadoempresa')) {
+				
+				$afiliado_empresa = $request->user('afiliadoempresa');
+				
+				$shoppingCartUpdated = ShoppingCart::
+					where([
+					['company_affiliated_id', $afiliado_empresa->id],
+					['payment_transaction_id',$payment_transaction_id]
+				])->update(['payment_status_id'=>1]);
+				
+				if($shoppingCartUpdated > 0) {
+					
+					$shoppingCarts = ShoppingCart::
+						with('rating_plan', 'shopping_cart_product')->
+						where([
+						['company_affiliated_id', $request->user('afiliadoempresa')->id],
+						['payment_transaction_id', $payment_transaction_id],
+						['payment_status_id', 1],
+					])->get();
+					
+					foreach($shoppingCarts as $shoppingCart) {
+						$ratingPlan = $shoppingCart->rating_plan;
+						if($ratingPlan) {
+							$this->addRatingPlanPaid($shoppingCart,$ratingPlan,$afiliado_empresa);
+						}
+					}
+				}
+			}
 			return redirect()->route('tutor',['empresa'=> 'conexiones']);
 		}
-        
     }
+	
+	public function addRatingPlanPaid($shoppingCart,$ratingPlan,$afiliado_empresa) {
+       $affiliatedAccountService = new AffiliatedAccountService();
+	   $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+	   $affiliatedAccountService->rating_plan_id = $ratingPlan->id;
+	   $affiliatedAccountService->rating_plan_type = $ratingPlan->type_rating_plan_id;
+	   $affiliatedAccountService->shopping_cart_id = $shoppingCart->id;
+	   
+	   $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlan->days.' day'));
+	   $affiliatedAccountService->rating_plan_type = $ratingPlan->type_rating_plan_id;
+	   $affiliatedAccountService->init_date = date('Y-m-d');
+	   
+	   $affiliatedAccountService->save();
+	   if($ratingPlan->type_rating_plan_id == 1 ) { //sequence rating plan
+		  foreach($shoppingCart->shopping_cart_product as $product) {
+			 $affiliatedContentAccountService = new AffiliatedContentAccountService();
+		     $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+			 $affiliatedContentAccountService->type_product_id = $ratingPlan->type_rating_plan_id;
+			 $affiliatedContentAccountService->sequence_id = $product->product_id;
+			 $affiliatedContentAccountService->moment_id = null;
+		     $affiliatedContentAccountService->save();
+	     }
+	   }
+	   else if($ratingPlan->type_rating_plan_id == 2 || $ratingPlan->type_rating_plan_id == 3 ) { //moment / experiences rating plan
+		  foreach($shoppingCart->shopping_cart_product as $product) {
+			 $affiliatedContentAccountService = new AffiliatedContentAccountService();
+		     $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+			 $affiliatedContentAccountService->type_product_id = $ratingPlan->type_rating_plan_id;
+			 $moment = SequenceMoment::find($product->product_id);
+			 $affiliatedContentAccountService->sequence_id = $moment->sequence_company_id;
+			 $affiliatedContentAccountService->moment_id = $product->product_id;
+		     $affiliatedContentAccountService->save();
+	     }
+	   }
+	}
 }

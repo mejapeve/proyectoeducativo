@@ -214,5 +214,4 @@ class RegisterController extends Controller
             return redirect()->action('Auth\RegisterController@show_register');
         }
     }
-
 }

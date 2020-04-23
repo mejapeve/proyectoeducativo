@@ -102,6 +102,8 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}/{account_service_id}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
     
     Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('tutor.registerStudentForm');
+    //servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
+    Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
 });
 
 //servcios carrito de comprar
@@ -179,8 +181,6 @@ Route::post('update_experience', 'ExperienceController@update')->name('update_ex
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
 
 
-//servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
-Route::get('get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
 //servicio para consultar servicios contratados
 Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
 

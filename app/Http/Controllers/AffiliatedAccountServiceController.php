@@ -18,7 +18,7 @@ class AffiliatedAccountServiceController extends Controller
             with('rating_plan')->get();
         $affiliatedAccountService = $this->relation_rating_plan($affiliatedAccountService);
 
-        //return DB::getQueryLog();//$shopingCarts;
+        //return DB::getQueryLog();//$shoppingCarts;
         return $affiliatedAccountService;
     }
 

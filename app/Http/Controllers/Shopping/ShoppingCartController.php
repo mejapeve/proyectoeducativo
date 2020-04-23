@@ -70,7 +70,7 @@ class ShoppingCartController extends Controller
     public function get_shopping_cart(Request $request)
     {
         if ($request->user('afiliadoempresa')) {
-            $shopingCarts = ShoppingCart::
+            $shoppingCarts = ShoppingCart::
                 with('rating_plan', 'shopping_cart_product')->
                 where([
                 ['company_affiliated_id', $request->user('afiliadoempresa')->id],
@@ -80,7 +80,7 @@ class ShoppingCartController extends Controller
             if (session_id() == "") {
                 session_start();
             }
-            $shopingCarts = ShoppingCart::
+            $shoppingCarts = ShoppingCart::
                 with('rating_plan', 'shopping_cart_product')->
                 where([
                 ['session_id', session_id()],
@@ -88,9 +88,9 @@ class ShoppingCartController extends Controller
             ])->get();
         }
 
-        $shopingCarts = $this->relation_rating_plan($shopingCarts);
-        //return $shopingCarts;
-        return response()->json(['data' => $shopingCarts], 200);
+        $shoppingCarts = $this->relation_rating_plan($shoppingCarts);
+        //return $shoppingCarts;
+        return response()->json(['data' => $shoppingCarts], 200);
     }
 
     public function create(Request $request)
@@ -176,10 +176,10 @@ class ShoppingCartController extends Controller
         $shoppingCart->save();
 
         foreach ($data['products'] as $product) {
-            $shopingCartProduct = new ShoppingCartProduct();
-            $shopingCartProduct->shopping_cart_id = $shoppingCart->id;
-            $shopingCartProduct->product_id = $product['id'];
-            $shopingCartProduct->save();
+            $shoppingCartProduct = new ShoppingCartProduct();
+            $shoppingCartProduct->shopping_cart_id = $shoppingCart->id;
+            $shoppingCartProduct->product_id = $product['id'];
+            $shoppingCartProduct->save();
         }
         return $shoppingCart;
     }
