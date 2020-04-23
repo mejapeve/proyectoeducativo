@@ -200,13 +200,13 @@ class LoginController extends Controller
     public function rolLogin(){
         switch ($this->rol){
             case 1:
-                $this->redirectTo = "student";
+                $this->redirectTo = "conexiones/student";
                 break;
             case 2:
-                $this->redirectTo = "teacher";
+                $this->redirectTo = "conexiones/teacher";
                 break;
             case 3:
-                $this->redirectTo = "tutor";
+                $this->redirectTo = "conexiones/tutor";
                 break;
         }
     }
