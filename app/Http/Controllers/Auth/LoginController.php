@@ -105,7 +105,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProviderGmail($rol)
+    public function redirectToProviderGmail(Request $request,$rol)
     {
         $this->rol = decrypt($rol);
         $this->rolLogin();
