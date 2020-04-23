@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\RegisterController;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\RatingPlan;
@@ -43,8 +42,10 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    protected $registerController;
+    public function __construct( RegisterController $registerController)
     {
+        $this->registerController = $registerController;
         $this->middleware('guest')->except('logout');
     }
 
@@ -80,9 +81,10 @@ class LoginController extends Controller
         
         $free_rating_plan_id = session()->pull('free_rating_plan_id');
         if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
+            $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
-                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+
             }
         }
         if (session_id() == "") {
@@ -132,9 +134,9 @@ class LoginController extends Controller
         $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
         
         if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($data['free_rating_plan_id']);
+            $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
-                RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
         }
         
