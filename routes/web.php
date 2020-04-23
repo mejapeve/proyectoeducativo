@@ -99,7 +99,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro/{account_service_id}', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
                                                                                                                                                                                       
     
-    Route::get('{empresa}/student/momento/{sequence_id}/{order_moment_id}/{section}/{account_service_id}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
+    Route::get('{empresa}/student/momento/{sequence_id}/{moment_id}/{section}/{account_service_id}/{order_moment_id}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
     
     Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('tutor.registerStudentForm');
 

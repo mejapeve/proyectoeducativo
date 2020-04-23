@@ -34,7 +34,7 @@
                                </div>
                                 <div class="d-none-result d-none position-relative card-body pr-1 row">
                                    <a class="mt-3 col-lg-2 col-md-3 col-sm-4 col-6" ng-repeat="sequence in sequences"
-                                        href="{{Request::server(env('APP_URL')).'/'.auth('afiliadoempresa')->user()->company_name()}}/student/secuencia/@{{sequence.sequence.id}}/situacion_generadora/@{{sequence.id}}">
+                                        href="{{Request::server(env('APP_URL')).'/'.auth('afiliadoempresa')->user()->company_name()}}/student/secuencia/@{{sequence.sequence.id}}/situacion_generadora/@{{sequence.affiliated_account_service_id}}">
                                     <img width="132px" height="auto" src="{{asset('/')}}@{{sequence.sequence.url_image}}" />
                                     <button class="ml-2 mt-2 btn btn-outline-primary fs--2" class="col-6">Explorar</button>
                                    </a>

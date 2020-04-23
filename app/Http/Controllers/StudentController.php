@@ -57,8 +57,9 @@ class StudentController extends Controller
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
-        $sequence = CompanySequence::where('id',$sequence_id)->get();
-        $sequence = $sequence[0];
+        $sequence = CompanySequence::with('moments')->where('id',$sequence_id)->first();
+        //dd($sequence);
+        //$sequence = $sequence[0];
         $sequence->section_2='{"background_image":"images/sequences/sequence20/rutaViaje-20.jpg",
         "button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92,
         "button2_mt":249,"button2_ml":13,"button2_w":240,"button2_h":92,
@@ -74,6 +75,7 @@ class StudentController extends Controller
         if($sequence->section_2) {
             $section = json_decode($sequence->section_2, true);
             $data = array_merge(['sequence'=>$sequence],$section);
+            //dd($data['sequence']->moments->where('order',1)->first()->id);
             return view('roles.student.sequences_section_2',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
@@ -118,13 +120,13 @@ class StudentController extends Controller
         }
     }
     
-    public function show_moment_section(Request $request,$empresa, $sequence_id, $order_moment_id, $section_id=1,$account_service_id) {
+    public function show_moment_section(Request $request,$empresa, $sequence_id, $moment_id, $section_id=1,$account_service_id,$order_moment_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        $this->validation_access_sequence_content($account_service_id,true,$sequence_id,$order_moment_id);
+        $this->validation_access_sequence_content($account_service_id,true,$sequence_id,$moment_id);
         $moment = SequenceMoment::
             where('sequence_moments.sequence_company_id', $sequence_id )
-            ->where('sequence_moments.order',$order_moment_id )
-            ->get()[0];
+            ->where('sequence_moments.id',$moment_id )
+            ->first();
 
         $item = AdvanceLine::firstOrNew(
             array(
@@ -144,7 +146,7 @@ class StudentController extends Controller
             $section_4 = json_decode($moment->section_4, true);
             $data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section);
 //            dd($data);
-            return view('roles.student.moment_section',$data)->with('account_service_id',$account_service_id);
+            return view('roles.student.moment_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
         }
     }
     
@@ -162,17 +164,20 @@ class StudentController extends Controller
         $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
         })->pluck('id');
-       return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('affiliated_account_service_id')->get();
+        //dd($ids);
+       return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
 
     }
 
     public function validation_access_sequence_content($account_service_id,$validation_moments = false,$sequence_id = null,$moment_id = null){
         $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->find($account_service_id);
+
         $AfiliadoEmpresaRolesId = AfiliadoEmpresaRoles::select('id')->where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['company_id',1],//conexiones
             ['rol_id',1]//estudiante
         ])->first();
+        //dd($account_service_id,$affiliatedAccountService,$AfiliadoEmpresaRolesId);
         if($affiliatedAccountService->exists() && $AfiliadoEmpresaRolesId->exists()){
             if($affiliatedAccountService->rating_plan_type == 1 ||$affiliatedAccountService->rating_plan_type == 2){//tiene acceso a plan por secuencia o por momentos
                 $afiliadoEmpresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($AfiliadoEmpresaRolesId){
@@ -187,7 +192,7 @@ class StudentController extends Controller
                         if(count($affiliatedAccountService->affiliated_content_account_service->where(
                             'sequence_id',$sequence_id
                         )->where('moment_id',$moment_id))==0){
-                            dd('no tiene permiso para acceder a este momento');
+                            dd('no tiene permiso para acceder a este momento',$sequence_id,$moment_id);
                         }
                     }else{
                         dd('algo salio mal asignando los contenidos del plan, comunicarse con conexiones');

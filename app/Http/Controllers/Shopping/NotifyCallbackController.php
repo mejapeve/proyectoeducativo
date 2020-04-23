@@ -110,12 +110,16 @@ class NotifyCallbackController extends Controller
 	   $affiliatedAccountService->save();
 	   if($ratingPlan->type_rating_plan_id == 1 ) { //sequence rating plan
 		  foreach($shoppingCart->shopping_cart_product as $product) {
-			 $affiliatedContentAccountService = new AffiliatedContentAccountService();
-		     $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
-			 $affiliatedContentAccountService->type_product_id = $ratingPlan->type_rating_plan_id;
-			 $affiliatedContentAccountService->sequence_id = $product->product_id;
-			 $affiliatedContentAccountService->moment_id = null;
-		     $affiliatedContentAccountService->save();
+		      $sequenceMoments = SequenceMoment::where('sequence_company_id',$product->product_id)->get();
+		      foreach ($sequenceMoments as $sequenceMoment){
+                  $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                  $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                  $affiliatedContentAccountService->type_product_id = $ratingPlan->type_rating_plan_id;
+                  $affiliatedContentAccountService->sequence_id = $product->product_id;
+                  $affiliatedContentAccountService->moment_id = $sequenceMoment->id;
+                  $affiliatedContentAccountService->save();
+              }
+
 	     }
 	   }
 	   else if($ratingPlan->type_rating_plan_id == 2 || $ratingPlan->type_rating_plan_id == 3 ) { //moment / experiences rating plan
