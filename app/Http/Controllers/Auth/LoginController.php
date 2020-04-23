@@ -56,8 +56,8 @@ class LoginController extends Controller
      */
     public function redirectToProvider(Request $request,$rol)
     {   if(isset($request->free_rating_plan_id)) {
-            session(['free_rating_plan_id' => $request->free_rating_plan_id]);    
-        }
+        session(['free_rating_plan_id' => $request->free_rating_plan_id]);
+    }
         if(isset($request->redirect_to_shoppingcart)) {
             session(['redirect_to_shoppingcart' => $request->redirect_to_shoppingcart]);
         }
@@ -75,10 +75,10 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-        
+
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        
+
         $free_rating_plan_id = session()->pull('free_rating_plan_id');
         if($free_rating_plan_id) {
             $ratingPlan = RatingPlan::find($free_rating_plan_id);
@@ -89,16 +89,16 @@ class LoginController extends Controller
         }
         if (session_id() == "") {
             session_start();
-        }        
+        }
         ShoppingCart:: where('session_id', session_id())
-                     ->where('payment_status_id', 1)
-                     ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
-        
-        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');        
+            ->where('payment_status_id', 1)
+            ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+
+        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
         if($redirect_shoppingcart) {
             return redirect()->route('shoppingCart');
         }
-        
+
         $redirect_to_portal = session('redirect_to_portal');
         return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
     }
@@ -112,7 +112,7 @@ class LoginController extends Controller
         $this->rol = decrypt($rol);
         $this->rolLogin();
         if(isset($request->free_rating_plan_id)) {
-            session(['free_rating_plan_id' => $request->free_rating_plan_id]);    
+            session(['free_rating_plan_id' => $request->free_rating_plan_id]);
         }
         session(['redirect_to_portal' => $this->redirectTo]);
         return Socialite::driver('google')->redirect();
@@ -129,24 +129,24 @@ class LoginController extends Controller
 
         $afiliadoempresa = $this->createAfiliado($user,'gmail');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-        
+
         $free_rating_plan_id = session()->pull('free_rating_plan_id');
         $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
-        
+
         if($free_rating_plan_id) {
             $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
                 $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
         }
-        
+
         if (session_id() == "") {
             session_start();
         }
         ShoppingCart:: where('session_id', session_id())
-                     ->where('payment_status_id', 1)
-                     ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
-                     
+            ->where('payment_status_id', 1)
+            ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+
         if($redirect_shoppingcart) {
             return redirect()->route('shoppingCart');
         }
@@ -175,7 +175,7 @@ class LoginController extends Controller
             })->where(function($query) use ($user){
                 $query->where('provider_facebook',$user->id)->orWhere('email',$user->email)->first();
             })->first();
-        
+
         if($afiliadoempresa === null){
             $afiliadoempresa = new AfiliadoEmpresa();
             $dataProvider = explode( ' ', $user->name);
@@ -200,13 +200,13 @@ class LoginController extends Controller
     public function rolLogin(){
         switch ($this->rol){
             case 1:
-                $this->redirectTo = "conexiones/student";
+                $this->redirectTo = "student";
                 break;
             case 2:
-                $this->redirectTo = "conexiones/teacher";
+                $this->redirectTo = "teacher";
                 break;
             case 3:
-                $this->redirectTo = "conexiones/tutor";
+                $this->redirectTo = "tutor";
                 break;
         }
     }
