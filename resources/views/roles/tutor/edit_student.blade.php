@@ -66,12 +66,11 @@
             </div>
         </div>
     </div>
-
-        <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEdit()" ng-disabled="!validateUserName">
-            <div ng-show="loagingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
-            {{ __('Editar') }}
-        </button>
-        <span ng-show="errorMessageRegister" class="invalid-feedback" role="alert">
-                 <strong>@{{errorMessageRegister}}</strong>
-              </span>
+    <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEdit()" ng-disabled="!validateUserName">
+        <div ng-show="loagingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
+        {{ __('Editar') }}
+    </button>
+    <span ng-show="errorMessageRegister" class="invalid-feedback" role="alert">
+             <strong>@{{errorMessageRegister}}</strong>
+    </span>
 </div>

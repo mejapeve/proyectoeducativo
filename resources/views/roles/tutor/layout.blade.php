@@ -8,7 +8,7 @@
 		@include('roles/tutor/tutor_navbar')
 
 		<div class="row p-lg-4 p-md-3 p-sm-2 sticky-margin-top-ie">
-			<div class="container" ng-controller="TutorIndexController">
+			<div class="container">
 				<div class="content">
 					<div class="row">
 						<div class="col-md-4">

@@ -2,20 +2,7 @@ MyApp.controller("timelineSequencesStudentCtrl", ["$scope", "$http", function ($
     
     $scope.sequences = null;
     $scope.errorMessage = null;
-console.log(12);
     $scope.init = function(company_id,account_service_id,sequence_id)    {
-        console.log('datos al cargar linea de avance',company_id,account_service_id);
-        $scope.defaultCompanySequences = company_id;
-        $('.d-none-result').removeClass('d-none');
-        $http({
-            url:"/get_available_sequences/"+$scope.defaultCompanySequences ,
-            method: "GET",
-        }).
-        then(function (response) {
-            $scope.sequences = response.data;
-        }).catch(function (e) {
-            $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
-        });
         $http({
             url:"/get_advance_line/"+account_service_id+'/'+sequence_id,
             method: "GET",
