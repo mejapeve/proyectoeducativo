@@ -122,12 +122,11 @@ class RegisterController extends Controller
         
         if(isset($data['redirect_to_shoppingcart'])){
             $this->redirectTo = 'carrito_de_compras';
-            
         }
         else {
             $this->redirectTo = 'conexiones/tutor';
         }
-        $this->redirectTo = 'carrito_de_compras';
+        
         return $afiliado_empresa;
     }
 

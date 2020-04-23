@@ -14,10 +14,6 @@
          <h5 class="mb-2 justify-content-end col-12">
             <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
-            <form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
-               @csrf
-               <input type="text" name="payment_transaction_id" value="{{$preference->id}}"/>
-            </form>
          </h5>
          @endif
          @endauth
@@ -32,7 +28,7 @@
          </div>
       </div>
    </div>
-   <div class="p-0 card-body">
+   <div class="p-0 card-body d-none-result d-none">
       <div class="align-items-center px-1 border-bottom border-200 no-gutters" ng-repeat="shopping_cart in shopping_carts">
          <div ng-show="shopping_cart.rating_plan_id" class="row p-3 ">
             <div class="col-8">
@@ -130,8 +126,12 @@
          @auth('afiliadoempresa')
          
 		 <h5 class="mt-1 mb-2 justify-content-end col-12">
-            <button class="btn btn-outline-primary" ng-click="onSimulateTest()">
+            <button class="btn btn-outline-primary" onclick="event.preventDefault(); document.getElementById('simulate-form').submit();">
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
+			<form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
+               @csrf
+               <input type="text" name="payment_transaction_id" value="{{$preference->id}}"/>
+            </form>
          </h5>
          
 		 <h5 class="mt-1 mb-2 justify-content-end col-12">
