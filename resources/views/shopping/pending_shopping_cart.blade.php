@@ -2,20 +2,16 @@
 @section('content')
 <div class="card col-12" ng-controller="shoppingCartController" ng-init="init()">
    <div class="card-header">
-      <div class="ml-auto">
+      <div class="text-right">
          @guest('afiliadoempresa')
-         <h5 class="justify-content-end">
-            <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
-            <span class="fs---1">Continuar Compra</span></button>
+		 <h5 class="mt-1 mb-2 justify-content-end col-12">
+            <button class="btn btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
+            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
          </h5>
          @endguest
          @auth('afiliadoempresa')
          @if($preference->id)
-         <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
-            <button class="btn btn-outline-primary" onclick="event.preventDefault(); document.getElementById('simulate-form').submit();">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
-         </h5>
-         <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+         <h5 class="mb-2 justify-content-end col-12">
             <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
             <form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
@@ -103,35 +99,46 @@
 		   	   </div>
          </div>
       </div>
-	  <div ng-show="shopping_carts.length === 0" class="align-items-center px-1 border-bottom border-200 no-gutters row">
+	  <div ng-show="shopping_carts.length === 0" class="mt-4 mb-4 align-items-center px-1 border-bottom border-200 no-gutters row fs-0">
 		No hay elementos en el carrito de compras
 	  </div>
-	  <div class="font-weight-bold px-1 no-gutters row">
+	  <div ng-show="shopping_carts.length > 0" class="font-weight-bold px-1 no-gutters row">
 		<div class="py-2 px-md-3 ml-auto text-900 col-9 col-md-8">Total</div>
 		<div class="px-3 col">
 			<div class="row">
-				<div class="py-2 d-none d-md-block text-center col-md-8">1 (items)</div>
+				<div class="py-2 d-none d-md-block text-center col-md-8">1 (elementos)</div>
 				<div class="col-12 col-md-4 ml-auto py-2 pr-md-3 pl-0 col">$14398.00</div>
 			</div>
 		</div>
 	  </div>
+	  <div ng-show="shopping_carts.length === 0" class="font-weight-bold px-1 no-gutters row">
+		<div class="py-2 px-md-3 ml-auto text-900 col-9 col-md-8">Total</div>
+		<div class="px-3 col">
+			<div class="row">
+				<div class="py-2 d-none d-md-block text-center col-md-8">0 (elementos)</div>
+			</div>
+		</div>
+	  </div>
 	  
-      <div class="font-weight-bold px-1 no-gutters row">
+      <div class="font-weight-bold px-1 no-gutters row text-right">
          @guest('afiliadoempresa')
-         <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+         <h5 class="mt-1 mb-2 justify-content-end col-12">
             <button class="btn btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
          </h5>
          @endguest
          @auth('afiliadoempresa')
-         <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
+         
+		 <h5 class="mt-1 mb-2 justify-content-end col-12">
             <button class="btn btn-outline-primary" ng-click="onSimulateTest()">
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
          </h5>
-         <h5 class="d-flex justify-content-end bg-light card-footer" style="bottom: 10px;">
-            <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
+         
+		 <h5 class="mt-1 mb-2 justify-content-end col-12">
+            <button class="btn btn-outline-primary" ng-href="/formulario_de_envio">
+            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
          </h5>
+		 
          @endauth
       </div>
    </div>
