@@ -148,7 +148,7 @@ class StudentController extends Controller
         }
     }
     
-    public function get_available_sequences (Request $request,$company_id){
+    public function get_available_sequences (Request $request,$empresa,$company_id){
         
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $tutor_id = ConectionAffiliatedStudents::select('id','tutor_company_id')
