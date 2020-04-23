@@ -80,7 +80,7 @@ class LoginController extends Controller
         
         $free_rating_plan_id = session()->pull('free_rating_plan_id');
         if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($free_rating_plan_id['free_rating_plan_id']);
+            $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
                 RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
@@ -132,7 +132,7 @@ class LoginController extends Controller
         $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
         
         if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($free_rating_plan_id['free_rating_plan_id']);
+            $ratingPlan = RatingPlan::find($free_rating_plan_id);
             if($ratingPlan->is_free) {
                 RegisterController.addFreeRatingPlan($ratingPlan,$afiliadoempresa);
             }
