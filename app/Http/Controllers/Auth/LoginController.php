@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\RegisterController;
 use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
+use App\Models\RatingPlan;
 use App\Models\ShoppingCart;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
