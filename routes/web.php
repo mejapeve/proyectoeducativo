@@ -105,6 +105,10 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 
 //servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
     Route::get('{empresa}/get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
+//servicio para actualizar contraseña
+    Route::get('{empresa}/validate_password/{password}', 'TutorController@validate_password')->name('validate_password')->middleware('role:tutor');
+    Route::post('{empresa}/update_password', 'TutorController@update_password')->name('update_password')->middleware('role:tutor');
+
 });
 
 //servcios carrito de comprar
