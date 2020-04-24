@@ -64,6 +64,7 @@ class LoginController extends Controller
         }
         $this->rol = decrypt($rol);
         $this->rolLogin();
+        session(['name_company' => 'conexiones' ]);
         session(['redirect_to_portal' => $this->redirectTo]);
         return Socialite::driver('facebook')->redirect();
     }
