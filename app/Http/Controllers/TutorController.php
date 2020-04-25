@@ -92,11 +92,26 @@ class TutorController extends Controller
                  if($update){
                      return response()->json(['validation'=>true,'message'=>'contraseña actualizada'],200);
                  }else{
-                     return response()->json(['validation'=>false,'message'=>'Algo salio mal, intente de nuevo'],200);
+                     return response()->json(['validation'=>false,'message'=>'Algo salio mal, intente de nuevo'],400);
                  }
             }else{
-                return response()->json(['validation'=>$response->validation,'message'=>$response->message],200);
+                return response()->json(['validation'=>$response->validation,'message'=>$response->message],400);
             }
+        }
+    }
+
+    public function edit_column_tutor (Request $request){
+
+        if(AfiliadoEmpresa::where('id',auth('afiliadoempresa')->user()->id)->update(array(
+            $request->column => $request->data
+        ))){
+            return response()->json([
+                'message'=>'Campo editado exitosamente',
+                'column'=> $request->column,
+                'data'=> $request->data
+            ],200);
+        }else{
+            return response()->json(['message'=>'algo salio mal, intente de nuevo'],200);
         }
 
 
