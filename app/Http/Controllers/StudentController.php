@@ -9,6 +9,7 @@ use App\Models\AffiliatedContentAccountService;
 use App\Models\AfiliadoEmpresa;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
@@ -22,13 +23,10 @@ class StudentController extends Controller
             return view('roles.student.avatar');
         }
         else {
+
             $age = '';
             if(isset($request->user('afiliadoempresa')->birthday) && $request->user('afiliadoempresa')->birthday>0 ) {
-              $birthday = explode("-", $request->user('afiliadoempresa')->birthday);
-              //get age from date or birthday
-              $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
-                ? ((date("Y") - $birthday[2]) - 1)
-                : (date("Y") - $birthday[2]));
+                $age = Carbon::now()->diffInYears(Carbon::parse($request->user('afiliadoempresa')->birthday));
             }
             return view('roles.student.profile',['student'=>$request->user('afiliadoempresa'), 'age'=>$age]);
         }
