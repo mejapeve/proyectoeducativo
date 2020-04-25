@@ -159,23 +159,28 @@ class StudentController extends Controller
                 ['rol_id',1]
             ]);
         })->first();
-        $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
+        $ids = AffiliatedAccountService::
+        with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
-        })->pluck('id');
-        //dd($ids);
+        })->where([
+            ['init_date','<=',Carbon::now()],
+            ['end_date','>=',Carbon::now()]
+        ])->pluck('id');
+
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
 
     }
 
     public function validation_access_sequence_content($account_service_id,$validation_moments = false,$sequence_id = null,$moment_id = null){
-        $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->find($account_service_id);
+        $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->
+            where('init_date','<=',Carbon::now())
+                ->where('end_date','>=',Carbon::now())->find($account_service_id);
 
         $AfiliadoEmpresaRolesId = AfiliadoEmpresaRoles::select('id')->where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['company_id',1],//conexiones
             ['rol_id',1]//estudiante
         ])->first();
-        //dd($account_service_id,$affiliatedAccountService,$AfiliadoEmpresaRolesId);
         if($affiliatedAccountService->exists() && $AfiliadoEmpresaRolesId->exists()){
             if($affiliatedAccountService->rating_plan_type == 1 ||$affiliatedAccountService->rating_plan_type == 2){//tiene acceso a plan por secuencia o por momentos
                 $afiliadoEmpresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($AfiliadoEmpresaRolesId){
