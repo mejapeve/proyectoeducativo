@@ -52,7 +52,7 @@
                     <div class="form-group row mt-3 justify-content-center">
                         @if (Route::has('password.sendlink'))
                         <label class="label">
-                            <a href="{{route('password.sendlink','conexiones')}}">¿ Olvidó sus datos ?</a>
+                            <a href="{{route('password.sendlink',[$company->nick_name,4])}}">¿ Olvidó sus datos ?</a>
                         </label>
                         @endif
 

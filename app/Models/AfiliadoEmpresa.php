@@ -144,4 +144,9 @@ class AfiliadoEmpresa extends Model
         return session('name_company' );
     }
 
+    public function affiliated_account_services (){
+
+        return $this->hasMany(AffiliatedAccountService::class,'company_affiliated_id','id');
+    }
+
 }

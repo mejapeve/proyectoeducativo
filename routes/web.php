@@ -62,7 +62,8 @@ Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name(
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
-
+Route::get('conexiones/admin/get_users_contracted_products', 'AdminController@get_users_contracted_products')->middleware('role:admin')->name('get_users_contracted_products');
+Route::get('conexiones/admin/get_user_contracted_products/{affiliatedId}', 'AdminController@get_user_contracted_products')->middleware('role:admin')->name('get_user_contracted_products');
 
 Route::prefix('user')
     ->as('user.')
@@ -109,6 +110,8 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/validate_password/{password}', 'TutorController@validate_password')->name('validate_password')->middleware('role:tutor');
     Route::post('{empresa}/update_password', 'TutorController@update_password')->name('update_password')->middleware('role:tutor');
     Route::post('{empresa}/edit_column_tutor', 'TutorController@edit_column_tutor')->name('edit_column_tutor')->middleware('role:tutor');
+
+
 });
 
 //servcios carrito de comprar
