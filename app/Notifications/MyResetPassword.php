@@ -13,16 +13,18 @@ class MyResetPassword extends Notification
     use Queueable;
     private $token;
 	private $company_name;
+    private $rol;
 	
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token, $company_name)
+    public function __construct($token, $company_name, $rol)
     {
         $this->company_name = $company_name;
         $this->token = $token;
+        $this->rol =  $rol;
     }
 
     /**
@@ -53,7 +55,7 @@ class MyResetPassword extends Notification
             ->subject(' contraseña')
             ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
             ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
-            ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token]))
+            ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token,'rol'=>$this->rol]))
             ->line('Si no realizaste esta solicitud, no es necesario realizar ninguna acción.')
             ->line('Saludos,')
             ->line('Equipo técnico')

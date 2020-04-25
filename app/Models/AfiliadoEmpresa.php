@@ -131,7 +131,7 @@ class AfiliadoEmpresa extends Model
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new MyResetPassword($token,session('name_company')));
+        $this->notify(new MyResetPassword($token,session('name_company'),session('rol')));
     }
 	
 	public function sendWelcomeNotification($rol)
