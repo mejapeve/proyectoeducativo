@@ -9,13 +9,18 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         $('#sidemenu-sequences-empty').removeClass('d-none');
         
         $('#sidemenu-sequences-content').addClass('d-none');
-        $('#sidemenu-sequences-content').removeClass("show");
+		$('#sidemenu-sequences-content').removeClass("show");
+		$('#sidemenu-sequences-content').removeClass("d-lg-block");
+		 
+		$('#sidemenu-tools-content').addClass('d-none');
+		$('#sidemenu-tools-content').removeClass("show");
+		$('#sidemenu-tools-content').removeClass("d-lg-block");
         
-        $('#sidemenu-sequences').addClass("col-md-0_5");
-        $('#sidemenu-sequences').removeClass("col-md-3");
+        $('#sidemenu-sequences').addClass("col-lg-0_5");
+        $('#sidemenu-sequences').removeClass("col-lg-3");
         
-        $('#content-section-sequences').removeClass("col-md-9");
-        $('#content-section-sequences').addClass("col-md-11_5");
+        $('#content-section-sequences').removeClass("col-lg-9");
+        $('#content-section-sequences').addClass("col-lg-11_5");
     };
     var showSideMenu = function() {
         $('#sidemenu-sequences-empty').removeClass('show');
@@ -23,6 +28,11 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         
         $('#sidemenu-sequences-content').removeClass('d-none');
         $('#sidemenu-sequences-content').addClass("show");
+		$('#sidemenu-sequences-content').addClass("d-lg-block");
+		
+		$('#sidemenu-tools-content').removeClass('d-none');
+        $('#sidemenu-tools-content').addClass("show");
+		$('#sidemenu-tools-content').addClass("d-lg-block");
         
         $('#sidemenu-sequences-button').addClass('fa-caret-square-left');
         $('#sidemenu-sequences-button').removeClass('fa-caret-square-right');
@@ -30,12 +40,15 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         $('#sidemenu-sequences-hidden-side').removeClass("d-none");
         $('#sidemenu-sequences-content').removeClass("d-none");
         $('#sidemenu-sequences-empty').addClass("d-none");
+		
+		$('#sidemenu-tools-content').addClass("show");
+		$('#sidemenu-tools-content').removeClass("d-none");
         
-        $('#sidemenu-sequences').removeClass("col-md-0_5");
-        $('#sidemenu-sequences').addClass("col-md-3");
+        $('#sidemenu-sequences').removeClass("col-lg-0_5");
+        $('#sidemenu-sequences').addClass("col-lg-3");
         
-        $('#content-section-sequences').addClass("col-md-9");
-        $('#content-section-sequences').removeClass("col-md-11_5");
+        $('#content-section-sequences').addClass("col-lg-9");
+        $('#content-section-sequences').removeClass("col-lg-11_5");
     }
     $scope.toggleSideMenu = function() {
         
@@ -44,15 +57,21 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         }
         else if( $('#sidemenu-sequences-button').hasClass('fa-caret-square-right')) {
             showSideMenu();
-        }
-        
+        }        
         resizeSequenceCard();
     };
     
+}]);
+
+
+
     function resizeSequenceCard () {
         var card = $('.background-sequence-card');
+		//alert(card.css('width'));
+		$('.background-sequence-image').css('height','auto');
+		$('.background-sequence-image').css('width',card.css('width'));
         if($('.background-sequence-image').css('height')) {
-            card.css('height',$('.background-sequence-image').css('height'));        
+            card.css('height',$('.background-sequence-image').css('height'));
         }
         var w = card.attr('w');
         var h = card.attr('h');
@@ -104,5 +123,3 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
     });
 
     resizeSequenceCard();
-    
-}]);

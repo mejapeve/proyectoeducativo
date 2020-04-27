@@ -8,7 +8,7 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
     $scope.name = '';
     $scope.email = '';
     $scope.departmentId = null;
-    $scope.showselectCity = true;
+    $scope.showCitySelect = true;
     $scope.messageError = null;
     $scope.termsConditions = $('#terms').html();
 
@@ -25,7 +25,7 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
              if($scope.country_code === 'CO') {
                 $("#selectCountry").val("42").trigger("change");
                 $scope.countryId = "42";
-                $scope.showselectCity = true;
+                $scope.showCitySelect = true;
                 $scope.$apply();
             }
             }, 100);
@@ -33,7 +33,7 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
             $('#selectCountry').on('select2:select', function (e) {
                 var country = e.params.data;
                 if(country.id === "42") {
-                    $scope.showselectCity =  true;
+                    $scope.showCitySelect =  true;
                     $scope.city_id = null;
                     $scope.city = '';
                     $("#selectCity").val(null).trigger("change");
@@ -42,7 +42,7 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
                     if($scope.countryId === "42") { //previous country selected
                         $scope.city = '';    
                     }
-                    $scope.showselectCity =  false;
+                    $scope.showCitySelect =  false;
                     $scope.city_id = null;
                     $scope.departmentId = null;
                 }

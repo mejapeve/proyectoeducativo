@@ -142,6 +142,9 @@ Route::get('testangular', 'HomeController@testangular')->name('testangular');
 Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 Route::post('/fileupload/action', ['as' => 'fileuploadAction', 'uses' => 'Admin\FileUploadController@store']);
+Route::get('/conexiones/admin/sequences_list', 'Admin\EditCompanySequenceController@get_sequences_list')->name('admin.get_sequences_list');
+Route::get('/conexiones/admin/sequences_get/{sequence_id}', 'Admin\EditCompanySequenceController@get_sequences_get')->name('admin.get_sequences_get');
+Route::post('/conexiones/admin/get_folder_image', 'FolderImageController@getFiles')->name('get_folder_image');
 
 Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');

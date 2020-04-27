@@ -13,7 +13,7 @@
                     </div>
                     <div class="h-75 mb-3 fade show d-none card w-10" id="sidemenu-sequences-empty">
                     </div>
-                    <div class="d-none d-md-block text-sans-serif dropdown position-absolute cursor-pointer" style="top: 91px; right:7px;" ng-click="toggleSideMenu()">
+                    <div class="d-none d-lg-block text-sans-serif dropdown position-absolute cursor-pointer" style="top: 91px; right:7px;" ng-click="toggleSideMenu()">
                         <i class="far fa-caret-square-left" id="sidemenu-sequences-button"></i>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                               @if(isset($text1))
                                <div class="font-text card-body col-7" mt="220" fs="12">
                                 {!! $text1 !!}
-                                </div>
+                               </div>
                               @endif
                             </div>   
                         </div>
