@@ -45,14 +45,19 @@
 							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
 						    @endif
                             <div class="card-body pb-0">
+							  @if(isset($elements))
                               @foreach($elements as $element)
-							    @if($element['type'] == 'text')
+							    @if($element['type'] == 'text' || $element['type'] == 'paragraph')
 								   <div ng-style="{'color': @if(isset($element['color'])) '{{$element['color']}}' @endif, 'background-color': @if(isset($element['background_color'])) '{{$element['background_color']}}' @endif}" 
 										class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
 									{!! $element['text'] !!}
 								   </div>
 								@endif
+								@if($element['type'] == 'image-element')
+								   <img src="{{asset($element['url'])}}" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}"/>
+								@endif
 							  @endforeach
+							  @endif
                             </div>   
                         </div>
                     </div>

@@ -143,7 +143,8 @@
 							 </div>
 						 </div>	
 						 <div ng-show="element.type==='paragraph'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
-							class="font-text conx-element" ng-click="onClickElement(sequenceSection,element,'Párrafo','text-area-element')">
+							class="font-text conx-element" ng-click="onClickElement(sequenceSection,element,'Párrafo','text-area-element')"
+							ng-style="{'color':element.color, 'background-color': element.background_color}">
 							 @{{element.text}}	
 							 <div class="delete-element" ng-click="deleteElement(sequenceSection,$index)">
 								<i class="far fa-times-circle"></i>
