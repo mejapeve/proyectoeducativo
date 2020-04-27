@@ -1,6 +1,10 @@
 MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($scope, $http) {
     
     $scope.errorMessage = null;
+	
+	$scope.init = function() {
+		resizeSequenceCard();		
+	}
 
     var hiddenSideMenu = function() {
         $('#sidemenu-sequences-button').removeClass('fa-caret-square-left');
@@ -67,7 +71,6 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
     function resizeSequenceCard () {
         var card = $('.background-sequence-card');
-		//alert(card.css('width'));
 		$('.background-sequence-image').css('height','auto');
 		$('.background-sequence-image').css('width',card.css('width'));
         if($('.background-sequence-image').css('height')) {
@@ -123,3 +126,4 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
     });
 
     resizeSequenceCard();
+	

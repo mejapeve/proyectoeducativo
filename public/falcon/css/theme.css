@@ -19978,7 +19978,7 @@ display: flex;
 }
 
 .edit-element-panel .card-body {
-	height: 359px; 
+	min-height: 359px;
 }
 
 .min-card-body {

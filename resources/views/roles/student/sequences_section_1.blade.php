@@ -1,7 +1,7 @@
 @extends('roles.student.sequences_layout')
 
 @section('content')
-    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init(1)">
+    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init()">
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -41,13 +41,18 @@
                         </div>
 
                         <div class="d-none-result d-none  mb-3 card background-sequence-card" w="895" h="569">
-                            <img src="{{asset($background_image)}}" class="background-sequence-image"/>
+						    @if(isset($background_image))
+							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
+						    @endif
                             <div class="card-body pb-0">
-                              @if(isset($text1))
-                               <div class="font-text card-body col-7" mt="220" fs="12">
-                                {!! $text1 !!}
-                               </div>
-                              @endif
+                              @foreach($elements as $element)
+							    @if($element['type'] == 'text')
+								   <div ng-style="{'color': @if(isset($element['color'])) '{{$element['color']}}' @endif, 'background-color': @if(isset($element['background_color'])) '{{$element['background_color']}}' @endif}" 
+										class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
+									{!! $element['text'] !!}
+								   </div>
+								@endif
+							  @endforeach
                             </div>   
                         </div>
                     </div>

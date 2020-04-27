@@ -77,16 +77,15 @@
                <div class="card-header d-flex">
                   <h5 class="">@{{sectionName}}</h5>
                   <div ng-show="dataJstreeType==='openSequence'"  class="ml-3 pt-1 conx-element" ng-click="onClickElement(sequence,'name','Nombre','text')">
-                     @{{ sequence.name }}
                   </div>
 				  <div ng-show="dataJstreeType==='openSequence'" class="ml-auto">
-                     <button class="btn btn-sm btn-outline-primary" ng-click="onSaveSequence()">Editar</button>
+                     <button ng-disabled="!changesApply" class="btn btn-sm btn-outline-primary" ng-click="onSaveSequence()">Editar</button>
                   </div>
                   <div ng-show="dataJstreeType==='openSequenceSection'"  class="ml-3 pt-1 conx-element" ng-click="onClickElement(sequenceSection,'title','Título','text')">
                      <h6 type="text" class="">@{{sequenceSection.title}}</h6>
                   </div>
                   <div ng-show="dataJstreeType==='openSequenceSection'" class="ml-auto">
-                     <button class="btn btn-sm btn-outline-primary" onclick="location='/conexiones/admin/sequences_get/{{ $sequence->id }}'">Editar</button>
+                     <button ng-disabled="!changesApply" class="btn btn-sm btn-outline-primary" ng-click="onSaveSequenceSection()">Editar</button>
                   </div>
                </div>
                <div  class="bg-light card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
@@ -136,10 +135,11 @@
                      
                      <div class="col-4 fs--1 position-absolute" ng-repeat="element in sequenceSection.elements track by $index">
 						 <div ng-show="element.type==='text'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
-							class="font-text conx-element" ng-click="onClickElement(sequenceSection,element,'Texto','text-element')">
-							 @{{element.text}}	
+							class="font-text conx-element" ng-click="onClickElement(sequenceSection,element,'Texto','text-element')"
+							ng-style="{'color':element.color, 'background-color': element.background_color}">
+							 @{{element.text}}
 							 <div class="delete-element" ng-click="deleteElement(sequenceSection,$index)">
-							 <	i class="far fa-times-circle"></i>
+							 <i class="far fa-times-circle"></i>
 							 </div>
 						 </div>	
 						 <div ng-show="element.type==='paragraph'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
@@ -217,8 +217,16 @@
 					   <input class="col-4" type="number"  ng-keypress="onChangeInput()" ng-change="onChangeInput()" ng-model="elementEdit.h"/>
 				   </div>
 				   <div class="d-flex mt-3">
-					   <i class="fas fa-text-height"></i><small>Tamaño letra</small>
-					   <input class="col-4" type="number" onkeyup="onKeyupInput()"  ng-change="onChangeInput()" ng-model="elementEdit.fs"/>
+					   <i class="fas fa-text-height mr-2"></i><small>Tamaño letra</small>
+					   <input class="col-4 ml-2" type="number" onkeyup="onKeyupInput()"  ng-change="onChangeInput()" ng-model="elementEdit.fs"/>
+				   </div>
+				   <div class="d-flex mt-3">
+					   <i class="fas fa-text-height mr-2"></i><small>Color</small>
+					   <input class="col-4 ml-2" type="text" onkeyup="onKeyupInput()"  ng-change="onChangeInput()" ng-model="elementEdit.color"/>
+				   </div>
+				   <div class="d-flex mt-3">
+					   <i class="fas fa-text-height mr-2"></i><small>Fondo</small>
+					   <input class="col-4 ml-2" type="text" onkeyup="onKeyupInput()"  ng-change="onChangeInput()" ng-model="elementEdit.background_color"/>
 				   </div>
 			   </div>
 			   <div ng-show="typeEdit === 'image-element'">

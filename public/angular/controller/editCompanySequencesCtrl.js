@@ -11,6 +11,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 	$scope.elementEdit = null;
 	$scope.dataJstreeType = 'openSequence';
 	$scope.container = { 'w':895,'h':569};
+	$scope.changesApply = false;
 	
     function find(list,id){
 		for(var i=0;i<list.length;i++) {
@@ -54,6 +55,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 				else if(dataJstree.type==='openMoment'){
 					
 				}
+				
 				$scope.dataJstreeType = dataJstree.type;
 				$scope.typeEdit = null;
 				if($scope.sequenceSection) {
@@ -99,11 +101,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 	$scope.changeFormatDate = function(elementParentEdit,elementEdit,format) {
 		 try { 
 			 $scope.elementParentEdit[elementEdit] = moment($scope.elementParentEdit[elementEdit],"YYYY-MM-DD").format(format);
-			 
+			 $scope.changesApply = true;
 		 } catch(e){}
 	}
 	
 	$scope.onImgChange = function(field,element) {
+		$scope.changesApply = true;
 		if(typeof $scope.elementEdit === 'object') {
 			var image = new Image();
 			var refSplit = window.location.href.split('/');
@@ -155,6 +158,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 	}
 
 	$scope.newElement = function(typeItem) {
+		$scope.changesApply = true;
 		if(typeItem==='text') {
 			$scope.elementParentEdit.elements = $scope.elementParentEdit.elements || [];
 			$scope.elementParentEdit.elements.push({'type':typeItem,'fs':12,'ml':10,'mt':76,'w':100,'h':26,'text':'--texto de guía--'});
@@ -174,6 +178,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 	}
 
 	$scope.deleteElement  = function(parentElement,$index) {
+		$scope.changesApply = true;
 		if(parentElement && parentElement.elements ) {
 			var newElements = [];
 			for(var i=0; i<parentElement.elements.length; i++) {
@@ -196,7 +201,42 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 	}
 	
 	$scope.onSaveSequence = function () {
+		$http.post('/update_sequence/',$scope.sequence)
+		.then(function (response) {
+			if(response && response.status===200) {
+				$scope.changesApply = false;
+				swal('Conexiones',response.data.message,'success');
+			}
+			else {
+				swal('Conexiones','Error al modificar la secuencia','danger');
+			}
+		});
+		//.error(function(reason) {
+		//	swal('Conexiones','Error al modificar la secuencia','danger');
+		//});
+	}
+	
+	$scope.onSaveSequenceSection = function () {
 		
+		var data = {
+			'id': $scope.sequence.id,
+			'section_number': $scope.sectionSequenceId.replace('section_',''),
+			'data_section': $scope.sequence[$scope.sectionSequenceId]
+		};
+		
+		$http.post('/update_sequence_section/',data)
+		.then(function (response) {
+			if(response && response.status===200) {
+				$scope.changesApply = false;
+				swal('Conexiones',response.data.message,'success');
+			}
+			else {
+				swal('Conexiones','Error al modificar la sección de la secuencia','error');
+			}
+		},function(reason) {
+			var message = (reason && reason.data) ? reason.data.message : '';
+			swal('Conexiones','Error al modificar la secuencia: '+message,'error');
+		});
 	}
 	
 }]);
@@ -210,6 +250,9 @@ MyApp.directive('conxTextList', function() {
 	'<input class="mt-1 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
 	controller: function ($scope,$timeout) {
 		$scope.delete = function($index) {
+			
+			$scope.changesApply = true;
+			
 			var list = $scope.elementParentEdit[$scope.elementEdit].split('|');
 			var newList = '';
 			for(var i=0;i<list.length;i++) {
@@ -223,6 +266,7 @@ MyApp.directive('conxTextList', function() {
 			$scope.elementParentEdit[$scope.elementEdit] = newList;	 
 		}
 		$scope.onChangeSplit = function($index,split) {
+			$scope.changesApply = true;
 			var list = $scope.elementParentEdit[$scope.elementEdit].split('|');
 			var newList = '';
 			for(var i=0;i<list.length;i++) {
@@ -239,6 +283,7 @@ MyApp.directive('conxTextList', function() {
 			$scope.elementParentEdit[$scope.elementEdit] = newList;	 
 		}
 		$scope.onNewSplit = function() {
+			$scope.changesApply = true;
 			if($scope.newSplit && $scope.newSplit.length > 0) {
 				if($scope.elementParentEdit[$scope.elementEdit].length > 0) {
 					$scope.elementParentEdit[$scope.elementEdit] += '|';
@@ -248,6 +293,7 @@ MyApp.directive('conxTextList', function() {
 			$scope.newSplit = '';
 		}		
 		$scope.onChangeInput = function() {
+			$scope.changesApply = true;
 			if($scope.dataJstreeType==='openSequenceSection') {				
 				$scope.sequence[$scope.sectionSequenceId] = JSON.stringify($scope.sequenceSection);				
 			}
