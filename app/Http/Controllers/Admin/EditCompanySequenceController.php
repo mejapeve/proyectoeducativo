@@ -12,7 +12,7 @@ use App\Models\CompanySequence;
 class EditCompanySequenceController extends Controller {
 
     public function get_sequences_list(Request $request) {
-		$sequences =  CompanySequence::with('moments','moments.experiences','moments.moment_kit.kit.kit_elements.element','moments.moment_kit.element')
+		$sequences =  CompanySequence::with('company','moments','moments.experiences','moments.moment_kit.kit.kit_elements.element','moments.moment_kit.element')
 					  ->get();
         return view('roles.admin.listCompanySequences',['sequences'=>$sequences]);
     }
