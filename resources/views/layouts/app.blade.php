@@ -44,6 +44,7 @@
 	
 	<!-- Moment JS -->
 	<script src="{{ asset('js/moment.js') }}" type="text/javascript"></script>
+    @yield('plugins')
 
 </head>
 

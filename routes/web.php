@@ -62,8 +62,15 @@ Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name(
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
-Route::get('conexiones/admin/get_users_contracted_products', 'AdminController@get_users_contracted_products')->middleware('role:admin')->name('get_users_contracted_products');
-Route::get('conexiones/admin/get_user_contracted_products/{affiliatedId}', 'AdminController@get_user_contracted_products')->middleware('role:admin')->name('get_user_contracted_products');
+
+Route::get('conexiones/admin/get_users_contracted_products_view', 'AdminController@get_users_contracted_products_view')->middleware('role:admin')->name('get_users_contracted_products_view');
+Route::get('conexiones/admin/get_user_contracted_products_view/{affiliatedId?}', 'AdminController@get_user_contracted_products_view')->middleware('role:admin')->name('get_user_contracted_products_view');
+Route::get('conexiones/admin/get_users_contracted_products_dt/', 'AdminController@get_users_contracted_products_dt')->middleware('role:admin')->name('get_users_contracted_products_dt');
+Route::get('conexiones/admin/get_user_contracted_products_dt/{affiliatedId?}', 'AdminController@get_user_contracted_products_dt')->middleware('role:admin')->name('get_user_contracted_products_dt');
+Route::post('conexiones/admin/update_date_expiration_content_user', 'AdminController@update_date_expiration_content_user')->middleware('role:admin')->name('update_date_expiration_content_user');
+
+
+
 
 Route::prefix('user')
     ->as('user.')
