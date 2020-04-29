@@ -25,6 +25,8 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         
         $('#content-section-sequences').removeClass("col-lg-9");
         $('#content-section-sequences').addClass("col-lg-11_5");
+		
+		//$('#background-sequence-card').attr('w')
     };
     var showSideMenu = function() {
         $('#sidemenu-sequences-empty').removeClass('show');
@@ -66,7 +68,6 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
     };
     
 }]);
-
 
 
     function resizeSequenceCard () {
@@ -112,9 +113,14 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         });
         
         $(card).find('[h]').each(function(value,key){
-            var objH = ( $(this).attr('h') * newH / h);
-            $(this).addClass('position-absolute');
-            $(this).css('height',objH+'px');
+			if($(this).attr('h')==='auto') {
+                $(this).css('height','auto');    
+            }
+            else {
+				var objH = ( $(this).attr('h') * newH / h);
+				$(this).addClass('position-absolute');
+				$(this).css('height',objH+'px');
+			}
         });
         
         $('.d-none-result').removeClass('d-none');
@@ -126,4 +132,4 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
     });
 
     resizeSequenceCard();
-	
+

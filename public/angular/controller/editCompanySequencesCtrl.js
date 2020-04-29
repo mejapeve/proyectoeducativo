@@ -2,18 +2,30 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     
     $scope.errorMessage = null;
 	$scope.sequence = null;
+	$scope.moments = [];
+	$scope.moment = null;
 	$scope.section = null;
 	$scope.sectionName = 'Secuencia';
 	$scope.sectionSequenceId = null;
-	$scope.sections = [{"id":1,"name":"Situación Generadora"},{"id":2,"name":"Ruta de viaje"},{"id":3,"name":"Guía de saberes"},{"id":4,"name":"Punto de encuentro"}];
+	$scope.sectionSequenceNames = [{"id":1,"name":"Situación Generadora"},{"id":2,"name":"Ruta de viaje"},{"id":3,"name":"Guía de saberes"},{"id":4,"name":"Punto de encuentro"}];
+	$scope.sectionsMomentNames = [{"type":1,"name":"Pregunta Central"},{"type":2,"name":"Ciencia en contexto"},{"type":3,"name":"Experiencia científica"},{"type":4,"name":"+ Conexiones"}];
 	$scope.typeEdit = null;
 	$scope.elementParentEdit = null;
 	$scope.elementEdit = null;
 	$scope.dataJstreeType = 'openSequence';
 	$scope.container = { 'w':895,'h':569};
 	$scope.changesApply = false;
+	$scope.indexElement = null;
+	$scope.directoryPath = null;
+	$scope.momentSections = null;
 	
-    function find(list,id){
+    
+	$( window ).resize(function() {
+        $scope.container.w = window.innerHeight || $(window).height();
+		$scope.container.h =  window.innerWidth || $(window).width();		
+    });
+	
+	function findById(list,id){
 		for(var i=0;i<list.length;i++) {
 			if(list[i].id === Number(id)) {
 				return list[i];
@@ -21,57 +33,117 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 		}
 		return false;
 	}
+		
+	function findMoment(order) {
+		var  moment = null;
+		for(var i=0;i<$scope.moments.length;i++) {
+			if($scope.moments[i].order === order) {
+				return $scope.moments[i];
+			}
+		}
+		return moment;
+	}
 	
-	$( window ).resize(function() {
-        $scope.container.w = window.innerHeight || $(window).height();
-		$scope.container.h =  window.innerWidth || $(window).width();		
-    });
+	function findSectionMoment(list,type){
+		for(var i=0;i<list.length;i++) {
+			if(list[i].type === Number(type)) {
+				return list[i];
+			}
+		}
+		return false;
+	}
+	
+	function InitializeJstree() {
+	  
+	  $('#sidemenu-sequences-content').remove();
+	  
+	  $newDiv = $('#sidemenu-sequences-content-temp').clone().prependTo('#sidemenu-sequences');
+	  $newDiv.addClass('d-lg-block');
+	  $newDiv.find('#jstree').attr('id','jstreetemp');
+	  $newDiv.attr('id','sidemenu-sequences-content');
+	  
+	  $('#jstreetemp').on('select_node.jstree', function (evt, data) {
+		var dataJstree = JSON.parse($('#'+data.selected).attr('data-jstree'));
+		if(dataJstree.type==='openSequence') {
+			$scope.sectionName = 'Secuencia';
+			$scope.sectionSequenceId = null;
+			$scope.sequenceSection = null;
+			$scope.elementParentEdit = $scope.sequence;
+		}
+		else if(dataJstree.type==='openSequenceSection'){
+			$scope.sectionSequenceId = 'section_'+dataJstree.id; 
+			$scope.sequenceSection = JSON.parse($scope.sequence[$scope.sectionSequenceId]);
+			$scope.sectionName = findById($scope.sectionSequenceNames,$scope.sequenceSection.section.id).name;
+			$scope.elementParentEdit = $scope.sequenceSection;
+		}
+		else if(dataJstree.type==='openMoment'){
+			$scope.moment = findMoment(dataJstree.order);
+			$scope.sectionName = 'Momento ' + $scope.moment.order;
+			$scope.sectionSequenceId = null;
+			$scope.sequenceSection = null;
+			$scope.elementParentEdit = $scope.moment;
+		}
+		else if(dataJstree.type==='openSectionMoment'){
+			$scope.moment = findMoment(dataJstree.order);
+			$scope.sectionMomentId = Number(dataJstree.section);
+			$scope.sectionName = $scope.moment.sections[$scope.sectionMomentId].section.name;
+			$scope.elementParentEdit = $scope.moment.sections[$scope.sectionMomentId];
+		}
+		
+		$scope.dataJstreeType = dataJstree.type;
+		$scope.typeEdit = null;
+		$scope.indexElement = null;
+		if($scope.sequenceSection) {
+			 if(!$scope.sequenceSection.background_image) {
+				 $scope.sequenceSection.background_image = '';
+			 }						 
+		}
+		$scope.$apply();
+		resizeSequenceCard();
+	  }).jstree({
+		  "core" : {
+			"multiple" : false,
+			"animation" : 0
+		  }
+	  });
+	  
+	}
 	
 	$scope.initEdit = function(sequence_id) {
 		$http.get('/get_sequence/'+sequence_id)
 		.then(function (response) {
 			
 			$scope.sequence = response.data[0];
+			
+			$scope.moments = $scope.sequence.moments;
+			var moment = section1 = section2 = section3 = section4 = null;
+			for(var i=0;i<$scope.moments.length;i++) {
+				moment = $scope.moments[i];
+				
+				section1 = JSON.parse(moment.section_1);
+				if(section1 && section1.section)
+				section1.section = findSectionMoment($scope.sectionsMomentNames,section1.section.type);
+				
+				section2 = JSON.parse(moment.section_2);
+				if(section2 && section2.section)
+				section2.section = findSectionMoment($scope.sectionsMomentNames,section2.section.type);
+				
+				section3 = JSON.parse(moment.section_3);
+				if(section3 && section3.section)
+				section3.section = findSectionMoment($scope.sectionsMomentNames,section3.section.type);
+				
+				section4 = JSON.parse(moment.section_4);
+				if(section4 && section4.section)
+				section4.section = findSectionMoment($scope.sectionsMomentNames,section4.section.type);
+				
+				moment.sections = [section1,section2,section3,section4];
+			}
+			
 			$scope.elementParentEdit = $scope.sequence;
 			
-			$('#jstree').on('select_node.jstree', function (evt, data) {
-				var dataJstree = JSON.parse($('#'+data.selected).attr('data-jstree'));
-				if(dataJstree.type==='openSequence') {
-					$scope.sectionName = 'Secuencia';
-					$scope.sectionSequenceId = null;
-					$scope.sequenceSection = null;
-					$scope.elementParentEdit = $scope.sequence;
-				}
-				else if(dataJstree.type==='openSequenceSection'){
-					$scope.sectionSequenceId = 'section_'+dataJstree.id; 
-					$scope.sequenceSection = JSON.parse($scope.sequence[$scope.sectionSequenceId]);
-					$scope.sectionName = find($scope.sections,$scope.sequenceSection.section.id).name;
-					$scope.elementParentEdit = $scope.sequenceSection; 
-				}
-				else if(dataJstree.type==='openMoment'){
-					$scope.sectionName = '';
-					
-				}
-				else if(dataJstree.type==='openMoment'){
-					
-				}
-				
-				$scope.dataJstreeType = dataJstree.type;
-				$scope.typeEdit = null;
-				if($scope.sequenceSection) {
-					 if(!$scope.sequenceSection.background_image) {
-						 $scope.sequenceSection.background_image = '';
-					 }						 
-				}
-				$scope.$apply();
-				resizeSequenceCard();
-				
-			  }).jstree({
-				  "core" : {
-					"multiple" : false,
-					"animation" : 0
-				  }
-				});
+			$timeout(function() {                
+				InitializeJstree();
+			},500);
 		});
     };	
 	
@@ -96,6 +168,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 			var dir = getLastPath($scope.elementEdit.url) || 'images/sequences/sequence'+$scope.sequence.id;
 			$scope.onChangeFolderImage(dir);
 		}
+	}
+	
+	$scope.onClickElementWithDelete = function(parent,element,$index) {
+		$scope.indexElement = $index;
+		var title = (element.type==='text-element') ? 'Texto' : ( element.type==='text-area-element' ) ? 'Párrafo' : (element.type==='image-element') ? 'Imágen' : '';
+		$scope.onClickElement(parent,element,title,element.type);
 	}
 	
 	$scope.changeFormatDate = function(elementParentEdit,elementEdit,format) {
@@ -131,23 +209,24 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 		},1000);
 	} 
 
-	$scope.onChangeFolderImage = function(directory) {		
-		$http.post('/conexiones/admin/get_folder_image',{'dir':directory}).then(function (response) {
+	$scope.onChangeFolderImage = function(directoryPath) {		
+		$scope.directoryPath = null;
+		$http.post('/conexiones/admin/get_folder_image',{'dir':directoryPath}).then(function (response) {
 			var list = response.data;
-			
 			$scope.directory = [];
+			$scope.directoryPath = directoryPath;
 			$scope.filesImages = [];
 			var item = null;
 			for(indx in list) {
 				item = list[indx];				 
 				if(item.includes('.png')||item.includes('.jpg')||item.includes('.jpeg')) {				 
-					$scope.filesImages.push({'type':'img','url_image':directory+'/'+item});
+					$scope.filesImages.push({'type':'img','url_image':directoryPath+'/'+item});
 				}
 				else if(!item.includes('.')) {
-					$scope.directory.push({'type':'dir','name':item,'dir':directory+'/'+item});
+					$scope.directory.push({'type':'dir','name':item,'dir':directoryPath+'/'+item});
 				}
-				else if (item === '..' && directory != 'images') {
-					var dir = getLastPath(directory);
+				else if (item === '..' && directoryPath != 'images') {
+					var dir = getLastPath(directoryPath);
 					$scope.directory.push({'type':'dir','name':item,'dir':dir});
 				}
 			} 
@@ -159,11 +238,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
 	$scope.newElement = function(typeItem) {
 		$scope.changesApply = true;
-		if(typeItem==='text') {
+		if(typeItem==='text-element') {
 			$scope.elementParentEdit.elements = $scope.elementParentEdit.elements || [];
 			$scope.elementParentEdit.elements.push({'type':typeItem,'fs':12,'ml':10,'mt':76,'w':100,'h':26,'text':'--texto de guía--'});
 		}
-		else if(typeItem==='paragraph') {
+		else if(typeItem==='text-area-element') {
 			$scope.elementParentEdit.elements = $scope.elementParentEdit.elements || [];
 			$scope.elementParentEdit.elements.push({'type':typeItem,'fs':12,'ml':100,'mt':76,'w':100,'h':200,'text':'--Parrafo 1--'});			
 		}
@@ -188,6 +267,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 			parentElement.elements = newElements;
 		}
 		
+		if($scope.dataJstreeType==='openSequenceSection') {				
+			$scope.sequence[$scope.sectionSequenceId] = JSON.stringify($scope.sequenceSection);				
+		}
+		$scope.indexElement = null;
+		$scope.typeEdit = '';
+		
 	}
 	
 	function getLastPath(directory) {
@@ -206,6 +291,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 			if(response && response.status===200) {
 				$scope.changesApply = false;
 				swal('Conexiones',response.data.message,'success');
+				$scope.initEdit($scope.sequence.id);
 			}
 			else {
 				swal('Conexiones','Error al modificar la secuencia','danger');
@@ -229,14 +315,81 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 			if(response && response.status===200) {
 				$scope.changesApply = false;
 				swal('Conexiones',response.data.message,'success');
+				$scope.initEdit($scope.sequence.id);
 			}
 			else {
 				swal('Conexiones','Error al modificar la sección de la secuencia','error');
 			}
+			$scope.initEdit($scope.sequence.id);
 		},function(reason) {
 			var message = (reason && reason.data) ? reason.data.message : '';
 			swal('Conexiones','Error al modificar la secuencia: '+message,'error');
+			$scope.initEdit($scope.sequence.id);
 		});
+	}
+	
+	$scope.onSaveMoment = function () {
+		$http.post('/update_moment/',$scope.moment)
+		.then(function (response) {
+			if(response && response.status===200) {
+				$scope.changesApply = false;
+				$scope.initEdit($scope.sequence.id);
+				swal('Conexiones',response.data.message,'success');
+			}
+			else {
+				swal('Conexiones','Error al modificar la secuencia','danger');
+			}
+			
+		}, function(reason) {
+			var message = (reason && reason.data) ? reason.data.message : '';
+			swal('Conexiones','Error al modificar el momento: '+message,'error');
+			$scope.initEdit($scope.sequence.id);
+		});
+	}
+	
+	$scope.downSection = function(list,item) {
+		var newList = [];
+		for(var i=0;i<list.length;i++) {
+			if(i===item) {
+				newList.push(list[i+1]);
+				newList.push(list[i]);
+				i++;
+			}
+			else {
+				newList.push(list[i]);
+			}
+		}
+		$scope.moment.sections = newList;
+		
+		if($scope.dataJstreeType==='openMoment') {
+			$scope.changesApply = true;
+			$scope.moment.section_1 = JSON.stringify(newList[0]);
+			$scope.moment.section_2 = JSON.stringify(newList[1]);
+			$scope.moment.section_3 = JSON.stringify(newList[2]);
+			$scope.moment.section_4 = JSON.stringify(newList[3]);
+		}
+	}
+	
+	$scope.upSection = function(list,item) {
+		var newList = [];
+		for(var i=0;i<list.length;i++) {
+			if(i+1===item) {
+				newList.push(list[i+1]);
+				newList.push(list[i]);
+				i++;
+			}
+			else {
+				newList.push(list[i]);
+			}
+		}
+		$scope.moment.sections = newList;
+		if($scope.dataJstreeType==='openMoment') {
+			$scope.changesApply = true;
+			$scope.moment.section_1 = JSON.stringify(newList[0]);
+			$scope.moment.section_2 = JSON.stringify(newList[1]);
+			$scope.moment.section_3 = JSON.stringify(newList[2]);
+			$scope.moment.section_4 = JSON.stringify(newList[3]);
+		}
 	}
 	
 }]);

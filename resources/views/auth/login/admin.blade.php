@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 
 @section('content')
-<div class="row">
+<div class="row ml-auto mr-auto">
     <div class="m-auto border-top-4 justify-content-center">
         <div class="card">
             <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>Administrador</strong></div>

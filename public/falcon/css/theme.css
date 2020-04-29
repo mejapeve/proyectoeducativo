@@ -20007,7 +20007,7 @@ display: flex;
     overflow: auto;
     height: 225px;
     border: 1px solid #edf2f9;
-    margin-top: 10px;
+    
 }
 
 .edit-div-folder {
@@ -20017,8 +20017,16 @@ display: flex;
     margin-top: 10px;
 }
 
+.height-235 {
+    height: 235px;
+}
+
 .height_282 {
     height: 282px;
+}
+
+.height_337 {
+    height: 337px;
 }
 
 .line-separator {
