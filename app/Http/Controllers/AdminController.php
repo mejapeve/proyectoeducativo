@@ -116,6 +116,12 @@ class AdminController extends Controller
         }else{
             return response()->json(['validation'=>false,'message'=>'Algo salio mal, intente de nuevo'],400);
         }
+    }
+
+    public function plans_view(){
+
+        return view('roles.admin.plans');
 
     }
+
 }

@@ -8,6 +8,7 @@ use App\Models\RatingPlan;
 use App\Models\SequenceMoment;
 use App\Models\AffiliatedAccountService;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class RatingPlanController extends Controller
 {
@@ -57,6 +58,37 @@ class RatingPlanController extends Controller
         $ratingPlan->save();
         return response()->json(['data'=>$ratingPlan],200);
 
+    }
+
+    public function get_plans_dt (){
+
+        $ratingPlans = RatingPlan::with('type_plan')->get();
+
+        return DataTables::of($ratingPlans)
+
+            ->addColumn('name', function ($ratingPlan) {
+                return $ratingPlan->name;
+            })
+            ->addColumn('description', function ($ratingPlan) {
+                return $ratingPlan->description;
+            })
+            ->addColumn('type_rating_plan', function ($ratingPlan) {
+                return $ratingPlan->type_plan->name;
+            })
+            ->addColumn('quantity_contents', function ($ratingPlan) {
+                return $ratingPlan->count;
+            })
+            ->addColumn('quantity_days', function ($ratingPlan) {
+                return $ratingPlan->days;
+            })
+            ->addColumn('price', function ($ratingPlan) {
+                return $ratingPlan->price;
+            })
+            ->addColumn('edit', function ($ratingPlan) {
+                return '<button class="btn btn-warning btn-sm mr-1 mb-1 editPlan" type="button" style="padding: 0.1875rem 1.75rem;font-size: 0.67rem;">Editar</button>';
+            })
+            ->rawColumns(['edit'])
+            ->make(true);
     }
 
 }

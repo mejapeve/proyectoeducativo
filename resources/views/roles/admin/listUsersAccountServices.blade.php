@@ -91,7 +91,6 @@
                     {data: 'content', className: 'text-center'},
                 ]
             });
-
             new $.fn.dataTable.FixedHeader( table );
             table.on('click', '.viewContens', function (e) {
                 $tr = $(this).closest('tr');
