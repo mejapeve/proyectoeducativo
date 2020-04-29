@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-primary btn-sm" type="button" id="onEdit">Editar</button></div>
+                    <button class="btn btn-primary btn-sm" type="button" id="onEdit"><i id="move" class=""></i>Editar</button></div>
             </div>
         </div>
     </div>
@@ -73,7 +73,6 @@
                                     <th class="sort">Plan</th>
                                     <th class="sort">Fecha de inicio</th>
                                     <th class="sort">Fecha de expiración</th>
-                                    <th class="sort">Ver contenidos</th>
                                     <th class="sort">Editar fecha</th>
                                 </tr>
                                 </thead>
@@ -82,7 +81,6 @@
                                     <th>plan</th>
                                     <th>fecha de inicio</th>
                                     <th>fecha de expiración</th>
-                                    <th>Ver contenidos</th>
                                     <th>Editar fecha</th>
                                 </tr>
                                 </tfoot>
@@ -105,14 +103,37 @@
     <script>
         $(document).ready( function () {
             var accountServiceId = null;
+            var originalEndDate = null;
+            var plan = null;
             var table = $('#myTable').DataTable({
+                processing: true,
+                serverSide: true,
                 responsive: true,
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primeros",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
                 'ajax': "{{ route('get_user_contracted_products_dt',$companyAffiliated->id)}}",
                 'columns': [
                     {data: 'plan', className: 'text-center'},
                     {data: 'init_date', className: 'text-center'},
                     {data: 'end_date', className: 'text-center'},
-                    {data: 'view_content', className: 'text-center'},
                     {data: 'edit_date', className: 'text-center'},
                 ]
             });
@@ -124,23 +145,30 @@
                 $('#init_date').val(dataTable.init_date)
                 $('#end_date').val(dataTable.end_date)
                 $('#descriptionPlan').html(dataTable.plan)
+                originalEndDate = dataTable.end_date;
+                plan = dataTable.plan
                 $("#ulContent").empty();
-                console.log(dataTable)
                 accountServiceId = dataTable.id;
                 $(dataTable.affiliated_content_account_service).each(function(key,value){
                     $("#ulContent").append(`<li>${value.sequence.name}</li>`);
                 });
-                //$('#exampleModal').modal('show')
                 $('#exampleModal').modal('toggle');
             });
 
             $('#onEdit').on('click',function(){
+                $('#move').addClass('fa fa-spinner fa-spin');
+                $('#onEdit').attr('disabled',true);
                 var route = "{{ route('update_date_expiration_content_user')}}"
                 var typeAjax = 'POST';
-                var async = async || false;
+                var async = async || true;
                 var formDatas = new FormData();
                 formDatas.append('accountServiceId',accountServiceId);
+                formDatas.append('originalEndDate',originalEndDate);
                 formDatas.append('end_date',$('#end_date').val());
+                formDatas.append('email',"{{$companyAffiliated->email}}");
+                formDatas.append('plan',plan);
+                formDatas.append('full_name',"{{$companyAffiliated->name}}"+" "+"{{$companyAffiliated->last_name}}");
+
                 $.ajax({
                     url: route,
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -153,10 +181,38 @@
                     beforeSend: function () {
                     },
                     success: function (response, xhr, request) {
-                        $('#exampleModal').modal('toggle');
-                        table.ajax.reload();
+                        $('#move').removeClass('fa fa-spinner fa-spin');
+                        $('#onEdit').attr('disabled',false);
+                        if(request.status === 200){
+                            $('#exampleModal').modal('toggle');
+                            table.ajax.reload();
+                            swal({
+                                text: response.message,
+                                type: "success",
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            }).catch(swal.noop);
+                        }else{
+                            $('#exampleModal').modal('toggle');
+                            table.ajax.reload();
+                            swal({
+                                text: response.message,
+                                type: "warning",
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            }).catch(swal.noop);
+                        }
+
                     },
                     error: function (response, xhr, request) {
+                        $('#exampleModal').modal('toggle');
+                        table.ajax.reload();
+                        swal({
+                            text: 'Algo salio mal, intente de nuevo',
+                            type: "warning",
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        }).catch(swal.noop);
                     }
                 });
 

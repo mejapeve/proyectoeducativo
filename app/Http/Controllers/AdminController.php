@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendChangeDateExpirationContent;
 use App\Models\AffiliatedAccountService;
 use App\Models\AfiliadoEmpresa;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
@@ -88,9 +90,7 @@ class AdminController extends Controller
             ->addColumn('end_date', function ($affiliatedAccountService) {
                 return $affiliatedAccountService->end_date;
             })
-            ->addColumn('view_content', function ($affiliatedAccountService) {
-                return '<button class="btn btn-primary btn-sm mr-1 mb-1 viewContens" type="button" style="padding: 0.1875rem 1.75rem;font-size: 0.67rem;">Ver</button>';
-            })
+
             ->addColumn('edit_date', function ($affiliatedAccountService) {
                 return '<button class="btn btn-warning btn-sm mr-1 mb-1 edit_date" type="button" style="padding: 0.1875rem 1.75rem;font-size: 0.67rem;">Editar</button>';
             })
@@ -104,6 +104,13 @@ class AdminController extends Controller
         $update =  AffiliatedAccountService::where([
             ['id',$request->get('accountServiceId')],
         ])->update(array('end_date' => $request->get('end_date')));
+
+        Mail::to( $request->get('email'))->send(new SendChangeDateExpirationContent(
+            $request->get('originalEndDate'),
+            $request->get('end_date'),
+            $request->get('plan'),
+            $request->get('full_name')
+        ));
         if($update){
             return response()->json(['validation'=>true,'message'=>'Se ha actualizado la fecha de expiración'],200);
         }else{
