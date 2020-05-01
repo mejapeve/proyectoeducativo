@@ -18,14 +18,10 @@
         "maatwebsite/excel": "^3.1",
         "mercadopago/dx-php": "^1.8",
         "nesbot/carbon": "^2.32",
-<<<<<<< HEAD
         "phpoffice/phpspreadsheet": "^1.11",
         "predis/predis": "^1.1",
-        "symfony/translation": "4.3.8"
-=======
-        "predis/predis": "^1.1",
+        "symfony/translation": "4.3.8",
         "yajra/laravel-datatables": "^1.5"
->>>>>>> dea24909c6eef3688754283fc6efd83f522839dd
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
