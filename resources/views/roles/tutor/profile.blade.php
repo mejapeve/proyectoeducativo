@@ -3,7 +3,7 @@
       <div class="avatar avatar-5xl">
          <img class="rounded-circle " src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="100px">
       </div>
-      <h5 style="text-align: center;" class="mt-2 mb-0 avatar-name">{{auth('afiliadoempresa')->user()->name }}
+      <h5 style="text-align: center;" class="mt-2 mb-0 avatar-name" id="tutorProfileFullName">{{auth('afiliadoempresa')->user()->name }}
          {{auth('afiliadoempresa')->user()->last_name}}</h5>
    </div>
    <div class="bg-light border-top card-body">

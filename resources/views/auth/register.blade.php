@@ -90,15 +90,15 @@
                               <div class="form-group">
                                  <label class=""><i
                                        class="fa fas fa-arrow-right arrow-icon"></i>{{ __('Ciudad') }}</label>
-                                 <div ng-show="showselectCity" >
+                                 <div ng-show="showCitySelect" >
                                     <select id="selectCity" ng-model="selectCity" name="selectCity"
                                        ng-class="{'select2_group':true, 'form-control':true, 'is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}"
-                                       class="select2_group form-control @error('city') is-invalid @enderror">
+                                       class="select2_group form-control d-none-result d-none @error('city') is-invalid @enderror">
                                        <option></option>
                                     </select>
                                  </div>
-                                 <div ng-hide="showselectCity">
-                                    <input class="d-none-result d-none" ng-required="!showselectCity" ng-model="city" type="text" id="city"
+                                 <div ng-hide="showCitySelect">
+                                    <input class="" ng-required="!showCitySelect" ng-model="city" type="text" id="city"
                                        name="city" autocomplete="off"
                                        ng-class="{'form-control': true, 'is-invalid': registerForm.city.$dirty && registerForm.city.$invalid}" />
                                  </div>
@@ -139,7 +139,7 @@
                                  @endif
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="department_id" id="department_id" ng-model="departmentId" />
                                  <input class="d-none-result d-none" ng-show="false" type="text" name="city_id" id="city_id"
-                                    ng-required="showselectCity" ng-model="city_id" />
+                                    ng-required="showCitySelect" ng-model="city_id" />
                                  <button type="submit" class="btn btn-primary w-100" style="font-size:13px;"
                                     ng-disabled="registerForm.$invalid">
                                     {{ __('Guardar registro y continuar') }}

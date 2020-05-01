@@ -787,6 +787,7 @@ pre code {
 .col-md-12,
 .col-md,
 .col-md-auto,
+.col-lg-0_5,
 .col-lg-1,
 .col-lg-2,
 .col-lg-3,
@@ -798,6 +799,7 @@ pre code {
 .col-lg-9,
 .col-lg-10,
 .col-lg-11,
+.col-lg-11_5,
 .col-lg-12,
 .col-lg,
 .col-lg-auto,
@@ -1568,6 +1570,11 @@ pre code {
         width: auto;
         max-width: 100%
     }
+	.col-lg-0_5 {
+        -webkit-box-flex: 0;
+        flex: 0 0 4.33333%;
+        max-width: 4.33333%
+    }
     .col-lg-1 {
         -webkit-box-flex: 0;
         flex: 0 0 8.33333%;
@@ -1623,6 +1630,11 @@ pre code {
         flex: 0 0 91.66667%;
         max-width: 91.66667%
     }
+    .col-lg-11_5 {
+        -webkit-box-flex: 0;
+        flex: 0 0 95.66667%;
+        max-width: 95.66667%
+    }	
     .col-lg-12 {
         -webkit-box-flex: 0;
         flex: 0 0 100%;
@@ -15928,6 +15940,14 @@ label {
     object-fit: cover
 }
 
+.z-index--2 {
+    z-index: -2
+}
+
+.z-index--1 {
+    z-index: -1
+}
+
 .z-index-0 {
     z-index: 0
 }
@@ -19566,7 +19586,7 @@ footer .navbar-light {
 
 .background-sequence-card {
     min-width: 781px;
-    min-height: 41vw;
+    min-height: 385px;
 }
     
 .background-sequence-image {
@@ -19922,4 +19942,95 @@ display: flex;
     max-width: 722px;
     position: absolute;
     left: 176px;
+}
+
+.conx-element {
+	
+}
+
+.conx-element:hover {
+	border: 1px solid blue;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.delete-element {
+    position: absolute;
+    top: -14px;
+    right: -13px;
+    display: none;
+    font-size: 15px;
+}
+
+.conx-element:hover > .delete-element {
+  display: block;
+}
+
+.edit-element-panel {
+    position: absolute;
+    right: 0;
+    top: 28px;
+    width: 377px;
+}
+
+.edit-element-panel .card {
+	z-index: 1051;
+}
+
+.edit-element-panel .card-body {
+	min-height: 359px;
+}
+
+.min-card-body {
+	height: 420px;
+}
+
+.edit-button-background {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.edit-button-background  + a{
+    position: absolute;
+    top: -7px;
+    left: 71px;
+}
+.edit-button-background:hover {
+    opacity: 0.7;
+}
+
+.edit-div-folder {
+    overflow: auto;
+    height: 225px;
+    border: 1px solid #edf2f9;
+    
+}
+
+.edit-div-folder {
+    overflow: auto;
+    height: 225px;
+    border: 1px solid #edf2f9;
+    margin-top: 10px;
+}
+
+.height-235 {
+    height: 235px;
+}
+
+.height_282 {
+    height: 282px;
+}
+
+.height_337 {
+    height: 337px;
+}
+
+.line-separator {
+	height: 5px;
+	width: 100%;
+	background-color: #edf2f9;
 }

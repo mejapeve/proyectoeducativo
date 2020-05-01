@@ -38,7 +38,7 @@ class CompanySequencesSeeder extends Seeder
                 [ "id"=>"17","name"=>"La ciencia de hacer mover la pelota", "areas" => "Velocidad", "themes" => "Física", "description" => "Identificar y comparar la distancia recorrida, así como la fuerza y la velocidad, en el movimiento de la pelota propio de los entrenamientos de fútbol."],
                 [ "id"=>"18","name"=>"Las astroaventuras de Yotopo y la cápsula del tiempo", "areas" => "Astronomía", "themes" => "Física", "description" => "Registrar y analizar el movimiento del Sol, la Luna y las estrellas en el cielo para comprender cómo se relacionan estos con la medida del tiempo."],
                 [ "id"=>"19","name"=>"Nuestros cuerpo : vida movimiento y sensaciones", "areas" => "El cuerpo, sus partes y cambios", "themes" => "Biología", "description" => "Reconocer el funcionamiento del cuerpo, valorarlo y tomar decisiones para su cuidado."],
-                [ "id"=>"20","name"=>"A la medida de tu imaginación", "areas" => "Unidades e instrumentos de medida", "themes" => "Biología, Física y Química", "description" => "Comprender la importancia de la medición en la vida cotidiana y establecer relaciones entre magnitudes físicas y sus unidades de medida."],
+                [ "id"=>"20","name"=>"A la medida de tu imaginación", "areas" => "Unidades e instrumentos de medida", "themes" => "Biología| Física y Química", "description" => "Comprender la importancia de la medición en la vida cotidiana y establecer relaciones entre magnitudes físicas y sus unidades de medida."],
                 [ "id"=>"21","name"=>"Somos lo que comemos", "areas" => "Procesos vitales", "themes" => "Biología", "description" => "Identificar los procesos de nuestro organismo para obtener la energía que necesita para mantener sus funciones vitales."],
             ];
 
@@ -50,12 +50,14 @@ class CompanySequencesSeeder extends Seeder
             $sequenceN->description = $secuence['description'];
             $sequenceN->url_image = 'images/sequences/sequence'.$index.'/caratula '.$index.'.png';
             $sequenceN->url_slider_images = 'images/sequences/sequence20/slider_images/slide-1.jpg|images/sequences/sequence'.$index.'/slider_images/slide-2.jpg|images/sequences/sequence'.$index.'/slider_images/slide-3.jpg|images/sequences/sequence'.$index.'/slider_images/slide-4.jpg';
-            $sequenceN->keywords = 'Unidades medida, medición, longitud, masa, peso, volumen, tiempo';//$secuence['keywords'];
+            $sequenceN->keywords = 'Unidades medida|medición|longitud|masa|peso|volumen|tiempo';//$secuence['keywords'];
             $sequenceN->areas = $secuence['areas'];
             $sequenceN->themes = $secuence['themes'];
             $sequenceN->objectives = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed';
-            $sequenceN->section_1 = '';
-            $sequenceN->section_2 = '';
+            $sequenceN->section_1 = '{"section": {"id":"1"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
+            $sequenceN->section_2 = '{"section": {"id":"2"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
+			$sequenceN->section_3 = '{"section": {"id":"3"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
+			$sequenceN->section_4 = '{"section": {"id":"4"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
             $sequenceN->save();
             
             $this->addMoment($sequenceN->id, 1, 2);
@@ -79,10 +81,10 @@ class CompanySequencesSeeder extends Seeder
             $momentN->description = "";
             $momentN->objectives = "Comparar, agrupar y ordenar objetos a partir de sus características|Identificar la necesidad de medir en la vida cotidiana";
             
-            $momentN->section_1 = '{"section":{"id":1,"type":2,"name":"Ciencia en contexto"},"title":"¿Por qué medimos las cosas?","text1":"¿Por qué medimos las cosas?","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/cienciaCotidiana.png"}';
-            $momentN->section_2 = '{"section":{"id":2,"type":1,"name":"Pregunta Central"},"title":"Un vistazo a diversas creaciones","text1":"CienciaCotidiana","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/preguntaCentral.png"}';
-            $momentN->section_3 = '{"section":{"id":3,"type":3,"name":"Experiencia científica"},"title":"Crea y moldea","text1":"CienciaCotidiana","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/iconoExperiencia.png"}';
-            $momentN->section_4 = '{"section":{"id":4,"type":4,"name":"+ Conexiones"},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
+            $momentN->section_1 = '{"section":{"type":1},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
+            $momentN->section_2 = '{"section":{"type":2},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
+            $momentN->section_3 = '{"section":{"type":3},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
+            $momentN->section_4 = '{"section":{"type":4},"title":"¿Por qué medimos las cosas?","text1":"+Conexions","text1_mt":"100","text1_fs":"9","imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":65,"imagen1_url":"images/icons/masConexiones.png"}';
                 
             $momentN->save();
             

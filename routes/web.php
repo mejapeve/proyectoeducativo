@@ -63,6 +63,17 @@ Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->midd
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
 
+Route::get('conexiones/admin/get_users_contracted_products_view', 'AdminController@get_users_contracted_products_view')->middleware('role:admin')->name('get_users_contracted_products_view');
+Route::get('conexiones/admin/get_user_contracted_products_view/{affiliatedId?}', 'AdminController@get_user_contracted_products_view')->middleware('role:admin')->name('get_user_contracted_products_view');
+Route::get('conexiones/admin/get_users_contracted_products_dt/', 'AdminController@get_users_contracted_products_dt')->middleware('role:admin')->name('get_users_contracted_products_dt');
+Route::get('conexiones/admin/get_user_contracted_products_dt/{affiliatedId?}', 'AdminController@get_user_contracted_products_dt')->middleware('role:admin')->name('get_user_contracted_products_dt');
+Route::post('conexiones/admin/update_date_expiration_content_user', 'AdminController@update_date_expiration_content_user')->middleware('role:admin')->name('update_date_expiration_content_user');
+Route::get('conexiones/admin/plans_view', 'AdminController@plans_view')->middleware('role:admin')->name('plans_view');
+Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
+
+
+
+
 
 Route::prefix('user')
     ->as('user.')
@@ -105,6 +116,12 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 
 //servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
     Route::get('{empresa}/get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
+//servicio para actualizar contraseña
+    Route::get('{empresa}/validate_password/{password}', 'TutorController@validate_password')->name('validate_password')->middleware('role:tutor');
+    Route::post('{empresa}/update_password', 'TutorController@update_password')->name('update_password')->middleware('role:tutor');
+    Route::post('{empresa}/edit_column_tutor', 'TutorController@edit_column_tutor')->name('edit_column_tutor')->middleware('role:tutor');
+
+
 });
 
 //servcios carrito de comprar
@@ -135,6 +152,9 @@ Route::get('testangular', 'HomeController@testangular')->name('testangular');
 Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
 Route::post('/fileupload/action', ['as' => 'fileuploadAction', 'uses' => 'Admin\FileUploadController@store']);
+Route::get('/conexiones/admin/sequences_list', 'Admin\EditCompanySequenceController@get_sequences_list')->name('admin.get_sequences_list');
+Route::get('/conexiones/admin/sequences_get/{sequence_id}', 'Admin\EditCompanySequenceController@get_sequences_get')->name('admin.get_sequences_get');
+Route::post('/conexiones/admin/get_folder_image', 'FolderImageController@getFiles')->name('get_folder_image');
 
 Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
@@ -153,7 +173,7 @@ Route::get('read_file', 'BulkLoadController@read_file')->name('read_file');
 Route::get('import', ['as' => 'import', 'uses'=> 'Admin\UsersController@import']);
 Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
 
-Route::get('{empresa}/password/sendlink', 'Auth\ForgotPasswordController@showLinkRequestForm')->middleware('company')->name('password.sendlink');
+Route::get('{empresa}/password/sendlink/{rol}', 'Auth\ForgotPasswordController@showLinkRequestForm')->middleware('company')->name('password.sendlink');
 Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('company')->name('password.email');
 Route::get('{empresa}/password/reset/{token}/{rol}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
 Route::post('{empresa}/password/reset/{rol}', 'Auth\ResetPasswordController@reset')->middleware('company')->name('password.update');

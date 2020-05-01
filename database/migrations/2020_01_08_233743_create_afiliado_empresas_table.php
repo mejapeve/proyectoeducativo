@@ -33,6 +33,7 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities');
             $table->string('city')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 
 @section('content')
-<div class="row">
+<div class="row ml-auto mr-auto">
     <div class="m-auto border-top-4 justify-content-center">
         <div class="card">
             <div class="card-header">{{ __('Inicio de sesion como ') }}<strong>Administrador</strong></div>
@@ -52,7 +52,7 @@
                     <div class="form-group row mt-3 justify-content-center">
                         @if (Route::has('password.sendlink'))
                         <label class="label">
-                            <a href="{{route('password.sendlink','conexiones')}}">¿ Olvidó sus datos ?</a>
+                            <a href="{{route('password.sendlink',[$company->nick_name,4])}}">¿ Olvidó sus datos ?</a>
                         </label>
                         @endif
 

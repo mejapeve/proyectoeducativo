@@ -15,7 +15,6 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
                  }
                 ).
         then(function onSuccess(response) {
-            //contactusForm.$setPristine()
             $scope.name = "";
             $scope.email = "";
             $scope.phone = "";
@@ -24,21 +23,7 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
             $scope.contactusForm.$setPristine(true);
             console.log( $scope.contactusForm);
             $('#move').removeClass('fa fa-spinner fa-spin');
-            $('#move').attr('disabled',false);
-            /*
-            if(contactusForm.$setPristine){
-                $scope.contactusForm.$setPristine();
-            } else {
-                contactusForm.$pristine = true;
-                contactusForm.$dirty = false;
-                angular.forEach(contactusForm, function (input, key) {
-                    if (input.$pristine)
-                        input.$pristine = true;
-                    if (input.$dirty) {
-                        input.$dirty = false;
-                    }
-                });
-            }*/
+            $('#send').attr('disabled',false);
             swal('Conexiones',response.data[0]['message'],response.data[1]['status']);
         }, function onError(response) {
             $('#move').removeClass('fa fa-spinner fa-spin');

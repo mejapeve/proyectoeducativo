@@ -8,6 +8,7 @@ use App\Models\Companies;
 use App\Models\ConectionAffiliatedStudents;
 use App\Traits\CreateUserRelations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
 {
@@ -59,6 +60,60 @@ class TutorController extends Controller
 
 
         return $students;
+
+    }
+
+    public function validate_password (Request $request, $company,$password){
+
+        $afiliadoEmpresa = AfiliadoEmpresa::where([
+            ['id',auth('afiliadoempresa')->user()->id],
+        ])->first();
+
+        if (!($afiliadoEmpresa === null)) {
+            if(Hash::check($password,$afiliadoEmpresa->password))
+                return response()->json(['validation'=>true,'message'=>'contraseña actual correcta'],200);
+            else
+                return response()->json(['validation'=>false,'message'=>'la contraseña actual no es correcta'],200);
+        }else{
+            return response()->json(['validation'=>false,'message'=>'No tiene permisos para realizar esta acción'],200);
+        }
+
+    }
+
+    public function update_password (Request $request, $company){
+
+        $validation = $this->validate_password($request,$company,$request->password1);
+        if($validation->isSuccessful()){
+            $response = json_decode($validation->content());
+            if($response->validation){
+                $update =  AfiliadoEmpresa::where([
+                    ['id',auth('afiliadoempresa')->user()->id],
+                ])->update(array('password' => Hash::make($request->password2) ));
+                 if($update){
+                     return response()->json(['validation'=>true,'message'=>'contraseña actualizada'],200);
+                 }else{
+                     return response()->json(['validation'=>false,'message'=>'Algo salio mal, intente de nuevo'],400);
+                 }
+            }else{
+                return response()->json(['validation'=>$response->validation,'message'=>$response->message],400);
+            }
+        }
+    }
+
+    public function edit_column_tutor (Request $request){
+
+        if(AfiliadoEmpresa::where('id',auth('afiliadoempresa')->user()->id)->update(array(
+            $request->column => $request->data
+        ))){
+            return response()->json([
+                'message'=>'Campo editado exitosamente',
+                'column'=> $request->column,
+                'data'=> $request->data
+            ],200);
+        }else{
+            return response()->json(['message'=>'algo salio mal, intente de nuevo'],200);
+        }
+
 
     }
 

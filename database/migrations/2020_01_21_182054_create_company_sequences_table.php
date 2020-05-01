@@ -29,7 +29,7 @@ class CreateCompanySequencesTable extends Migration
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();
             $table->longText('section_4')->nullable();
-            $table->date('init_date');
+            $table->date('init_date')->nullable();
             $table->date('expiration_date')->nullable();
 
             $table->timestamps();

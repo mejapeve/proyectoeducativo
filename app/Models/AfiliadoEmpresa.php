@@ -131,7 +131,7 @@ class AfiliadoEmpresa extends Model
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new MyResetPassword($token,session('name_company')));
+        $this->notify(new MyResetPassword($token,session('name_company'),session('rol')));
     }
 	
 	public function sendWelcomeNotification($rol)
@@ -142,6 +142,11 @@ class AfiliadoEmpresa extends Model
 
 	public function company_name() {
         return session('name_company' );
+    }
+
+    public function affiliated_account_services (){
+
+        return $this->hasMany(AffiliatedAccountService::class,'company_affiliated_id','id');
     }
 
 }

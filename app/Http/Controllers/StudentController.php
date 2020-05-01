@@ -9,6 +9,7 @@ use App\Models\AffiliatedContentAccountService;
 use App\Models\AfiliadoEmpresa;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
@@ -22,13 +23,10 @@ class StudentController extends Controller
             return view('roles.student.avatar');
         }
         else {
+
             $age = '';
             if(isset($request->user('afiliadoempresa')->birthday) && $request->user('afiliadoempresa')->birthday>0 ) {
-              $birthday = explode("-", $request->user('afiliadoempresa')->birthday);
-              //get age from date or birthday
-              $age = (date("md", date("U", mktime(0, 0, 0, $birthday[0], $birthday[1], $birthday[2]))) > date("md")
-                ? ((date("Y") - $birthday[2]) - 1)
-                : (date("Y") - $birthday[2]));
+                $age = Carbon::now()->diffInYears(Carbon::parse($request->user('afiliadoempresa')->birthday));
             }
             return view('roles.student.profile',['student'=>$request->user('afiliadoempresa'), 'age'=>$age]);
         }
@@ -45,10 +43,12 @@ class StudentController extends Controller
         //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::where('id',$sequence_id)->get();
         $sequence = $sequence[0];
-        $sequence->section_1 = '{"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
+        //$sequence->section_1 = '{"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
         if($sequence->section_1) {
+			
             $section = json_decode($sequence->section_1, true);
-            $data = array_merge(['sequence'=>$sequence],$section);
+			$data = array_merge(['sequence'=>$sequence],$section);
+			
             return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
@@ -161,23 +161,28 @@ class StudentController extends Controller
                 ['rol_id',1]
             ]);
         })->first();
-        $ids = AffiliatedAccountService::with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
+        $ids = AffiliatedAccountService::
+        with('rating_plan')->whereHas('company_affilated',function($query)use($tutor_id){
             $query->where('id',$tutor_id->tutor_company_id);
-        })->pluck('id');
-        //dd($ids);
+        })->where([
+            ['init_date','<=',Carbon::now()],
+            ['end_date','>=',Carbon::now()]
+        ])->pluck('id');
+
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
 
     }
 
     public function validation_access_sequence_content($account_service_id,$validation_moments = false,$sequence_id = null,$moment_id = null){
-        $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->find($account_service_id);
+        $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->
+            where('init_date','<=',Carbon::now())
+                ->where('end_date','>=',Carbon::now())->find($account_service_id);
 
         $AfiliadoEmpresaRolesId = AfiliadoEmpresaRoles::select('id')->where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['company_id',1],//conexiones
             ['rol_id',1]//estudiante
         ])->first();
-        //dd($account_service_id,$affiliatedAccountService,$AfiliadoEmpresaRolesId);
         if($affiliatedAccountService->exists() && $AfiliadoEmpresaRolesId->exists()){
             if($affiliatedAccountService->rating_plan_type == 1 ||$affiliatedAccountService->rating_plan_type == 2){//tiene acceso a plan por secuencia o por momentos
                 $afiliadoEmpresa = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($AfiliadoEmpresaRolesId){

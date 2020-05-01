@@ -13,7 +13,7 @@ MyApp.controller("timelineSequencesStudentCtrl", ["$scope", "$http", function ($
             let flag = false;
             let moment , count = 1;
             $(data.data).each(function (key, value) {
-                $(`#circle${value.moment_id}${value.moment_section_id}`).attr('fill', 'yellow');
+                $(`.circle${value.moment_id}${value.moment_section_id}`).attr('fill', '#FFD400');
                 if(!flag){
                     moment = value.moment_id;
                     flag = true;
@@ -22,7 +22,9 @@ MyApp.controller("timelineSequencesStudentCtrl", ["$scope", "$http", function ($
                     if(moment == value.moment_id){
                        if(++count == 4){
                            console.log('cantidad',count)
-                           $(`#star${value.moment_id}`).attr('fill', 'yellow');
+                           $(`.star${value.moment_id}`).attr('fill', '#FFD400');
+                           $(`.star${value.moment_id}`).attr('stroke', '#FFD400');
+                           $(`.number${value.moment_id}`).attr('stroke', '#FFFFFF');
                            count = 1;
                        }
                         console.log('ingresa2',moment,value.moment_id,count)

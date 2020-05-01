@@ -41,6 +41,10 @@
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
     <script src="{{ asset('/falcon/js/swiper.min.js') }}" defer></script>
+	
+	<!-- Moment JS -->
+	<script src="{{ asset('js/moment.js') }}" type="text/javascript"></script>
+    @yield('plugins')
 
 </head>
 

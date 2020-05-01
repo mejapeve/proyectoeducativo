@@ -25,6 +25,8 @@ class DataAffiliatedCompanyController extends Controller
     }
 
     public function index_admin(){
-        return view('auth.login.admin');
+        session(['name_company' => 'conexiones']);
+        $company = Companies::where('nick_name', 'conexiones')->first();
+        return view('auth.login.admin',['company' => $company]);
     }
 }
