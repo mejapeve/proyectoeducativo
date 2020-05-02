@@ -7,7 +7,7 @@
 			<div class="bg-light card-header">
 				<div class="align-items-center row">
 					<div class="col">
-						<h5 class="mb-0">Your Shipping Address</h5>
+						<h5 class="mb-0">Datos de envío</h5>
 					</div>
 					<div class="text-right col-auto">
 						<button class="btn btn-falcon-default btn-sm">
@@ -18,7 +18,7 @@
 										<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" transform="translate(-224 -256)"></path>
 									</g>
 								</g>
-							</svg>Add New Address
+							</svg>Nueva Dirección
 						</button>
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 									<div class="card-header">
 										<div class="align-items-center row">
 											<div class="col">
-												<h5 class="mb-0">Order Summary</h5>
+												<h5 class="mb-0">Resumen de la orden</h5>
 											</div>
 											<div class="text-right col-auto">
 												<a class="btn-reveal text-600 btn btn-link btn-sm" href="/e-commerce/shopping-cart">

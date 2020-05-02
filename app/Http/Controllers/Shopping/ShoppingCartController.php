@@ -20,12 +20,12 @@ class ShoppingCartController extends Controller
         // return view('shopping.pending_shopping_cart');
         //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
         //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
-        MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
+        MercadoPago\SDK::setAccessToken("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
         
 		
 		# Create a preference object
         $preference = new MercadoPago\Preference();
-		/*DC: simular pago ************************/
+		/*DC: simular pago ************************
 		$preference = new Preference();
 		/*************************/
         
@@ -37,18 +37,24 @@ class ShoppingCartController extends Controller
         $item->quantity = 1;
         $item->unit_price = 100;
         $item->currency_id = 'USD';
-
-        $preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
         $preference->items = array($item);
+       
+        $preference->back_urls = array(
+            "success" => "http://localhost:8000/notification_gwpayment_callback",
+            "failure" => "http://localhost:8000/notification_gwpayment_callback",
+            "pending" => "http://localhost:8000/notification_gwpayment_callback"
+        );
+        $preference->auto_return = "approved";
+        //$preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
         $preference->payment_methods = array("excluded_payment_types" => array(
             array("id" => "ticket",
             ),
         ),
         );
         $preference->save();
-        
+        //dd($preference);
 		
-		/*DC: simular pago ************************/
+		/*DC: simular pago ************************
 		$key = 1;
         $keys = array_merge(range(0, 9));
         for ($i = 0; $i < 9; $i++) {
@@ -235,7 +241,7 @@ class ShoppingCartController extends Controller
 
 
 
-
+/*
 class Preference {
     public $id;
     public $auto_return;
@@ -269,4 +275,4 @@ class Preference {
     { 
 	}
 
-}
+}*/

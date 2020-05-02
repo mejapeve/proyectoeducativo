@@ -139,6 +139,9 @@
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
          </h5>
 		 
+       <h5>
+       <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js" data-preference-id="271000387-631619c2-80ef-45a4-a2b3-dd494d301d22"></script>
+       </h5>
          @endauth
       </div>
    </div>
