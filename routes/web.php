@@ -126,8 +126,8 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 
 //servcios carrito de comprar
 Route::group([],function (){
-        Route::get('carrito_de_compras', 'Shopping\shoppingCartController@index')->name('shoppingCart');
-        Route::get('formulario_de_envio', 'Shopping\shippingFormController@index')->name('shippingForm');
+        Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
+        Route::get('formulario_de_envio', 'Shopping\ShippingFormController@index')->name('shippingForm');
         Route::get('registryWithPendingShoppingCart', function(){
             session(['redirect_to_shoppingcart'=>true]);
             return redirect()->route('registerForm');
