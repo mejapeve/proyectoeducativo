@@ -140,7 +140,7 @@
          </h5>
 		 
        <h5>
-       <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js" data-preference-id="271000387-631619c2-80ef-45a4-a2b3-dd494d301d22"></script>
+       <a href="<?php echo $preference->init_point; ?>">Pagar con Mercado Pago</a>
        </h5>
          @endauth
       </div>

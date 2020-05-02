@@ -19,12 +19,12 @@ class NotifyCallbackController extends Controller
         MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
 
         $merchant_order = null;
-
+		//dd($request);
         if (isset($_GET["topic"])) {
             switch ($_GET["topic"]) {
                 case "payment":
                     $payment = MercadoPago\Payment::find_by_id($_GET["id"]);
-                    //dd($request, $_GET, $payment);
+                    dd($request, $_GET, $payment);
                     // Get the payment and the corresponding merchant_order reported by the IPN.
                     //$merchant_order = MercadoPago\MerchantOrder::find_by_id($payment->order->id);
                     break;
@@ -36,7 +36,7 @@ class NotifyCallbackController extends Controller
 
         $paid_amount = 0;
 
-        if ($payment->status == 'approved') {
+        if ($request->collection_status == 'approved') {
             //$paid_amount += $payment['transaction_amount'];
 			$update = ShoppingCart::where("id","2")->
 			update(array(

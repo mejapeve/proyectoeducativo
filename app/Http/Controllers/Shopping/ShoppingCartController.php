@@ -10,6 +10,7 @@ use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use MercadoPago;
+use MercadoPago\Preference;
 
 class ShoppingCartController extends Controller
 {
@@ -25,6 +26,10 @@ class ShoppingCartController extends Controller
 		
 		# Create a preference object
         $preference = new MercadoPago\Preference();
+        $preference->auto_return = "approved";
+        $preference->back_urls = array(
+            "success" => "http://localhost:8000/notification_gwpayment_callback"
+        );
 		/*DC: simular pago ************************
 		$preference = new Preference();
 		/*************************/
@@ -38,19 +43,14 @@ class ShoppingCartController extends Controller
         $item->unit_price = 100;
         $item->currency_id = 'USD';
         $preference->items = array($item);
-       
-        $preference->back_urls = array(
-            "success" => "http://localhost:8000/notification_gwpayment_callback",
-            "failure" => "http://localhost:8000/notification_gwpayment_callback",
-            "pending" => "http://localhost:8000/notification_gwpayment_callback"
-        );
-        $preference->auto_return = "approved";
+        
         //$preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
         $preference->payment_methods = array("excluded_payment_types" => array(
             array("id" => "ticket",
             ),
         ),
         );
+
         $preference->save();
         //dd($preference);
 		
