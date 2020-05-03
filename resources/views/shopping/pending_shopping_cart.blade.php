@@ -10,12 +10,11 @@
          </h5>
          @endguest
          @auth('afiliadoempresa')
-         @if($preference->id)
          <h5 class="mb-2 justify-content-end col-12">
-            <a class="btn btn-outline-primary" ng-href="/formulario_de_envio">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></a>
+            <a class="btn btn-outline-primary" ng-href="{{$preference->init_point}}">
+               <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span>
+            </a>
          </h5>
-         @endif
          @endauth
       </div>
    </div>
@@ -135,13 +134,12 @@
          </h5>
          
 		 <h5 class="mt-1 mb-2 justify-content-end col-12">
-            <button class="btn btn-outline-primary" ng-href="/formulario_de_envio">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span></button>
+            <button class="btn btn-outline-primary">
+               <a class="fs-lg-0 fs-md-0 fs-sm--1" ng-href="{{$preference->init_point}}">
+                  Continuar Compra
+               </a>
+            </button>
          </h5>
-		 
-       <h5>
-       <a href="<?php echo $preference->init_point; ?>">Pagar con Mercado Pago</a>
-       </h5>
          @endauth
       </div>
    </div>

@@ -38,26 +38,17 @@ class NotifyCallbackController extends Controller
 
         if ($request->collection_status == 'approved') {
             //$paid_amount += $payment['transaction_amount'];
-			$update = ShoppingCart::where("id","2")->
+			$update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+											['payment_status_id', 1 ],
+											['payment_transaction_id', $request->preference_id]])->
 			update(array(
-                'payment_status_id' => '99999',
+				'payment_status_id' => '3',
+				'payment_init_date' =>  date("Y-m-d H:i:s")
             ));
         }
 
-        // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
-        if ($merchant_order) {
-            if ($paid_amount >= $merchant_order->total_amount) {
-                if (count($merchant_order->shipments) > 0) { // The merchant_order has shipments
-                    if ($merchant_order->shipments[0]->status == "ready_to_ship") {
-                        print_r("Totally paid. Print the label and release your item.");
-                    }
-                } else { // The merchant_order don't has any shipments
-                    print_r("Totally paid. Release your item.");
-                }
-            } else {
-                print_r("Not paid yet. Do not release your item.");
-            }
-        }
+		//Enviar correo
+		//Iniciar el tiempo de acceso a las secuencias 
 
         if (isset($_GET["payment_transaction_id"])) {
 
@@ -67,29 +58,20 @@ class NotifyCallbackController extends Controller
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
 
-                $shoppingCartUpdated = ShoppingCart::
-                    where([
-                    ['company_affiliated_id', $afiliado_empresa->id],
-                    ['payment_transaction_id', $payment_transaction_id],
-                ])->update(['payment_status_id' => 3]);
+				$shoppingCarts = ShoppingCart::
+					with('rating_plan', 'shopping_cart_product')->
+					where([
+					['company_affiliated_id', $request->user('afiliadoempresa')->id],
+					['payment_transaction_id', $request->preference_id],
+					['payment_status_id', 3],
+				])->get();
 
-                if ($shoppingCartUpdated > 0) {
-
-                    $shoppingCarts = ShoppingCart::
-                        with('rating_plan', 'shopping_cart_product')->
-                        where([
-                        ['company_affiliated_id', $request->user('afiliadoempresa')->id],
-                        ['payment_transaction_id', $payment_transaction_id],
-                        ['payment_status_id', 3],
-                    ])->get();
-
-                    foreach ($shoppingCarts as $shoppingCart) {
-                        $ratingPlan = $shoppingCart->rating_plan;
-                        if ($ratingPlan) {
-                            $this->addRatingPlanPaid($shoppingCart, $ratingPlan, $afiliado_empresa);
-                        }
-                    }
-                }
+				foreach ($shoppingCarts as $shoppingCart) {
+					$ratingPlan = $shoppingCart->rating_plan;
+					if ($ratingPlan) {
+						$this->addRatingPlanPaid($shoppingCart, $ratingPlan, $afiliado_empresa);
+					}
+				}
             }
             return redirect()->route('tutor', ['empresa' => 'conexiones']);
         }

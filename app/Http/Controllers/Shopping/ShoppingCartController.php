@@ -38,9 +38,9 @@ class ShoppingCartController extends Controller
 		// Crea un ítem en la preferencia
         $item = new MercadoPago\Item();
         //dd(MercadoPago\SDK::config());
-        $item->title = 'Yotopo y los astroamigos';
-        $item->quantity = 1;
-        $item->unit_price = 100;
+        $item->title = 'Yotopo y los astronautas';
+        $item->quantity = 2;
+        $item->unit_price = 50;
         $item->currency_id = 'USD';
         $preference->items = array($item);
         
@@ -50,26 +50,16 @@ class ShoppingCartController extends Controller
             ),
         ),
         );
-
+        if(auth("afiliadoempresa")->user()){
         $preference->save();
-        //dd($preference);
-		
-		/*DC: simular pago ************************
-		$key = 1;
-        $keys = array_merge(range(0, 9));
-        for ($i = 0; $i < 9; $i++) {
-           $key .= $keys[array_rand($keys)];
-        }
-        $preference->id = $key;
-		if($request->user('afiliadoempresa')) {
-			ShoppingCart::
-				where([
-				['company_affiliated_id', $request->user('afiliadoempresa')->id],
-				['payment_status_id', 1],
-			])->update(['payment_transaction_id'=>$key]);
-		}
-		/*************************/
 
+        $update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+											['payment_status_id', 1 ]])->
+			update(array(
+                'payment_transaction_id' => $preference->id,
+            ));
+        }
+        //dd($preference);
         return view('shopping.pending_shopping_cart')->with("preference", $preference);
     }
 
