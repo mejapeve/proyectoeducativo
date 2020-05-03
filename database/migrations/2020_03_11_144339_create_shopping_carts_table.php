@@ -24,7 +24,7 @@ class CreateShoppingCartsTable extends Migration
             $table->bigInteger('payment_status_id')->unsigned()->nullable();
             $table->foreign('payment_status_id')->references('id')->on('payment_status');
             $table->longText('payment_transaction_id')->nullable();
-            $table->date('payment_init_date')->nullable();
+            $table->dateTime('payment_init_date')->nullable();
             $table->bigInteger('shipping_price')->unsigned()->nullable();
 
             $table->timestamps();
