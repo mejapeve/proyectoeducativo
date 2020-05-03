@@ -28,7 +28,8 @@ class ShoppingCartController extends Controller
         $preference = new MercadoPago\Preference();
         $preference->auto_return = "approved";
         $preference->back_urls = array(
-            "success" => "http://localhost:8000/notification_gwpayment_callback"
+            "success" => "http://localhost:8000/notification_gwpayment_callback",
+            "failure" => "http://localhost:8000/notification_gwpayment_failure_callback",
         );
 		/*DC: simular pago ************************
 		$preference = new Preference();
@@ -44,12 +45,15 @@ class ShoppingCartController extends Controller
         $item->currency_id = 'USD';
         $preference->items = array($item);
         
+        
         //$preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
-        $preference->payment_methods = array("excluded_payment_types" => array(
-            array("id" => "ticket",
-            ),
-        ),
+        $preference->payment_methods = array(
+                "excluded_payment_types" => array(
+                    array("id" => "ticket",
+                    ),
+                ),
         );
+
         if(auth("afiliadoempresa")->user()){
         $preference->save();
 

@@ -137,7 +137,7 @@ Route::group([],function (){
         Route::post('update_shopping_cart', 'Shopping\ShoppingCartController@update')->name('update_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');//->middleware('auth:afiliadoempresa');
         Route::get('notification_gwpayment_callback', 'Shopping\NotifyCallbackController@notificacion_callback')->name('notification_gwpayment_callback');//->middleware('auth:afiliadoempresa');
-
+        Route::get('notification_gwpayment_failure_callback', 'Shopping\NotifyFailureCallbackController@notificacion_failure_callback')->name('notification_gwpayment_failure_callback');//->middleware('auth:afiliadoempresa');
     }
 );
 
