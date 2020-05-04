@@ -46,10 +46,10 @@ class ForgotPasswordController extends Controller
         view('auth.passwords.emailCompany',['company'=>$empresa]) ;
     }
 	
-	public function showResetForm(Request $request, $empresa = null, $token = null ,$rol = null)
+	public function showResetForm(Request $request, $empresa = null, $token = null ,$rol = null, $email = null)
     {
         $empresa = Companies::where('nick_name',$empresa)->first();
-        $email = session('email_session');
+        
         return strtolower($empresa->name) === 'conexiones' ? 
             view('auth.passwords.reset')->with(
             ['token' => $token, 'empresa'=> $empresa, 'email' => $email, 'rol'=>$rol]

@@ -175,7 +175,7 @@ Route::get('error', ['as' => 'error', 'uses'=> 'Admin\UsersController@import']);
 
 Route::get('{empresa}/password/sendlink/{rol}', 'Auth\ForgotPasswordController@showLinkRequestForm')->middleware('company')->name('password.sendlink');
 Route::post('{empresa}/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->middleware('company')->name('password.email');
-Route::get('{empresa}/password/reset/{token}/{rol}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
+Route::get('{empresa}/password/reset/{token}/{rol}/{email}', 'Auth\ForgotPasswordController@showResetForm')->middleware('company')->name('password.reset');
 Route::post('{empresa}/password/reset/{rol}', 'Auth\ResetPasswordController@reset')->middleware('company')->name('password.update');
 
 Route::post('/send_email_contactus', 'ContactusController@send_email_contactus')->name('send_email_contactus');

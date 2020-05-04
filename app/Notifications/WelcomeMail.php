@@ -56,7 +56,7 @@ class WelcomeMail extends Notification
             ->subject('Bienvenido a la plataforma')
             ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
             ->line('Tu registro ha sido realizado exitosamente en la plataforma, por favor accede al siguiente link para establecer tu contraseña y finalizar el registro.')
-            ->action('Personalizar datos  de acceso', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token, 'rol'=> $this->rol]))
+            ->action('Personalizar datos  de acceso', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token, 'rol'=> $this->rol, 'email'=>$notifiable->email]))
             ->line('Si no realizaste esta solicitud, no se requiere realizar ninguna otra acción.')
             ->salutation('Saludos, '. config('app.name'));
     }
