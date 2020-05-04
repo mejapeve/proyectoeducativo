@@ -56,7 +56,11 @@
                                 <div class="col">
                                     <div class="media">
                                         <div class="avatar avatar-2xl">
-                                            <img class="rounded-circle" src="{{asset($companyAffiliated->url_image)}}" alt="">
+                                        @if(isset($companyAffiliated->url_image)) 
+                                            <img class="rounded-circle" src="{{asset($companyAffiliated->url_image)}}" />
+                                        @else 
+                                            <img class="rounded-circle" src="{{asset('images/icons/default-avatar.png')}}" />
+                                        @endif
                                         </div>
                                         <div class="media-body align-self-center ml-2">
                                             <p class="mb-1 line-height-1"><a class="font-weight-semi-bold" href="">{{$companyAffiliated->name}} {{$companyAffiliated->last_name}}</a></p>

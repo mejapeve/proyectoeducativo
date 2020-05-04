@@ -3,7 +3,7 @@
 @section('content-tutor-index')
    <div class="list-group" ng-controller="TutorIndexController" ng-init="initInscriptions()" >
         <div ng-click=editUserForm(student.id) class="student-tutor-inscription btn btn-light" ng-repeat="student in students">
-          <img class="rounded-circle" ng-src="{{asset('/')}}@{{student.url_image}}" width="100px"/>
+          <img class="rounded-circle" ng-src="{{asset('/')}}@{{student.url_image || 'images/icons/default-avatar.png'}}" width="100px"/>
           <p>@{{student.name}} @{{student.last_name}}</p>
         </div>
         <div class="fs--1" ng-show="students && students.length === 0">

@@ -1,11 +1,13 @@
 <div class="mb-3 card">
    <div class="card-header  m-auto">
       <div class="avatar avatar-5xl">
-         @if(isset(auth('afiliadoempresa')->user()->url_image))
-		   <img class="rounded-circle " src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="100px">
- 		 @else 
-           <img class="rounded-circle " src="{{asset('images/icons/default-avatar.png')}}"  width="100px">
-		 @endif 
+	  {{auth('afiliadoempresa')->user()}}
+		@if(isset(auth('afiliadoempresa')->user()->url_image)) 
+		
+		 <img class="rounded-circle " src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="100px">
+		@else 
+         <img class="rounded-circle " src="{{asset('images/icons/default-avatar.png')}}"  width="100px">
+		@endif 
       </div>
       <h5 style="text-align: center;" class="mt-2 mb-0 avatar-name" id="tutorProfileFullName">{{auth('afiliadoempresa')->user()->name }}
          {{auth('afiliadoempresa')->user()->last_name}}</h5>

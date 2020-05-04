@@ -20,7 +20,7 @@ class CreateAfiliadoEmpresasTable extends Migration
             $table->string('name');
             $table->string('last_name');
             $table->string('email')->nullable();
-            $table->string('url_image')->nullable()->default('images/icons/default-avatar.png');
+            $table->string('url_image')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('provider_facebook')->nullable();

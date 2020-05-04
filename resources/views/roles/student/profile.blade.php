@@ -7,7 +7,11 @@
                 <div class="border border-light rounded-radius-1 card card-body border-dark_opacity"  style="min-width: 12rem;">
                     <div class="position-relative card-body border border-dark_opacity rounded-radius-1 row h-75 m-1">
                         <div class="col-md-5 p-0">
+                        @if(isset($student->url_image)) 
                         <img src="{{asset($student->url_image)}}" width="264px" height="auto"/>
+                        @else 
+                            <img src="{{asset('images/icons/default-avatar.png')}}" width="264px" height="auto"/>
+                        @endif
                         </div>   
                         <div class="col-md-7 mt-3 mb-auto">
                             <h5> Nombres </h5>
