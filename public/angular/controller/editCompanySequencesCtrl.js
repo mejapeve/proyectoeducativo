@@ -391,9 +391,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.onChangeFolderImage = function(directoryPath) {        
         $scope.directoryPath = null;
         $http.post('/conexiones/admin/get_folder_image',{'dir':directoryPath}).then(function (response) {
-            var list = response.data;
-            $scope.directory = [];
-            $scope.directoryPath = directoryPath;
+            var list = response.data.scanned_directory;
+			$scope.directoryPath = response.data.directory;
+			$scope.directory = [];
             $scope.filesImages = [];
             var item = null;
             for(indx in list) {

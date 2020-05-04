@@ -51,7 +51,7 @@ trait CreateUserRelations
         $afiliadoEmpresa->last_name = $request->last_name;
         if(isset($request->birthday)) {
             $afiliadoEmpresa->birthday = $request->birthday;
-		}
+        }
 
         $afiliadoEmpresa->password = Hash::make($user_name);
         $afiliadoEmpresa->save();
@@ -73,7 +73,7 @@ trait CreateUserRelations
 
         $name_user = $data['name'].$data['last_name'].'C';
         $asignarNombreUsuario = false;
-		do{
+        do{
             if( count(AfiliadoEmpresa::where('user_name',$name_user)->get()) ){
                 $name_user = $name_user.rand (0,9);
             }else{
