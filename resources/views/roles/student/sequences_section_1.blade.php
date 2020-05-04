@@ -40,7 +40,7 @@
                          <span class="col-auto"><a ng-click="errorMessage = null"><i class="far fa-times-circle"></a></i></span>
                         </div>
 
-                        <div class="d-none-result d-none  mb-3 card background-sequence-card" w="895" h="569">
+                        <div class="d-none-result d-none  mb-3 card background-sequence-card" w="{{$container['w']}}" h="{{$container['h']}}">
 						    @if(isset($background_image))
 							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
 						    @endif
@@ -48,13 +48,22 @@
 							  @if(isset($elements))
                               @foreach($elements as $element)
 							    @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
-								   <div ng-style="{'color': @if(isset($element['color'])) '{{$element['color']}}' @endif, 'background-color': @if(isset($element['background_color'])) '{{$element['background_color']}}' @endif}" 
+								   <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
 										class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
 									{!! $element['text'] !!}
 								   </div>
 								@endif
 								@if($element['type'] == 'image-element')
-								   <img src="{{asset($element['url'])}}" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}"/>
+									<div class="z-index-1" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
+								        <img src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
+									</div>	
+								@endif
+								@if($element['type'] == 'video-element')
+								   <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
+										<iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
+										   webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
+										</iframe>
+									</div>
 								@endif
 							  @endforeach
 							  @endif

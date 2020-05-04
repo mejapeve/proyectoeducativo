@@ -40,83 +40,73 @@ class StudentController extends Controller
     public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
-        //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
-        $sequence = CompanySequence::where('id',$sequence_id)->get();
-        $sequence = $sequence[0];
-        //$sequence->section_1 = '{"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
+        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
         if($sequence->section_1) {
-			
             $section = json_decode($sequence->section_1, true);
 			$data = array_merge(['sequence'=>$sequence],$section);
 			
             return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
+		else {
+			$sequence->section_1 = '{"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg","text1":"Observen a su alrededor. Seguramente encontrarán casas, estructuras y objetos que tienen diferentes formas y funciones. Muchas de estas construcciones alguna vez fueron solo un pensamiento, quizás un sueño que se hizo realidad a partir de la combinación estratégica de partes hechas de diferentes materiales y medidas.<br/><br/>Todos podemos imaginar y crear, así que queremos invitarlos a diseñar y construir una pista para hacer rodar canicas o esferas usando piezas de madera de diferentes formas y tamaños. La idea es que las canicas puedan pasar por diferentes caminos y que estos presenten algunos obstáculos durante el recorrido. ¿Cómo lo harán? Existen múltiples maneras de combinar las piezas, así que lo primero será dejar volar la imaginación, puesto que la creatividad es la clave para hacer la construcción más divertida. Luego deberán pensar ¿Qué tan alta quieren la pista? ¿Qué forma tendrá? ¿Cuánto espacio ocupará? ¿Cómo ensamblar las diferentes partes de acuerdo con su tamaño y peso? ¿Cómo pueden hacer para que las esferas se muevan más rápido?"}';
+		}
     }
 
     public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        $this->validation_access_sequence_content($account_service_id);
-        //$sequence = CompanySequence::with('moments','moments.experiences')->where('id',$sequence_id)->get();
         $sequence = CompanySequence::with('moments')->where('id',$sequence_id)->first();
-        //dd($sequence);
-        //$sequence = $sequence[0];
-        $sequence->section_2='{"background_image":"images/sequences/sequence20/rutaViaje-20.jpg",
-        "button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92,
-        "button2_mt":249,"button2_ml":13,"button2_w":240,"button2_h":92,
-        "button3_mt":361,"button3_ml":44,"button3_w":256,"button3_h":92,
-        "button4_mt":461,"button4_ml":150,"button4_w":256,"button4_h":92,
-        "button5_mt":143,"button5_ml":639,"button5_w":256,"button5_h":92,
-        "button6_mt":254,"button6_ml":623,"button6_w":256,"button6_h":92,
-        "button7_mt":357,"button7_ml":614,"button7_w":256,"button7_h":92,
-        "button8_mt":463,"button8_ml":541,"button8_w":256,"button8_h":92
-        }';
-        $section = json_decode($sequence->section_2, true);
-        $data = array_merge(['sequence'=>$sequence],$section);
+        
+		$sequence->section_2='{"background_image":"images/sequences/sequence20/rutaViaje-20.jpg",
+				"button1_mt":149,"button1_ml":51,"button1_w":240,"button1_h":92,
+				"button2_mt":249,"button2_ml":13,"button2_w":240,"button2_h":92,
+				"button3_mt":361,"button3_ml":44,"button3_w":256,"button3_h":92,
+				"button4_mt":461,"button4_ml":150,"button4_w":256,"button4_h":92,
+				"button5_mt":143,"button5_ml":639,"button5_w":256,"button5_h":92,
+				"button6_mt":254,"button6_ml":623,"button6_w":256,"button6_h":92,
+				"button7_mt":357,"button7_ml":614,"button7_w":256,"button7_h":92,
+				"button8_mt":463,"button8_ml":541,"button8_w":256,"button8_h":92}';
+		
         if($sequence->section_2) {
-            $section = json_decode($sequence->section_2, true);
-            $data = array_merge(['sequence'=>$sequence],$section);
+			$this->validation_access_sequence_content($account_service_id);
+			$section = json_decode($sequence->section_2, true);
+			$data = array_merge(['sequence'=>$sequence],$section);
             //dd($data['sequence']->moments->where('order',1)->first()->id);
             return view('roles.student.sequences_section_2',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
+		else {
+			
+		}
     }
     
     public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        $this->validation_access_sequence_content($account_service_id);
         
-        $sequence = CompanySequence::where('id',$sequence_id)->get();
-        $sequence = $sequence[0];
-        $sequence->section_3='{
+        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
         
-        "imagen1_mt":0,"imagen1_ml":0,"imagen1_w":"auto","imagen1_h":465,
-        "imagen1_url":"images/sequences/sequence20/bgSaberes-01.png",
-        "imagen2_mt":120,"imagen2_ml":231,"imagen2_w":240,"imagen2_h":92,
-        "imagen2_url":"images/sequences/sequence20/btn1-01.png",
-        "imagen3_mt":149,"imagen3_ml":451,"imagen3_w":250,"imagen3_h":192,
-        "imagen3_url":"images/sequences/sequence20/btn2-01.png"
-        }';
-        $section = json_decode($sequence->section_3, true);
-        $data = array_merge(['sequence'=>$sequence],$section);
         if($sequence->section_3) {
+			$section = json_decode($sequence->section_3, true);
+			$data = array_merge(['sequence'=>$sequence],$section);
+			$this->validation_access_sequence_content($account_service_id);
             $section = json_decode($sequence->section_3, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_3',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
+		else {
+			$sequence->section_3='{}';
+		}
     }
     
     public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
-        $this->validation_access_sequence_content($account_service_id);
-        $sequence = CompanySequence::where('id',$sequence_id)->get();
-        $sequence = $sequence[0];
-        $sequence->section_4='{
-        "background_image":"images/sequences/sequence20/puntoEncuentro-20.png"}';
-        $section = json_decode($sequence->section_4, true);
-        $data = array_merge(['sequence'=>$sequence],$section);
+        
+        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
         if($sequence->section_4) {
+			$this->validation_access_sequence_content($account_service_id);
+			$section = json_decode($sequence->section_4, true);
+			$data = array_merge(['sequence'=>$sequence],$section);
             $section = json_decode($sequence->section_4, true);
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_4',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     

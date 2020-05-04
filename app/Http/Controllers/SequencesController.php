@@ -55,7 +55,7 @@ class SequencesController extends Controller {
                         }
                     } else {
                         return response()->json([
-                            'message' => 'El formato para guardar los datos de la seccion(es) no es el correcto, no se pudo crear la secuencia'
+                            'message' => 'El formato para guardar los datos de la sección(es) no es el correcto, no se pudo crear la secuencia'
                         ],400);
                     }
 
@@ -160,7 +160,7 @@ class SequencesController extends Controller {
         return response()->json([
             'sequence_id' =>   $sequence->id,
             'sequence_section_number' =>   $data['section_number'],
-            'message' => 'secuencia modificada correctamente'
+            'message' => 'sección de secuencia modificada correctamente'
         ],200);
 
 

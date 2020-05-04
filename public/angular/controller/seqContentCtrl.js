@@ -135,8 +135,14 @@ function resizeSequenceCard () {
 		else {
 			var objH = Number($(this).attr('h'));
 			var objW = Number($(this).attr('w'));
+			
+			var deltaObjW = deltaW * objW / objH;
+			var newObjW = objW + deltaObjW;
+			
 			$(this).addClass('position-absolute');
-			$(this).css('width',objW+'px');
+			console.log('width',$(this),$(this).css('width'));
+			$(this).css('width',newObjW+'px');
+			console.log('width',newObjW);
 		}
 	});
 	
@@ -145,10 +151,19 @@ function resizeSequenceCard () {
 			$(this).css('height','auto');    
 		}
 		else {
+			//var objH = ( $(this).attr('h') * newH / h);
 			var objH = Number($(this).attr('h'));
 			var objW = Number($(this).attr('w'));
+			
+			var deltaObjH = deltaH * objH / objW;
+			var newObjH = objH + deltaObjH;
+			
 			$(this).addClass('position-absolute');
-			$(this).css('height',objH+'px');
+			console.log('height',$(this),$(this).css('height'));
+			$(this).css('height',newObjH+'px');
+			console.log('height',newObjH);
+			
+			$(this).attr('h',newObjH);
 		}
 	});
 	

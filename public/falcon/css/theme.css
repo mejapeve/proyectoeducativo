@@ -1570,7 +1570,7 @@ pre code {
         width: auto;
         max-width: 100%
     }
-	.col-lg-0_5 {
+    .col-lg-0_5 {
         -webkit-box-flex: 0;
         flex: 0 0 4.33333%;
         max-width: 4.33333%
@@ -1634,7 +1634,7 @@ pre code {
         -webkit-box-flex: 0;
         flex: 0 0 95.66667%;
         max-width: 95.66667%
-    }	
+    }    
     .col-lg-12 {
         -webkit-box-flex: 0;
         flex: 0 0 100%;
@@ -9030,6 +9030,23 @@ button.bg-dark:focus {
 .h-auto {
     height: auto!important
 }
+
+.h-25vw {
+    height: 25vw;
+}
+
+.h-50vw {
+    height: 50vw;
+}
+
+.h-75vw {
+    height: 75vw;
+}
+
+.h-100vw {
+    height: 100vw;
+}
+
 
 .mw-100 {
     max-width: 100%!important
@@ -16745,6 +16762,10 @@ h5,
     cursor: pointer
 }
 
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
 .pointer-event-none {
     pointer-events: none
 }
@@ -19945,13 +19966,13 @@ display: flex;
 }
 
 .conx-element {
-	
+    
 }
 
 .conx-element:hover {
-	border: 1px solid blue;
-	border-radius: 10px;
-	cursor: pointer;
+    border: 1px solid blue;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .delete-element {
@@ -19974,15 +19995,15 @@ display: flex;
 }
 
 .edit-element-panel .card {
-	z-index: 1051;
+    z-index: 1051;
 }
 
 .edit-element-panel .card-body {
-	min-height: 359px;
+    min-height: 359px;
 }
 
 .min-card-body {
-	height: 420px;
+    height: 420px;
 }
 
 .edit-button-background {
@@ -20017,7 +20038,7 @@ display: flex;
     margin-top: 10px;
 }
 
-.height-235 {
+.height_235 {
     height: 235px;
 }
 
@@ -20030,7 +20051,7 @@ display: flex;
 }
 
 .line-separator {
-	height: 5px;
-	width: 100%;
-	background-color: #edf2f9;
+    height: 5px;
+    width: 100%;
+    background-color: #edf2f9;
 }

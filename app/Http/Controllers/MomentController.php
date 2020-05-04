@@ -44,13 +44,13 @@ class MomentController extends Controller
             $moment->description = $data['description'];
         if (isset($data['objectives']))
             $moment->objectives = $data['objectives'];
-		if (isset($data['section_1']))
+        if (isset($data['section_1']))
             $moment->section_1 = $data['section_1'];
-		if (isset($data['section_2']))
+        if (isset($data['section_2']))
             $moment->section_2 = $data['section_2'];
-		if (isset($data['section_3']))
+        if (isset($data['section_3']))
             $moment->section_3 = $data['section_3'];
-		if (isset($data['section_4']))
+        if (isset($data['section_4']))
             $moment->section_4 = $data['section_4'];
         $moment->save();
 
@@ -97,7 +97,7 @@ class MomentController extends Controller
         return response()->json([
             'moment_id' =>   $moment->id,
             'moment_section_number' =>   $data['section_number'],
-            'message' => 'momento modificado correctamente'
+            'message' => 'seccion de momento modificada correctamente'
         ],200);
 
 
