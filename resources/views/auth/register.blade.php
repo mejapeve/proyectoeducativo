@@ -127,7 +127,7 @@
                                  <input name="agreeToTerms" type="checkbox" class="" ng-model="agreeToTerms"
                                     required="">
                                  <label class="control-label">Acepto <a ng-click="onTermsConditions()" href="#"> términos y condiciones</a></label>
-                                 <p><small>La plataforma asignará un usuario y contraseña que será enviada al correo electrónico la cual podrá ser cambiada luego</small></p>
+                                 <p><small>La plataforma asignará un usuario y contraseña que será enviada al correo electrónico registrado, esta podrá ser cambiada al validar la información. </small></p>
                               </div>
                               <div class="form-group">
                                  <input type="hidden" name="password" id="password" value="password" />
