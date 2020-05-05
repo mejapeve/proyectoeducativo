@@ -28,8 +28,8 @@ class ShoppingCartController extends Controller
         $preference = new MercadoPago\Preference();
         $preference->auto_return = "approved";
         $preference->back_urls = array(
-            "success" => "http://localhost:8000/notification_gwpayment_callback",
-            "failure" => "http://localhost:8000/notification_gwpayment_failure_callback",
+            "success" => route('notification_gwpayment_callback'),
+            "failure" => route('notification_gwpayment_failure_callback'),
         );
 		/*DC: simular pago ************************
 		$preference = new Preference();
