@@ -7,7 +7,7 @@
 	   <ul class="footer-details fs--1">
 		<li><i class="fas fa-mobile-alt"></i> ( +57 ) ( 1 ) 7020012 </li>
 		<li><i class="far fa-envelope"></i> contacto@educonexiones.com </li>
-	   <li><i class="far fa-envelope"></i> Bogotá - Colombia </li>
+	   <li><i class="fa fa-globe-americas"></i> Bogotá - Colombia </li>
 	   </ul>
 	   
 	</div>

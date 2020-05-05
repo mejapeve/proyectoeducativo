@@ -49,10 +49,10 @@ class NotifyCallbackController extends Controller
 
 		//Enviar correo
 		//Iniciar el tiempo de acceso a las secuencias 
+//dd($_GET);
+        if ($request->collection_status == 'approved') {
 
-        if (isset($_GET["payment_transaction_id"])) {
-
-            $payment_transaction_id = $_GET["payment_transaction_id"];
+           // $payment_transaction_id = $_GET["payment_transaction_id"];
 
             if ($request->user('afiliadoempresa')) {
 

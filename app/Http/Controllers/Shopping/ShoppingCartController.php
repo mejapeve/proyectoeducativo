@@ -56,7 +56,8 @@ class ShoppingCartController extends Controller
 
         if(auth("afiliadoempresa")->user()){
         $preference->save();
-
+//dd($preference,ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+    //['payment_status_id', 1 ]])->get());
         $update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
 											['payment_status_id', 1 ]])->
 			update(array(
