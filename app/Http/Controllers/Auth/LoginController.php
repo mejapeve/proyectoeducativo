@@ -130,33 +130,39 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
 
-        $afiliadoempresa = $this->createAfiliado($user,'gmail');
-        Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+        if(AfiliadoEmpresa::where('email',$user->email)->first() === null){
+            $afiliadoempresa = $this->createAfiliado($user,'gmail');
+            Auth::guard('afiliadoempresa')->login($afiliadoempresa);
 
-        $free_rating_plan_id = session()->pull('free_rating_plan_id');
-        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
+            $free_rating_plan_id = session()->pull('free_rating_plan_id');
+            $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
 
-        if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($free_rating_plan_id);
-            if($ratingPlan->is_free) {
-                $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+            if($free_rating_plan_id) {
+                $ratingPlan = RatingPlan::find($free_rating_plan_id);
+                if($ratingPlan->is_free) {
+                    $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                }
+            }
+
+            if (session_id() == "") {
+                session_start();
+            }
+            ShoppingCart:: where('session_id', session_id())
+                ->where('payment_status_id', 1)
+                ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+
+            if($redirect_shoppingcart) {
+                return redirect()->route('shoppingCart');
+            }
+            else {
+                $redirect_to_portal = session('redirect_to_portal');
+                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
         }
+        else{
+            return redirect()->route('loginform',['conexiones',true]);
+        }
 
-        if (session_id() == "") {
-            session_start();
-        }
-        ShoppingCart:: where('session_id', session_id())
-            ->where('payment_status_id', 1)
-            ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
-
-        if($redirect_shoppingcart) {
-            return redirect()->route('shoppingCart');
-        }
-        else {
-            $redirect_to_portal = session('redirect_to_portal');
-            return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
-        }
     }
 
     public function createAfiliado($user,$tipoProvider){

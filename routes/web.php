@@ -13,9 +13,15 @@ use App\Models\Companies;
 |
 */
 Auth::routes();
+/*
+Route::get('/', function () {
+    $company = Companies::where('nick_name', 'conexiones')->first();
+    return view('auth.login.afiliadoEmpresa',['company' => $company ]);
+})->name('error_login_social');
+*/
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 Route::get('/inicio', function () {
     return view('welcome');
@@ -59,7 +65,7 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
 
 Route::get('validate_registry_free_plan/{ratingPlanId}', 'Auth\RegisterController@validate_registry_free_plan')->name('validate_registry_free_plan');
 Route::get('registro_afiliado/', 'Auth\RegisterController@show_register')->name('registerForm');
-Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
+Route::get('{empresa}/loginform/{error_email_social?}', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 
 
