@@ -64,7 +64,7 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
 })->name('ratingPlan.detailSequence');
 
 Route::get('validate_registry_free_plan/{ratingPlanId}', 'Auth\RegisterController@validate_registry_free_plan')->name('validate_registry_free_plan');
-Route::get('registro_afiliado/{error_email_social?}', 'Auth\RegisterController@show_register')->name('registerForm');
+Route::get('registro_afiliado/{error_email_social?}/{email?}', 'Auth\RegisterController@show_register')->name('registerForm');
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
 

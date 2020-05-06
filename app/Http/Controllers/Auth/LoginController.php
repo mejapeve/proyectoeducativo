@@ -105,12 +105,8 @@ class LoginController extends Controller
             return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
         }
         else{
-            $errorData = [
-                'tipeSocial'=>'Facebook',
-                'email' => $user->email,
-                'error'=>true
-            ];
-            return redirect()->route('registerForm',$errorData);
+
+            return redirect()->route('registerForm',[true,$user->email]);
         }
 
 
@@ -171,12 +167,7 @@ class LoginController extends Controller
             }
         }
         else{
-            $errorData = [
-                'tipeSocial'=>'Gmail',
-                'email' => $user->email,
-                'error'=>true
-            ];
-            return redirect()->route('registerForm',$errorData);
+            return redirect()->route('registerForm',[true,$user->email]);
         }
 
     }
