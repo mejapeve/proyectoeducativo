@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 
 @section('content')
-<section class="py-0" ng-controller="registerController" ng-init="init({{$errorEmailSocial}},{{$email}})">
+<section class="py-0" ng-controller="registerController" ng-init="init('{{$errorEmailSocial}}','{{$email}}')">
    <div class="container-fluid">
       <div class="flex-center no-gutters row">
          <div class="col-xxl-5 col-lg-10">
