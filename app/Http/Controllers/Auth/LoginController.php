@@ -80,29 +80,40 @@ class LoginController extends Controller
 
         $afiliadoempresa = $this->createAfiliado($user,'facebook');
         Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+        if(AfiliadoEmpresa::where('email',$user->email)->first() === null) {
+            $free_rating_plan_id = session()->pull('free_rating_plan_id');
+            if ($free_rating_plan_id) {
+                $ratingPlan = RatingPlan::find($free_rating_plan_id);
+                if ($ratingPlan->is_free) {
+                    $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
 
-        $free_rating_plan_id = session()->pull('free_rating_plan_id');
-        if($free_rating_plan_id) {
-            $ratingPlan = RatingPlan::find($free_rating_plan_id);
-            if($ratingPlan->is_free) {
-                $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
-
+                }
             }
-        }
-        if (session_id() == "") {
-            session_start();
-        }
-        ShoppingCart:: where('session_id', session_id())
-            ->where('payment_status_id', 1)
-            ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+            if (session_id() == "") {
+                session_start();
+            }
+            ShoppingCart:: where('session_id', session_id())
+                ->where('payment_status_id', 1)
+                ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id' => 'NULL']);
 
-        $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
-        if($redirect_shoppingcart) {
-            return redirect()->route('shoppingCart');
+            $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
+            if ($redirect_shoppingcart) {
+                return redirect()->route('shoppingCart');
+            }
+
+            $redirect_to_portal = session('redirect_to_portal');
+            return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+        }
+        else{
+            $errorData = [
+                'tipeSocial'=>'Facebook',
+                'email' => $user->email,
+                'error'=>true
+            ];
+            return redirect()->route('registerForm',$errorData);
         }
 
-        $redirect_to_portal = session('redirect_to_portal');
-        return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+
     }
     /**
      * Redirect the user to the GitHub authentication page.
@@ -160,7 +171,12 @@ class LoginController extends Controller
             }
         }
         else{
-            return redirect()->route('registerForm',true);
+            $errorData = [
+                'tipeSocial'=>'Gmail',
+                'email' => $user->email,
+                'error'=>true
+            ];
+            return redirect()->route('registerForm',$errorData);
         }
 
     }

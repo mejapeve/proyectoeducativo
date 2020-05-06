@@ -11,10 +11,10 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
     $scope.showCitySelect = true;
     $scope.messageError = null;
     $scope.termsConditions = $('#terms').html();
-    $scope.init = function(errorEmailSocial) {
+    $scope.init = function(errorEmailSocial,email,tipeSocial) {
         console.log(errorEmailSocial);
         if(errorEmailSocial){
-            swal('Conexiones','El correo registrado con Gmail ya existe en educonexiones.','warning');
+            swal('Conexiones',`El correo ${email} ya existe en educonexiones.`,'warning');
         }
 
     };

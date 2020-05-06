@@ -136,7 +136,7 @@ class RegisterController extends Controller
         return Auth::guard('afiliadoempresa');
     }
     
-    public function show_register(Request $request,$errorEmailSocial = false) {
+    public function show_register(Request $request,$errorEmailSocial = ['error' =>false,'tipeSocial'=>null,'email'=>null]) {
         //dd($errorEmailSocial);
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
         $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
