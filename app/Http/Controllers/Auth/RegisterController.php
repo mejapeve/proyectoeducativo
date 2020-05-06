@@ -136,11 +136,17 @@ class RegisterController extends Controller
         return Auth::guard('afiliadoempresa');
     }
     
-    public function show_register(Request $request) {
-        
+    public function show_register(Request $request,$errorEmailSocial = false) {
+        //dd($errorEmailSocial);
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
         $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
-        return view('auth.register',['free_rating_plan_id'=>$free_rating_plan_id, 'redirect_to_shoppingcart'=>$redirect_to_shoppingcart]);
+        return view('auth.register',
+            [
+                'free_rating_plan_id'=>$free_rating_plan_id,
+                'redirect_to_shoppingcart'=>$redirect_to_shoppingcart,
+                'errorEmailSocial'=>$errorEmailSocial,
+
+            ]);
     }
     
     public static function addFreeRatingPlan($ratingPlanFree,$afiliado_empresa) {

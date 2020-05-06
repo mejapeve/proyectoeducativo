@@ -11,7 +11,13 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
     $scope.showCitySelect = true;
     $scope.messageError = null;
     $scope.termsConditions = $('#terms').html();
+    $scope.init = function(errorEmailSocial) {
+        console.log(errorEmailSocial);
+        if(errorEmailSocial){
+            swal('Conexiones','El correo registrado con Gmail ya existe en educonexiones.','warning');
+        }
 
+    };
     $http.get("https://geoip-db.com/json/").then(function (response1) {
         $scope.country_code = response1.data.country_code;
         $http.get("/get_countries")

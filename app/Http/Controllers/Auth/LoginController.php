@@ -160,7 +160,7 @@ class LoginController extends Controller
             }
         }
         else{
-            return redirect()->route('loginform',['conexiones',true]);
+            return redirect()->route('registerForm',true);
         }
 
     }

@@ -9,23 +9,17 @@ class DataAffiliatedCompanyController extends Controller
 { 
     //
 
-    public function index($empresa,$errorEmailSocial = false){
+    public function index($empresa){
 
 		$company = Companies::where('nick_name', $empresa)->first();
 		if($company) {
 			if($company->name == 'conexiones') {
-			    if(!$errorEmailSocial)
-				    return view('auth.login.afiliadoEmpresa',['company' => $company ]);
-                return view('auth.login.afiliadoEmpresa',['company' => $company ]);
-
+				return view('auth.login.afiliadoEmpresa',['company' => $company ]);
 			}
 			else {
                 session(['name_company' => $empresa]);
                 session(['company_id' => $company->id]);
-                if(!$errorEmailSocial)
-				    return view('auth.login.companyLoginForm',['company' => $company ]);
-                return view('auth.login.companyLoginForm',['company' => $company ]);
-
+				return view('auth.login.companyLoginForm',['company' => $company ]);
 			}
 		}
     }
