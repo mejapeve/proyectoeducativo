@@ -78,9 +78,9 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->stateless()->user();
 
-        $afiliadoempresa = $this->createAfiliado($user,'facebook');
-
         if(AfiliadoEmpresa::where('email',$user->email)->first() === null) {
+            $afiliadoempresa = $this->createAfiliado($user,'facebook');
+            $afiliadoempresa->sendWelcomeNotification(3);//envio de parametro - rol tutor/familiar (3)
             Auth::guard('afiliadoempresa')->login($afiliadoempresa);
             $free_rating_plan_id = session()->pull('free_rating_plan_id');
             if ($free_rating_plan_id) {
@@ -140,6 +140,7 @@ class LoginController extends Controller
 
         if(AfiliadoEmpresa::where('email',$user->email)->first() === null){
             $afiliadoempresa = $this->createAfiliado($user,'gmail');
+            $afiliadoempresa->sendWelcomeNotification(3);//envio de parametro - rol tutor/familiar (3)
             Auth::guard('afiliadoempresa')->login($afiliadoempresa);
 
             $free_rating_plan_id = session()->pull('free_rating_plan_id');
