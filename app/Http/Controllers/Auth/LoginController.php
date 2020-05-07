@@ -79,8 +79,8 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-
-        if(session()->pull('redirect_to_shoppingcart')==='register'){
+        $socialAction = session()->pull('social_action');
+        if($socialAction ==='register'){
             $user = Socialite::driver('facebook')->stateless()->user();
 
             if(AfiliadoEmpresa::where('email',$user->email)->first() === null) {
@@ -113,7 +113,7 @@ class LoginController extends Controller
                 return redirect()->route('registerForm',[true,$user->email]);
             }
         }
-        if(session()->pull('redirect_to_shoppingcart')==='login'){
+        if($socialAction ==='login'){
             $user = Socialite::driver('facebook')->stateless()->user();
             if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
                 $afiliadoempresa = $this->createAfiliado($user,'facebook');
@@ -148,7 +148,8 @@ class LoginController extends Controller
      */
     public function handleProviderCallbackGmail()
     {
-        if(session()->pull('redirect_to_shoppingcart') ==='register') {
+        $socialAction = session()->pull('social_action');
+        if($socialAction ==='register') {
             $user = Socialite::driver('google')->stateless()->user();
             if (AfiliadoEmpresa::where('email', $user->email)->first() === null) {
                 $afiliadoempresa = $this->createAfiliado($user, 'gmail');
@@ -181,7 +182,7 @@ class LoginController extends Controller
                 return redirect()->route('registerForm', [true, $user->email]);
             }
         }
-        if(session()->pull('redirect_to_shoppingcart')==='login'){
+        if($socialAction ==='login'){
             $user = Socialite::driver('google')->stateless()->user();
             if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
                 $afiliadoempresa = $this->createAfiliado($user,'facebook');
