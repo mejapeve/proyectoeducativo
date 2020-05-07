@@ -19,43 +19,51 @@
 								<div class="card-header">
 									<ul class="nav">
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+										
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.inscriptions' ) selected @endif"
+											href="{{route('tutor.inscriptions','conexiones')}}">
 												<i class="far fa-clipboard icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Inscripciones</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.products' ) selected @endif" 
+												href="{{route('tutor.products','conexiones')}}">
 												<i class="far fa-check-circle icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Productos</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.calendar' ) selected @endif"
+												href="{{route('tutor.inscriptions','conexiones')}}">
 												<i class="fas fa-stopwatch icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Calendario</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.reports' ) selected @endif"
+												href="{{route('tutor.inscriptions','conexiones')}}">
 												<i class="fas fa-eye icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Reportes</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.history' ) selected @endif"												
+												href="{{route('tutor.inscriptions','conexiones')}}">
 												<i class="fas fa-dollar-sign icon"></i>
-												<small class="fs--2 mb-1 text-700 font-weight-bold"> Historial de pagos</small>
+												<small class="fs--2 mb-1 text-700 font-weight-bold" style="font-size: .55444rem!important;"> Historial de pagos</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.shoppingcart' ) selected @endif"
+											href="{{route('tutor.inscriptions','conexiones')}}">
 												<i class="far fa-list-alt icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Lista de deseos</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head" href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor' ) selected @endif"
+												href="{{route('tutor','conexiones')}}">
 												<i class="fas fa-cog icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Conﬁguración</small>
 											</a>

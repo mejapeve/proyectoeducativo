@@ -19824,6 +19824,8 @@ footer .navbar-light {
     height: 60px;
     cursor: pointer;
 }
+
+.tutor-button-head.selected,
 .tutor-button-head:hover {
     border: 1px solid #edf2f9;
     border-radius: 16px;
@@ -20054,4 +20056,12 @@ display: flex;
     height: 5px;
     width: 100%;
     background-color: #edf2f9;
+}
+
+.trapecio-top {
+    width: 102px;
+    height: 0px;
+    border-right: 26px solid transparent;
+    border-left: 24px solid transparent;
+    border-top: 25px solid #428bca
 }

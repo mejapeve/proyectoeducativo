@@ -6,6 +6,8 @@ use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\Companies;
 use App\Models\ConectionAffiliatedStudents;
+use App\Models\AffiliatedAccountService;
+use App\Models\AffiliatedContentAccountService;
 use App\Traits\CreateUserRelations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,6 +34,12 @@ class TutorController extends Controller
         $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
         return view('roles.tutor.inscriptions')->with('tutor',$tutor);
     }
+    
+    public function showProducts (Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+        $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+        return view('roles.tutor.products')->with('tutor',$tutor);
+    }
 
     public function register_student (Request $request) {
 
@@ -41,7 +49,7 @@ class TutorController extends Controller
         return redirect()->route('tutor',session('name_company' ));
     }
 
-    public function get_students_tutor (Request $request ){
+    public function get_products_tutor (Request $request ){
 
         $company = Companies::where('nick_name',session('name_company'))->first();
         $user_id = auth('afiliadoempresa')->user()->id;
@@ -57,10 +65,35 @@ class TutorController extends Controller
             })->where('company_id',$company->id);
         })->get();
 
-
-
         return $students;
+    }
 
+    public function get_products(Request $request ) {
+
+        $user_id = auth('afiliadoempresa')->user()->id;
+        
+        $accountServices = AffiliatedAccountService::with('affiliated_content_account_service')->
+            where('affiliated_account_services.company_affiliated_id','=',$user_id)
+            ->where('init_date', '<=', date('Y-m-d').' 00:00:00')
+            ->where('end_date', '>=', date('Y-m-d').' 24:59:59')
+            ->get();
+        /*$accountServices = CompanySequence::with('rating_plan','affiliated_content_account_service')
+        ->join('affiliated_account_services.','=',)
+        ->where('affiliated_account_services.company_affiliated_id','=',$user_id)
+        ->where('init_date', '<=', date('Y-m-d').' 00:00:00')
+        ->where('end_date', '>=', date('Y-m-d').' 24:59:59')
+        ->get();*/
+        
+        //return $accountServices;
+        
+        $ids = AffiliatedAccountService::with('rating_plan')
+		->where('company_affiliated_id','=',$user_id)
+		->where([
+            ['init_date','<=',date('Y-m-d').' 00:00:00'],
+            ['end_date','>=',date('Y-m-d').' 24:59:59']
+        ])->pluck('id');
+
+       return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
     }
 
     public function validate_password (Request $request, $company,$password){

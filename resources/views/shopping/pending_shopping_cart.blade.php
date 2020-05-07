@@ -129,7 +129,8 @@
             <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
 			<form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
                @csrf
-               <input type="text" name="payment_transaction_id" value="{{$preference->id}}"/>
+               <input type="text" name="collection_status" value="approved"/>
+			   <input type="text" name="preference_id" value="{{$preference->id}}"/>
             </form>
          </h5>
          

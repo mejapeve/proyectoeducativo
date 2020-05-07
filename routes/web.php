@@ -105,6 +105,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
     Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
+    Route::get('{empresa}/tutor/productos', 'TutorController@showProducts')->middleware('role:tutor')->name('tutor.products');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
@@ -172,6 +173,7 @@ Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_gr
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->    name('get_teachers_company');
 
 Route::get('get_students_tutor', 'TutorController@get_students_tutor')->name('get_students_tutor');
+Route::get('get_products_tutor', 'TutorController@get_products')->name('get_products_tutor');
 
 
 Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');
@@ -206,10 +208,6 @@ Route::post('update_moment_section', 'MomentController@update_moment_section')->
 //servicios momentos
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
-
-
-//servicio para consultar servicios contratados
-Route::get('get_account_services/{affiliated_id}', 'AffiliatedAccountServiceController@get')->name('get_account_services');
 
 
 Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line');
