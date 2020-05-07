@@ -120,6 +120,8 @@ class LoginController extends Controller
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
                 $redirect_to_portal = session('redirect_to_portal');
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+            }else{
+                return redirect()->route('registerForm');
             }
         }
     }
@@ -189,6 +191,8 @@ class LoginController extends Controller
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
                 $redirect_to_portal = session('redirect_to_portal');
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+            }else{
+                return redirect()->route('registerForm');
             }
         }
 
