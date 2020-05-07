@@ -132,7 +132,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
-                                <a href="{{ route('user.redirectfacebook',encrypt(3)),'login' }}" class="btn btn-primary btn-block" style="margin-top: 2px">
+                                <a href="{{ route('user.redirectfacebook',[encrypt(3),'login'] )}}" class="btn btn-primary btn-block" style="margin-top: 2px">
                                 <div class="row">
                                     <div class="col-2">
                                         <i class="fab fa-facebook"></i> 
@@ -144,7 +144,7 @@
                                 </a>
                             </div>
                             <div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
-                                <a href="{{ route('user.redirectgmail',encrypt(3),'login') }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);">
+                                <a href="{{ route('user.redirectgmail',[encrypt(3),'login']) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);">
                                 <div class="row">
                                     <div class="col-2">
                                         <i class="fab fa-google"></i>
