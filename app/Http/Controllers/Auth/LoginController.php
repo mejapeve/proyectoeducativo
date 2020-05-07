@@ -10,6 +10,7 @@ use App\Models\ShoppingCart;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 
@@ -55,10 +56,12 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProvider(Request $request,$rol)
-    {   if(isset($request->free_rating_plan_id)) {
-        session(['free_rating_plan_id' => $request->free_rating_plan_id]);
-    }
+    public function redirectToProvider(Request $request,$rol,$socialAction)
+    {
+        session(['social_action' => $socialAction]);
+        if(isset($request->free_rating_plan_id)) {
+         session(['free_rating_plan_id' => $request->free_rating_plan_id]);
+        }
         if(isset($request->redirect_to_shoppingcart)) {
             session(['redirect_to_shoppingcart' => $request->redirect_to_shoppingcart]);
         }
@@ -76,52 +79,61 @@ class LoginController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('facebook')->stateless()->user();
 
-        if(AfiliadoEmpresa::where('email',$user->email)->first() === null) {
-            $afiliadoempresa = $this->createAfiliado($user,'facebook');
-            $afiliadoempresa->sendWelcomeNotification(3);//envio de parametro - rol tutor/familiar (3)
-            Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-            $free_rating_plan_id = session()->pull('free_rating_plan_id');
-            if ($free_rating_plan_id) {
-                $ratingPlan = RatingPlan::find($free_rating_plan_id);
-                if ($ratingPlan->is_free) {
-                    $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
+        if(session('social_action')==='register'){
+            $user = Socialite::driver('facebook')->stateless()->user();
 
+            if(AfiliadoEmpresa::where('email',$user->email)->first() === null) {
+                $afiliadoempresa = $this->createAfiliado($user,'facebook');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+                $free_rating_plan_id = session()->pull('free_rating_plan_id');
+                if ($free_rating_plan_id) {
+                    $ratingPlan = RatingPlan::find($free_rating_plan_id);
+                    if ($ratingPlan->is_free) {
+                        $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
+
+                    }
                 }
-            }
-            if (session_id() == "") {
-                session_start();
-            }
-            ShoppingCart:: where('session_id', session_id())
-                ->where('payment_status_id', 1)
-                ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id' => 'NULL']);
+                if (session_id() == "") {
+                    session_start();
+                }
+                ShoppingCart:: where('session_id', session_id())
+                    ->where('payment_status_id', 1)
+                    ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id' => 'NULL']);
 
-            $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
-            if ($redirect_shoppingcart) {
-                return redirect()->route('shoppingCart');
-            }
+                $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
+                if ($redirect_shoppingcart) {
+                    return redirect()->route('shoppingCart');
+                }
 
-            $redirect_to_portal = session('redirect_to_portal');
-            return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+                $redirect_to_portal = session('redirect_to_portal');
+                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+            }
+            else{
+                return redirect()->route('registerForm',[true,$user->email]);
+            }
         }
-        else{
-
-            return redirect()->route('registerForm',[true,$user->email]);
+        if(session('social_action')==='login'){
+            $user = Socialite::driver('facebook')->stateless()->user();
+            if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
+                $afiliadoempresa = $this->createAfiliado($user,'facebook');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+                $redirect_to_portal = session('redirect_to_portal');
+                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+            }
         }
-
-
     }
     /**
      * Redirect the user to the GitHub authentication page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function redirectToProviderGmail(Request $request,$rol)
+    public function redirectToProviderGmail(Request $request,$rol,$socialAction)
     {
         $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['name_company' => 'conexiones' ]);
+        session(['social_action' => $socialAction]);
         if(isset($request->free_rating_plan_id)) {
             session(['free_rating_plan_id' => $request->free_rating_plan_id]);
         }
@@ -136,40 +148,47 @@ class LoginController extends Controller
      */
     public function handleProviderCallbackGmail()
     {
-        $user = Socialite::driver('google')->stateless()->user();
+        if(session('social_action')==='register') {
+            $user = Socialite::driver('google')->stateless()->user();
+            if (AfiliadoEmpresa::where('email', $user->email)->first() === null) {
+                $afiliadoempresa = $this->createAfiliado($user, 'gmail');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
 
-        if(AfiliadoEmpresa::where('email',$user->email)->first() === null){
-            $afiliadoempresa = $this->createAfiliado($user,'gmail');
-            $afiliadoempresa->sendWelcomeNotification(3);//envio de parametro - rol tutor/familiar (3)
-            Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+                $free_rating_plan_id = session()->pull('free_rating_plan_id');
+                $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
 
-            $free_rating_plan_id = session()->pull('free_rating_plan_id');
-            $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
-
-            if($free_rating_plan_id) {
-                $ratingPlan = RatingPlan::find($free_rating_plan_id);
-                if($ratingPlan->is_free) {
-                    $this->registerController->addFreeRatingPlan($ratingPlan,$afiliadoempresa);
+                if ($free_rating_plan_id) {
+                    $ratingPlan = RatingPlan::find($free_rating_plan_id);
+                    if ($ratingPlan->is_free) {
+                        $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
+                    }
                 }
-            }
 
-            if (session_id() == "") {
-                session_start();
-            }
-            ShoppingCart:: where('session_id', session_id())
-                ->where('payment_status_id', 1)
-                ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id'=>'NULL']);
+                if (session_id() == "") {
+                    session_start();
+                }
+                ShoppingCart:: where('session_id', session_id())
+                    ->where('payment_status_id', 1)
+                    ->update(['company_affiliated_id' => $afiliadoempresa->id, 'session_id' => 'NULL']);
 
-            if($redirect_shoppingcart) {
-                return redirect()->route('shoppingCart');
+                if ($redirect_shoppingcart) {
+                    return redirect()->route('shoppingCart');
+                } else {
+                    $redirect_to_portal = session('redirect_to_portal');
+                    return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
+                }
+            } else {
+                return redirect()->route('registerForm', [true, $user->email]);
             }
-            else {
+        }
+        if(session('social_action')==='login'){
+            $user = Socialite::driver('google')->stateless()->user();
+            if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
+                $afiliadoempresa = $this->createAfiliado($user,'facebook');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
                 $redirect_to_portal = session('redirect_to_portal');
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
-        }
-        else{
-            return redirect()->route('registerForm',[true,$user->email]);
         }
 
     }
@@ -195,13 +214,16 @@ class LoginController extends Controller
             })->first();
 
         if($afiliadoempresa === null){
+
             $afiliadoempresa = new AfiliadoEmpresa();
             $dataProvider = explode( ' ', $user->name);
             $data =['name'=>$dataProvider[0],'last_name'=>$dataProvider[1]];
-            $afiliadoempresa->user_name = $this->name_user_affiliated($data);
+            $name_user = $this->name_user_affiliated($data);
+            $afiliadoempresa->user_name = $name_user;
             $afiliadoempresa->name = $dataProvider[0];
             $afiliadoempresa->last_name = $dataProvider[1];
             $afiliadoempresa->email = $user->email;
+            $afiliadoempresa->password = Hash::make($name_user);
             ($tipoProvider === 'gmail')?
                 $afiliadoempresa->provider_google = $user->id:
                 $afiliadoempresa->provider_facebook = $user->id;
@@ -211,6 +233,7 @@ class LoginController extends Controller
             $affiliated_company_role->rol_id = 3;//tutor
             $affiliated_company_role->company_id = 1;//conexiones
             $affiliated_company_role->save();
+            $afiliadoempresa->sendWelcomeNotification(3);// envio de parametro rol tutor/familiar (3)
         }
         return $afiliadoempresa;
     }

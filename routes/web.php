@@ -92,9 +92,9 @@ Route::prefix('user')
             });
         Route::get('home', 'Home\AfiliadoHomeController@index')->name('home');
 
-        Route::get('redirectfacebook/{rol}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
+        Route::get('redirectfacebook/{rol}/{action}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
         Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
-        Route::get('redirectgmail/{rol}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
+        Route::get('redirectgmail/{rol}/{action}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
         Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
 
