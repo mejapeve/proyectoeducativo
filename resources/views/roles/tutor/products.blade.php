@@ -3,35 +3,37 @@
 @section('content-tutor-index')
    <div class="d-none-result d-none" ng-controller="tutorProductsCtrl" ng-init="init()" >
         <div class="row no-gutters" ng-show="products && products.length > 0">
-          <h6 class="mb-5">Actualmente cuentas con diferentes productos con nosotros</h6>
-          <div ng-repeat="product in products" class="col-lg-6 col-12 mb-3">
-            <div ng-show="product.type_product_id === 0" class="d-flex">
-                <img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
-                <div class="row">
-                   <h6 class="col-12 ml-3">Secuencia @{{product.sequence.name}}</h6>
-                   <p class="fs--3 ml-3 col-12  pr-5">Esta guía de aprendizaje consta de : Situación generadora, guía de saberes, ruta de viaje y los 8 momentos que contienen : Pregunta central, ciencia en contexto, experiencia cientíﬁcas y + conexiones</p>
-                </div>
-            </div>
-            
-            <div ng-show="product.type_product_id === 1" class="d-flex">
-                <img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
-                <div class="row">
-                   <h6 class="col-12 ml-3">Experiencia @{{product.sequence.name}}</h6>
-                   <p class="fs--3 ml-3 col-12  pr-5">Consta de diversas experiencias científicas</p>
-                </div>
-            </div>
-            
-            <div ng-show="product.type_product_id === 2" class="d-flex">
-                <img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
-                <div class="row">
-                   <h6 class="col-12 ml-3">Momentos de @{{product.sequence.name}}</h6>
-                   <p class="fs--3 ml-3 col-12 pr-5">Consta de diveros momentos</p>
-                </div>
-            </div>
-          </div>
+          <h6 class="mt-3 mb-4"> Actualmente cuentas con diferentes productos con nosotros.</h6>
+		  <div class="row">
+			  <div ng-repeat="product in products" class="col-lg-6 col-12 mb-3">
+				<div ng-show="product.type_product_id === 0" class="d-flex">
+					<img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
+					<div class="row">
+					   <h6 class="col-12 ml-3">Secuencia @{{product.sequence.name}}</h6>
+					   <p class="fs--3 ml-3 col-12  pr-5">Esta guía de aprendizaje consta de : Situación generadora, guía de saberes, ruta de viaje y los 8 momentos que contienen : Pregunta central, ciencia en contexto, experiencia cientíﬁcas y + conexiones</p>
+					</div>
+				</div>
+				
+				<div ng-show="product.type_product_id === 1" class="d-flex">
+					<img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
+					<div class="row">
+					   <h6 class="col-12 ml-3">Experiencia @{{product.sequence.name}}</h6>
+					   <p class="fs--3 ml-3 col-12  pr-5">Consta de diversas experiencias científicas</p>
+					</div>
+				</div>
+				
+				<div ng-show="product.type_product_id === 2" class="d-flex">
+					<img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
+					<div class="row">
+					   <h6 class="col-12 ml-3">Momentos de @{{product.sequence.name}}</h6>
+					   <p class="fs--3 ml-3 col-12 pr-5">Consta de diveros momentos</p>
+					</div>
+				</div>
+			  </div>
+		   </div>
         </div>
         <div class="fs--1" ng-show="products && products.length === 0">
-          <p>Aún no cuentas con productos con nosotros</p>
+          <h6>Aún no cuentas con productos con nosotros</h6>
         </div>
         <div class="p-3 border-lg-y col-lg-2 w-100"
                style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="products">

@@ -26,5 +26,11 @@ class ShoppingCart extends Model
         return $this->hasMany(ShoppingCartProduct::class,'shopping_cart_id','id');
 
     }
+	
+    public function payment_status(){
+
+        return $this->belongsTo(PaymentStatus::class,'payment_status_id','id');
+
+    }
 
 }

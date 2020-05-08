@@ -106,6 +106,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
     Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
     Route::get('{empresa}/tutor/productos', 'TutorController@showProducts')->middleware('role:tutor')->name('tutor.products');
+    Route::get('{empresa}/tutor/historial_de_pagos', 'TutorController@showHistory')->middleware('role:tutor')->name('tutor.history');																																  
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');
@@ -174,6 +175,7 @@ Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers
 
 Route::get('get_students_tutor', 'TutorController@get_students_tutor')->name('get_students_tutor');
 Route::get('get_products_tutor', 'TutorController@get_products')->name('get_products_tutor');
+Route::get('get_history_tutor', 'TutorController@get_history_tutor')->name('get_history_tutor');
 
 
 Route::get('list_files', 'BulkLoadController@list_files')->name('list_files');

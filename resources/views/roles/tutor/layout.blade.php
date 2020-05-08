@@ -11,10 +11,10 @@
 			<div class="container">
 				<div class="content">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							@include('roles/tutor/profile')
 						</div>
-						<div class="col-md-8">
+						<div class="col-md-9">
 							<div class="mb-3 card">
 								<div class="card-header">
 									<ul class="nav">
@@ -49,9 +49,9 @@
 										</li>
 										<li class="nav-item nav-item-tutor">
 											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.history' ) selected @endif"												
-												href="{{route('tutor.inscriptions','conexiones')}}">
+												href="{{route('tutor.history','conexiones')}}">
 												<i class="fas fa-dollar-sign icon"></i>
-												<small class="fs--2 mb-1 text-700 font-weight-bold" style="font-size: .55444rem!important;"> Historial de pagos</small>
+												<small class="fs--2 mb-1 text-700 font-weight-bold" style="font-size: .55444rem!important;line-height: 1.2;"> Historial de pagos</small>
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">

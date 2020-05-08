@@ -9,6 +9,9 @@ use App\Models\ConectionAffiliatedStudents;
 use App\Models\AffiliatedAccountService;
 use App\Models\AffiliatedContentAccountService;
 use App\Traits\CreateUserRelations;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingCartProduct;
+use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +19,7 @@ class TutorController extends Controller
 {
     //
     use CreateUserRelations;
+    use RelationRatingPlan;
 
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -41,6 +45,12 @@ class TutorController extends Controller
         return view('roles.tutor.products')->with('tutor',$tutor);
     }
 
+    public function showHistory (Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+        $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+        return view('roles.tutor.history')->with('tutor',$tutor);
+    }
+
     public function register_student (Request $request) {
 
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -49,7 +59,7 @@ class TutorController extends Controller
         return redirect()->route('tutor',session('name_company' ));
     }
 
-    public function get_products_tutor (Request $request ){
+    public function get_students_tutor (Request $request ){
 
         $company = Companies::where('nick_name',session('name_company'))->first();
         $user_id = auth('afiliadoempresa')->user()->id;
@@ -68,7 +78,7 @@ class TutorController extends Controller
         return $students;
     }
 
-    public function get_products(Request $request ) {
+    public function get_products_tutor(Request $request ) {
 
         $user_id = auth('afiliadoempresa')->user()->id;
         
@@ -77,14 +87,6 @@ class TutorController extends Controller
             ->where('init_date', '<=', date('Y-m-d').' 00:00:00')
             ->where('end_date', '>=', date('Y-m-d').' 24:59:59')
             ->get();
-        /*$accountServices = CompanySequence::with('rating_plan','affiliated_content_account_service')
-        ->join('affiliated_account_services.','=',)
-        ->where('affiliated_account_services.company_affiliated_id','=',$user_id)
-        ->where('init_date', '<=', date('Y-m-d').' 00:00:00')
-        ->where('end_date', '>=', date('Y-m-d').' 24:59:59')
-        ->get();*/
-        
-        //return $accountServices;
         
         $ids = AffiliatedAccountService::with('rating_plan')
 		->where('company_affiliated_id','=',$user_id)
@@ -95,6 +97,19 @@ class TutorController extends Controller
 
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
     }
+	
+	public function get_history_tutor(Request $request) {
+		$shoppingCarts = ShoppingCart::
+			with('payment_status','rating_plan', 'shopping_cart_product')->
+			where([
+			['company_affiliated_id', $request->user('afiliadoempresa')->id],
+			['payment_status_id','!=', 1],
+		])->get();
+		
+        $shoppingCarts = $this->relation_rating_plan($shoppingCarts);
+        //return $shoppingCarts;
+        return response()->json(['data' => $shoppingCarts], 200);
+	}
 
     public function validate_password (Request $request, $company,$password){
 

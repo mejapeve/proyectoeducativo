@@ -2161,7 +2161,7 @@ pre code {
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #e6edf5
+    border-bottom: 2px solid #e6edf5;
 }
 
 .table tbody+tbody {
@@ -5734,10 +5734,10 @@ input[type=button].btn-block {
 
 .page-link:hover {
     z-index: 2;
-    color: #fff;
+    color: #000;
     text-decoration: none;
-    background-color: #000;
-    border-color: #000
+    background-color: #e6edf5;
+    border-color: #e6edf5;
 }
 
 .page-link:focus {
@@ -5759,9 +5759,9 @@ input[type=button].btn-block {
 
 .page-item.active .page-link {
     z-index: 3;
-    color: #fff;
-    background-color: #000;
-    border-color: #000
+    color: #000;
+    background-color: #e6edf5;
+    opacity: 0.6;
 }
 
 .page-item.disabled .page-link {
@@ -20064,4 +20064,22 @@ display: flex;
     border-right: 26px solid transparent;
     border-left: 24px solid transparent;
     border-top: 25px solid #428bca
+}
+
+.conex-table {
+
+}
+
+.conex-table .card-header {
+    border: 1px solid;
+}
+
+.dataTables_paginate.paging_simple_numbers,
+.dataTables_empty,
+.dataTables_info {
+    font-size: 10px;
+}
+
+.dataTables_empty {
+    padding: 23px!important;
 }
