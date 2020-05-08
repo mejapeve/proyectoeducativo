@@ -174,7 +174,7 @@ Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_gr
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->    name('get_teachers_company');
 
 Route::get('get_students_tutor', 'TutorController@get_students_tutor')->name('get_students_tutor');
-Route::get('get_products_tutor', 'TutorController@get_products')->name('get_products_tutor');
+Route::get('get_products_tutor', 'TutorController@get_products_tutor')->name('get_products_tutor');
 Route::get('get_history_tutor', 'TutorController@get_history_tutor')->name('get_history_tutor');
 
 
