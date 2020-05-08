@@ -77,7 +77,7 @@ Route::post('conexiones/admin/update_date_expiration_content_user', 'AdminContro
 Route::get('conexiones/admin/plans_view', 'AdminController@plans_view')->middleware('role:admin')->name('plans_view');
 Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
 
-
+Route::post('edit_image_perfil', 'TutorController@edit_image_perfil')->middleware('role:tutor')->name('edit_image_perfil');
 
 
 

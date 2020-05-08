@@ -162,6 +162,33 @@ class TutorController extends Controller
             return response()->json(['message'=>'algo salio mal, intente de nuevo'],200);
         }
 
+    }
+
+    public function edit_image_perfil (Request $request){
+        if ($request->hasFile('image'))
+        {
+
+            if ($request->file('image')->isValid())
+            {
+                $destinationPath = 'users/avatars/';
+                $extension = $request->file('image')->getClientOriginalExtension();
+                $fileName = auth('afiliadoempresa')->user()->id.'.'.$extension;
+                $request->file('image')->move($destinationPath, $fileName);
+
+                $afiliadoempresa = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+                $afiliadoempresa->url_image = asset('/users/avatars/').'/'.$fileName;
+                $afiliadoempresa->save();
+                return response()->json([ 'valid' => true, 'imagenNueva' => $afiliadoempresa->url_image]);
+            }
+            else{
+
+                return response()->json([ 'valid' => false]);
+            }
+
+        }else{
+            dd($request->all(),123);
+        }
+
 
     }
 

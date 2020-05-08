@@ -171,6 +171,10 @@ MyApp.controller("TutorProfileCtrl", ["$scope", "$http", function($scope, $http)
                 break;
         }
     }
+    $scope.getFile = () => {
+        document.getElementById("upfile").click();
+    }
+
 }]);
 
 

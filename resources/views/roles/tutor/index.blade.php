@@ -12,7 +12,10 @@
                 <img class="rounded-pill" src="{{asset('images/icons/default-avatar.png')}}" width="60px" style="margin:-15px;">
             @endif
 			</div>
-            <div class="col-3"><button class="btn btn-sm btn-primary" ng-click="registerUserForm()">Cambiar</button></div>
+            <div class="col-3">
+                <div style="cursor: pointer" class="btn btn-sm btn-primary" id="yourBtn" ng-click="getFile()">Cambiar</div>
+                <div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="subMethod(this)" ng /></div>
+            </div>
         </div>
         <div class="row pl-4 pb-4 pt-1 pr-4">
             <div class="col-3">Nombre</div>
@@ -86,4 +89,26 @@
     </div>
 
     <script src="{{ asset('angular/controller/TutorProfileCtrl.js') }}" defer></script>
+    <script>
+        function subMethod(obj) {
+            var data = new FormData();
+            data.append('image', obj.files[0]);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "{{route('edit_image_perfil')}}",
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                success: function (response, xhr, request){
+                    
+                    $('.rounded-pill,.rounded-circle ').attr("src",response.imagenNueva+"?timestamp=" + new Date().getTime());
+                }
+            });
+        }
+    </script>
 @endsection
