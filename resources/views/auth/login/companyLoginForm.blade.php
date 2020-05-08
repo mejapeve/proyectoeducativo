@@ -51,7 +51,7 @@
                   </div>
                </div>
                <div class="mt-2 custom-control">
-                  <label class="label"><a href="{{route('password.sendlink',$company->nick_name,1)}}">¿ Olvidó sus datos ?</a></label>
+                  <label class="label"><a href="{{route('password.sendlink',[$company->nick_name,1])}}">¿ Olvidó sus datos ?</a></label>
                </div>
             </form>
          </div>
