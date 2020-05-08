@@ -115,8 +115,9 @@ class LoginController extends Controller
         }
         if($socialAction ==='login'){
             $user = Socialite::driver('facebook')->stateless()->user();
-            if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
-                $afiliadoempresa = $this->createAfiliado($user,'facebook');
+            $afiliadoempresa = AfiliadoEmpresa::where('email',$user->email)->first();
+
+            if($afiliadoempresa !== null) {
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
                 $redirect_to_portal = session('redirect_to_portal');
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
@@ -186,8 +187,8 @@ class LoginController extends Controller
         }
         if($socialAction ==='login'){
             $user = Socialite::driver('google')->stateless()->user();
-            if(AfiliadoEmpresa::where('email',$user->email)->first() !== null) {
-                $afiliadoempresa = $this->createAfiliado($user,'facebook');
+            $afiliadoempresa = AfiliadoEmpresa::where('email',$user->email)->first();
+            if($afiliadoempresa !== null) {
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
                 $redirect_to_portal = session('redirect_to_portal');
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
