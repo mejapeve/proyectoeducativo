@@ -16,6 +16,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
         }).
         then(function (response) {
             $scope.students = response.data;
+			console.log($scope.students);
             $('.d-none-result.d-none').removeClass('d-none');
 			
         }).catch(function (e) {
@@ -70,7 +71,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             $scope.errorMessageRegister="";
             $scope.newStudent.name= response.data.data.name;
             $scope.newStudent.last_name= response.data.data.last_name;
-            $scope.newStudent.birthday= new Date (response.data.data.birthday);
+            $scope.newStudent.birthday= response.data.data.birthday ? new Date (response.data.data.birthday) : null;
             $scope.newStudent.user_name= response.data.data.user_name;
             $scope.newStudent.id = response.data.data.id;
             $scope.validateUserName = true;
