@@ -65,7 +65,7 @@ class ShoppingCartController extends Controller
             ));
         }
         //dd($preference);
-        return view('shopping.pending_shopping_cart')->with("preference", $preference);
+        return view('shopping.shopping_cart_layout')->with("preference", $preference);
     }
 
     public function get_shopping_cart(Request $request)
