@@ -107,6 +107,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
     Route::get('{empresa}/tutor/productos', 'TutorController@showProducts')->middleware('role:tutor')->name('tutor.products');
     Route::get('{empresa}/tutor/historial_de_pagos', 'TutorController@showHistory')->middleware('role:tutor')->name('tutor.history');																																  
+    Route::get('{empresa}/tutor/carrito_de_compras', 'TutorController@showWishList')->middleware('role:tutor')->name('tutor.wishList');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
     Route::get('{empresa}/student/avatar', 'AvatarController@index')->middleware('role:student','company')->name('avatar');

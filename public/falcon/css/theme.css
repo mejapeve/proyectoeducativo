@@ -19541,6 +19541,10 @@ footer .navbar-light {
     text-align: center;
 }
 
+.text-align-right {
+    text-align: right;
+}
+
 .fade-message {
     transition: all linear 0.5s;
 }

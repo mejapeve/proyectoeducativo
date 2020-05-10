@@ -50,7 +50,11 @@ class TutorController extends Controller
         $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
         return view('roles.tutor.history')->with('tutor',$tutor);
     }
-
+    public function showWishList(Request $request){
+        $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
+        $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+        return view('roles.tutor.wish_list')->with('tutor',$tutor);
+    }
     public function register_student (Request $request) {
 
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);

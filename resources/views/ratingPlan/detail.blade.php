@@ -63,10 +63,8 @@
                              <span>@{{moment.name}}</span>
                          </div>
                          <div class="text-left" ng-repeat="moment in sequence.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
-                            <div class="text-left" ng-repeat="experience in moment.experiences">
-                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="experience.isSelected" name="check_experience_@{{moment.id}}" ng-change="onCheckChange(sequence,moment,experience)"/>
-                             <span>@{{experience.tittle}}</span>
-                            </div>
+                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_@{{moment.id}}" ng-change="onCheckChange(sequence,moment)"/>
+                             <span>@{{moment.name}}</span>
                          </div>
                      </div>
                   </div>

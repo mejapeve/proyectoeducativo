@@ -55,10 +55,11 @@
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">
-											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.shoppingcart' ) selected @endif"
-											href="{{route('tutor.inscriptions','conexiones')}}">
+											<a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.wishList' ) selected @endif"
+											href="{{route('tutor.wishList','conexiones')}}">
 												<i class="far fa-list-alt icon"></i>
 												<small class="fs--2 mb-1 text-700 font-weight-bold"> Lista de deseos</small>
+												
 											</a>
 										</li>
 										<li class="nav-item nav-item-tutor">

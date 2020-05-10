@@ -52,7 +52,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         if(!$scope.ratingPlan) return;
         
         //Rating plan for sequence
-        if( $scope.ratingPlan.type_rating_plan_id === 1) {
+        if( $scope.ratingPlan.type_rating_plan_id === type_sequence) {
             var totalSequences = 0;
             
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
@@ -80,8 +80,8 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 }
             }
         }
-        //Rating plan for moment
-        else if($scope.ratingPlan.type_rating_plan_id === 2) {
+        //Rating plan for moment or experience
+        else if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
             var totalMoments = 0;
             if(sequence.isSelected) {
                 $('#moment_div_responsive_'+sequence.id).addClass('show');
@@ -119,52 +119,12 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 }
             }
         }
-        //Rating plan for experiences
-        else if($scope.ratingPlan.type_rating_plan_id === 3) {
-            var totalExperiences = 0;
-            if(sequence.isSelected) {
-                $('#moment_div_responsive_'+sequence.id).addClass('show');
-            }
-            else {
-                $('#moment_div_responsive_'+sequence.id).removeClass('show');            
-            }
-            
-            angular.forEach($scope.sequences, function(sequenceTmp, key) {
-              if(sequenceTmp.isSelected) {
-                angular.forEach(sequenceTmp.moments, function(momentTmp, key) {
-                    angular.forEach(momentTmp.experiences, function(experienceTmp, key) {
-                        if(experienceTmp.isSelected) totalExperiences++;
-                    });
-                });
-              }
-            });
-            
-            if(totalExperiences > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
-                moment.isSelected = false;
-                swal({
-                  title: "Número máximo de experiencias permitidas",
-                  type: "error",
-                  buttons: true,
-                  dangerMode: true,
-                })
-            }
-            else { 
-                $scope.selectComplete = ( totalExperiences === $scope.ratingPlan.count || $scope.ratingPlan.count === 0) && totalExperiences > 0;
-                if($scope.selectComplete) {
-                    $('.confirm_rating').addClass("btn-primary");
-                    $('.confirm_rating').removeClass("btn-outline-primary");
-                }
-                else {
-                    $('.confirm_rating').removeClass("btn-primary");
-                    $('.confirm_rating').addClass("btn-outline-primary");
-                }
-            }
-        }
     
     }
     
     $scope.onContinueElements = function() {
-        window.scrollTo( 0, 0 );
+        
+		window.scrollTo( 0, 0 );
         
         function searchElementKit(elementKit) {
             for(var i=0;i<$scope.elementsKits.length;i++) {
@@ -218,33 +178,18 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         //retrive products to add shoppingCart
         var products = [];
         var moment = null;
-        var experience = null;
         for(var s = 0; s < $scope.sequences.length; s++) {
             var sequenceTmp = $scope.sequences[s];
             if(sequenceTmp.isSelected) {
                 if($scope.ratingPlan.type_rating_plan_id === type_sequence) {
                     products.push({id:sequenceTmp.id});
                 }
-                if($scope.ratingPlan.type_rating_plan_id === type_moment) {
+                if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
                     
                     for(var i=0; i < sequenceTmp.moments.length; i++ ) {
                         var moment = sequenceTmp.moments[i];
                         if(moment.isSelected) {
                             products.push({id:moment.id});        
-                        }
-                    }
-                }
-                
-                if($scope.ratingPlan.type_rating_plan_id === type_experience) {
-                        for(var i=0; i < sequenceTmp.moments.length; i++ ) {
-                        moment = sequenceTmp.moments[i];
-                        if(moment.experiences) {
-                            for(var j=0; j<moment.experiences.length;j++) {
-                                experience = moment.experiences[j];
-                                if(experience.isSelected) {
-                                    products.push({id:experience.id});
-                                }
-                            }
                         }
                     }
                 }
@@ -286,15 +231,24 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             data: data
         }).
         then(function (response) {
-            $('#move').removeClass('fa fa-spinner fa-spin');
-            var message = response.data.message || 'Se ha registrado el producto correctamente';
-            swal('Conexiones',message,'success');
-            $('#move').next().removeClass('d-none');
-            window.location = '/carrito_de_compras';
+			if(response && response.data && typeof response.data === 'object') {
+				$('#move').removeClass('fa fa-spinner fa-spin');
+				var message = response.data.message || 'Se ha registrado el producto correctamente';
+				swal('Conexiones',message,'success');
+				$('#move').next().removeClass('d-none');
+			   window.location = '/carrito_de_compras';
+			}
+			else {
+				$scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, por favor intenta nuevamente';
+				swal('Conexiones',$scope.errorMessageFilter,'error');
+				$('#move').removeClass('fa fa-spinner fa-spin');
+				$('#move').next().removeClass('d-none');
+			}
             
         }).catch(function (e) {
-            $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, compruebe su conexión a internet';
+            $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, comprueba tu conexión a internet';
             swal('Conexiones',$scope.errorMessageFilter,'error');
+			$('#move').removeClass('fa fa-spinner fa-spin');
             $('#move').next().removeClass('d-none');
         });
     }
