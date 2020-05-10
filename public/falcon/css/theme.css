@@ -20087,3 +20087,23 @@ display: flex;
 .dataTables_empty {
     padding: 23px!important;
 }
+
+
+@media(max-width:730px) {
+	.min-content-height {
+		min-height: 46vw;
+	}
+}
+
+@media(min-width:730px) {
+	.min-content-height {
+		min-height: 25vw;
+	}
+}
+
+		
+.modal-menu.register {
+	top: 0px;
+	margin-left: 34vw;
+	padding-top: 4vw;
+}
