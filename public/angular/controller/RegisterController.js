@@ -10,11 +10,10 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
     $scope.departmentId = null;
     $scope.showCitySelect = true;
     $scope.messageError = null;
-   $scope.registrer_ini = true;
-    $scope.termsConditions = $('#terms').html();
+    $scope.registrer_ini = true;
+	$scope.termsConditions = $('#terms').html();
     
    $scope.init = function(errorEmailSocial,email) {
-        $scope.registrer_ini = true;
         if(errorEmailSocial){
             swal('Conexiones',`El correo ${email} ya existe en educonexiones.`,'warning');
         }

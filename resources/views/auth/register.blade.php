@@ -2,7 +2,8 @@
 
 @section('content')
 <section class="py-0" ng-controller="registerController" @if(isset($errorEmailSocial)) ng-init="init('{{$errorEmailSocial}}','{{$email}}')" @else ng-init="init()" @endif>
-   <div class="container-fluid d-none-result d-none" ng-hide="registrer_ini">
+	
+   <div class="container-fluid d-none-result d-none" ng-show="!registrer_ini || @if($errors->any()>0) true @else false @endif">
       <div class="flex-center no-gutters row">
          <div class="col-xxl-5 col-lg-10">
             <div class="overflow-hidden z-index-1 card">
@@ -195,11 +196,15 @@
       </div>
    </div>
    
-    <div ng-show="registrer_ini" class="container-fluid dropdown-menu-card no-gutters row">
-        <div class="modal-backdrop fade show"></div>
-        <div class="modal-menu min-content-height register">
+    <div ng-show="registrer_ini || {{$errors->any()>0}}" class="container-fluid no-gutters card w-50vw">
+        
+        <div class="p-4" style="padding-bottom: 0px!important;">
+               <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Crea tu cuenta</h6>
+        </div>
+        <div class="modal-menu min-content-height pl-md-9 pl-md-12 pt-4">
+           
            <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
-                <button type="button" class="btn btn-light btn-block d-flex h-100" ng-click="registrer_ini=false">
+                <button type="button" class="btn btn-secondary btn-block d-flex h-100" ng-click="registrer_ini=false">
                     <i class="far fa-edit fs-2 mr-2"></i>
                     <span class="fs--1">Formulario de ingreso</span>
                      

@@ -9031,22 +9031,21 @@ button.bg-dark:focus {
     height: auto!important
 }
 
-.h-25vw {
-    height: 25vw;
+.w-25vw {
+    width: 25vw;
 }
 
-.h-50vw {
-    height: 50vw;
+.w-50vw {
+    width: 50vw;
 }
 
-.h-75vw {
-    height: 75vw;
+.w-75vw {
+    width: 75vw;
 }
 
-.h-100vw {
-    height: 100vw;
+.w-100vw {
+    width: 100vw;
 }
-
 
 .mw-100 {
     max-width: 100%!important
@@ -18291,6 +18290,18 @@ button.bg-soft-dark:focus {
     .w-md-auto {
         width: auto!important
     }
+    .w-md-25vw {
+        width: 25vw!important
+    }
+    .w-md-50vw {
+        width: 50vw!important
+    }
+    .w-md-75vw {
+        width: 75vw!important
+    }
+    .w-md-100vw {
+        width: 100vw!important
+    }
     .h-md-25 {
         height: 25%!important
     }
@@ -20088,22 +20099,6 @@ display: flex;
     padding: 23px!important;
 }
 
-
-@media(max-width:730px) {
-	.min-content-height {
-		min-height: 46vw;
-	}
-}
-
-@media(min-width:730px) {
-	.min-content-height {
-		min-height: 25vw;
-	}
-}
-
-		
-.modal-menu.register {
-	top: 0px;
-	margin-left: 34vw;
-	padding-top: 4vw;
+.min-content-height {
+    min-height: 278px
 }

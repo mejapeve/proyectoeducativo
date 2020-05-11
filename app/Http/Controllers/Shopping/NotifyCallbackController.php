@@ -73,7 +73,7 @@ class NotifyCallbackController extends Controller
 					}
 				}
             }
-            return redirect()->route('tutor', ['empresa' => 'conexiones']);
+            return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
         }
     }
 

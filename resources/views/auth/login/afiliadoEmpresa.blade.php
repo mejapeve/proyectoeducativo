@@ -1,16 +1,17 @@
 @extends('layouts.app_side')
 
 @section('content')
-    <div class="row">
-        <div style="margin-top: 15px" class="border-top-4 col-md-6 col-sm-12 justify-content-center">
+    <div class="justify-content-center">
+    <div class=" row">
+        <div style="margin-top: 15px" class="border-top-4 col-md-6 col-sm-12">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                     <img class="ml-8" src="{{asset('images/icons/register-student.png')}}" width="auto" height="70px" />
-                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoEstudiante-80.png')}}" width="110px" height="110px"/>
+                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoEstudiante-80.png')}}" width="90px" height="90px"/>
                     </div>
                     
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <form method="POST" action="{{ route('user.login','1') }}">
                             @csrf
 
@@ -42,18 +43,18 @@
                                 @enderror
                             </div>
 
-                            <div class="form-check form-group">
+                            <div class="form-check form-group d-flex">
                                 <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
                                 <label for="exampleCheck" class="form-check-label">Recordar datos</label>
-                            </div>
-
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="ml-3">
                                     <input type="hidden" name="company" value="{{$company->id}}"/>
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Entrar') }}
                                     </button>
                                 </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
                             </div>
                             
                             <div class="mt-2 custom-control">
@@ -61,10 +62,7 @@
                                 <label class="label"><a href="{{route('password.sendlink',[$company->nick_name,1])}}">¿ Olvidó sus datos ?</a></label>
                                 @endif
                             </div>
-                            
                         </form>
-                        <br>
-                        
                     </div>
                 </div>
             </div>
@@ -74,9 +72,9 @@
                 <div class="card">
                     <div class="card-header">
                         <img class="ml-8" src="{{asset('images/icons/register-tutor.png')}}" width="auto" height="70px" />
-                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoAdulto-80.png')}}" width="110px" height="110px"/>
+                        <img class="ml-3 d-flex" src="{{asset('images/icons/iconoAdulto-80.png')}}" width="90px" height="90px"/>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body pt-0">
                         <form method="POST" action="{{ route('user.login','3') }}">
                             @csrf
                             
@@ -105,18 +103,21 @@
                                 @enderror
                             </div>
                             
-                            <div class="form-check form-group">
+                            <div class="form-check form-group d-flex">
                                 <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
                                 <label for="exampleCheck" class="form-check-label">Recordar datos</label>
-                            </div>
-                            
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
+                                <div class="ml-3">
                                     <input type="hidden" name="company" value="{{$company->id}}"/>
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Entrar') }}
                                     </button>
+                                    <a class="btn btn-secondary" href="{{route('registerForm')}}">
+                                        {{ __('Registro') }}
+                                    </a>
                                 </div>
+                            </div>
+                            
+                            <div class="form-group row mb-0">
                                 @if ($errors->any())
                                 {{ $errors }}
                                   @endif
@@ -129,38 +130,26 @@
 
                             </div>
                         </form>
-                        <br>
+                        
                         <div class="row">
-                            <div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
-                                <a href="{{ route('user.redirectfacebook',[encrypt(3),'login'] )}}" class="btn btn-primary btn-block" style="margin-top: 2px">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <i class="fab fa-facebook"></i> 
-                                    </div>    
-                                    <div class="col-10 text-left">    
-                                      <span>Iniciar sesión con Facebook</span>
-                                    </div> 
-                                </div>
-                                </a>
+                            <div id="formFacebook" action="{{ route('user.redirectfacebook',[encrypt(3),'register']) }}" class="col-6 mt-2"  style="height:43px">
+                                <button type="button" class="btn btn-primary btn-block d-flex h-100" ng-click="goToFacebook()">
+                                    <i class="fab fa-facebook fs-3 mr-2"></i>
+                                    <span class="fs--1">Registrar con Facebook</span>
+                                </button>
                             </div>
-                            <div class="col-md-12 col-lg-12 col-sm-12 social-button-margin">
-                                <a href="{{ route('user.redirectgmail',[encrypt(3),'login']) }}" class="btn btn-primary btn-block" style="margin-top: 2px; background-color: #dd4b39;border-color: rgb(221, 75, 57);">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <i class="fab fa-google"></i>
-                                    </div>    
-                                    <div class="col-10 text-left">    
-                                      <span>Iniciar sesión con Gmail</span>
-                                    </div> 
-                                </div>
-                                </a>
-                                
-                                 
+                            <div id="formGmail" action="{{ route('user.redirectgmail',[encrypt(3),'register']) }}" class="col-6" style="height:43px">
+                                <button type="button" class="btn btn-primary btn-block  d-flex mt-2 h-100" 
+                                style="background-color: #dd4b39;border-color: rgb(221, 75, 57);" ng-click="goToGmail()">
+                                  <i class="fab fa-google fs-2 mr-2"></i>
+                                  <span class="fs--1">Registrar con Gmail</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
