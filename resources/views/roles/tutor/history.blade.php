@@ -13,7 +13,7 @@
 @section('content-tutor-index')
    <div class="container" ng-controller="tutorHistoryCtrl" ng-init="init()" >
         
-		<h6>Historial de pagos</h6>
+        <h6>Historial de pagos</h6>
         
         <div class="card row mt-3 mb-4" style="">
             <div class="card-body p-0">
@@ -26,7 +26,7 @@
                     <th class="sort">Descripción</th>
                     <th class="sort">Precio</th>
                     <th class="sort">Estado</th>
-                    <th class="sort">Transacción</th>
+                    <th class="sort">Id Aprobación</th>
                 </tr>
                 </thead>
             </table>

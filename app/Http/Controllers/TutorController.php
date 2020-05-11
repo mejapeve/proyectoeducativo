@@ -93,27 +93,27 @@ class TutorController extends Controller
             ->get();
         
         $ids = AffiliatedAccountService::with('rating_plan')
-		->where('company_affiliated_id','=',$user_id)
-		->where([
+        ->where('company_affiliated_id','=',$user_id)
+        ->where([
             ['init_date','<=',date('Y-m-d').' 00:00:00'],
             ['end_date','>=',date('Y-m-d').' 24:59:59']
         ])->pluck('id');
 
        return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
     }
-	
-	public function get_history_tutor(Request $request) {
-		$shoppingCarts = ShoppingCart::
-			with('payment_status','rating_plan', 'shopping_cart_product')->
-			where([
-			['company_affiliated_id', $request->user('afiliadoempresa')->id],
-			['payment_status_id','!=', 1],
-		])->get();
-		
+    
+    public function get_history_tutor(Request $request) {
+        $shoppingCarts = ShoppingCart::
+            with('payment_status','rating_plan', 'shopping_cart_product')->
+            where([
+            ['company_affiliated_id', $request->user('afiliadoempresa')->id],
+            ['payment_status_id','!=', 1],
+            ])->orderBy('payment_init_date', 'DESC')->get();
+        
         $shoppingCarts = $this->relation_rating_plan($shoppingCarts);
         //return $shoppingCarts;
         return response()->json(['data' => $shoppingCarts], 200);
-	}
+    }
 
     public function validate_password (Request $request, $company,$password){
 

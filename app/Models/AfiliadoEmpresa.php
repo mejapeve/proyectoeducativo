@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\MyResetPassword;
 use App\Notifications\WelcomeMail;
+use App\Models\ShoppingCart;
 use Illuminate\Auth\Passwords\PasswordBroker;
 
 class AfiliadoEmpresa extends Model
@@ -117,7 +118,7 @@ class AfiliadoEmpresa extends Model
         return $this->belongsTo(Country::class,'country_id','id');
 
     }
-	public function cityName (){
+    public function cityName (){
 
         return $this->belongsTo(City::class,'city_id','id');
 
@@ -133,20 +134,28 @@ class AfiliadoEmpresa extends Model
     {
         $this->notify(new MyResetPassword($token,session('name_company'),session('rol')));
     }
-	
-	public function sendWelcomeNotification($rol)
+    
+    public function sendWelcomeNotification($rol)
     {
         $token = app(PasswordBroker::class)->createToken($this);
         $this->notify(new WelcomeMail($token, session('name_company'),$rol));
     }
 
-	public function company_name() {
+    public function company_name() {
         return session('name_company' );
     }
 
     public function affiliated_account_services (){
 
         return $this->hasMany(AffiliatedAccountService::class,'company_affiliated_id','id');
+    }
+
+    public function last_payment_date() {
+        $payment_statys_success = 3;
+        $user_id = $this->id;
+        $lastShoppingCart = ShoppingCart::where(['company_affiliated_id'=> $user_id, 'payment_status_id'=>$payment_statys_success])
+        ->orderBy('payment_init_date', 'DESC')->first();
+        return $lastShoppingCart->payment_init_date;
     }
 
 }
