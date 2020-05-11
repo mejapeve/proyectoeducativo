@@ -2,7 +2,7 @@
   <button aria-label="Toggle navigation" id="toggleMenu" type="button" class="navbar-toggler">
   <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="text-decoration-none navbar-brand text-left ml-3" id="topLogo" href="#">
+  <a class="text-decoration-none navbar-brand text-left ml-3" id="topLogo" href="{{route('/')}}">
      <div class="d-flex align-items-center">
         <img class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
         <div class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold">

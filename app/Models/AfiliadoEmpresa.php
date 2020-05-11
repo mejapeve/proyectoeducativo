@@ -155,7 +155,12 @@ class AfiliadoEmpresa extends Model
         $user_id = $this->id;
         $lastShoppingCart = ShoppingCart::where(['company_affiliated_id'=> $user_id, 'payment_status_id'=>$payment_statys_success])
         ->orderBy('payment_init_date', 'DESC')->first();
-        return $lastShoppingCart->payment_init_date;
+        if(isset($lastShoppingCart)) {
+           return $lastShoppingCart->payment_init_date;
+        }
+        else {
+             return null;
+        }
     }
 
 }

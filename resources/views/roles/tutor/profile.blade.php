@@ -29,12 +29,14 @@
                </div>
                <div class="col-12">{{auth('afiliadoempresa')->user()->email}}</div>
             </div>
+			@if(auth('afiliadoempresa')->user()->last_payment_date())
             <div class="row">
                <div class="col-12">
                   <p class="font-weight-semi-bold mb-1 mt-2 ">Fecha del último pago </p>
                </div>
                <div class="font-italic text-400 col-12">{{auth('afiliadoempresa')->user()->last_payment_date()}}</div>
             </div>
+			@endif
             <div class="row">
                <div class="col-12">
                   <p class="font-weight-semi-bold mb-1 mt-2 ">Fecha de creación de usuario </p>
