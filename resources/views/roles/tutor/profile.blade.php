@@ -37,10 +37,9 @@
             </div>
             <div class="row">
                <div class="col-12">
-                  <p class="font-weight-semi-bold mb-1 mt-2 ">Creado el</p>
-                  <span class="font-italic text-400 col-8">{{auth('afiliadoempresa')->user()->created_at}}</span>
+                  <p class="font-weight-semi-bold mb-1 mt-2 ">Fecha de creación de usuario </p>
                </div>
-
+               <div class="font-italic text-400 col-12">{{auth('afiliadoempresa')->user()->created_at}}</div>
             </div>
          </div>
       </div>
