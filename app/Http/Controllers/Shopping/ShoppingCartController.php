@@ -18,54 +18,7 @@ class ShoppingCartController extends Controller
 
     public function index(Request $request)
     {
-        // return view('shopping.pending_shopping_cart');
-        //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
-        //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
-        MercadoPago\SDK::setAccessToken("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
-        
-		
-		# Create a preference object
-        $preference = new MercadoPago\Preference();
-        $preference->auto_return = "approved";
-        $preference->back_urls = array(
-            "success" => route('notification_gwpayment_callback'),
-            "failure" => route('notification_gwpayment_failure_callback'),
-        );
-		/*DC: simular pago ************************
-		$preference = new Preference();
-		/*************************/
-        
-		
-		// Crea un ítem en la preferencia
-        $item = new MercadoPago\Item();
-        //dd(MercadoPago\SDK::config());
-        $item->title = 'Yotopo y los astronautas';
-        $item->quantity = 2;
-        $item->unit_price = 50;
-        $item->currency_id = 'USD';
-        $preference->items = array($item);
-        
-        
-        //$preference->notification_url = 'https://localhost8080/notification_gwpayment_callback';
-        $preference->payment_methods = array(
-                "excluded_payment_types" => array(
-                    array("id" => "ticket",
-                    ),
-                ),
-        );
-
-        if(auth("afiliadoempresa")->user()){
-        $preference->save();
-//dd($preference,ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-    //['payment_status_id', 1 ]])->get());
-        $update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-											['payment_status_id', 1 ]])->
-			update(array(
-                'payment_transaction_id' => $preference->id,
-            ));
-        }
-        //dd($preference);
-        return view('shopping.shopping_cart_layout')->with("preference", $preference);
+        return view('shopping.shopping_cart_layout');
     }
 
     public function get_shopping_cart(Request $request)
@@ -185,7 +138,7 @@ class ShoppingCartController extends Controller
         return $shoppingCart;
     }
 
-    public function update(Request $request)
+    public function delete(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -193,8 +146,7 @@ class ShoppingCartController extends Controller
             $ids = explode(',', $data['ids']);
             $update = ShoppingCart::whereIn('id', $ids)
                 ->update(array(
-                    'payment_status_id' => $data['payment_status_id'],
-                    'payment_transaction_id' => $data['payment_transaction_id'],
+                    'payment_status_id' => 5,
                 ));
             if (intval($data['payment_status_id']) === 3) {
                 $shoppingCarts = ShoppingCart::with('shopping_cart_product')
@@ -232,42 +184,44 @@ class ShoppingCartController extends Controller
 
         return response()->json(['data' => $update, 'message' => 'se ha modificado el producto correctamente'], 200);
     }
+    
+    public function get_preference_initPoint() {
+        
+        //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
+        //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
+        MercadoPago\SDK::setAccessToken("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
+        
+        # Create a preference object
+        $preference = new MercadoPago\Preference();
+        $preference->auto_return = "approved";
+        $preference->back_urls = array(
+            "success" => route('notification_gwpayment_callback'),
+            "failure" => route('notification_gwpayment_failure_callback'),
+        );
+        
+        
+        // Crea un ítem en la preferencia
+        $item = new MercadoPago\Item();
+        $item->title = 'Yotopo y los astronautas';
+        $item->quantity = 2;
+        $item->unit_price = 50;
+        $item->currency_id = 'USD';
+        $preference->items = array($item);
+        
+        
+        $preference->payment_methods = array(
+                "excluded_payment_types" => array(
+                    array("id" => "ticket",
+                    ),
+                ),
+        );
+        
+        $preference->save();
+        $update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+                                        ['payment_status_id', 1 ]])->
+                 update(['payment_transaction_id'=>$preference->id]);
+                 
+        return response()->json(['preference_id' => $preference->id, 'initPoint' => $preference->init_point, 'message' => 'preferencia creada correctamente'], 200);
+    }
 }
-
-
-
-/*
-class Preference {
-    public $id;
-    public $auto_return;
-    public $back_urls;
-    public $notification_url;
-    public $init_point;
-    public $sandbox_init_point;
-    public $operation_type;
-    public $additional_info;
-    public $external_reference;
-    public $expires;
-    public $expiration_date_from;
-    public $expiration_date_to;
-    public $collector_id;
-    public $client_id;
-    public $marketplace;
-    public $marketplace_fee;
-    public $differential_pricing;
-    public $payment_methods;
-    public $items;
-    public $payer;
-    public $shipments;
-    public $date_created;
-    public $sponsor_id;
-    public $processing_modes;
-    public $binary_mode;
-    public $taxes;
-    public $metadata;
-    public $tracks;
-	public function save($options = [])
-    { 
-	}
-
-}*/
+    

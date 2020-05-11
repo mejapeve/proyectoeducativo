@@ -9,20 +9,18 @@
    <div class="card-header d-none-result d-none">
      <div class="text-right">
        @guest('afiliadoempresa')
-       <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12 font-weight-bold">
+       <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <span class="fs--1 mt-2 col-10 text-right">Para continuar con la compra, primero debes registrarte</span>
          <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
          <span class="fs-lg-0 fs-md-0 fs-sm--1">Registro</span></button>
        </div>
        @endguest
        @auth('afiliadoempresa')
-       @if(isset($preference))
-       <h5 ng-show="shopping_carts.length>0" class="mb-2 justify-content-end col-12">
-         <a class="btn btn-outline-primary" ng-href="{{$preference->init_point}}">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1">Continuar Compra</span>
+       <h5 ng-show="shopping_carts.length > 0" class="mb-2 justify-content-end col-12">
+         <a class="btn btn-outline-primary" href="#" ng-click="getPreferenceInitPoint()">
+            <span class="fs-lg-0 fs-md-0 fs-sm--1"><i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Continuar Compra</span>
          </a>
        </h5>
-       @endif
        @endauth
      </div>
    </div>
@@ -43,7 +41,7 @@
               <div class="media-body">
                 <h5 class="fs-0"><a class="text-900">@{{shopping_cart.rating_plan.name}}</a></h5>
                 <h4 class="fs-0"><a class="text-600">@{{shopping_cart.rating_plan.description}}</a></h4>
-                <div class="fs--2 fs-md--1 text-danger cursor-pointer">Remover</div>
+                <div class="fs--2 fs-md--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
               </div>
             </div>
             <div class="p-3 col-4 text-align-right">
@@ -98,7 +96,7 @@
               <div class="media-body">
                 <h5 class="fs-0"><a class="text-900">@{{shopping_cart_product.kiStruct.name}}</a></h5>
                 <h4 class="fs-0"><a class="text-600">@{{shopping_cart_product.kiStruct.description}}</a></h4>
-                <div class="fs--2 fs-md--1 text-danger cursor-pointer">Remover</div>
+                <div class="fs--2 fs-md--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
               </div>
             </div>
             </div>
@@ -146,24 +144,22 @@
        @endguest
 
        @auth('afiliadoempresa')
-       @if(isset($preference))
-       <h5 ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
-         <button class="btn btn-outline-primary" onclick="event.preventDefault(); document.getElementById('simulate-form').submit();">
-         <span class="fs-lg-0 fs-md-0 fs-sm--1">Simular Pago</span></button>
+       <h5 ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12 d-none-result d-none">
+         <button class="btn btn-outline-primary" ng-click="simulator()">
+         <span class="fs-lg-0 fs-md-0 fs-sm--1">
+         <i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Simular Pago</span>
+         </button>
          <form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
             @csrf
             <input type="text" name="collection_status" value="approved"/>
-            <input type="text" name="preference_id" value="{{$preference->id}}"/>
+            <input type="text" name="preference_id" id="preference_id" value=""/>
          </form>
-       </h5>
-       <h5  ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <button class="btn btn-outline-primary">
-            <a class="fs-lg-0 fs-md-0 fs-sm--1" ng-href="{{$preference->init_point}}">
-              Continuar Compra
-            </a>
+            <span class="fs-lg-0 fs-md-0 fs-sm--1" ng-click="getPreferenceInitPoint()">
+              <i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Continuar Compra
+            </span>
          </button>
        </h5>
-       @endif
        @endauth
      </div>
    </div>

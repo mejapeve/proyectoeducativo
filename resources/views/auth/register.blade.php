@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="py-0" ng-controller="registerController" @if(isset($errorEmailSocial)) ng-init="init('{{$errorEmailSocial}}','{{$email}}')" @else ng-init="init()" @endif>
-   <div class="container-fluid" ng-hide="registrer_ini">
+   <div class="container-fluid d-none-result d-none" ng-hide="registrer_ini">
       <div class="flex-center no-gutters row">
          <div class="col-xxl-5 col-lg-10">
             <div class="overflow-hidden z-index-1 card">
@@ -183,9 +183,9 @@
                         @endif
                         
                         @if(old('redirect_to_shoppingcart'))
-                            <input type="text" name="redirect_to_shoppingcart" value="{{old('redirect_to_shoppingcart')}}"/>
+                            <input ng-show="false" class="d-none-result d-none" type="text" name="redirect_to_shoppingcart" value="{{old('redirect_to_shoppingcart')}}"/>
                         @elseif(isset($redirect_to_shoppingcart))
-                           <input type="text" name="redirect_to_shoppingcart" value="{{$redirect_to_shoppingcart}}"/>
+                           <input ng-show="false" class="d-none-result d-none" type="text" name="redirect_to_shoppingcart" value="{{$redirect_to_shoppingcart}}"/>
                         @endif
                      </form>
                   </div>
@@ -195,33 +195,33 @@
       </div>
    </div>
    
-	<div ng-show="registrer_ini" class="container-fluid dropdown-menu-card no-gutters row">
-		<div class="modal-backdrop fade show"></div>
-		<div class="modal-menu min-content-height register">
-		   <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
-				<button type="button" class="btn btn-light btn-block d-flex h-100" ng-click="registrer_ini=false">
-					<i class="far fa-edit fs-2 mr-2"></i>
-					<span class="fs--1">Formulario de ingreso</span>
-					 
-				</button>
-			</div>
-			<div style="z-index:1041;"  id="formFacebook" 
-			action="{{ route('user.redirectfacebook',[encrypt(3),'register']) }}" 
-			class="col-12 mt-2"  style="height:43px">
-				<button type="button" class="btn btn-primary btn-block d-flex h-100" ng-click="goToFacebook()">
-					<i class="fab fa-facebook fs-3 mr-2"></i>
-					<span class="fs--1">Registrar con Facebook</span>
-				</button>
-			</div>
-			<div style="z-index:1041; height:43px"  id="formGmail" action="{{ route('user.redirectgmail',[encrypt(3),'register']) }}" class="col-12">
-				<button type="button" class="btn btn-primary btn-block  d-flex mt-2 h-100" 
-					   style="background-color: #dd4b39;border-color: rgb(221, 75, 57);z-index:1041;" ng-click="goToGmail()">
-				  <i class="fab fa-google fs-2 mr-2"></i>
-				  <span class="fs--1">Registrar con Gmail</span>
-				</button>
-			</div>
-		</div>
-	</div>
+    <div ng-show="registrer_ini" class="container-fluid dropdown-menu-card no-gutters row">
+        <div class="modal-backdrop fade show"></div>
+        <div class="modal-menu min-content-height register">
+           <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
+                <button type="button" class="btn btn-light btn-block d-flex h-100" ng-click="registrer_ini=false">
+                    <i class="far fa-edit fs-2 mr-2"></i>
+                    <span class="fs--1">Formulario de ingreso</span>
+                     
+                </button>
+            </div>
+            <div style="z-index:1041;"  id="formFacebook" 
+            action="{{ route('user.redirectfacebook',[encrypt(3),'register']) }}" 
+            class="col-12 mt-2"  style="height:43px">
+                <button type="button" class="btn btn-primary btn-block d-flex h-100" ng-click="goToFacebook()">
+                    <i class="fab fa-facebook fs-3 mr-2"></i>
+                    <span class="fs--1">Registrar con Facebook</span>
+                </button>
+            </div>
+            <div style="z-index:1041; height:43px"  id="formGmail" action="{{ route('user.redirectgmail',[encrypt(3),'register']) }}" class="col-12">
+                <button type="button" class="btn btn-primary btn-block  d-flex mt-2 h-100" 
+                       style="background-color: #dd4b39;border-color: rgb(221, 75, 57);z-index:1041;" ng-click="goToGmail()">
+                  <i class="fab fa-google fs-2 mr-2"></i>
+                  <span class="fs--1">Registrar con Gmail</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
 
 <script id="terms" type="text/x-jQuery-tmpl">

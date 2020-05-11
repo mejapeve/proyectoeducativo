@@ -18,6 +18,8 @@ MyApp.controller("registerController", ["$scope", "$http", "$templateCache", fun
         if(errorEmailSocial){
             swal('Conexiones',`El correo ${email} ya existe en educonexiones.`,'warning');
         }
+        
+        $('.d-none-result').removeClass('d-none');
 
     };
     $http.get("https://geoip-db.com/json/").then(function (response1) {

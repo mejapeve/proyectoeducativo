@@ -106,7 +106,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
     Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
     Route::get('{empresa}/tutor/productos', 'TutorController@showProducts')->middleware('role:tutor')->name('tutor.products');
-    Route::get('{empresa}/tutor/historial_de_pagos', 'TutorController@showHistory')->middleware('role:tutor')->name('tutor.history');																																  
+    Route::get('{empresa}/tutor/historial_de_pagos', 'TutorController@showHistory')->middleware('role:tutor')->name('tutor.history');
     Route::get('{empresa}/tutor/carrito_de_compras', 'TutorController@showWishList')->middleware('role:tutor')->name('tutor.wishList');
     Route::get('{empresa}/student/', 'StudentController@index')->middleware('role:student')->name('student');
     Route::get('{empresa}/admin/', 'AdminController@index')->middleware('role:admin')->name('admin');
@@ -133,7 +133,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
 
 });
 
-//servcios carrito de comprar
+//servicios carrito de compras
 Route::group([],function (){
         Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
         Route::get('formulario_de_envio', 'Shopping\ShippingFormController@index')->name('shippingForm');
@@ -141,10 +141,11 @@ Route::group([],function (){
             session(['redirect_to_shoppingcart'=>true]);
             return redirect()->route('registerForm');
         })->name('registryWithPendingShoppingCart');
-        Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');//->middleware('auth:afiliadoempresa');
+        Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');
+        Route::get('get_preference_initPoint', 'Shopping\ShoppingCartController@get_preference_initPoint')->name('get_preference_initPoint');
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
-        Route::post('update_shopping_cart', 'Shopping\ShoppingCartController@update')->name('update_shopping_cart');//->middleware('auth:afiliadoempresa');
-        Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');//->middleware('auth:afiliadoempresa');
+        Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');
+        Route::post('delete_shopping_cart', 'Shopping\ShoppingCartController@delete')->name('delete_shopping_cart');
         Route::get('notification_gwpayment_callback', 'Shopping\NotifyCallbackController@notificacion_callback')->name('notification_gwpayment_callback');//->middleware('auth:afiliadoempresa');
         Route::get('notification_gwpayment_failure_callback', 'Shopping\NotifyFailureCallbackController@notificacion_failure_callback')->name('notification_gwpayment_failure_callback');//->middleware('auth:afiliadoempresa');
     }

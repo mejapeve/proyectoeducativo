@@ -21,14 +21,12 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
             $scope.affair = "";
             $scope.message = "";
             $scope.contactusForm.$setPristine(true);
-            console.log( $scope.contactusForm);
             $('#move').removeClass('fa fa-spinner fa-spin');
             $('#send').attr('disabled',false);
             swal('Conexiones',response.data[0]['message'],response.data[1]['status']);
         }, function onError(response) {
             $('#move').removeClass('fa fa-spinner fa-spin');
             $('#send').attr('disabled',false);
-            console.log(response)
             swal('Conexiones',response.data[0]['message'],response.data[1]['status']);
 
         });

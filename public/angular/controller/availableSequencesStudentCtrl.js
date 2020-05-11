@@ -12,10 +12,11 @@ MyApp.controller("availableSequencesStudentCtrl", ["$scope", "$http", function (
             method: "GET",
         }).
         then(function (response) {
-            console.log(response.data)
+            console.log(response.data);
             $scope.sequences = response.data;
         }).catch(function (e) {
             $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
+            swal('Conexiones',$scope.errorMessage,'error');
         });
     };    
     
