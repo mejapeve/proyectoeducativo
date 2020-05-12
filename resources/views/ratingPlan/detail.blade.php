@@ -6,7 +6,7 @@
     <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
       <span class="col">@{{ errorMessageFilter }}</span>
-      <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></a></i></span>
+      <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></i></a></span>
     </div>
     <div class="mb-3 card col-12" ng-show="ratingPlan">
       <div class="card-body w-100">
@@ -47,7 +47,7 @@
                     ng-repeat="sequence in sequences" style="border: 10px solid white;">
                   <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">
                      <div class="position-absolute" style="top:10px; transform : scale(2);">
-                         <input type="checkbox" ng-model="sequence.isSelected" name="check_sequence_@{{sequences.id}}" ng-change="onCheckChange(sequence)"/> 
+                         <input type="checkbox" ng-model="sequence.isSelected" name="check_sequence_"@{{sequences.id}} ng-change="onCheckChange(sequence)"/>
                      </div>
 
                      <div class="col-5">

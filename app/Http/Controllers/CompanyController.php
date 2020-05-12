@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AffiliatedCompanyRole;
 use App\Models\AfiliadoEmpresa;
 use App\Models\Companies;
 use App\Models\CompanyGroup;
 use App\Models\CompanySequence;
+use App\Models\ShoppingCart;
+
 use Illuminate\Http\Request;
 use DB;
 
@@ -24,13 +25,48 @@ class CompanyController extends Controller
     }
 
     public function get_company_sequences (Request $request,$company_id) {
-        
-        return CompanySequence::with('moments','moments.experiences','moments.moment_kit.kit.kit_elements.element','moments.moment_kit.element')->where('company_id',$company_id)
+        $activesPlan = [];
+        if(auth('afiliadoempresa')->user()){
+           $userId =  auth('afiliadoempresa')->user()->id;
+           $activesPlan = AfiliadoEmpresa::with('affiliated_account_services.affiliated_content_account_service',function($query){
+               $dt = new \DateTime();
+               $end_date = date('Y-m-d', strtotime('+ 1 day'));
+               $query->where([
+                   ['init_date','>=',$dt->format('Y-m-d')],
+                   ['end_date','<=',$end_date->format('Y-m-d')]
+               ]);
+           })->find($userId);
+           $shoppingCartPlan = ShoppingCart::with('shopping_cart_product')->where([
+               ['company_affiliated_id',$userId],
+               ['payment_status_id',1]
+           ])->get();
+        }else{
+            if (session_id() == "") {
+                session_start();
+            }
+            $shoppingCartPlan = ShoppingCart::with('shopping_cart_product')->where([
+                ['session_id',session_id()],
+                ['payment_status_id',1]
+            ])->get();
+        }
+
+        $companySequence = CompanySequence::select('id','name','description','url_image','keywords','areas','themes','objectives')->with(
+            'moments','moments.experiences','moments.moment_kit.kit.kit_elements.element','moments.moment_kit.element'
+        )
+            ->where('company_id',$company_id)
             ->where(function ($query) {
                 $dt = new \DateTime();
                 $query->where('expiration_date','>',$dt->format('Y-m-d H:i:s'))
                     ->orWhereNull('expiration_date');
             })->get();
+
+        return response()->json([
+            'data'=>[
+                ['activesPlan',$activesPlan],
+                ['shoppingCartPlan',$shoppingCartPlan],
+                ['companySequences',$companySequence]
+            ]
+        ],200);
     }
 
     public function get_company_groups (Request $request,$company_id){
