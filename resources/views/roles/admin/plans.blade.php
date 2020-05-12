@@ -52,6 +52,24 @@
                                 <label class="custom-control-label" for="customSwitch1">Plan gratuito</label>
                             </div>
                         </div>
+                        <div class="row" ng-repeat="x in plan.items" >
+                            <div class="form-group col-md-8">
+                                <label for="name">Descripción</label>
+                                <input class="form-control"   type="text" placeholder="Descripción" ng-model=x.description>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <button class="mt-4" ng-click="deleteItem($index)"> - </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="name">Descripción</label>
+                                <input class="form-control"   type="text" placeholder="Descripción" ng-model="plan.item">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <button class="mt-4" ng-click="addItem()"> + </button>
+                            </div>
+                        </div>
                         <div class="row" ng-show="freePlan">
                             <div class="form-group col-md-6">
                                 <label for="exampleFormControlSelect1">Secuencia</label>

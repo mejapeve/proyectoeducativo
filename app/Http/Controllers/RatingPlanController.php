@@ -36,6 +36,12 @@ class RatingPlanController extends Controller
         $ratingPlan->count = $data['quantity'];
         $ratingPlan->days = $data['days'];
         $ratingPlan->price = $data['cost'];
+        $itmes = @json_decode($data['itmes']);
+        $itemConcat = '';
+        foreach ($itmes as $item){
+            $itemConcat = $itemConcat.$item->description.'|';
+        }
+        $ratingPlan->description_items = $itemConcat;
         if($data['is_free']){
             $ratingPlan->is_free =   $data['is_free'];
             $ratingPlan->sequence_free_id =   $data['sequenceSelected'];

@@ -1,6 +1,7 @@
 MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
 
     $scope.plan={}
+    $scope.plan.items=[]
     $scope.freePlan
     $scope.moments
     $scope.route
@@ -52,7 +53,7 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
             method: "GET",
         }).
         then(function (response) {
-            $scope.plan.types = response.data.data;
+            $scope.plan.types = response.data.data
         }).catch(function (e) {
 
         });
@@ -61,7 +62,7 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
             method: "GET",
         }).
         then(function (response) {
-            $scope.plan.sequences = response.data.data;
+            $scope.plan.sequences = response.data.data
         }).catch(function (e) {
 
         });
@@ -74,19 +75,32 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
         const result = ($scope.plan.sequences).filter(res=>res.id == data ).map(ele=>ele.moments);
         $scope.plan.moments =  result[0]
     }
+
+    $scope.addItem = ()=> {
+        $scope.plan.items.push({'description':$scope.plan.item})
+        $scope.plan.item = ''
+        console.log($scope.plan.items);
+    }
+
+    $scope.deleteItem = (index) => {
+        ($scope.plan.items).splice(index, 1)
+        console.log(index,'index',$scope.plan.items)
+    }
     $scope.registerPlan = () =>{
 
         var formDatas = new FormData();
-        formDatas.append('name',$scope.plan.name);
-        formDatas.append('type_rating_plan_id',$scope.plan.typeSelected);
-        formDatas.append('quantity',$scope.plan.quantity);
-        formDatas.append('days',$scope.plan.days);
-        formDatas.append('description',$scope.plan.description);
-        formDatas.append('cost',$scope.plan.cost);
-        formDatas.append('is_free',$scope.plan.isFree);
+        formDatas.append('name',$scope.plan.name)
+        formDatas.append('type_rating_plan_id',$scope.plan.typeSelected)
+        formDatas.append('quantity',$scope.plan.quantity)
+        formDatas.append('days',$scope.plan.days)
+        formDatas.append('description',$scope.plan.description)
+        formDatas.append('cost',$scope.plan.cost)
+        formDatas.append('is_free',$scope.plan.isFree)
+        formDatas.append('itmes',JSON.stringify($scope.plan.items))
+
         if($scope.plan.isFree){
-            formDatas.append('sequenceSelected',$scope.plan.sequenceSelected);
-            formDatas.append('momentSelected',$scope.plan.momentSelected);
+            formDatas.append('sequenceSelected',$scope.plan.sequenceSelected)
+            formDatas.append('momentSelected',$scope.plan.momentSelected)
         }
         $http({
             url:$scope.route,
@@ -96,6 +110,7 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
 
         }).then((response)=>{
             $scope.plan={}
+            $scope.plan.items
             $scope.freePlan = false
             table.ajax.reload()
             swal({
