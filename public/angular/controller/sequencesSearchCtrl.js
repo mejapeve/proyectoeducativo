@@ -40,8 +40,10 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
         method: "GET",
     }).
     then(function (response) {
-        $scope.sequences = response.data;
-        $scope.responseData = response.data
+        
+		$scope.sequences = response.data.companySequences;
+        $scope.responseData = $scope.sequences;
+		
         var value = null;
         for(var i = 0; i<$scope.sequences.length; i++) {
             value = $scope.sequences[i];

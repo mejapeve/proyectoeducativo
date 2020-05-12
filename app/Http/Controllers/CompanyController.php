@@ -28,14 +28,14 @@ class CompanyController extends Controller
         $activesPlan = [];
         if(auth('afiliadoempresa')->user()){
            $userId =  auth('afiliadoempresa')->user()->id;
-           $activesPlan = AfiliadoEmpresa::with('affiliated_account_services.affiliated_content_account_service',function($query){
-               $dt = new \DateTime();
-               $end_date = date('Y-m-d', strtotime('+ 1 day'));
-               $query->where([
-                   ['init_date','>=',$dt->format('Y-m-d')],
-                   ['end_date','<=',$end_date->format('Y-m-d')]
-               ]);
-           })->find($userId);
+		   $activesPlan = AfiliadoEmpresa::with(['affiliated_account_services.affiliated_content_account_service'=>function($query){                
+				$dt = new \DateTime();                
+				$end_date = date('Y-m-d', strtotime('+ 1 day'));
+				$query->where([
+				   ['init_date','>=',$dt->format('Y-m-d')],
+				   ['end_date','<=',$end_date]
+				]);
+           }])->find($userId);
            $shoppingCartPlan = ShoppingCart::with('shopping_cart_product')->where([
                ['company_affiliated_id',$userId],
                ['payment_status_id',1]

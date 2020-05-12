@@ -40,7 +40,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             method: "GET",
         }).
         then(function (response) {
-            $scope.sequences = response.data ? response.data.data || response.data : response;
+            $scope.sequences = response.data.companySequences;
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando las guías de aprendizaje, compruebe su conexión a internet';

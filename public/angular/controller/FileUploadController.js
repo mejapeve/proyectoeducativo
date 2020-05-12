@@ -12,7 +12,7 @@ MyApp.controller('FileUploadController', ['$scope', "$http", function ($scope, $
 
         $http.get("/get_company_sequences/" + $scope.companyId)
             .then(function (res) {
-                $scope.sequences = res.data;
+                $scope.sequences = res.data.companySequences;
             })
 
         $http.get("/get_company_groups/" + $scope.companyId)
