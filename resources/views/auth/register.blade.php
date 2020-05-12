@@ -196,8 +196,7 @@
       </div>
    </div>
    
-    <div ng-show="registrer_ini || {{$errors->any()>0}}" class="container-fluid no-gutters card w-50vw">
-        
+    <div ng-hide="!registrer_ini || @if($errors->any()>0) true @else false @endif" class="container-fluid no-gutters card w-50vw">
         <div class="p-4" style="padding-bottom: 0px!important;">
                <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Crea tu cuenta</h6>
         </div>

@@ -37,14 +37,14 @@ class StudentController extends Controller
         return view('roles.student.available_sequences');
     }
     
-    public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id) {
+    public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
         $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
-        if($sequence->section_1) {
+		if($sequence->section_1) {
             $section = json_decode($sequence->section_1, true);
+            $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            
             return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
         else {
@@ -52,7 +52,7 @@ class StudentController extends Controller
         }
     }
 
-    public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id) {
+    public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $sequence = CompanySequence::with('moments')->where('id',$sequence_id)->first();
         
@@ -69,8 +69,8 @@ class StudentController extends Controller
         if($sequence->section_2) {
             $this->validation_access_sequence_content($account_service_id);
             $section = json_decode($sequence->section_2, true);
+            //$section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            //dd($data['sequence']->moments->where('order',1)->first()->id);
             return view('roles.student.sequences_section_2',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
         else {
@@ -78,7 +78,7 @@ class StudentController extends Controller
         }
     }
     
-    public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id) {
+    public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
         $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
@@ -88,15 +88,18 @@ class StudentController extends Controller
             $data = array_merge(['sequence'=>$sequence],$section);
             $this->validation_access_sequence_content($account_service_id);
             $section = json_decode($sequence->section_3, true);
+            $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.sequences_section_1',$data)
+			->with('account_service_id',$account_service_id)
+			->with('sequence_id',$sequence_id);
         }
         else {
             $sequence->section_3='{}';
         }
     }
     
-    public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id) {
+    public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
         $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
@@ -105,6 +108,7 @@ class StudentController extends Controller
             $section = json_decode($sequence->section_4, true);
             $data = array_merge(['sequence'=>$sequence],$section);
             $section = json_decode($sequence->section_4, true);
+            $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
             return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }

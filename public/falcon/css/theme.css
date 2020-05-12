@@ -9031,6 +9031,22 @@ button.bg-dark:focus {
     height: auto!important
 }
 
+.h-25vw {
+    height: 25vw;
+}
+
+.h-50vw {
+    height: 50vw;
+}
+
+.h-75vw {
+    height: 75vw;
+}
+
+.h-100vw {
+    height: 100vw;
+}
+
 .w-25vw {
     width: 25vw;
 }

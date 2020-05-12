@@ -54,7 +54,10 @@ class CompanySequencesSeeder extends Seeder
             $sequenceN->areas = $secuence['areas'];
             $sequenceN->themes = $secuence['themes'];
             $sequenceN->objectives = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed';
-
+			$sequenceN->section_1 = '{"section":{"id":1,"name":"Situación Generadora"},"sequenceSectionIndex":"section_1","sequenceSectionPartIndex":"part_1","part_1":{"container":{"w":874,"h":489},"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg"}}';
+			$sequenceN->section_2 = '{"section":{"id":2,"name":"Ruta de viaje"},"sequenceSectionIndex":"section_2","sequenceSectionPartIndex":"part_1","part_1":{"container":{"w":874,"h":482},"background_image":"images/sequences/sequence20/rutaViaje-20.jpg"}}';
+			$sequenceN->section_3 = '{"section":{"id":3,"name":"Guía de saberes"},"sequenceSectionIndex":"section_3","sequenceSectionPartIndex":"part_1","part_1":{"container":{"w":874,"h":385},"elements":[{"id":"20200512110438477","type":"image-element","url_image":"images/sequences/sequence20/bgSaberes-01.png","w":351,"h":386,"ml":-15,"mt":0,"$$hashKey":"object:638","bindWidthHeight":true},{"id":"20200512110539801","type":"image-element","url_image":"images/sequences/sequence20/btn1-01.png","w":204,"h":107,"ml":278,"mt":14,"$$hashKey":"object:913","bindWidthHeight":true},{"id":"20200512110611298","type":"image-element","url_image":"images/sequences/sequence20/btn2-01.png","w":204,"h":106,"ml":225,"mt":137,"$$hashKey":"object:1155","bindWidthHeight":true},{"id":"20200512110701901","type":"image-element","url_image":"images/sequences/sequence20/btn3-01.png","w":204,"h":107,"ml":215,"mt":269,"$$hashKey":"object:1430","bindWidthHeight":true}]}}';
+			$sequenceN->section_4 = '{"section":{"id":4,"name":"Punto de encuentro"},"sequenceSectionIndex":"section_4","sequenceSectionPartIndex":"part_1","part_1":{"container":{"w":874,"h":385},"elements":[{"id":"20200512110821566","type":"image-element","url_image":"images/sequences/sequence20/puntoEncuentro-20.png","w":406,"h":274,"ml":450,"mt":111,"$$hashKey":"object:1913","bindWidthHeight":true}]}}';
             $sequenceN->save();
             
             $this->addMoment($sequenceN->id, 1, 2);
@@ -77,7 +80,10 @@ class CompanySequencesSeeder extends Seeder
             $momentN->name = "moment ".$moment_order;
             $momentN->description = "";
             $momentN->objectives = "Comparar, agrupar y ordenar objetos a partir de sus características|Identificar la necesidad de medir en la vida cotidiana";
-
+            $momentN->section_1 = '{"section":{"type":3,"name":"Experiencia científica"},"part_1":{"momentSectionPartIndex":"part_1","container":{"w":874,"h":385},"elements":[{"id":"20200512111245895","type":"text-element","fs":13,"ml":67,"mt":76,"w":100,"h":26,"text":"Parte 1","class":"font-weight-extra-bold"},{"id":"20200512111358665","type":"text-area-element","fs":12,"ml":100,"mt":122,"w":400,"h":200,"text":"Para el desarrollo de esta experiencia científica deben contar con el kit para armar la pista de esferas.\n \nPrimero, abran la caja donde están guardadas las partes de la pista, luego observen detenidamente cada una de las figuras."}]},"part_2":{},"part_3":{},"part_4":{},"momentSectionIndex":"0"}';
+            $momentN->section_2 = '{"section":{"type":1,"name":"Pregunta Central"},"part_1":{"momentSectionPartIndex":"part_1","container":{"w":874,"h":385},"elements":[{"id":"20200512111052837","type":"text-element","fs":12,"ml":10,"mt":76,"w":100,"h":26,"text":"Porque medimos las cosas?"}]},"part_2":{},"part_3":{},"part_4":{},"momentSectionIndex":"0"}';
+            $momentN->section_3 = '{"section":{"type":2,"name":"Ciencia en contexto"},"part_1":{"momentSectionPartIndex":"part_1","container":{"w":874,"h":385},"elements":[{"id":"20200512111425941","type":"text-element","fs":12,"ml":10,"mt":76,"w":100,"h":26,"text":"Ciencia en contexto"}]},"part_2":{},"part_3":{},"part_4":{},"momentSectionIndex":"2"}';
+            $momentN->section_4 = '{"section":{"type":4,"name":"+ Conexiones"},"part_1":{"momentSectionPartIndex":"part_1","container":{"w":874,"h":385},"elements":[{"id":"20200512111440868","type":"text-element","fs":12,"ml":10,"mt":76,"w":100,"h":26,"text":"Ideas para más conexiones"}]},"part_2":{},"part_3":{},"part_4":{},"momentSectionIndex":"3"}';
             $momentN->save();
             
             for($i = 0; $i < $experiences; ++$i) {
