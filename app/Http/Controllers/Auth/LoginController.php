@@ -111,7 +111,19 @@ class LoginController extends Controller
             }
             else{
                 Auth::guard('afiliadoempresa')->login( AfiliadoEmpresa::where('email', $user->email)->first());
-                $redirect_to_portal = session('redirect_to_portal');
+				$user_id = auth('afiliadoempresa')->user();
+				if (session_id() == "") {
+					session_start();
+				}
+				$update = ShoppingCart:: where('session_id', session_id())
+						 ->where('payment_status_id', 1)
+						 ->update(['company_affiliated_id' => $user_id, 'session_id'=>'NULL']);
+				if($update>0){
+					$redirect_to_portal = 'carrito_de_compras';
+				}
+				else {
+					$redirect_to_portal = session('redirect_to_portal');
+				}
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
         }

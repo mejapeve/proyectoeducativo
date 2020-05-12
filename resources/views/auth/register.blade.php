@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="py-0" ng-controller="registerController" @if(isset($errorEmailSocial)) ng-init="init('{{$errorEmailSocial}}','{{$email}}')" @else ng-init="init()" @endif>
-	
+    
    <div class="container-fluid d-none-result d-none" ng-show="!registrer_ini || @if($errors->any()>0) true @else false @endif">
       <div class="flex-center no-gutters row">
          <div class="col-xxl-5 col-lg-10">

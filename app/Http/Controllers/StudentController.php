@@ -41,7 +41,7 @@ class StudentController extends Controller
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
         $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
-		if($sequence->section_1) {
+        if($sequence->section_1) {
             $section = json_decode($sequence->section_1, true);
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
@@ -91,8 +91,8 @@ class StudentController extends Controller
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
             return view('roles.student.sequences_section_1',$data)
-			->with('account_service_id',$account_service_id)
-			->with('sequence_id',$sequence_id);
+            ->with('account_service_id',$account_service_id)
+            ->with('sequence_id',$sequence_id);
         }
         else {
             $sequence->section_3='{}';

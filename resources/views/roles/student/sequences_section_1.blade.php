@@ -41,40 +41,40 @@
                         </div>
 
                         <div class="d-none-result d-none  mb-3 card background-sequence-card" w="{{$container['w']}}" h="{{$container['h']}}">
-						    @if(isset($background_image))
-							<img src="{{asset($background_image)}}" class="background-sequence-image"/>
-						    @endif
+                            @if(isset($background_image))
+                            <img src="{{asset($background_image)}}" class="background-sequence-image"/>
+                            @endif
                             <div class="card-body pb-0">
-							  @if(isset($elements))
+                              @if(isset($elements))
                               @foreach($elements as $element)
-							    @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
-								   <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
-										class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
-									{!! $element['text'] !!}
-								   </div>
-								@endif
-								@if($element['type'] == 'image-element')
-									<div class="z-index-1" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
-								        <img src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
-									</div>	
-								@endif
-								@if($element['type'] == 'video-element')
-								   <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
-										<iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
-										   webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
-										</iframe>
-									</div>
-								@endif
-							  @endforeach
-							  @endif
+                                @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
+                                   <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
+                                        class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
+                                    {!! $element['text'] !!}
+                                   </div>
+                                @endif
+                                @if($element['type'] == 'image-element')
+                                    <div class="z-index-1" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
+                                        <img src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
+                                    </div>    
+                                @endif
+                                @if($element['type'] == 'video-element')
+                                   <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
+                                        <iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
+                                           webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
+                                        </iframe>
+                                    </div>
+                                @endif
+                              @endforeach
+                              @endif
                             </div>   
                         </div>
                     </div>
                 
-					<div class="mb-3 card fade show d-md-none d-sm-block" id="sidemenu-sequences-content">
+                    <div class="mb-3 card fade show d-md-none d-sm-block" id="sidemenu-sequences-content">
                         @include('roles/student/sidebar_sequences')
-					</div>
-				</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
