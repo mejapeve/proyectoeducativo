@@ -110,7 +110,9 @@ class LoginController extends Controller
                 return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
             else{
-                return redirect()->route('registerForm',[true,$user->email]);
+                Auth::guard('afiliadoempresa')->login( AfiliadoEmpresa::where('email', $user->email)->first());
+                $redirect_to_portal = session('redirect_to_portal');
+                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
         }
         if($socialAction ==='login'){
@@ -119,15 +121,17 @@ class LoginController extends Controller
 
             if($afiliadoempresa !== null) {
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-                $redirect_to_portal = session('redirect_to_portal');
-                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }else{
-                return redirect()->route('registerForm');
+                $afiliadoempresa = $this->createAfiliado($user, 'gmail');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
             }
+            $redirect_to_portal = session('redirect_to_portal');
+            return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
         }
     }
     /**
      * Redirect the user to the GitHub authentication page.
+     *
      *
      * @return \Illuminate\Http\Response
      */
@@ -181,8 +185,11 @@ class LoginController extends Controller
                     $redirect_to_portal = session('redirect_to_portal');
                     return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
                 }
-            } else {
-                return redirect()->route('registerForm', [true, $user->email]);
+            }
+            else {
+                Auth::guard('afiliadoempresa')->login( AfiliadoEmpresa::where('email', $user->email)->first());
+                $redirect_to_portal = session('redirect_to_portal');
+                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }
         }
         if($socialAction ==='login'){
@@ -190,11 +197,12 @@ class LoginController extends Controller
             $afiliadoempresa = AfiliadoEmpresa::where('email',$user->email)->first();
             if($afiliadoempresa !== null) {
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-                $redirect_to_portal = session('redirect_to_portal');
-                return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
             }else{
-                return redirect()->route('registerForm');
+                $afiliadoempresa = $this->createAfiliado($user, 'gmail');
+                Auth::guard('afiliadoempresa')->login($afiliadoempresa);
             }
+            $redirect_to_portal = session('redirect_to_portal');
+            return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
         }
 
     }

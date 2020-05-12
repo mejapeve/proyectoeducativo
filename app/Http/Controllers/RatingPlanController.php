@@ -7,6 +7,7 @@ use App\Models\MomentExperience;
 use App\Models\RatingPlan;
 use App\Models\SequenceMoment;
 use App\Models\AffiliatedAccountService;
+use App\Models\TypesRatingPlan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -31,15 +32,17 @@ class RatingPlanController extends Controller
         $ratingPlan = new RatingPlan();
         $ratingPlan->name = $data['name'];
         $ratingPlan->description = $data['description'];
-        $ratingPlan->image_url = $data['image_url'];
-        $ratingPlan->price = $data['price'];
-        $ratingPlan->is_free = $data['is_free'];
         $ratingPlan->type_rating_plan_id = $data['type_rating_plan_id'];
-        $ratingPlan->count = $data['count'];
+        $ratingPlan->count = $data['quantity'];
         $ratingPlan->days = $data['days'];
+        $ratingPlan->price = $data['cost'];
+        if($data['is_free']){
+            $ratingPlan->is_free =   $data['is_free'];
+            $ratingPlan->sequence_free_id =   $data['sequenceSelected'];
+            $ratingPlan->moment_free_ids =   $data['momentSelected'];
+        }
         $ratingPlan->save();
         return response()->json(['data'=>$ratingPlan],200);
-
     }
 
     public function update(Request $request){
@@ -89,6 +92,13 @@ class RatingPlanController extends Controller
             })
             ->rawColumns(['edit'])
             ->make(true);
+    }
+
+    public function get_types_plans(){
+
+        $typesRatingPlans = TypesRatingPlan::all();
+        return response()->json(['data'=>$typesRatingPlans],200);
+
     }
 
 }

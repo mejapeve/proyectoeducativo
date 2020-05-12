@@ -200,12 +200,16 @@ Route::get('get_kit_element/element/{element_id}', 'KitElementController@get_ele
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 Route::get('get_rating_plan/{rating_plan_id}', 'RatingPlanController@get_rating_plan_detail')->name('get_rating_plan');
 Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');
+Route::get('get_types_plans', 'RatingPlanController@get_types_plans')->name('get_types_plans');
+
 
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
 Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
 Route::post('update_sequence', 'SequencesController@update')->name('update_sequence');
 Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section');
+Route::get('get_all_sequences/{company_id?}', 'SequencesController@get_all_sequences')->name('get_all_sequences');
+
 //servicios momentos
 Route::post('update_moment', 'MomentController@update')->name('update_moment');
 Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section');
@@ -221,6 +225,8 @@ Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('
 Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student');
 //servicio validar nombre de usuario
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
+
+
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

@@ -166,4 +166,17 @@ class SequencesController extends Controller {
 
 
     }
+
+    public function get_all_sequences(Request $request, $companyId = 1){//id conexiones
+
+        $companySequences = CompanySequence::with('moments')->where('company_id',$companyId)
+            ->where(function ($query) {
+                $dt = new \DateTime();
+                $query->where('expiration_date','>',$dt->format('Y-m-d H:i:s'))
+                    ->orWhereNull('expiration_date');
+            })->get();
+
+        return response()->json(['data'=>$companySequences],200);
+
+    }
 }
