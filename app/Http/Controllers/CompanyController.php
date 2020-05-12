@@ -61,11 +61,9 @@ class CompanyController extends Controller
             })->get();
 
         return response()->json([
-            'data'=>[
-                ['activesPlan',$activesPlan],
-                ['shoppingCartPlan',$shoppingCartPlan],
-                ['companySequences',$companySequence]
-            ]
+            'activesPlan'=>$activesPlan,
+            'shoppingCartPlan'=>$shoppingCartPlan,
+            'companySequences'=>$companySequence
         ],200);
     }
 
