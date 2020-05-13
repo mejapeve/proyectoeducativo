@@ -17,12 +17,15 @@ class CheckCompany
     public function handle($request, Closure $next)
     {
         $empresa = $request->route('empresa');
-        $company = Companies::where('nick_name', $empresa)->first();
+        $company = cache()->tags('connection_companies_redis')->rememberForever('companies_redis',function(){
+            return Companies::all();//where('name',$rol) ->first();
+        });
+        $company = $company->where('nick_name', $empresa)->first();
         if($company) {
             return $next($request);
         }
         else {
-            return redirect()->route('page500',['companies'=>Companies::all()]);
+            return redirect()->route('page500',['companies'=>$company]);
         }
     }
 }
