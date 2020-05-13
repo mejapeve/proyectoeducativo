@@ -1,7 +1,7 @@
 MyApp.controller("profileStudentCtrl", function ($scope, $http) {
     $scope.customImage = null;
     $scope.urlImage = null;
-   $scope.validateUserName = true;
+    $scope.validateUserName = true;
    
     $scope.initProfile = function() {
         $('.d-none-result').removeClass('d-none');        
@@ -34,7 +34,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
       $http({
          url:"/edit_user_student/",
          method: "POST",
-         data: $scope.newStudent
+         data: data
       }).
       then(function (response) {
          $scope.loagingRegistry = false;

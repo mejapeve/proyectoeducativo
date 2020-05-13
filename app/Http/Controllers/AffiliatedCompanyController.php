@@ -28,11 +28,18 @@ class AffiliatedCompanyController extends Controller
         if($userStudent->exists()){
             $userStudent->name = $request->name;
             $userStudent->last_name = $request->last_name;
-            $userStudent->user_name = $request->user_name;
-            $userStudent->birthday = $request->birthday;
+            
+			if(isset($userStudent->user_name)) {
+				$userStudent->user_name = $request->user_name;
+				return response()->json(['user'=>$request->user_name],200);
+			}
+            if(isset($userStudent->birthday)) {
+				$userStudent->birthday = $request->birthday;
+				return response()->json(['birthday'=>$request->birthday],200);
+			}
             if(isset($request->password)) {
-                dd($request->password);
                 $userStudent->password =  Hash::make($request->password);
+				return response()->json(['password'=>$request->password],200);
             }
             $userStudent->save();        }
         return response()->json(['data'=>$userStudent],200);
