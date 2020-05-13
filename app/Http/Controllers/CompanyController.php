@@ -53,7 +53,12 @@ class CompanyController extends Controller
         }
 
         $companySequence = CompanySequence::select('id','name','description','url_image','keywords','areas','themes','objectives')->with(
-            'moments','moments.experiences','moments.moment_kit.kit.kit_elements.element','moments.moment_kit.element'
+            ['moments'=>function($query){
+                $query->select('id','sequence_company_id','order', 'name', 'description', 'objectives')
+                    ->with(['experiences'=>function($query){
+                        $query->select('id','sequence_moment_id','tittle','decription','objectives');
+                    },'moment_kit.kit.kit_elements.element','moment_kit.element']);
+            }]
         )
             ->where('company_id',$company_id)
             ->where(function ($query) {
