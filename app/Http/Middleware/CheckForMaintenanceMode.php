@@ -19,13 +19,11 @@ class CheckForMaintenanceMode
     protected $ips =
         [
             '172.21.0.1',
-            '244.244.244.244'
+            '181.60.148.128'
 
         ];
     protected $except =
         [
-            'info/politicas-de-privacidad',
-            'info/terminos-y-condiciones'
         ];
     /**
      * Create a new middleware instance.
@@ -51,8 +49,6 @@ class CheckForMaintenanceMode
 
         if ($this->app->isDownForMaintenance() && !in_array($request->getClientIp(), $this->ips))
         {
-            //dd($request->getClientIp(), $this->ips);
-            //Reviso si esta en la excepcion
             foreach ($this->except as $except) {
                 if ($except !== '/') {
                     $except = trim($except, '/');
