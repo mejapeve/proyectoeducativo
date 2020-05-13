@@ -19,7 +19,8 @@ class CheckForMaintenanceMode
     protected $ips =
         [
             '172.21.0.1',
-            '181.60.148.128'
+            '181.60.148.128',
+            '190.158.137.166'
 
         ];
     protected $except =
