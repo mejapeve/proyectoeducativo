@@ -20118,3 +20118,14 @@ display: flex;
 .min-content-height {
     min-height: 278px
 }
+
+.label_free {
+    top: 9px;
+    left: -9px;
+    background-color: yellow;
+    transform: rotate(-50deg);
+    font-size: 9px;
+    color: black;
+    padding: 3px;
+    /* opacity: 0.9; */
+}

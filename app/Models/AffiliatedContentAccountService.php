@@ -14,4 +14,9 @@ class AffiliatedContentAccountService extends Model
         return $this->hasOne(CompanySequence::class,'id','sequence_id');
 
     }
+    public function affiliated_account_services(){
+
+        return $this->hasOne(AffiliatedAccountService::class,'id','affiliated_account_service_id');
+
+    }
 }

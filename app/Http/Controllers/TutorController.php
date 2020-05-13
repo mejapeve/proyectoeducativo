@@ -86,20 +86,21 @@ class TutorController extends Controller
 
         $user_id = auth('afiliadoempresa')->user()->id;
         
-        $accountServices = AffiliatedAccountService::with('affiliated_content_account_service')->
+        $accountServices = AffiliatedAccountService::
             where('affiliated_account_services.company_affiliated_id','=',$user_id)
             ->where('init_date', '<=', date('Y-m-d').' 00:00:00')
             ->where('end_date', '>=', date('Y-m-d').' 24:59:59')
             ->get();
         
-        $ids = AffiliatedAccountService::with('rating_plan')
-        ->where('company_affiliated_id','=',$user_id)
+        $ids = AffiliatedAccountService::
+        where('company_affiliated_id','=',$user_id)
         ->where([
             ['init_date','<=',date('Y-m-d').' 00:00:00'],
             ['end_date','>=',date('Y-m-d').' 24:59:59']
         ])->pluck('id');
 
-       return AffiliatedContentAccountService::with('sequence')->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
+       return AffiliatedContentAccountService::with('affiliated_account_services.rating_plan','sequence')
+	   ->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
     }
     
     public function get_history_tutor(Request $request) {
