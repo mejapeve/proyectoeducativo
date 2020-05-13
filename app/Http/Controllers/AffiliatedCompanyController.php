@@ -16,15 +16,25 @@ class AffiliatedCompanyController extends Controller
     }
 
     public function edit_user_student(Request $request){
-        $userStudent = AfiliadoEmpresa::find($request->id);
+        if(isset($request->id)) {
+            $user_id = $request->id;
+            $tutor_id  = auth('afiliadoempresa')->user()->id;
+        }
+        else {
+            $user_id  = auth('afiliadoempresa')->user()->id;
+        }
+        
+        $userStudent = AfiliadoEmpresa::find($user_id);
         if($userStudent->exists()){
             $userStudent->name = $request->name;
             $userStudent->last_name = $request->last_name;
             $userStudent->user_name = $request->user_name;
             $userStudent->birthday = $request->birthday;
-            $userStudent->password =  Hash::make($request->password);
-            $userStudent->save();
-        }
+            if(isset($request->password)) {
+                dd($request->password);
+                $userStudent->password =  Hash::make($request->password);
+            }
+            $userStudent->save();        }
         return response()->json(['data'=>$userStudent],200);
     }
 

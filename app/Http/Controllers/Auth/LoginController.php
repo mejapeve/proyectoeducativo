@@ -173,6 +173,7 @@ class LoginController extends Controller
             if (AfiliadoEmpresa::where('email', $user->email)->first() === null) {
                 $afiliadoempresa = $this->createAfiliado($user, 'gmail');
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
+				$redirect_to_portal = session('redirect_to_portal');
 
                 $free_rating_plan_id = session()->pull('free_rating_plan_id');
                 $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
@@ -181,6 +182,7 @@ class LoginController extends Controller
                     $ratingPlan = RatingPlan::find($free_rating_plan_id);
                     if ($ratingPlan->is_free) {
                         $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
+						$redirect_to_portal = 'tutor.products';
                     }
                 }
 
@@ -194,7 +196,7 @@ class LoginController extends Controller
                 if ($redirect_shoppingcart) {
                     return redirect()->route('shoppingCart');
                 } else {
-                    $redirect_to_portal = session('redirect_to_portal');
+                    
                     return redirect()->route($redirect_to_portal, ['empresa' => 'conexiones']);
                 }
             }

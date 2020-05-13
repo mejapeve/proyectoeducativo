@@ -104,6 +104,7 @@ class RegisterController extends Controller
         $affiliated_company_role->save();
 
         $afiliado_empresa->sendWelcomeNotification($affiliated_company_role->rol_id);
+		$this->redirectTo = 'conexiones/tutor';
 
         session()->pull('free_rating_plan_id'); //remove cache to session
         if(isset($data['free_rating_plan_id'])){
@@ -111,20 +112,19 @@ class RegisterController extends Controller
             $ratingPlanFree = RatingPlan::find($free_rating_plan_id);
             if($ratingPlanFree && $ratingPlanFree->is_free) {
                 $this->addFreeRatingPlan($ratingPlanFree,$afiliado_empresa);
+				$this->redirectTo = 'conexiones/tutor/productos';
             }
         }
         if (session_id() == "") {
             session_start();
         }
-        ShoppingCart:: where('session_id', session_id())
+        
+		ShoppingCart:: where('session_id', session_id())
                  ->where('payment_status_id', 1)
                  ->update(['company_affiliated_id' => $afiliado_empresa->id, 'session_id'=>'NULL']);
         
         if(isset($data['redirect_to_shoppingcart'])){
             $this->redirectTo = 'carrito_de_compras';
-        }
-        else {
-            $this->redirectTo = 'conexiones/tutor';
         }
         
         return $afiliado_empresa;

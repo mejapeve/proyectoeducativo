@@ -2,38 +2,38 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
 
     
     $scope.initInscriptions = function() {
-		
-		$scope.students = [];
-		$scope.newStudent = {};
-		$scope.loagingRegistry = false;
-		$scope.newRegisterForm = false;
+        
+        $scope.students = [];
+        $scope.newStudent = {};
+        $scope.loagingRegistry = false;
+        $scope.newRegisterForm = false;
         $scope.editRegisterForm = false;
-		$scope.errorMessageRegister = "";
-		
+        $scope.errorMessageRegister = "";
+        
         $http({
             url:"/get_students_tutor/",
             method: "GET",
         }).
         then(function (response) {
             $scope.students = response.data;
-			console.log($scope.students);
+            console.log($scope.students);
             $('.d-none-result.d-none').removeClass('d-none');
-			
+            
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los estudiantes';
         });
     };
-	
-	$scope.registerUserForm = function (){
-		window.scrollTo( 0, 0 );
-		$scope.newStudent = {};
-		$scope.newRegisterForm=true;
-		$scope.errorMessageRegister="";
-	}
+    
+    $scope.registerUserForm = function (){
+        window.scrollTo( 0, 0 );
+        $scope.newStudent = {};
+        $scope.newRegisterForm=true;
+        $scope.errorMessageRegister="";
+    }
     
     $scope.onRegistry = function() {
-		$scope.loagingRegistry = true;
-		
+        $scope.loagingRegistry = true;
+        
         $http({
             url:"/register_student/",
             method: "POST",
@@ -41,17 +41,17 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
         }).
         then(function (response) {
             
-			$scope.loagingRegistry = false;
-			if(response.status === 200) {
-				swal({
-				  text: "Estudiante registrado exitosamente",
-				  type: "success",
-				  showCancelButton: false,
-				  showConfirmButton: false
-				}).catch(swal.noop);
-				
-				$scope.initInscriptions();
-			}
+            $scope.loagingRegistry = false;
+            if(response.status === 200) {
+                swal({
+                  text: "Estudiante registrado exitosamente",
+                  type: "success",
+                  showCancelButton: false,
+                  showConfirmButton: false
+                }).catch(swal.noop);
+                
+                $scope.initInscriptions();
+            }
         }).catch(function (e) {
             $scope.errorMessageRegister = 'Error registrando el estudiante';
             $scope.loagingRegistry = false;
@@ -84,7 +84,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
         });
     }
     $scope.onEdit = function() {
-	    if($scope.validateUserName){
+        if($scope.validateUserName){
             $scope.loagingRegistry = true;
             $http({
                 url:"/edit_user_student/",

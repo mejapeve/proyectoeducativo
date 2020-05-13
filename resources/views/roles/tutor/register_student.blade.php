@@ -47,11 +47,11 @@
               </span>
               @enderror
            </div>
-		   <span class="fs--1 pl-3">La plataforma asignará un usuario y contraseña que será enviada al correo electrónico registrado, esta podrá ser cambiada al validar la información. </span>
+           <span class="fs--1 pl-3">La plataforma asignará un usuario y contraseña que será enviada al correo electrónico registrado, esta podrá ser cambiada al validar la información. </span>
            <div class="form-row mt-3 pl-3">
-		      <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onRegistry()">
+              <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onRegistry()">
                  <div ng-show="loagingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
-				 {{ __('Finalizar registro') }}
+                 {{ __('Finalizar registro') }}
               </button>
               <span ng-show="errorMessageRegister" class="invalid-feedback" role="alert">
                  <strong>@{{errorMessageRegister}}</strong>
