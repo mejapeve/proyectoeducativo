@@ -9312,7 +9312,7 @@ button.bg-dark:focus {
 
 .ml-8,
 .mx-8 {
-    margin-left: 7.5rem!important
+    /* margin-left: 7.5rem!important; */
 }
 
 .m-9 {
@@ -20128,4 +20128,93 @@ display: flex;
     color: black;
     padding: 3px;
     /* opacity: 0.9; */
+}
+
+
+.line_up_beatyfull {
+    border-bottom: 1px solid gray;
+}
+
+.line_up_beatyfull + .line > .up {
+    position: absolute;
+    top: -11px;
+    left: 46%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0px 10.5px 12px 11.5px;
+    border-color: transparent transparent gray transparent;
+    line-height: 0px;
+    _border-color: #000000 #000000 gray #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+.line_up_beatyfull + .line > .up +  .overwrite {
+    position: absolute;
+    top: -10px;
+    left: 46.5%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 13px 10px;
+    border-color: transparent transparent #edf2f9 transparent;
+    line-height: 0px;
+    _border-color: #000000 #000000 #ff000d #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+.line_up_beatyfull + .line > .other {
+    position: absolute;
+    top: -5px;
+    left: 37.3%;
+    border-bottom: 5px solid gray;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    height: 0;
+    width: 69px;
+}
+
+.line_up_beatyfull + .line > .other-overwrite {
+    position: absolute;
+    top: -4px;
+    left: 38.4%;
+    width: 63px;
+    height: 0;
+    /* border-bottom: 4px solid red; */
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 4px solid #edf2f9;
+}
+
+
+.line_down_beatyfull {
+    border-bottom: 1px solid gray;
+}
+
+.line_down_beatyfull + .line > .down {
+    position: absolute;
+    top: 57px;
+    left: 46%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 11px 0 11px;
+    border-color: gray transparent transparent transparent;
+    line-height: 0px;
+    _border-color: gray #000000 #000000 #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+.line_down_beatyfull + .line > .down +  .overwrite {
+    position: absolute;
+    top: 57px;
+    left: 46.5%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 11px 10px 0 10px;
+    border-color: #edf2f9 transparent transparent transparent;
+    line-height: 0px;
+    _border-color: #ff000d #000000 #000000 #000000;
+    _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
 }

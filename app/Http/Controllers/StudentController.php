@@ -36,7 +36,12 @@ class StudentController extends Controller
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         return view('roles.student.available_sequences');
     }
-    
+	
+    public function show_achievements(Request $request) {
+        $request->user('afiliadoempresa')->authorizeRoles(['student']);
+		return view('roles.student.achievements_sequences',['student'=>$request->user('afiliadoempresa')]);
+    }
+
     public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);

@@ -29,7 +29,11 @@
                selected @endif">Mis cursos</a>
            <i class="fas fa-book-open fs-1"></i>
         </li>
-        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Logros</a><i class="fas fa-star fs-1"></i></li>
+        <li class="nav-item ml-lg-14 col-auto d-flex">
+           <a href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'student.achievements') selected @endif">
+           Logros
+           </a>
+           <i class="fas fa-star fs-1"></i></li>
         <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Calendario</a><i class="fas fa-calendar-alt fs-1"></i></li>
         <li class="nav-item ml-lg-14 col-2 d-flex"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  mr-2 p-0 pb-1" >Salir</a><i class="fas fa-door-open fs-1"></i></li>
         <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
