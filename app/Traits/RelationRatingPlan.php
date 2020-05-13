@@ -13,19 +13,19 @@ trait RelationRatingPlan
     //
     public function relation_rating_plan ($shoppingCarts){
         //cache()->flush();
-        $sequencesCache = cache()->tags('connection_sequences')->rememberForever('sequences',function(){
+        $sequencesCache = cache()->tags('connection_sequences_redis')->rememberForever('sequences_redis',function(){
             return CompanySequence::all();
         });
-        $momentsCache = cache()->tags('connection_moments')->rememberForever('moments',function(){
+        $momentsCache = cache()->tags('connection_moments_redis')->rememberForever('moments_redis',function(){
             return SequenceMoment::all();
         });
-        $experiencesCache = cache()->tags('connection_experiences')->rememberForever('experiences',function(){
+        $experiencesCache = cache()->tags('connection_experiences_redis')->rememberForever('experiences_redis',function(){
             return MomentExperience::all();
         });
-        $kitsCache = cache()->tags('connection_experiences')->rememberForever('kits',function(){
+        $kitsCache = cache()->tags('connection_kits_redis')->rememberForever('kits_redis',function(){
             return Kit::all();
         });
-        $elementCache = cache()->tags('connection_experiences')->rememberForever('elements',function(){
+        $elementCache = cache()->tags('connection_elements_redis')->rememberForever('elements_redis',function(){
             return Element::all();
         });
 

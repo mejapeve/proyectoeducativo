@@ -78,9 +78,14 @@ class AfiliadoEmpresa extends Model
     }
     public function hasRole($rol)
     {
-
-        $role = Roles::where('name',$rol) ->first();
-        $company =  Companies::where('nick_name',session('name_company'))->first();
+        $role = cache()->tags('connection_roles_redis')->rememberForever('roles_redis',function(){
+            return Roles::all();//where('name',$rol) ->first();
+        });
+        $company = cache()->tags('connection_companies_redis')->rememberForever('companies_redis',function(){
+            return Companies::all();//where('name',$rol) ->first();
+        });
+        $company =  $company->where('nick_name',session('name_company'))->first();
+        $role = $role->where('name',$rol) ->first();
         if(AffiliatedCompanyRole::where([
             ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
             ['rol_id',$role->id],
@@ -92,9 +97,6 @@ class AfiliadoEmpresa extends Model
         return false;
     }
 
-
-    ///////////
-    ///
     public function companies()
     {
         return $this->belongsToMany('App\Models\Companies','affiliated_company_roles','affiliated_company_id','company_id')->withTimestamps();
