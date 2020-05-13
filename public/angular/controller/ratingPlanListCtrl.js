@@ -25,7 +25,6 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
     });
     
     $scope.onRatingPlanFree = function(ratingPlanId) {
-        
 
         swal({
           text: "Confirma para acceder a nuestra prueba gratuita",
@@ -34,7 +33,7 @@ MyApp.controller("ratingPlanListCtrl", ["$scope", "$http", function ($scope, $ht
         })
         .then((willConfirm) => {
           if (willConfirm) {
-            swal({text:'Tu solicitud está siendo procesada!',showConfirmButton: false,showCancelButton: false});
+            swal({text:'Serás redireccionado al registro',showConfirmButton: false,showCancelButton: false});
             window.location='/validate_registry_free_plan/'+ratingPlanId;
           }
         });

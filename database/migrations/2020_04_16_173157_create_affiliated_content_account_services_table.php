@@ -19,8 +19,6 @@ class CreateAffiliatedContentAccountServicesTable extends Migration
             $table->bigInteger('type_product_id');
             $table->bigInteger('sequence_id');
             $table->bigInteger('moment_id')->nullable();
-            $table->date('init_date');
-            $table->date('end_date');
             $table->timestamps();
         });
     }

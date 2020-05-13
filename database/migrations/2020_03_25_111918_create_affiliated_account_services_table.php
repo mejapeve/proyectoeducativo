@@ -23,8 +23,8 @@ class CreateAffiliatedAccountServicesTable extends Migration
 			$table->foreign('rating_plan_type')->references('id')->on('types_rating_plans');
 			$table->bigInteger('shopping_cart_id')->unsigned()->	nullable();
 			$table->foreign('shopping_cart_id')->references('id')->on('shopping_carts');
-            $table->date('init_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->date('init_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

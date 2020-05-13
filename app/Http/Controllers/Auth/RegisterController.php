@@ -156,14 +156,14 @@ class RegisterController extends Controller
                $affiliatedAccountService = new AffiliatedAccountService();
                $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
                $affiliatedAccountService->rating_plan_id = $ratingPlanFree->id;
-               $affiliatedAccountService->type_product_id = 1;
+               $affiliatedAccountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;;
                $affiliatedAccountService->company_sequence_id = $ratingPlanFree->sequence_free_id;
                $affiliatedAccountService->init_date = date('Y-m-d');
                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
                $affiliatedAccountService->save();
                $affiliatedContentAccountService = new AffiliatedContentAccountService();
                $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
-               $affiliatedContentAccountService->type_product_id = 1;
+               $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;;
                $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
                $affiliatedAccountService->init_date = date('Y-m-d');
                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
@@ -179,17 +179,14 @@ class RegisterController extends Controller
                $affiliatedAccountService->init_date = date('Y-m-d');
                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
                $affiliatedAccountService->save();
-               
-                foreach ($ids as $id){
-                    $affiliatedContentAccountService = new AffiliatedContentAccountService();
-                    $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
-                    //$affiliatedContentAccountService->type_product_id = 1;
-                    $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
-                    $affiliatedContentAccountService->moment_id = $id;
-                    //$affiliatedContentAccountService->init_date = date('Y-m-d');
-                    //$affiliatedContentAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
-                    $affiliatedContentAccountService->save();
-                }
+               foreach ($ids as $id){
+                  $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                  $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                  $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;
+                  $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
+                  $affiliatedContentAccountService->moment_id = $id;
+                  $affiliatedContentAccountService->save();
+               }
            }
         }
     }

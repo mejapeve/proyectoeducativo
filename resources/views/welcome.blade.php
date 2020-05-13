@@ -112,13 +112,13 @@
        </div>
        <div class="mb-1 col-xxl-2 col-6 col-md-4 col-lg-2">
           <div class="bg-white p-3 h-100">
-             <a href="/pages/profile">
+             <a href="#" onclick="onRatingPlanFree()">
                 <img class="welcome-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
-                   src="{{ asset('images/icons/pruebaGratuita_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
-             <h6 class="mb-1"><a href="/pages/profile">Prueba Gratuita</a></h6>
+                   src="{{ asset('images/icons/pruebaGratuita_Mesa de trabajo 1.png') }}" width="100" alt=""/>
+             </a>
+             <h6 class="mb-1"><a href="#" onclick="onRatingPlanFree()">Prueba Gratuita</a></h6>
              <p class="fs--2 mb-1">
-                <a class="text-700" href="/pages/people#!">Elige el plan de acceso que
-                   Ponemos a disposición el acceso a la plataforma Conexiones por 15 días, para que conozcan la propuesta educativa y las posibilidades de aprendizaje que pueden tener con esta <a href="#"> (Ver +).</a>
+                <a class="text-700" href="#" onclick="onRatingPlanFree()">Elige el plan de acceso que ponemos a disposición el acceso a la plataforma Conexiones por 15 días, para que conozcan la propuesta educativa y las posibilidades de aprendizaje que pueden tener con esta <a href="#"> (Ver +).</a>
                 </a>
              </p>
           </div>
@@ -137,6 +137,21 @@
             },
          });
    };
+   
+   function onRatingPlanFree(ratingPlanId) {
+        var ratingPlanId = '{{$rating_plan_id_free}}}';
+        swal({
+          text: "Confirma para acceder a nuestra prueba gratuita",
+          type: "warning",
+          showConfirmButton: true,showCancelButton: true
+        })
+        .then((willConfirm) => {
+          if (willConfirm) {
+            swal({text:'Serás redireccionado al registro',showConfirmButton: false,showCancelButton: false});
+            window.location='/validate_registry_free_plan/'+ratingPlanId;
+          }
+        });
+    };
 </script>
 
 @endsection

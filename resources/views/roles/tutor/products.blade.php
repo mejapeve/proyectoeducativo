@@ -3,7 +3,8 @@
 @section('content-tutor-index')
    <div class="d-none-result d-none" ng-controller="tutorProductsCtrl" ng-init="init()" >
         <div class="row no-gutters" ng-show="products && products.length > 0">
-          <h6 class="mt-3 mb-4"> Actualmente cuentas con diferentes productos con nosotros.</h6>
+          <h6 ng-show="products.length === 1" class="mt-3 mb-4"> Actualmente cuentas con un producto con nosotros.</h6>
+		  <h6 ng-show="products.length > 1" class="mt-3 mb-4"> Actualmente cuentas con diferentes productos con nosotros.</h6>
 		  <div class="row">
 			  <div ng-repeat="product in products" class="col-lg-6 col-12 mb-3">
 				<div ng-show="product.type_product_id === 1" class="d-flex">

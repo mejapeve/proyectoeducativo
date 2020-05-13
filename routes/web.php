@@ -19,13 +19,9 @@ Route::get('/', function () {
     return view('auth.login.afiliadoEmpresa',['company' => $company ]);
 })->name('error_login_social');
 */
-Route::get('/', function () {
-    return view('welcome');
-})->name('/');
+Route::get('/', 'WelcomeController@index')->name('/');
 
-Route::get('/inicio', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/inicio', 'WelcomeController@index')->name('home');
 
 Route::get('/acercade', function () {
     return view('aboutus');
