@@ -1,37 +1,41 @@
 @extends('roles.student.achievements_layout')
 
-@section('archievements_layout')
-<div class="list-group" ng-controller="TutorIndexController" ng-init="initInscriptions()" >
-	<div ng-click=editUserForm(student.id) class="student-tutor-inscription btn btn-light" ng-repeat="student in students">
-	  <img class="rounded-circle" ng-src="{{asset('/')}}@{{student.url_image || 'images/icons/default-avatar.png'}}" width="100px"/>
-	  <p>@{{student.name}} @{{student.last_name}}</p>
-	</div>
-	<div class="fs--1" ng-show="students && students.length === 0">
-	  <p>Aún no has registrado estudiantes para la realización de las guías de aprendizaje</p>
-	</div>
-	<div ng-click="registerUserForm()" class="cursor-pointer">
-	  <i class="fas fa-user-plus"></i> Registrar nuevo estudiante
-	</div>
-	<div ng-show="newRegisterForm" class="d-none-result d-none  dropdown-menu-card" id="elementkitsModal">
-		<div class="modal-backdrop fade show"></div>
-		<div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
-			<div ng-click="newRegisterForm=false" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
-			<div class="p-lg-6 p-sm-4">
-				@include('roles/tutor/register_student')
+@section('achievements_layout')
+<div class="row p-2 pl-md-4 pr-md-4" ng-controller="achievementsStudentCtrl" ng-init="initSequences(1)" >
+	<div class="col-12 mt-sm-2 pr-sm-0 " ng-repeat="sequence in sequences">
+	    <div class="oval-line"></div>
+		<div class="d-flex pt-2 p-md-4">
+			<img class="imagen-sequence" src="{{asset('/')}}@{{sequence.sequence.url_image}}" width="80px" height= "122px"/>
+			<div class="mr-2 ml-2 d-block fs--1" style="max-width: 138px;">
+				<p class="font-weight-bold mb-1">@{{ 'Guía de aprendizaje ' + ($index + 1) }}</p>
+				<p class="" >@{{sequence.sequence.name}}</p>
+			</div>
+			<div class="d-block col-mg-4 text-align">
+				<div class="col-12 border-left-mini">
+					<img src="{{asset('images/icons/puntoEncuentro.png')}}" class="imagen-sequence-mini"  width="45px" height= "auto"/>
+				</div>
+				<div class="p-3 fs-sm--3 fs--3">Reporte por guía de aprendizaje</div>
+			</div>
+			<div class="d-block col-mg-4 text-align">
+				<div class="col-12 border-left-mini">
+					<img src="{{asset('images/icons/puntoEncuentro.png')}}" class="imagen-sequence-mini"  width="45px" height= "auto"/>
+				</div>
+				<div class="p-3 fs-sm--3 fs--3">Reporte por guía de aprendizaje</div>
+			</div>
+			<div class="d-block col-mg-4 text-align">
+				<div class="col-12 border-left-mini">
+					<img src="{{asset('images/icons/puntoEncuentro.png')}}" class="imagen-sequence-mini"  width="45px" height= "auto"/>
+				</div>
+				<div class="p-3 fs-sm--3 fs--3">Reporte por guía de aprendizaje</div>
 			</div>
 		</div>
-	</div>
-	<div ng-show="editRegisterForm" class="d-none-result d-none  dropdown-menu-card" id="elementkitsModal2">
-	   <div class="modal-backdrop fade show"></div>
-	   <div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
-		   <div ng-click="editRegisterForm=false" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
-		   <div class="p-lg-6 p-sm-4">
-			   @include('roles/tutor/edit_student')
-		   </div>
-	   </div>
-	</div>
+    </div>
+	<div class="col-12 sequences-line" ng-show="sequences.length === 0">
+	   <div class="oval-line mb-4"></div>
+	   <h6>Aún no cuentas con guías de aprendizaje activas.</h6>
+    </div>
 </div>
 @endsection
 @section('js')
-    <script src="{{asset('/../angular/controller/TutorIndexController.js')}}"></script>
+    <script src="{{asset('/../angular/controller/achievementsStudentCtrl.js')}}"></script>
 @endsection

@@ -18864,12 +18864,15 @@ button.bg-soft-dark:focus {
     font-size: .73333rem;
 }
 
-
 .fs-sm--3 {
-    font-size: .59444rem
+	font-size: .59444rem
 }
 
 @media(min-width:576px) {
+
+	.fs-sm--3 {
+		font-size: .59444rem
+	}
 
     .fs-sm--2 {
         font-size: .69444rem
@@ -20132,17 +20135,17 @@ display: flex;
 
 
 .line_up_beatyfull {
-    border-bottom: 1px solid gray;
+    border-bottom: 1.5px solid gray;
 }
 
 .line_up_beatyfull + .line > .up {
     position: absolute;
-    top: -11px;
-    left: 46%;
+    top: -14px;
+    left: 45%;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0px 10.5px 12px 11.5px;
+    border-width: 0px 15px 15px 15px;
     border-color: transparent transparent gray transparent;
     line-height: 0px;
     _border-color: #000000 #000000 gray #000000;
@@ -20151,12 +20154,12 @@ display: flex;
 
 .line_up_beatyfull + .line > .up +  .overwrite {
     position: absolute;
-    top: -10px;
-    left: 46.5%;
+    top: -11.7px;
+    left: 45.4%;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 10px 13px 10px;
+    border-width: 0 14px 14px 14px;
     border-color: transparent transparent #edf2f9 transparent;
     line-height: 0px;
     _border-color: #000000 #000000 #ff000d #000000;
@@ -20165,40 +20168,40 @@ display: flex;
 
 .line_up_beatyfull + .line > .other {
     position: absolute;
-    top: -5px;
-    left: 37.3%;
-    border-bottom: 5px solid gray;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
+    top: -10px;
+    left: 36.3%;
+    border-bottom: 10px solid gray;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
     height: 0;
-    width: 69px;
+    width: 76px;
 }
 
 .line_up_beatyfull + .line > .other-overwrite {
     position: absolute;
-    top: -4px;
-    left: 38.4%;
-    width: 63px;
+    top: -8.1px;
+    left: 37.5%;
+    width: 69.7px;
     height: 0;
-    /* border-bottom: 4px solid red; */
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-bottom: 4px solid #edf2f9;
+    /* border-bottom: 8px solid red; */
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 8.3px solid #edf2f9;
 }
 
 
 .line_down_beatyfull {
-    border-bottom: 1px solid gray;
+    border-bottom: 1.5px solid gray;
 }
 
 .line_down_beatyfull + .line > .down {
     position: absolute;
-    top: 57px;
-    left: 46%;
+    top: 58px;
+    left: 45%;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 12px 11px 0 11px;
+    border-width: 15px 15px 0 15px;
     border-color: gray transparent transparent transparent;
     line-height: 0px;
     _border-color: gray #000000 #000000 #000000;
@@ -20207,14 +20210,91 @@ display: flex;
 
 .line_down_beatyfull + .line > .down +  .overwrite {
     position: absolute;
-    top: 57px;
-    left: 46.5%;
+    top: 56.8px;
+    left: 45.4%;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 11px 10px 0 10px;
+    border-width: 14px 14px 0 14px;
     border-color: #edf2f9 transparent transparent transparent;
     line-height: 0px;
     _border-color: #ff000d #000000 #000000 #000000;
     _filter: progid:DXImageTransform.Microsoft.Chroma(color='#000000');
+}
+
+
+@media(max-width:768px) {
+	
+	.line_up_beatyfull + .line > .up {
+		left: 47%;
+	}
+
+	.line_up_beatyfull + .line > .up +  .overwrite {
+		left: 47.3%;
+	}
+
+	.line_up_beatyfull + .line > .other {
+		left: 42%;
+	}
+
+	.line_up_beatyfull + .line > .other-overwrite {
+		left: 42.7%;
+	}
+
+	.line_down_beatyfull + .line > .down {
+		left: 46.9%;
+	}
+
+	.line_down_beatyfull + .line > .down +  .overwrite {
+		left: 47.2%;
+	}
+}
+
+
+
+.oval-line {
+	margin: 10px 10px 10px 0px;
+	border: 1px solid gray;
+}
+
+.oval-line:before {
+	content: "•";
+	color: gray;
+	position: absolute;
+	top: -9px;
+	left: 12px;
+	font-size: 26px;
+}
+
+.border-left-mini,
+.border-left {
+	
+}
+
+.border-left:before {
+	border-left: 1px solid;
+	content: " ";
+	left: 0px;
+	position: absolute;
+	height: 46px;
+}
+
+.border-left-mini:before {
+	border-left: 1px solid;
+	content: " ";
+	left: 0px;
+	position: absolute;
+	height: 46px;
+	margin-top: 41px;
+}
+
+.imagen-sequence-mini {
+	width: 45px;
+	height: auto;
+}
+@media(min-width:768px) {
+	.imagen-sequence-mini {
+		width: 56px;
+		height: auto;
+	}
 }
