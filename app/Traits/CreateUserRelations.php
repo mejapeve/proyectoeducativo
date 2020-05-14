@@ -33,6 +33,9 @@ trait CreateUserRelations
                 $companyAffiliatedAssignmentUser = new ConectionAffiliatedStudents();
                 $companyAffiliatedAssignmentUser->student_company_id = $user_company_rol->id;
                 $companyAffiliatedAssignmentUser->tutor_company_id = $compayAffiliated->id;
+                if(isset($request->kidSelected)){
+                    $companyAffiliatedAssignmentUser->age_stage = $request->kidSelected;
+                }
                 $companyAffiliatedAssignmentUser->save();
 
 

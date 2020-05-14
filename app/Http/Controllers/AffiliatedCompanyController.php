@@ -11,7 +11,15 @@ class AffiliatedCompanyController extends Controller
 {
     //
     public function get_user(Request $request,$user_id){
-        return response()->json(['data'=>AfiliadoEmpresa::find($user_id)],200);
+
+        $afiliadoEmpresa = AfiliadoEmpresa::find($user_id);
+        $age_stage = ConectionAffiliatedStudents::select('age_stage')->where(function($query)use($afiliadoEmpresa){
+            $query->where('student_company_id',$afiliadoEmpresa->affiliated_company->where(
+                'rol_id',1
+            )->where('company_id',1)->first()->id);
+        })->first();
+        return response()->json(['data'=>$afiliadoEmpresa,
+            'age_stage'=>$age_stage],200);
     }
     public function edit_user_student(Request $request){
         if(auth('afiliadoempresa')->user()){
@@ -33,7 +41,7 @@ class AffiliatedCompanyController extends Controller
                         $userStudent->name = $request->name;
                         $userStudent->last_name = $request->last_name;
                         if(isset($userStudent->user_name)) {
-                            $exist = AfiliadoEmpresa::where('user_name',$request->user_name)->first();
+                            $exist = AfiliadoEmpresa::where('user_name',$request->user_name)->where('id','!=',$userStudent->id)->first();
                             if($exist === null) {
                                 $userStudent->user_name = $request->user_name;
                             }else{
@@ -46,12 +54,12 @@ class AffiliatedCompanyController extends Controller
                         if(isset($request->password)) {
                             $userStudent->password =  Hash::make($request->password);
                         }
-                        if(isset($request->age_stage)){
+                        if(isset($request->kidSelected)){
                             ConectionAffiliatedStudents::
                             where('student_company_id',$userStudent->affiliated_company->where(
                                 'rol_id',1
                             )->where('company_id',1)->first()->id)->update(array(
-                                'age_stage' => $request->age_stage,
+                                'age_stage' => $request->kidSelected,
                             ));
                         }
                         $userStudent->save();
@@ -79,12 +87,12 @@ class AffiliatedCompanyController extends Controller
                     if(isset($request->password)) {
                         $userStudent->password =  Hash::make($request->password);
                     }
-                    if(isset($request->age_stage)){
+                    if(isset($request->kidSelected)){
                         ConectionAffiliatedStudents::
                         where('student_company_id',$userStudent->affiliated_company->where(
                             'rol_id',1
                         )->where('company_id',1)->first()->id)->update(array(
-                            'age_stage' => $request->age_stage,
+                            'age_stage' => $request->kidSelected,
                         ));
                     }
                     $userStudent->save();

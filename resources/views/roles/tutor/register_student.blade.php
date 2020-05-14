@@ -3,18 +3,18 @@
       <div class="row">
          <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registra los datos del estudiante</h6>
            <div class="col-12 d-flex mt-3">
-              <div class="register-avatar-kid" ng-click="kidSelected=1" ng-class="{'selected':kidSelected===1}">
-                <img src="{{asset('images/icons/kid2.png')}}" width="103px;"/>
-                <span>Niño</span>
-              </div>
-              <div class="register-avatar-kid" ng-click="kidSelected=2" ng-class="{'selected':kidSelected===2}">
-                <img src="{{asset('images/icons/kid1.png')}}" width="103px;"/>
-                <span>Niña</span>
-              </div>
-              <div class="register-avatar-kid" ng-click="kidSelected=3" ng-class="{'selected':kidSelected===3}">
-                 <img src="{{asset('images/icons/kid3.png')}}" width="103px;"/>
-                 <span>Joven</span>
-              </div>
+               <div class="register-avatar-kid" ng-click="onKidSelected('niño')" ng-class="{'selected':newStudent.kidSelected==='niño'}">
+                   <img src="{{asset('images/icons/kid2.png')}}" width="103px;"/>
+                   <span>Niño</span>
+               </div>
+               <div class="register-avatar-kid" ng-click="onKidSelected('niña')" ng-class="{'selected':newStudent.kidSelected==='niña'}">
+                   <img src="{{asset('images/icons/kid1.png')}}" width="103px;"/>
+                   <span>Niña</span>
+               </div>
+               <div class="register-avatar-kid" ng-click="onKidSelected('joven')" ng-class="{'selected':newStudent.kidSelected==='joven'}">
+                   <img src="{{asset('images/icons/kid3.png')}}" width="103px;"/>
+                   <span>Joven</span>
+               </div>
            </div>
            
            <div class="form-group col-lg-4">

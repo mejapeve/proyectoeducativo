@@ -1,6 +1,6 @@
 MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $http) {
 
-    
+
     $scope.initInscriptions = function() {
         
         $scope.students = [];
@@ -33,14 +33,12 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
     
     $scope.onRegistry = function() {
         $scope.loagingRegistry = true;
-        
         $http({
             url:"/register_student/",
             method: "POST",
             data: $scope.newStudent
         }).
         then(function (response) {
-            
             $scope.loagingRegistry = false;
             if(response.status === 200) {
                 swal({
@@ -64,7 +62,6 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             method: "GET",
         }).
         then(function (response) {
-            console.log(idUser,'id del usuario',response);
             window.scrollTo( 0, 0 );
             $scope.newStudent = {};
             $scope.editRegisterForm=true;
@@ -74,6 +71,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             $scope.newStudent.birthday= response.data.data.birthday ? new Date (response.data.data.birthday) : null;
             $scope.newStudent.user_name= response.data.data.user_name;
             $scope.newStudent.id = response.data.data.id;
+            $scope.newStudent.kidSelected = response.data.age_stage.age_stage;
             $scope.validateUserName = true;
             $scope.user_name_old = $scope.newStudent.user_name;
 
@@ -140,7 +138,10 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             $scope.errorMessageFilter = 'Error validando nombre de usuario';
         });
     }
+    $scope.onKidSelected=(type)=>{
+        $scope.newStudent.kidSelected = type
 
+    }
 }]);
 
 
