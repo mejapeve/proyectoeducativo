@@ -35,7 +35,7 @@
                     </div>
                     <div class="border-left col-6 fs-lg-0 fs-md--1 fs-0 pr-0" style="border-left: 1px solid grays;">
                         <span>07/02/2020</span>
-                        <h6 class="fs--1">Fecha del ultimo acceso</h6>
+                        <h6 class="fs--1">Fecha del último acceso</h6>
                     </div>
                 </div>
             </div>
