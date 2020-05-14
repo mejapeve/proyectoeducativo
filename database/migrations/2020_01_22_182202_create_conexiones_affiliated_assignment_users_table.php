@@ -19,6 +19,8 @@ class CreateConexionesAffiliatedAssignmentUsersTable extends Migration
             $table->foreign('student_company_id')->references('id')->on('affiliated_company_roles');
             $table->bigInteger('tutor_company_id')->unsigned();
             $table->foreign('tutor_company_id')->references('id')->on('affiliated_company_roles');
+            $table->string('age_stage');
+
             $table->timestamps();
         });
     }
