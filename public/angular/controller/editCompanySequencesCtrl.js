@@ -26,7 +26,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.widthOriginal = null;
     $scope.heightOriginal = null;
     $scope.mbDelete = null;
-	    
+        
     var card = $('.background-sequence-card');
     $scope.container.h = Math.round(Number(card.css('height').replace('px','')));
     $scope.container.w = Math.round(card.css('width').replace('px',''));
@@ -184,20 +184,20 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             $scope.sequenceSection = JSON.parse($scope.sequence[$scope.dataJstree.sequenceSectionIndex]);
             $scope.sequenceSection.sequenceSectionIndex = $scope.dataJstree.sequenceSectionIndex;
             $scope.sequenceSection.sequenceSectionPartIndex = $scope.dataJstree.partId;
-			$scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex] = $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex] || {};
-			$scope.sequenceSectionPart = $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex];
+            $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex] = $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex] || {};
+            $scope.sequenceSectionPart = $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex];
             $scope.PageName = $scope.sequenceSection.section.name;
             $scope.elementParentEdit = $scope.sequenceSectionPart;
             $scope.container = $scope.sequenceSectionPart.container || { "w" : $scope.container.w, "h" : 385 };
             $('#sidemenu-sequences .overflow-auto').addClass('height_235').removeClass('height_337');
-			
+            
             if($scope.dataJstree.type==='openSequenceSection') {
                 var section = $('#' + data.selected[0]);
                 data.instance.open_node(section);
                 data.instance.deselect_all(true);
                 data.instance.select_node($(section.find('.jstree-children li'))[0]);
             }
-			
+            
             $scope.resizeWidth();
         break;
         case 'openMoment':
@@ -326,6 +326,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         $scope.typeEdit = type;
         $scope.elementParentEdit = parent;
         $scope.elementEdit =  element;
+        $scope.mbImageShow = false;
         
         if($scope.typeEdit === 'image-element' || $scope.typeEdit === 'video-element') {
             element.bindWidthHeight = element.bindWidthHeight || true;
@@ -438,11 +439,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         var parentElement = $scope.dataJstree.type==='openMomentSectionPart' ? $scope.momentSectionPart : $scope.elementParentEdit;
         if(typeItem==='text-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({'id':id,'type':typeItem,'fs':12,'ml':10,'mt':76,'w':100,'h':26,'text':'--texto de guía--'});
+            parentElement.elements.push({'id':id,'type':typeItem,'fs':11,'ml':10,'mt':76,'w':100,'h':26,'text':'--texto de guía--'});
         }
         else if(typeItem==='text-area-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({'id':id,'type':typeItem,'fs':12,'ml':100,'mt':76,'w':100,'h':200,'text':'--Parrafo 1--'});            
+            parentElement.elements.push({'id':id,'type':typeItem,'fs':11,'ml':100,'mt':76,'w':100,'h':200,'text':'--Parrafo 1--'});            
         }
         else if(typeItem==='image-element') {
             parentElement.elements = parentElement.elements || [];
@@ -454,7 +455,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if(typeItem==='button-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({'id':id,'type':typeItem,'url':'images/icons/NoImageAvailable.jpeg','w':162,'h':200,'ml':150,'mt':76});            
+            parentElement.elements.push({'id':id,'type':typeItem,'fs':11,'ml':210,'mt':176,'w':130,'h':26,'text':'--texto guía--','class':'btn-sm btn-primary'});
         }
         $timeout(function() {
             $scope.resizeSequenceCard();
@@ -463,34 +464,34 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     }
 
     $scope.deleteElement  = function(parentElement,$index,mbDelete) {
-		if($index || $index === 0)  {
-			$scope.mbDelete = mbDelete;
-			$scope.elementEdit = null;
-			$scope.indexElement = null;
-			$scope.typeEdit = '';
-			$scope.applyChange = true;
-			if(parentElement && parentElement.elements ) {
-				var newElements = [];
-				for(var i=0; i<parentElement.elements.length; i++) {
-					if(i!== $index)
-					newElements.push(Object.assign({},parentElement.elements[i]));
-				}
-				//parentElement.elements = newElements;
-			}
-			parentElement.elements = [];
-			parentElement.elements = newElements;
-			//.splice($index,1);
-			
-			$timeout(function() {
-			   $scope.resizeSequenceCard();
-			   $scope.resizeWidth();
-			},500);
-		}
-		else {
-			if(parentElement.background_image) {
-				$scope.deleteBackgroundSection();
-			}
-		}
+        if($index || $index === 0)  {
+            $scope.mbDelete = mbDelete;
+            $scope.elementEdit = null;
+            $scope.indexElement = null;
+            $scope.typeEdit = '';
+            $scope.applyChange = true;
+            if(parentElement && parentElement.elements ) {
+                var newElements = [];
+                for(var i=0; i<parentElement.elements.length; i++) {
+                    if(i!== $index)
+                    newElements.push(Object.assign({},parentElement.elements[i]));
+                }
+                //parentElement.elements = newElements;
+            }
+            parentElement.elements = [];
+            parentElement.elements = newElements;
+            //.splice($index,1);
+            
+            $timeout(function() {
+               $scope.resizeSequenceCard();
+               $scope.resizeWidth();
+            },500);
+        }
+        else {
+            if(parentElement.background_image) {
+                $scope.deleteBackgroundSection();
+            }
+        }
     }
     
     

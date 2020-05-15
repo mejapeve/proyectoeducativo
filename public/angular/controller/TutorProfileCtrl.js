@@ -151,7 +151,7 @@ MyApp.controller("TutorProfileCtrl", ["$scope", "$http", function($scope, $http)
                     showCancelButton: false,
                     showConfirmButton: false
                 }).catch(swal.noop);
-                $scope.loagingRegistry = false;
+                $scope.loadingRegistry = false;
                 $scope.presentTutorValues(inputVar)
             });
         }

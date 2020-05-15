@@ -12,18 +12,18 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
       $scope.errorName = null;
       $scope.errorLastName = null;
       $scope.errorBirthday = null;
-	  $scope.errorPassword = null;
+      $scope.errorPassword = null;
       $scope.mbInvalidate = null;
       $scope.errorMessageRegister = null;
-	  
+      
       var name  = $('input[name=name]').val(); if(name.length === 0 ) { $scope.errorName = 'Este campo debe ser poblado'; return;}
       var last_name = $('input[name=last_name]').val(); if(last_name.length === 0 ) { $scope.errorLastName = 'Este campo debe ser poblado'; return;}
       var birthday = $('input[name=birthday]').val(); //if(birthday.length === 0 ) { $scope.errorBirthday = 'Este campo debe ser poblado'; return;}
       var user_name = $('input[name=user_name]').val(); if(user_name.length === 0 ) { $scope.mbInvalidate = 'Este campo debe ser poblado'; return;}
       var password = $('input[name=password]').val(); //if(password.length === 0 ) { $scope.mbInvalidate = 'Este campo debe ser poblado'; return;}
-	  if(password.length>0 && password.length<8)  { $scope.errorPassword = 'La contraseña debe tener mínimo 8 caracteres'; return;}
+      if(password.length>0 && password.length<8)  { $scope.errorPassword = 'La contraseña debe tener mínimo 8 caracteres'; return;}
       
-      $scope.loagingRegistry = true;
+      $scope.loadingRegistry = true;
       var data = {
           "name": name,
           "last_name": last_name,
@@ -37,7 +37,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
          data: data
       }).
       then(function (response) {
-         $scope.loagingRegistry = false;
+         $scope.loadingRegistry = false;
          if(response.status === 200) {
             swal({
                text: "Estudiante editado exitosamente",
@@ -49,7 +49,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
          }
       }).catch(function (e) {
          $scope.errorMessageRegister = 'Error editando el estudiante';
-         $scope.loagingRegistry = false;
+         $scope.loadingRegistry = false;
       });
     }
 

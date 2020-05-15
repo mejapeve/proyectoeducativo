@@ -11,7 +11,7 @@
             @else 
                 <img class="rounded-pill" src="{{asset('images/icons/default-avatar.png')}}" width="60px" style="margin:-15px;">
             @endif
-			</div>
+            </div>
             <div class="col-3">
                 <div style="cursor: pointer" class="btn btn-sm btn-primary" id="yourBtn" ng-click="getFile()">Cambiar</div>
                 <div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="subMethod(this)" ng /></div>
@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-row mt-4 pl-5" style="margin-block-end: auto;">
                                 <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEdit(inputToEdit)">
-                                    <div ng-show="loagingRegistry" class="ng-hide"><svg class="svg-inline--fa fa-spinner fa-w-16 fa-spin mr-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg><!-- <i class="fa fa-spinner fa-spin mr-2"></i> --></div>
+                                    <div ng-show="loadingRegistry" class="ng-hide"><svg class="svg-inline--fa fa-spinner fa-w-16 fa-spin mr-2" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg><!-- <i class="fa fa-spinner fa-spin mr-2"></i> --></div>
                                     Editar campo
                                 </button>
                                 <span ng-show="errorMessageRegister" class="invalid-feedback ng-hide" role="alert">

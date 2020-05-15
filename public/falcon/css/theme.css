@@ -9312,7 +9312,7 @@ button.bg-dark:focus {
 
 .ml-8,
 .mx-8 {
-    /* margin-left: 7.5rem!important; */
+    margin-left: 7.5rem!important;
 }
 
 .m-9 {
@@ -18865,14 +18865,14 @@ button.bg-soft-dark:focus {
 }
 
 .fs-sm--3 {
-	font-size: .59444rem
+    font-size: .59444rem
 }
 
 @media(min-width:576px) {
 
-	.fs-sm--3 {
-		font-size: .59444rem
-	}
+    .fs-sm--3 {
+        font-size: .59444rem
+    }
 
     .fs-sm--2 {
         font-size: .69444rem
@@ -19656,6 +19656,9 @@ footer .navbar-light {
     z-index: 1;
 }
 
+.background-transparent {
+    background-color: transparent;
+}
 
 .swiper-wrapper.sequence .swiper-slide {
     max-height: 316px;
@@ -19876,18 +19879,12 @@ footer .navbar-light {
 }
 
 .student-tutor-inscription {
-    
-border: 1px solid rgba(94, 110, 130, 0.3);
-    
-margin-bottom: 15px;
-    
-border-radius: 50px;
-    
-text-align: left;
-    
-padding-left: 34px;
-    
-display: flex;
+    border: 1px solid rgba(94, 110, 130, 0.3);
+    margin-bottom: 15px;    
+    border-radius: 50px;    
+    text-align: left;    
+    padding-left: 34px;
+    display: flex;
 }    
 
 .register-form-aling-top {
@@ -20090,6 +20087,7 @@ display: flex;
     height: 5px;
     width: 100%;
     background-color: #edf2f9;
+    margin-top: 16px;
 }
 
 .trapecio-top {
@@ -20168,7 +20166,7 @@ display: flex;
 
 .line_up_beatyfull + .line > .other {
     position: absolute;
-    top: -10px;
+    top: -9.4px;
     left: 36.3%;
     border-bottom: 10px solid gray;
     border-left: 14px solid transparent;
@@ -20179,14 +20177,14 @@ display: flex;
 
 .line_up_beatyfull + .line > .other-overwrite {
     position: absolute;
-    top: -8.1px;
+    top: -8px;
     left: 37.5%;
-    width: 69.7px;
+    width: 69.8px;
     height: 0;
     /* border-bottom: 8px solid red; */
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
-    border-bottom: 8.3px solid #edf2f9;
+    border-bottom: 8px solid #edf2f9;
 }
 
 
@@ -20224,77 +20222,87 @@ display: flex;
 
 
 @media(max-width:768px) {
-	
-	.line_up_beatyfull + .line > .up {
-		left: 47%;
-	}
+    
+    .line_up_beatyfull + .line > .up {
+        left: 47%;
+    }
 
-	.line_up_beatyfull + .line > .up +  .overwrite {
-		left: 47.3%;
-	}
+    .line_up_beatyfull + .line > .up +  .overwrite {
+        left: 47.3%;
+    }
 
-	.line_up_beatyfull + .line > .other {
-		left: 42%;
-	}
+    .line_up_beatyfull + .line > .other {
+        left: 42%;
+    }
 
-	.line_up_beatyfull + .line > .other-overwrite {
-		left: 42.7%;
-	}
+    .line_up_beatyfull + .line > .other-overwrite {
+        left: 42.7%;
+        width: 70.2px;
+        border-bottom: 8.5px solid #edf2f9;
+    }
 
-	.line_down_beatyfull + .line > .down {
-		left: 46.9%;
-	}
+    .line_down_beatyfull + .line > .down {
+        left: 46.9%;
+    }
 
-	.line_down_beatyfull + .line > .down +  .overwrite {
-		left: 47.2%;
-	}
+    .line_down_beatyfull + .line > .down +  .overwrite {
+        left: 47.2%;
+    }
 }
 
 
 
 .oval-line {
-	margin: 10px 10px 10px 0px;
-	border: 1px solid gray;
+    margin: 10px 10px 10px 0px;
+    border: 1px solid gray;
 }
 
 .oval-line:before {
-	content: "•";
-	color: gray;
-	position: absolute;
-	top: -9px;
-	left: 12px;
-	font-size: 26px;
+    content: "•";
+    color: gray;
+    position: absolute;
+    top: -9px;
+    left: 12px;
+    font-size: 26px;
 }
 
 .border-left-mini,
 .border-left {
-	
+    
 }
 
 .border-left:before {
-	border-left: 1px solid;
-	content: " ";
-	left: 0px;
-	position: absolute;
-	height: 46px;
+    border-left: 1px solid;
+    content: " ";
+    left: 0px;
+    position: absolute;
+    height: 46px;
 }
 
 .border-left-mini:before {
-	border-left: 1px solid;
-	content: " ";
-	left: 0px;
-	position: absolute;
-	height: 46px;
-	margin-top: 41px;
+    border-left: 1px solid;
+    content: " ";
+    left: 0px;
+    position: absolute;
+    height: 46px;
+    margin-top: 41px;
 }
 
-.imagen-sequence-mini {
-	width: 45px;
-	height: auto;
+.imagen-reports-type-mini {
+    width: 45px;
+    height: auto;
 }
+
 @media(min-width:768px) {
-	.imagen-sequence-mini {
-		width: 56px;
-		height: auto;
-	}
+    .imagen-reports-type-mini {
+        width: 56px;
+        height: auto;
+    }
+}
+
+.imagen-sequence {
+	width: 80px;
+    height: 100px;
+    min-width: 80px;
+    min-height: 100px;
 }

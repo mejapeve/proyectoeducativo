@@ -3,12 +3,12 @@
         <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
         <img width="70px" class="avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
         <span class="nameTimeLine fs--1">{{auth('afiliadoempresa')->user()->name}}</span>
-        <div class="position-absolute d-flex" style="top: 12px;left: 213px;">
-            <a class="ml-8 btn btn-sm btn-secondary cursor-pointer" href="{{route('student.available_sequences','conexiones')}}"><i class="fas fa-home fs-1"></i></a>
+        <div class="position-absolute d-flex" style="top: 12px;left: 352px;">
+            <a class="ml-8 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-home fs-1"></i></a>
             <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-left fs-1"></i></a>
             <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-right fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-book-open fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-star fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}"><i class="fas fa-book-open fs-1"></i></a>
+            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}"><i class="fas fa-star fs-1"></i></a>
             <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-calendar-alt fs-1"></i></a>
             <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-door-open fs-1"></i></a>
 			<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">

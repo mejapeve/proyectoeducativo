@@ -20,7 +20,7 @@
                         <div class="up"></div>
                         <div class="overwrite"></div>
                     </div>    
-                    <span>0</span>
+                    <span>{{$countSequences}}</span>
                     <h6>{{ __('Guias de aprendizajes activas') }}</h6>
                     <div class="mt-3 mb-1 line_down_beatyfull"></div>
                     <div class="ml-7 line row" style="">
@@ -30,11 +30,11 @@
                 </div>
                 <div class="col-12 row m-0">
                     <div class="col-6 fs-lg-0 fs-md--1 fs-0 pl-0">
-                        <span>07/02/2020</span>
+                        <span>{{$firstAccess}}</span>
                         <h6 class="fs--1">Fecha del primer acceso</h6>
                     </div>
                     <div class="border-left col-6 fs-lg-0 fs-md--1 fs-0 pr-0" style="border-left: 1px solid grays;">
-                        <span>07/02/2020</span>
+                        <span>{{$lastAccess}}</span>
                         <h6 class="fs--1">Fecha del último acceso</h6>
                     </div>
                 </div>

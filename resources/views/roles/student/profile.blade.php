@@ -86,14 +86,14 @@
                                                 <div class="input-group-append">
                                                     <button id="show_password" class="btn btn-primary" type="button" ng-click="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                                                 </div>
-												<span class="invalid-feedback" role="alert" ng-show="errorPassword">
+                                                <span class="invalid-feedback" role="alert" ng-show="errorPassword">
                                                   <strong>@{{errorPassword}}</strong>
-												</span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEditStudent()" ng-disabled="!validateUserName">
-                                        <div ng-show="loagingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
+                                        <div ng-show="loadingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
                                         {{ __('Editar') }}
                                     </button>
                                     <span ng-show="errorMessageRegister" class="invalid-feedback" role="alert">

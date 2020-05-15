@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Notifications\MyResetPassword;
 use App\Notifications\WelcomeMail;
 use App\Models\ShoppingCart;
+use App\Models\AdvanceLine;
 use Illuminate\Auth\Passwords\PasswordBroker;
 
 class AfiliadoEmpresa extends Model
@@ -163,6 +164,18 @@ class AfiliadoEmpresa extends Model
         else {
              return null;
         }
+    }
+
+    public function first_last_access() {
+        $user_id = $this->id;
+        
+        $dates = AdvanceLine::with(['affiliated_account_service'=>function($query){
+            $query->where('init_date', '>=',date('Y-m-d'))
+                   ->where('end_date', '<=',date('Y-m-d', strtotime('+ 1 day')));
+        }])->where('affiliated_company_id',$user_id)->get();
+        
+        return ['first'=>$dates->min('updated_at'),'last'=>$dates->max('created_at')];
+        
     }
 
 }

@@ -5,7 +5,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
         
         $scope.students = [];
         $scope.newStudent = {};
-        $scope.loagingRegistry = false;
+        $scope.loadingRegistry = false;
         $scope.newRegisterForm = false;
         $scope.editRegisterForm = false;
         $scope.errorMessageRegister = "";
@@ -32,14 +32,14 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
     }
     
     $scope.onRegistry = function() {
-        $scope.loagingRegistry = true;
+        $scope.loadingRegistry = true;
         $http({
             url:"/register_student/",
             method: "POST",
             data: $scope.newStudent
         }).
         then(function (response) {
-            $scope.loagingRegistry = false;
+            $scope.loadingRegistry = false;
             if(response.status === 200) {
                 swal({
                   text: "Estudiante registrado exitosamente",
@@ -52,7 +52,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             }
         }).catch(function (e) {
             $scope.errorMessageRegister = 'Error registrando el estudiante';
-            $scope.loagingRegistry = false;
+            $scope.loadingRegistry = false;
         });
     }
     $scope.editUserForm = function (idUser){
@@ -83,14 +83,14 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
     }
     $scope.onEdit = function() {
         if($scope.validateUserName){
-            $scope.loagingRegistry = true;
+            $scope.loadingRegistry = true;
             $http({
                 url:"/edit_user_student/",
                 method: "POST",
                 data: $scope.newStudent
             }).
             then(function (response) {
-                $scope.loagingRegistry = false;
+                $scope.loadingRegistry = false;
                 if(response.status === 200) {
                     swal({
                         text: "Estudiante editado exitosamente",
@@ -102,7 +102,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
                 }
             }).catch(function (e) {
                 $scope.errorMessageRegister = 'Error editando el estudiante';
-                $scope.loagingRegistry = false;
+                $scope.loadingRegistry = false;
             });
         }else{
             swal({

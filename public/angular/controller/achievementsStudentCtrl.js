@@ -8,11 +8,7 @@ MyApp.controller("achievementsStudentCtrl", ["$scope", "$http", "$timeout", func
 	
 	$scope.initSequences = function(companyId) {
 		$('.d-none-result').removeClass('d-none');
-		
-		$timeout(function() {
-			$('.imagen-sequence').css('width',80);
-			$('.imagen-sequence').css('height',120);
-		},1000);
+		$scope.mbSearchSequences = true;
 			
 		$http({
             url:"/conexiones/get_available_sequences/" + companyId,
