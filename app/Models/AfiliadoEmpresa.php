@@ -10,6 +10,8 @@ use App\Notifications\MyResetPassword;
 use App\Notifications\WelcomeMail;
 use App\Models\ShoppingCart;
 use App\Models\AdvanceLine;
+use App\Models\ConectionAffiliatedStudents;
+use App\Models\AffiliatedCompanyRole;
 use Illuminate\Auth\Passwords\PasswordBroker;
 
 class AfiliadoEmpresa extends Model
@@ -174,8 +176,16 @@ class AfiliadoEmpresa extends Model
                    ->where('end_date', '<=',date('Y-m-d', strtotime('+ 1 day')));
         }])->where('affiliated_company_id',$user_id)->get();
         
-        return ['first'=>$dates->min('updated_at'),'last'=>$dates->max('created_at')];
-        
+        return ['first'=>$dates->min('updated_at'),'last'=>$dates->max('created_at')];        
     }
-
+    
+    public function kidSelected() {
+        $user_id = $this->id;
+        $rol_id = AffiliatedCompanyRole::select('id')->where([
+                    ['affiliated_company_id',$user_id],
+                    ['rol_id',1]//estudiante
+                  ])->first()->id;
+        $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id',$rol_id)->get();
+        return $kidSelected ? $kidSelected[0]['age_stage'] : '';
+    }
 }

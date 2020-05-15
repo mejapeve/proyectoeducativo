@@ -1,4 +1,4 @@
-@extends('roles.tutor.index')
+@extends('roles.tutor.layout')
 
 @section('content-tutor-index')
    <div class="d-none-result d-none" ng-controller="tutorProductsCtrl" ng-init="init()" >
@@ -6,8 +6,8 @@
           <h6 ng-show="products.length === 1" class="mt-3 mb-4"> Actualmente cuentas con el siguiente producto con nosotros.</h6>
           <h6 ng-show="products.length > 1" class="mt-3 mb-4"> Actualmente cuentas con diferentes productos con nosotros.</h6>
           <div class="row">
-		      <div ng-repeat="product in products" class="col-lg-6 col-12 mb-3">
-			    <div ng-show="product.type_product_id === 1" class="d-flex">
+              <div ng-repeat="product in products" class="col-lg-6 col-12 mb-3">
+                <div ng-show="product.type_product_id === 1" class="d-flex">
                     <img width="auto" height="100px" src="{{asset('/')}}@{{product.sequence.url_image}}" />
                     <div class="row">
                        <h6 class="col-12 ml-3">Secuencia @{{product.sequence.name}}</h6>

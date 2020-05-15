@@ -1,4 +1,4 @@
-MyApp.controller("TutorProfileCtrl", ["$scope", "$http", function($scope, $http) {
+MyApp.controller("tutorProfileCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.newRegisterForm=false;
     $scope.tutor={};

@@ -1,10 +1,12 @@
-MyApp.controller("profileStudentCtrl", function ($scope, $http) {
+MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
     $scope.customImage = null;
     $scope.urlImage = null;
     $scope.validateUserName = true;
    
-    $scope.initProfile = function() {
-        $('.d-none-result').removeClass('d-none');        
+    $scope.initProfile = function(kidSelected, userNameInit) {
+        $('.d-none-result').removeClass('d-none');
+        $scope.kidSelected = kidSelected;
+        $scope.userNameInit = userNameInit;
     }
 
     $scope.onEditStudent = function() {
@@ -23,14 +25,20 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
       var password = $('input[name=password]').val(); //if(password.length === 0 ) { $scope.mbInvalidate = 'Este campo debe ser poblado'; return;}
       if(password.length>0 && password.length<8)  { $scope.errorPassword = 'La contraseña debe tener mínimo 8 caracteres'; return;}
       
+      
       $scope.loadingRegistry = true;
       var data = {
           "name": name,
           "last_name": last_name,
-          "user_name": user_name,
           "birthday": birthday,
-          "password": password
+          "password": password,
+          "kidSelected": $scope.kidSelected
       }
+      
+      if($scope.userNameInit != user_name ) {
+          data.user_name = user_name;
+      }
+      
       $http({
          url:"/edit_user_student/",
          method: "POST",
@@ -45,7 +53,12 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http) {
                showCancelButton: false,
                showConfirmButton: false
             }).catch(swal.noop);
-            $scope.initInscriptions();
+            
+            
+            $timeout(function() {
+                location="";
+            },1000);
+            
          }
       }).catch(function (e) {
          $scope.errorMessageRegister = 'Error editando el estudiante';

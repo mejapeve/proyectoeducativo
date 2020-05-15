@@ -1,4 +1,4 @@
-@extends('roles.tutor.index')
+@extends('roles.tutor.layout')
 
 @section('content-tutor-index')
    <div class="d-none-result d-none" ng-controller="tutorProductsCtrl" ng-init="init()" >

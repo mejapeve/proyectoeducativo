@@ -1,7 +1,7 @@
-@extends('roles.tutor.index')
+@extends('roles.tutor.layout')
 
 @section('content-tutor-index')
-   <div class="list-group" ng-controller="TutorIndexController" ng-init="initInscriptions()" >
+   <div class="list-group" ng-controller="tutorInscriptionsCtrl" ng-init="initInscriptions()" >
         <div ng-click=editUserForm(student.id) class="student-tutor-inscription btn btn-light" ng-repeat="student in students">
           <img class="rounded-circle" ng-src="{{asset('/')}}@{{student.url_image || 'images/icons/default-avatar.png'}}" width="100px"/>
           <p>@{{student.name}} @{{student.last_name}}</p>
@@ -33,5 +33,5 @@
    </div>
 @endsection
 @section('js')
-    <script src="{{asset('/../angular/controller/TutorIndexController.js')}}"></script>
+    <script src="{{asset('/../angular/controller/tutorInscriptionsCtrl.js')}}"></script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('roles.student.layout')
 
 @section('content')
-    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile()">
+    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile('{{$student->kidSelected()}}','{{$student->user_name}}');">
         <div class="content row">
             <div class="col-8 mt-4 ml-auto mr-auto">
                 <div class="border border-light rounded-radius-1 card card-body border-dark_opacity"  style="min-width: 24rem;">
@@ -16,7 +16,7 @@
                         </div>
                         <div class="col-lg-7 mt-3 mb-auto">
                             <h5> Nombres </h5>
-                            <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->name}} </small></h5>
+                            <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->name}}</small></h5>
                             <h5> Apellidos </h5>
                             <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->last_name}} </small></h5>
                             <h5> Edad </h5>
@@ -30,18 +30,18 @@
                            <div class="position-absolute modal-menu card-notification shadow-none card" style="top: -65px;left: -33px;width: 100%;margin-left: -15px;min-width: 388px;">
                                <div ng-click="editRegisterForm=false" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
                                <div class="p-lg-6 p-sm-4">
-                                    <div class="row">
+                                   <div class="row">
                                         <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registra los datos del estudiante</h6>
                                         <div class="col-12 d-flex mt-3">
-                                            <div class="register-avatar-kid" ng-click="kidSelected=1" ng-class="{'selected':kidSelected===1}">
+                                            <div class="register-avatar-kid" ng-click="kidSelected='niño'" ng-class="{'selected':kidSelected==='niño'}">
                                                 <img src="{{asset('images/icons/kid2.png')}}" width="103px;"/>
                                                 <span>Niño</span>
                                             </div>
-                                            <div class="register-avatar-kid" ng-click="kidSelected=2" ng-class="{'selected':kidSelected===2}">
+                                            <div class="register-avatar-kid" ng-click="kidSelected='niña'" ng-class="{'selected':kidSelected==='niña'}">
                                                 <img src="{{asset('images/icons/kid1.png')}}" width="103px;"/>
                                                 <span>Niña</span>
                                             </div>
-                                            <div class="register-avatar-kid" ng-click="kidSelected=3" ng-class="{'selected':kidSelected===3}">
+                                            <div class="register-avatar-kid" ng-click="kidSelected='joven'" ng-class="{'selected':kidSelected==='joven'}">
                                                 <img src="{{asset('images/icons/kid3.png')}}" width="103px;"/>
                                                 <span>Joven</span>
                                             </div>
@@ -99,7 +99,7 @@
                                     <span ng-show="errorMessageRegister" class="invalid-feedback" role="alert">
                                          <strong>@{{errorMessageRegister}}</strong>
                                     </span>
-                                </div>
+                               </div>
                            </div>
                         </div>
                     </div>

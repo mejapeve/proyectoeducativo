@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEdit()" ng-disabled="!validateUserName">
+    <button type="submit" class="btn btn-small btn-primary d-flex" ng-click="onEditStudent()" ng-disabled="!validateUserName">
         <div ng-show="loadingRegistry"><i class="fa fa-spinner fa-spin mr-2"></i></div>
         {{ __('Editar') }}
     </button>

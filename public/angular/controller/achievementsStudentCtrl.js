@@ -1,16 +1,16 @@
 MyApp.controller("achievementsStudentCtrl", ["$scope", "$http", "$timeout", function ($scope, $http, $timeout) {
     
-	$scope.sequences = null;
-	
+    $scope.sequences = null;
+    
     $scope.initProfile = function() {
         $('.d-none-result').removeClass('d-none');
     }
-	
-	$scope.initSequences = function(companyId) {
-		$('.d-none-result').removeClass('d-none');
-		$scope.mbSearchSequences = true;
-			
-		$http({
+    
+    $scope.initSequences = function(companyId) {
+        $('.d-none-result').removeClass('d-none');
+        $scope.mbSearchSequences = true;
+            
+        $http({
             url:"/conexiones/get_available_sequences/" + companyId,
             method: "GET",
         }).
@@ -20,6 +20,6 @@ MyApp.controller("achievementsStudentCtrl", ["$scope", "$http", "$timeout", func
             $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
             swal('Conexiones',$scope.errorMessage,'error');
         });
-	}
+    }
   
 }]);

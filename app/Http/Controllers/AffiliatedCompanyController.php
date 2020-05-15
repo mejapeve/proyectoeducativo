@@ -40,7 +40,7 @@ class AffiliatedCompanyController extends Controller
                     if($userStudent->exists()){
                         $userStudent->name = $request->name;
                         $userStudent->last_name = $request->last_name;
-                        if(isset($userStudent->user_name)) {
+                        if(isset($request->user_name)) {
                             $exist = AfiliadoEmpresa::where('user_name',$request->user_name)->where('id','!=',$userStudent->id)->first();
                             if($exist === null) {
                                 $userStudent->user_name = $request->user_name;
@@ -48,7 +48,7 @@ class AffiliatedCompanyController extends Controller
                                 return response()->json(['data'=>'','message','El nombre de usuario ya esta en uso'],200);
                             }
                         }
-                        if(isset($userStudent->birthday)) {
+                        if(isset($request->birthday)) {
                             $userStudent->birthday = $request->birthday;
                         }
                         if(isset($request->password)) {
@@ -73,7 +73,7 @@ class AffiliatedCompanyController extends Controller
                 if($userStudent->exists()){
                     $userStudent->name = $request->name;
                     $userStudent->last_name = $request->last_name;
-                    if(isset($userStudent->user_name)) {
+                    if(isset($request->user_name)) {
                         $exist = AfiliadoEmpresa::where('user_name',$request->user_name)->first();
                         if($exist === null) {
                             $userStudent->user_name = $request->user_name;
@@ -81,7 +81,7 @@ class AffiliatedCompanyController extends Controller
                             return response()->json(['data'=>'','message','El nombre de usuario ya esta en uso'],200);
                         }
                     }
-                    if(isset($userStudent->birthday)) {
+                    if(isset($request->birthday)) {
                         $userStudent->birthday = $request->birthday;
                     }
                     if(isset($request->password)) {

@@ -25,7 +25,7 @@ class TutorController extends Controller
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         $route = route('tutor.registerStudentForm',session('name_company'));
         $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
-        return view('roles.tutor.index')->with('route',$route)->with('tutor',$tutor);
+        return view('roles.tutor.profile')->with('route',$route)->with('tutor',$tutor);
     }
     
     public function showRegisterStudentForm (Request $request){
@@ -100,7 +100,7 @@ class TutorController extends Controller
         ])->pluck('id');
 
        return AffiliatedContentAccountService::with('affiliated_account_services.rating_plan','sequence')
-	   ->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
+       ->whereIn('affiliated_account_service_id',$ids)->groupBy('sequence_id')->get();
     }
     
     public function get_history_tutor(Request $request) {

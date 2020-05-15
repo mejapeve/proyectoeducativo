@@ -1,5 +1,4 @@
-MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $http) {
-
+MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.initInscriptions = function() {
         
@@ -81,7 +80,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             $scope.errorMessageFilter = 'Error consultando los estudiantes';
         });
     }
-    $scope.onEdit = function() {
+    $scope.onEditStudent = function() {
         if($scope.validateUserName){
             $scope.loadingRegistry = true;
             $http({
@@ -138,7 +137,7 @@ MyApp.controller("TutorIndexController", ["$scope", "$http", function($scope, $h
             $scope.errorMessageFilter = 'Error validando nombre de usuario';
         });
     }
-    $scope.onKidSelected=(type)=>{
+    $scope.onKidSelected = (type)=>{
         $scope.newStudent.kidSelected = type
 
     }
