@@ -15,7 +15,7 @@
             <div class="mb-3 col-12">
                <div class="justify-content-center justify-content-sm-between row">
                   <div class="text-center col-sm-auto card-header boder-header p-2 ml-3">
-                     <h5 class="d-inline-block">Elementos de laboratorio</h5>
+                     <h5 class="d-inline-block">Implementos de laboratorio</h5>
                   </div>
                   <div
                      class="d-none-result d-none d-flex flex-center fs--1 mt-1 mt-sm-0 col-sm-auto d-none-result d-none">
@@ -55,7 +55,7 @@
             
             <div class="d-none-result d-none p-3 border-lg-y col-lg-2 w-100"
                style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-show="searchText.length > 0 && kit_elements.length > 0">
-               No se encontraron elementos de laboratorio que coincidan con la búsqueda @{{searchText}}
+               No se encontraron implementos de laboratorio que coincidan con la búsqueda @{{searchText}}
             </div>
 
          </div>

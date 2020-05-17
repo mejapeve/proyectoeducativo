@@ -1,0 +1,43 @@
+.panel-icon-pedagogy {
+  border: 5px solid #77A3A3;
+  border-radius: 17px;
+  padding: 19px 25px;
+  width: 395px;
+  background-color: white;
+}
+
+.panel-icon-pedagogy .header {
+  margin-bottom: 23px;
+}
+
+.panel-icon-pedagogy .header span {
+  background-color: #77A3A3;
+  padding: 3px 21px 4px 21px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.panel-icon-pedagogy .body {
+  text-align: justify;
+}
+
+.panel-icon-up {
+  top: 712px;
+  left: 192px;
+  content: '';
+  position: absolute;
+  z-index: -1;
+  /* width: 36px; */
+  /* height: 1rem; */
+  background: #000;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: inherit;
+  border-radius: .125rem;
+  border-width: 14px;
+  border-style: solid;
+  border-color: #77A3A3;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+}

@@ -55,15 +55,15 @@
             @for($j = 1; $j < 9 ; $j++)
                 @for($i = 1; $i < 5 ; $i++)
                     @if($i ===1)
-                        <svg class="svgelem2" width="10px" height="20px" style="margin-right: -20px; margin-left: -18px;">
+                        <svg class="svgelem2" width="10px" height="20px" style="margin-right: -21px; margin-left: -18px;">
                             <rect width="25" height="1"  fill="#007AFF" stroke="#007AFF" style="stroke-width:0.5;" />
                         </svg>
                     @else
-                        <svg class="svgelem2" width="10px" height="20px" style="margin-right: -26px;">
+                        <svg class="svgelem2" width="10px" height="20px" style="margin-right: -24px;">
                             <rect width="44" height="1" fill="#007AFF" stroke="#007AFF" style="stroke-width:0.5;" />
                         </svg>
                     @endif
-                    <svg class="svgelem"  width="30px" height="40px" style="margin-right:-10px" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="svgelem"  width="33px" height="40px" style="margin-right:-12px" xmlns="http://www.w3.org/2000/svg">
                         <circle class="circle{{$j}}{{$i}}" cx="21" cy="25" r="4" fill="#FFFFFF" stroke="#007AFF"
                                 stroke-width="2%"/>
                     </svg>

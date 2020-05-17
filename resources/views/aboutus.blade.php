@@ -29,8 +29,8 @@
       <div class="card-header about-header boder-header p-2 ml-3">
          <h5 class="mb-0">Razones para elegir Conexiones</h5>
       </div>
-      <div class="about-body text-justify">
-         <p>Esta propuesta ha sido concebida como material complementario para la enseñanza y aprendizaje de las ciencias, y se destaca por cuatro razones:.</p>
+      <div class="about-body text-center">
+         <p class="about-body text-left">Esta propuesta ha sido concebida como material complementario para la enseñanza y aprendizaje de las ciencias, y se destaca por cuatro razones:.</p>
          <img class="ml-auto mr-auto img-thumbnail img-fluid mb-3 shadow-sm" src="{{ asset('images/acercaConexiones/Captura de Pantalla 2020-03-13 a la(s) 4.43.29 p. m.png') }}" alt="">
       </div>
    </div>
@@ -41,6 +41,9 @@
       <div class="about-body text-justify">
          <p>Todas las guías de aprendizaje que hacen parte de &nbsp;<strong><span style="color:#002060;">Conexiones,</span></strong> han sido creadas por maestros y maestras con amplia experiencia en la enseñanza de las ciencias naturales, el equipo profesional ha diseñadoo una propuesta educativa propia con la intención de aportar a los procesos de aprendizaje de las niñas, los niños y jóvenes.&nbsp;</p>
          <p>Este equipo se acompaña de un grupo experto en diseño, realización audiovisual y programación web, que han hecho posible el desarrollo de los contenidos y la plataforma que los integra, para ofrecer una experiencia de uso agradable e intuitiva.&nbsp;</p>
+      </div>
+      <div class="about-body text-justify">
+         <a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--1" target="_blank" href="{{asset('docs/Terminosycondiciones_educonexiones.pdf')}}">Ver términos y condiciones</a>
       </div>
    </div>
 </div>

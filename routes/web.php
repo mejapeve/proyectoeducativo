@@ -27,6 +27,10 @@ Route::get('/acercade', function () {
     return view('aboutus');
 })->name('aboutus');
 
+Route::get('/enfoque_pedagogico', function () {
+    return view('pedagogy');
+})->name('pedagogy');
+
 Route::get('/contactenos', function () {
     return view('contactus');
 })->name('contactus');

@@ -63,20 +63,20 @@
                </div>
             </div>
             <div class="d-none-result d-none row w-100 p-3">
-               <div class="col-lg-6 border-white-extent" ng-repeat="sequence in sequences | filter: searchText">
-                  <div class="card card-body bg-dark text-center p-3 row sequence-div">
-                     <div class="col-5">
-                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="162px" height="162px" class="col-12 p-0 sequence-imagen"/> 
-                     </div>
-                     <div class="col-7 pl-0 sequence-description ml-2 text-justify fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
-                        <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequence.name}} </span></h5>
-                        <p class="mt-4 ml-2"> @{{sequence.description}}</p>
-                        <div class="mt-auto mb-auto position-absolute" style="bottom: 10px;">
-                           <a class="btn btn-outline-primary" ng-href="/guia_de_aprendizaje/@{{sequence.id}}/@{{sequence.name_url_value}}">
-                           <span class="fs-lg-0 fs-md-0 fs-sm--1">Detalle</span></a>
-                           <a ng-click="onSequenceBuy(sequence)" class="ml-2 btn btn-outline-primary" href="#" class="col-auto">
-                           <span class="fs-lg-0 fs-sm--1">
-                           <i class="fas fa-shopping-cart"></i> Comprar</span></a>
+               <div class="col-md-6 ml-2 pr-2 border-white-extent card card-body bg-dark row d-flex" ng-repeat="sequence in sequences | filter: searchText">
+                  <div class="view" id="sequence-description-@{{sequence.id}}">
+                     <div class="media">
+                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="80px" height="100px"/> 
+                        <div class="media-body pl-2 pr-3">
+                           <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}}</h5>
+                           <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
+                           <div class="mt-2">
+                              <a class="btn btn-sm btn-outline-primary" ng-href="/guia_de_aprendizaje/@{{sequence.id}}/@{{sequence.name_url_value}}">
+                              <span class="fs--1">Detalle</span></a>
+                              <a ng-click="onSequenceBuy(sequence)" class="ml-2  btn-sm btn btn-outline-primary" href="#" class="col-auto">
+                              <span class="fs--1">
+                              <i class="fas fa-shopping-cart"></i> Comprar</span></a>
+                           </div>
                         </div>
                      </div>
                   </div>

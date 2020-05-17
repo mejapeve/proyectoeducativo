@@ -5,9 +5,9 @@
           <div ng-click="elementsKits.length =0" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
           <div class="card-body w-100 d-none-result d-none mb-3">
             <h4 class=" boder-header p-1 pl-3">
-               Elementos de Laboratorio
+               Implementos de Laboratorio
             </h4>
-            <p>La guía de aprendizaje adquirida contiene elementos de laboratorio que también podrá adquirir, si no desea adquirirlos omita este paso y continue con la compra.</p>
+            <p>La guía de aprendizaje adquirida contiene implementos de laboratorio que también podrá adquirir, si no desea adquirirlos omita este paso y continue con la compra.</p>
             
             <div class="row">
                 <div ng-repeat="elementsKit in elementsKits" class="text-center col-xl-4 col-md-6 col-12 border-white-extent">
