@@ -6,16 +6,16 @@
     <div class="swiper-container">
        <div class="swiper-wrapper">
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide1.jpg); background-size: 96vw 50vw;">
+             style="background-image:url(images/sliderCarrucelHome/slide1.jpg); background-size: 100% 300px;">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide2.jpg); background-size: 96vw 50vw;">
+             style="background-image:url(images/sliderCarrucelHome/slide2.jpg); background-size: 100% 300px;">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide3.jpg); background-size: 96vw 50vw;">
+             style="background-image:url(images/sliderCarrucelHome/slide3.jpg); background-size: 100% 300px;">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide4.jpg); background-size: 96vw 50vw;">
+             style="background-image:url(images/sliderCarrucelHome/slide4.jpg); background-size: 100% 300px ;">
           </div>
        </div>
        <!-- Add Arrows -->
@@ -26,8 +26,9 @@
     <style type="text/css">
        .swiper-slide {
           text-align: center;
-          height: 50vw;
+          height: 100vw;
           font-size: 18px;
+          max-height: 300px;
           background: #fff;
           /* Center slide text vertically */
           display: -webkit-box;

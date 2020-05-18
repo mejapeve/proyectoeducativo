@@ -41,14 +41,13 @@
    <div class="mb-3 card" ng-show="sequence">
       <div class="card-body">
          <div class="no-gutters row">
-            <div class="d-none-result2 d-none mb-3 col-12">
-               <div class="justify-content-center justify-content-sm-between row">
-                  <div class="d-none-result d-none d-flex flex-center mt-1 mt-sm-0 col-sm-auto d-none-result d-none">
+            <div class="d-none-result2 d-none mb-3 col-12 row">
+               <div class="col-6">
                      <!-- Swiper -->
                      <div class="swiper-container">
                         <div class="swiper-wrapper sequence">
                            <div class="swiper-slide" ng-repeat="imagen in sequence.images" width="75px"
-                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen}}');
+                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen }}');
                                       background-size: 100% 100%; ">
                            </div>
                         </div>
@@ -56,7 +55,10 @@
                         <div class="swiper-button-next" style="color: white;"></div>
                         <div class="swiper-button-prev" style="color: white;"></div>
                      </div>
-                  </div>
+               </div>
+               <div class="col-6">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/u1iBFJIsIhw" frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                </div>
             </div>
             <div class="d-none-result2 d-none row w-100">
@@ -72,12 +74,12 @@
                  </div>
                  
                  <div class="col-12 ml-2 mt-3" ng-show="elementsKits.length > 0">
-                   <h5 class="p-1">Esta guía requiere instrumentos y materiales de laboratorio </h5>
+                   <h6 class="p-1">Esta guía requiere instrumentos y materiales de laboratorio </h6>
                    <div class="row">
                        <div class="col-lg-4 col-md-6" ng-repeat="kit_element in elementsKits" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
                              <div class="col-7">
-                                <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit_element.url_image}}" width="62px" height="62px" />
+                                <img class="kit-imagen col-12 p-0" ng-src="@{{kit_element.url_image}}" width="62px" height="62px" />
                             </div>
                              <div class="col-5">
                                  <div class="col-12 mt-3 kit-description" id="sequence-description-@{{kit_element.id}}">

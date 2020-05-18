@@ -7,11 +7,11 @@
          <h5 class="mb-0">Acerca de Conexiones</h5>
       </div>
       <div class="mt-3 ml-3" >
-         <h6><strong>Conexiones para el desarrollo de pensamiento científico </strong></h6>
+         <h5><strong>Conexiones para el desarrollo de pensamiento científico </strong></h5>
       </div>
       <div class="about-body text-justify">
          <p>Es una propuesta educativa de <strong>ciencias naturales</strong> dirigida a niños, niñas y jóvenes, que como lo indica su nombre, relaciona<strong>&nbsp;teoría y práctica&nbsp;</strong>de manera contextualizada, a través de experiencias de aprendizaje orientadas hacia el desarrollo de pensamiento científico.</p>
-         <p><strong>Conexiones&nbsp;</strong>ofrece una <strong>alternativa educativa</strong>, pues se distancia de la manera en que tradicionalmente se ha centrado la enseñanza de las ciencias naturales: la memorización de conceptos y la repetición de “recetas de laboratorio”, y se enfoca en el desarrollo de <strong>habilidades científicas</strong>, la <strong>comprensión&nbsp;</strong>holística de los <strong>fenómenos naturales</strong>, el <strong>análisis crítico</strong> de los avances de la <strong>ciencia y la tecnología</strong>, así como la toma de <strong>decisiones fundamentadas</strong> respecto a las <strong>implicaciones éticas&nbsp;</strong>de estos. &nbsp;</p>
+         <p><strong>Conexiones&nbsp;</strong>ofrece una <strong>alternativa educativa</strong>, pues se distancia de la manera en que tradicionalmente se ha centrado la enseñanza de las ciencias naturales: la memorización de conceptos y la repetición de “recetas de laboratorio”, enfocándose en el desarrollo de <strong>habilidades científicas</strong>, la <strong>comprensión&nbsp;</strong>holística de los <strong>fenómenos naturales</strong>, el <strong>análisis crítico</strong> de los avances de la <strong>ciencia y la tecnología</strong>, así como la toma de <strong>decisiones fundamentadas</strong> respecto a las <strong>implicaciones éticas&nbsp;</strong>de estos. &nbsp;</p>
       </div>
    </div>
    <div class="pl-lg-2 col-lg-6">
@@ -39,7 +39,9 @@
          <h5 class="mb-0">Detrás de Conexiones</h5>
       </div>
       <div class="about-body text-justify">
-         <p>Todas las guías de aprendizaje que hacen parte de &nbsp;<strong><span style="color:#002060;">Conexiones,</span></strong> han sido creadas por maestros y maestras con amplia experiencia en la enseñanza de las ciencias naturales, el equipo profesional ha diseñadoo una propuesta educativa propia con la intención de aportar a los procesos de aprendizaje de las niñas, los niños y jóvenes.&nbsp;</p>
+         <p>Todas las guías de aprendizaje que hacen parte de &nbsp;<strong><span style="color:#002060;">Conexiones,</span></strong> 
+            han sido creadas por maestros y maestras con amplia experiencia en la enseñanza de las ciencias naturales.  
+            El equipo profesional ha diseñado una propuesta educativa propia con la intención de aportar a los procesos de aprendizaje de las niñas, los niños y jóvenes.&nbsp;</p>
          <p>Este equipo se acompaña de un grupo experto en diseño, realización audiovisual y programación web, que han hecho posible el desarrollo de los contenidos y la plataforma que los integra, para ofrecer una experiencia de uso agradable e intuitiva.&nbsp;</p>
       </div>
       <div class="about-body text-justify">
