@@ -226,6 +226,12 @@ Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student'
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
 
 
+//servicios gestión de preguntas y respuestras
+Route::group([],function (){
+    Route::post('register_update_answer', 'QuestionController@register_update_answer')->name('register_update_answer');
+    Route::get('get_questions', 'QuestionController@get_questions')->name('get_questions');
+
+});
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);
