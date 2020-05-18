@@ -20,9 +20,9 @@ class CreateQuestiosTable extends Migration
             $table->longText('review');
             $table->bigInteger('type_answer')->unsigned();
             $table->foreign('type_answer')->references('id')->on('type_answers');
-            $table->integer('sequence_id');
-            $table->integer('moment_id');
-            $table->integer('experience_id');
+            $table->integer('sequence_id')->nullable();
+            $table->integer('moment_id')->nullable();
+            $table->integer('experience_id')->nullable();
             $table->timestamps();
         });
     }
