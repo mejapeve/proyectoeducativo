@@ -36,13 +36,13 @@ class NotifyFailureCallbackController extends Controller
 
         $paid_amount = 0;
 
-        if ($request->collection_status == 'approved') {
+        if ($request->collection_status == 'rejected') {
             //$paid_amount += $payment['transaction_amount'];
 			$update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
 											['payment_status_id', 1 ],
 											['payment_transaction_id', $request->preference_id]])->
 			update(array(
-				'payment_status_id' => '3',
+				'payment_status_id' => '4',
 				'payment_init_date' =>  date("Y-m-d H:i:s")
             ));
         }
