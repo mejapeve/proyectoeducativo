@@ -24,7 +24,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>true,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>1,
-                    "days"=>15
+                    "days"=>15,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por 2 meses",
@@ -35,7 +37,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>1,
-                    "days"=>60
+                    "days"=>60,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por 4 meses",
@@ -46,7 +50,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>2,
-                    "days"=>120
+                    "days"=>120,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por 8 meses",
@@ -57,7 +63,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>4,
-                    "days"=>240
+                    "days"=>240,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por 12 meses",
@@ -68,7 +76,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>6,
-                    "days"=>360
+                    "days"=>360,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por momento",
@@ -79,7 +89,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>2,//momento
                     "count"=>4,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
-                    "days"=>10
+                    "days"=>10,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ],
                 [
                     "name"=>"Plan por experiencia",
@@ -90,7 +102,9 @@ class RatingPlanSeeder extends Seeder
                     "is_free"=>false,
                     "type_rating_plan_id"=>3,//experiencia
                     "count"=>0,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
-                    "days"=>10
+                    "days"=>10,
+                    "init_date"=>'2020-05-01',
+                    "expiration_date"=>null,
                 ]
             ];
         foreach ($rating_plans as $rating_plan){
