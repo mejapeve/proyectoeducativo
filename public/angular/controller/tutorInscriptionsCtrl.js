@@ -15,7 +15,6 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
         }).
         then(function (response) {
             $scope.students = response.data;
-            console.log($scope.students);
             $('.d-none-result.d-none').removeClass('d-none');
             
         }).catch(function (e) {
@@ -129,7 +128,6 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
             method: "GET",
         }).
         then(function (response) {
-            console.log('validación','id del usuario',response.data.data);
             ($scope.newStudent.user_name ===  $scope.user_name_old)?response.data.data = true:'';
             $scope.validateUserName = response.data.data;
 

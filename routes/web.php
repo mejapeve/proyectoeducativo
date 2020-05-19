@@ -228,10 +228,13 @@ Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@valida
 
 //servicios gestión de preguntas y respuestras
 Route::group([],function (){
-    Route::post('register_update_answer', 'QuestionController@register_update_answer')->name('register_update_answer');//->middleware('role:admin');
+    Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_answer');//->middleware('role:admin');
     Route::get('get_questions', 'QuestionController@get_questions')->name('get_questions');
+    Route::post('register_update_answer', 'AnswerController@register_update_answer')->name('register_update_answer');//->middleware('role:admin');
+    Route::get('get_answers', 'AnswerController@get_answers')->name('get_answers');
 
 });
+
 
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);

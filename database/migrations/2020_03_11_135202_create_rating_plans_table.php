@@ -28,7 +28,7 @@ class CreateRatingPlansTable extends Migration
             $table->bigInteger('sequence_free_id')->nullable();
             $table->string('moment_free_ids')->nullable();
             $table->date('init_date');
-            $table->date('expiration_date');
+            $table->date('expiration_date')->nullable();
             $table->timestamps();
         });
     }

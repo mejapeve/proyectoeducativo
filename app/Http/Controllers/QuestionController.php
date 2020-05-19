@@ -8,11 +8,10 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     //
-    public function register_update_answer (Request $request){
-
+    public function register_update_question (Request $request){
         if(@json_decode($request->options) && @json_decode($request->review)){
             $question = Question::updateOrCreate(
-                ['sequence_id' => $request->sequence_id, 'moment_id' => $request->moment_id,'experience_id'=>$request->experience_id],
+                ['sequence_id' => $request->sequence_id, 'moment_id' => $request->moment_id,'experience_id'=>$request->experience_id,'order'=>$request->order ],
                 ['options' =>$request->options , 'review' => $request->review,'type_answer' => $request->type_answer]
             );
         }else{
