@@ -175,7 +175,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         
         switch($scope.dataJstree.type) {
         case 'openSequence': 
-            $scope.PageName = 'Secuencia';
+            $scope.PageName = 'Guía de Aprendizaje';
             $scope.elementParentEdit = $scope.sequence;
             $('#sidemenu-sequences .overflow-auto').addClass('height_337').removeClass('height_235');
         break;

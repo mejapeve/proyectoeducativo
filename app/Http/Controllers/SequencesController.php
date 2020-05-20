@@ -67,6 +67,7 @@ class SequencesController extends Controller {
             for($i=0; $i < 8; $i++){
                 $moment = new SequenceMoment();
                 $moment->sequence_company_id = $sequence->id;
+                $moment->order =  $i+1; 
                 $moment->save();
                 $experience = new MomentExperience();
                 $experience->sequence_moment_id = $moment->id;

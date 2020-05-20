@@ -52,6 +52,7 @@ class CompanySequencesSeeder extends Seeder
             $sequenceN->url_slider_images = 'images/sequences/sequence20/slider_images/slide-1.jpg|images/sequences/sequence'.$index.'/slider_images/slide-2.jpg|images/sequences/sequence'.$index.'/slider_images/slide-3.jpg|images/sequences/sequence'.$index.'/slider_images/slide-4.jpg';
             $sequenceN->keywords = 'Unidades medida|medición|longitud|masa|peso|volumen|tiempo';//$secuence['keywords'];
             $sequenceN->areas = $secuence['areas'];
+            $sequenceN->url_vimeo = 'https://www.youtube.com/embed/u1iBFJIsIhw';
             $sequenceN->themes = $secuence['themes'];
             $sequenceN->objectives = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed | Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed';
             $sequenceN->section_1 = '{"section":{"id":1,"name":"Situación Generadora"},"sequenceSectionIndex":"section_1","sequenceSectionPartIndex":"part_1","part_1":{"container":{"w":874,"h":489},"background_image":"images/sequences/sequence20/situacionGeradora-20.jpg"}}';

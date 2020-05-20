@@ -20,8 +20,8 @@
              
              <ul class="text-justify pr-4 mb-0" ng-show="ratingPlan.type_rating_plan_id === 1">
                 <li><strong>Situación generadora</strong>: tiene la intención pedagógica de movilizar la curiosidad de los estudiantes y las estudiantes para indagar y aprender. </li>
-                <li><strong>Ruta de viaje</strong>: organizada en ocho momentos o etapas secuenciales que, en conjunto, permiten ampliar la comprensión de los fenómenos naturales tratados y la conexión de estos con el mundo de la vida </li>
-                <li><strong>Guía de saberes</strong>: Durante el desarrollo de cada guía de aprendizaje, las y los estudiantes despliegan un conjunto de acciones de pensamiento y producción que constituyen las evidencias de aprendizaje. </li>
+                <li><strong>Ruta de viaje</strong>: contenidos organizados en ocho momentos o etapas secuenciales que, en conjunto, permiten ampliar la comprensión de los fenómenos naturales tratados y la conexión de estos con el mundo de la vida </li>
+                <li><strong>Guía de saberes</strong>: durante el desarrollo de cada guía de aprendizaje, las y los estudiantes despliegan un conjunto de acciones de pensamiento y producción que constituyen las evidencias de aprendizaje. </li>
                 <li><strong>Momentos</strong>:  Los momentos de la ruta están articulados a un punto de encuentro, que constituye el propósito común articulador de todos los contenidos. </li>
                 <p class="mt-3"> A continuación te ofrecemos una lista para que elijas @{{ratingPlan.count===1 ? 'la secuencia': 'las '+ratingPlan.count+' secuencias'}} que deseas realizar.</p>
              </ul>

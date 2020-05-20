@@ -187,13 +187,22 @@
                <div  class="bg-light card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
                   <div class="p-3 row fs--1" ng-show="dataJstree.type === 'openSequence'">
                      <div class="conx-element col-auto" ng-click="onClickElement(sequence,'url_image','Carátula','img')">
-                        <img ng-src="../../../@{{sequence.url_image}}" width="79px" height="auto"/>
+                        <img ng-show="sequence.url_image" ng-src="../../../@{{sequence.url_image}}" width="79px" height="auto"/>
+                        <img ng-hide="sequence.url_image" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
                      </div>
                      <div class="col-3 conx-element" ng-click="onClickElement(sequence,'name','Nombre','text')">
                         <h6 type="text" class="">@{{sequence.name}}</h6>
                      </div>
                      <div class="col-4 conx-element" ng-click="onClickElement(sequence,'description','Descripción','textArea')">
-                        @{{ sequence.description }}
+                        @{{ sequence.description || '---Descripcion--' }}
+                     </div>
+                     <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_vimeo','Video','video')">
+                        <img ng-hide="sequence.url_vimeo" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
+                        <div ng-show="sequence.url_vimeo"> 
+                        <iframe width="120" height="115" src="sequence.url_vimeo" frameborder="0" refreshable="sequence.url_vimeo"
+                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        
                      </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex" ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">
                         <h6>Palabras clave</h6>
@@ -287,7 +296,7 @@
                   </div>
                   <div ng-show="dataJstree.type === 'openMoment'"  class="p-3 row m-0 fs--1" >
                      <div class="col-3 conx-element" ng-click="onClickElement(moment,'name','Nombre','text')">
-                        <h6 type="text" class="">@{{moment.name}}</h6>
+                        <h6 type="text" class="">@{{moment.name || '--nombre--'}}</h6>
                      </div>
                      <div class="col-4 conx-element" ng-click="onClickElement(moment,'description','Descripción','textArea')">
                         @{{ moment.description ? moment.description : '--description--' }}
@@ -395,8 +404,9 @@
          </div>
          <div class="bg-light card-body">
             <input type="text" ng-show="typeEdit === 'text'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
-            <textarea ng-show="typeEdit === 'textArea'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100 h-100" rows="5">
-               </textarea>
+            <input ng-show="typeEdit === 'video'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
+            <input type="text" ng-change="onChangeInput(elementEdit.url_vimeo)" ng-model="elementEdit.url_vimeo" class="w-100"/>
+
             <div ng-show="typeEdit === 'img'">
                <img ng-src="../../../@{{elementParentEdit[elementEdit]}}" width="79px" height="auto" class=""/>
                <div class="line-separator"></div>
