@@ -10,7 +10,6 @@ use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use MercadoPago;
-use MercadoPago\Preference;
 
 class ShoppingCartController extends Controller
 {
@@ -184,13 +183,14 @@ class ShoppingCartController extends Controller
 
         return response()->json(['data' => $update, 'message' => 'se ha modificado el producto correctamente'], 200);
     }
-    
-    public function get_preference_initPoint() {
-        
+
+    public function get_preference_initPoint()
+    {
+
         //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
         //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
         MercadoPago\SDK::setAccessToken("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
-        
+
         # Create a preference object
         $preference = new MercadoPago\Preference();
         $preference->auto_return = "approved";
@@ -198,30 +198,40 @@ class ShoppingCartController extends Controller
             "success" => route('notification_gwpayment_callback'),
             "failure" => route('notification_gwpayment_failure_callback'),
         );
-        
-        
-        // Crea un ítem en la preferencia
-        $item = new MercadoPago\Item();
-        $item->title = 'Yotopo y los astronautas';
-        $item->quantity = 2;
-        $item->unit_price = 50;
-        $item->currency_id = 'USD';
+
+        $ratingPlans = DB::table('rating_plans')
+            ->join('shopping_carts', 'rating_plans.id', '=', 'shopping_carts.rating_plan_id')
+            ->where('shopping_carts.company_affiliated_id', auth("afiliadoempresa")->user()->id)
+            ->where('shopping_carts.payment_status_id', 1)
+            ->select('rating_plans.id', 'rating_plans.name', 'rating_plans.description', 'rating_plans.price')
+            ->get();
+
+        foreach ($ratingPlans as $ratingPlan) {
+            $item = new MercadoPago\Item();
+            $item->id = $ratingPlan->id;
+            $item->title = $ratingPlan->name;
+            $item->description = $ratingPlan->description;
+            $item->quantity = 1;
+            $item->unit_price = $ratingPlan->price;
+            $item->currency_id = 'COP';
+        }
+
         $preference->items = array($item);
-        
-        
+
         $preference->payment_methods = array(
-                "excluded_payment_types" => array(
-                    array("id" => "ticket",
-                    ),
+            "excluded_payment_types" => array(
+                array("id" => "ticket",
                 ),
+            ),
         );
-        
+
         $preference->save();
-        $update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-                                        ['payment_status_id', 1 ]])->
-                 update(['payment_transaction_id'=>$preference->id]);
-                 
+
+        $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+            ['payment_status_id', 1]])->
+            update(array('payment_transaction_id' => $preference->id,
+                         'payment_status_id' => 2));
+
         return response()->json(['preference_id' => $preference->id, 'initPoint' => $preference->init_point, 'message' => 'preferencia creada correctamente'], 200);
     }
 }
-    
