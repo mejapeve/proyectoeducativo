@@ -30,11 +30,11 @@
                                  <h5 class="mb-2 mb-md-0">Crear Avatar</h5>
                               </div>
                               <div class="col-auto">
-                                 <button ng-disabled="!customImage && !urlImage"
+                                 <button ng-disabled="!customImage && !avatar"
                                  class="mr-2 btn btn-falcon-default btn-sm" ng-click="onSaveAvatar()">Guardar</button>
                                  <form action="{{route('update_avatar',auth('afiliadoempresa')->user()->company_name())}}" method="POST" id="save-avatar-form">
                                     @csrf
-                                    <input type="hidden" name="url_image" ng-value="urlImage"/>
+                                    <input type="hidden" name="url_image" ng-value="avatar.urlImage"/>
                                     <input type="hidden" id="custom_image" name="custom_image" ng-value="customImage"/>
                                  </form>
                               </div>
@@ -42,20 +42,25 @@
                         </div>
                      </div>
                      <div class="mb-3 overflow-hidden card" style="min-width: 12rem;">
-                        <div class="position-relative card-body pr-1">
+                        <div class="p-3 border-lg-y col-lg-2 w-100 loading"
+                           style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="kits.length > 0">
+                           cargando...
+                        </div>
+                        <div class="position-relative card-body pr-1 d-result d-none ">
                            <h6> Puedes crear tu propio avatar o elegir uno</h6>
                            <div class="row mt-3">
-                              <div class="col-4">
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar1.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar1.png')" >
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar2.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar2.png')" >
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar3.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar3.png')" >
-                                 <img class="shadow-sm avatar-default rounded-circle" src="{{asset('images/avatars/avatar-default/avatar4.png')}}" ng-click="setAvatar('images/avatars/avatar-default/avatar4.png')" >
+                              <div class="col-3 col-md-4">
+                                 <img ng-repeat="avatar in avatars" class="shadow-sm avatar-default rounded-circle" src="@{{avatar.urlImage}}" ng-click="setAvatar(avatar)" >
                               </div>
-                              <div class="col-4">
-                                 <img id="avatar-selected" class="d-none shadow-sm rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}">
-                                 <canvas class="" width="272" height="300" id="canvas">No Canvas support</canvas>
+                              <div class="col-7 col-md-5 col-lg-4">
+                                 <div ng-show="avatar" style="width: 75%;">
+                                    <img class="shadow-sm rounded-circle" width="100%" height="auto" src="@{{avatar.urlImage}}">
+                                    <h6 class="text-align mt-2">@{{avatar.name}}</h6>
+                                    <h5 class="text-align mt-2">@{{avatar.job}}</h5>
+                                 </div>
+                                 <canvas ng-hide="avatar" class="" width="272" height="300" id="canvas">No Canvas support</canvas>
                               </div>
-                              <div class="col-4"  class="card-body">
+                              <div class="col-2 col-md-3 col-lg-4"  class="card-body">
                                  <div id="menu">
                                     <div class="mb-3">
                                        <img width="65px" height="65px" src="{{asset('images/avatars/icons/cara.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="skin"/>
@@ -117,8 +122,9 @@
                 </div>
                 <style>
                     .avatar-default {
-                        max-width: 54px;
+                        max-width: 85px;
                         margin: 4px;
+                        cursor: pointer;
                         border-radius: 39%!important;
                     }
                     #avatar-selected {
