@@ -45,6 +45,7 @@ class NotifyFailureCallbackController extends Controller
 				'payment_status_id' => '4',
 				'payment_init_date' =>  date("Y-m-d H:i:s")
             ));
+            return redirect()->route('home');
         }
 
 		//Enviar correo
