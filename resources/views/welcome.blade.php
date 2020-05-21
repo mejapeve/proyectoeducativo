@@ -3,19 +3,19 @@
 @section('content')
 
     <!-- Swiper -->
-    <div class="swiper-container">
+    <div class="swiper-container mt-lg--2">
        <div class="swiper-wrapper">
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide1.jpg); background-size: 100% 300px;">
+             style="background-image:url(images/sliderCarrucelHome/slide1.jpg);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide2.jpg); background-size: 100% 300px;">
+             style="background-image:url(images/sliderCarrucelHome/slide2.jpg);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide3.jpg); background-size: 100% 300px;">
+             style="background-image:url(images/sliderCarrucelHome/slide3.jpg);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide4.jpg); background-size: 100% 300px ;">
+             style="background-image:url(images/sliderCarrucelHome/slide4.jpg);">
           </div>
        </div>
        <!-- Add Arrows -->
@@ -26,9 +26,7 @@
     <style type="text/css">
        .swiper-slide {
           text-align: center;
-          height: 100vw;
           font-size: 18px;
-          max-height: 300px;
           background: #fff;
           /* Center slide text vertically */
           display: -webkit-box;
@@ -135,6 +133,7 @@
 
 
 <script>
+
    window.onload = function() {
          var swiper = new Swiper('.swiper-container', {
              navigation: {
@@ -143,7 +142,19 @@
             },
          });
    };
-   
+
+   $( window ).resize(function() {
+       resizable();
+    });
+
+   function resizable() {
+      var height = $( window ).width() * 400 / 1291;
+      $('.swiper-slide').css('height',height);
+      $('.swiper-slide').css('background-size','100% '+height+'px');
+   }
+
+   resizable();
+
    function onRatingPlanFree(ratingPlanId) {
         var ratingPlanId = '{{$rating_plan_id_free}}}';
         swal({
