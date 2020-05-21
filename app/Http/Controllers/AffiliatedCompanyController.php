@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AfiliadoEmpresa;
 use App\Models\ConectionAffiliatedStudents;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AffiliatedCompanyController extends Controller
@@ -86,6 +87,10 @@ class AffiliatedCompanyController extends Controller
                     }
                     if(isset($request->password)) {
                         $userStudent->password =  Hash::make($request->password);
+                        $request->session()->put([
+                            'password_hash' => $userStudent->password,
+                        ]);
+
                     }
                     if(isset($request->kidSelected)){
                         ConectionAffiliatedStudents::
@@ -96,6 +101,7 @@ class AffiliatedCompanyController extends Controller
                         ));
                     }
                     $userStudent->save();
+
                     return response()->json(['data'=>$userStudent],200);
                 }
                 return response()->json(['data'=>'','message'=>'El usario ha editar no se encuentra'],200);
