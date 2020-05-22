@@ -61,7 +61,7 @@
                 <input ID="txtPassword" type="Password" name="password"  ng-model="newStudent.password"
                        class="form-control @error('last_name') is-invalid @enderror" value="">
                 <div class="input-group-append">
-                    <button id="show_password" class="btn btn-primary" type="button" ng-click="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                    <button id="show_password" class="btn btn-primary" type="button" ng-click="viewPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
                 </div>
             </div>
         </div>

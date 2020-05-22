@@ -66,55 +66,14 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
       });
     }
 
-    $scope.setAvatar = function (urlImage) {
-        $scope.urlImage = urlImage;
-    }
-    
-    $scope.onSaveAvatar = function() {
-        var canvas = document.getElementById('canvas');
-        if($scope.customImage) {
-            document.getElementById('custom_image').value = canvas.toDataURL("image/png");
+    $scope.viewPassword = (idInput) => {
+        var cambio = document.getElementById(idInput)
+        if(cambio.type == "password"){
+            cambio.type = "text";
+            $(`.${idInput}`).removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        }else{
+            cambio.type = "password";
+            $(`.${idInput}`).removeClass('fa fa-eye').addClass('fa fa-eye-slash');
         }
-        
-        document.getElementById('save-avatar-form').submit();    
     }
-    
-    $scope.init = function() {
-
-        $('.d-none-result').removeClass('d-none');
-        $('#avatar').Cubexy();
-        $(".avatar-default").click(function(){
-            $("#avatar-selected").attr("src",$(this).attr('src'));
-            $("#canvas").hide();
-            $("#colors").hide();
-            $("#avatar-selected").addClass("d-block");
-        });
-        $("#colors").parent().addClass("card");
-        $("#colors").hide();
-        $("#colors").addClass("mb-0");
-        $("#avatar div img").click(function(){
-            $("#canvas").show();
-            $scope.urlImage = null;
-            $scope.customImage = true;
-            $scope.$apply();
-            $("#avatar-selected").hide();
-            $("#avatar-selected").removeClass("d-block").addClass("d-none");
-        });
-        $(".tab-avatar").click(function(){
-            $("#avatar").find("div").addClass("d-none");
-            $("#canvas").show();
-            $scope.urlImage = null;
-            $scope.customImage = true;
-            $scope.$apply();
-            $("#colors").hide();
-            $("#avatar-selected").removeClass("d-block").addClass("d-none");
-            $("#avatar").find("div").removeClass("d-block");
-            $("#" + $(this).attr("data-tab")).addClass("d-block");
-        });
-
-        $("#avatar div img").click(function(){
-            $("#colors").show();
-        });
-    }
-    
 });

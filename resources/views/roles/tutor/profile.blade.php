@@ -4,7 +4,7 @@
     <div class="" ng-controller="tutorProfileCtrl" ng-init="init({{$tutor}})">
         <h5 class="mt-3">Mi perfíl</h5>
         <div class="row pl-4 pb-4 pt-4 pr-4">
-            <div class="col-3">Imagen de peril</div>
+            <div class="col-3">Imagen de perfíl</div>
             <div class="col-6">
             @if(isset(auth('afiliadoempresa')->user()->url_image)) 
                 <img class="rounded-pill" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="60px" style="margin:-15px;">

@@ -15,15 +15,16 @@
                             <a class="btn btn-sm btn-primary mt-2" href="{{route('student.avatar',['empresa'=>auth('afiliadoempresa')->user()->company_name()])}}">Editar Avatar</a>
                         </div>
                         <div class="col-lg-7 mt-3 mb-auto">
+                            <div class="col-12 text-align-right">
+                                <a class="btn btn-sm btn-primary mt-2" href="#" ng-click="editRegisterForm=true">Editar perfíl</a>
+                            </div>
                             <h5> Nombres </h5>
                             <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->name}}</small></h5>
                             <h5> Apellidos </h5>
                             <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> {{$student->last_name}} </small></h5>
                             <h5> Edad </h5>
                             <h5 class="mt-2 mb-4 border-bottom border-dark_opacity"><small> @if($age) {{$age}} años @endif</small></h5>
-                            <div class="col-12 text-align-right">
-                               <a class="btn btn-sm btn-primary mt-2" href="#" ng-click="editRegisterForm=true">Editar perfíl</a>
-                            </div>
+                            
                         </div>   
                         <div ng-show="editRegisterForm" class="d-none-result d-none dropdown-menu-card">
                            <div class="modal-backdrop fade show"></div>
@@ -84,7 +85,7 @@
                                             <div class="input-group">
                                                 <input id="txtPassword" type="Password" name="password" class="form-control" ng-class="{'is-invalid':errorPassword}" value="">
                                                 <div class="input-group-append">
-                                                    <button id="show_password" class="btn btn-primary" type="button" ng-click="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                                    <button id="show_password" class="btn btn-primary" type="button" ng-click="viewPassword('txtPassword')"> <span class="fa fa-eye-slash icon"></span> </button>
                                                 </div>
                                                 <span class="invalid-feedback" role="alert" ng-show="errorPassword">
                                                   <strong>@{{errorPassword}}</strong>
