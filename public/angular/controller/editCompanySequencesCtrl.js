@@ -455,7 +455,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if(typeItem==='button-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({'id':id,'type':typeItem,'fs':11,'ml':210,'mt':176,'w':130,'h':26,'text':'--texto guía--','class':'btn-sm btn-primary'});
+            parentElement.elements.push({'id':id,'type':typeItem,'fs':11,'ml':210,'mt':176,'w':130,'h':26,'text':'','class':'btn-sm btn-primary'});
         }
         $timeout(function() {
             $scope.resizeSequenceCard();
@@ -768,7 +768,7 @@ MyApp.directive('conxTextList', function() {
     template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
     '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1"/>  ' +
     '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
-    '<input class="mt-1 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+    '<input class="mt-1 w-75 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
     controller: function ($scope,$timeout) {
         $scope.delete = function($index) {
             
@@ -849,22 +849,92 @@ MyApp.directive('conxTextList', function() {
   };
 });
 
-MyApp.directive('refreshable', [function () {
+MyApp.directive('conxSlideImages', function() {
     return {
-        restrict: 'A',
-        scope: {
-            refresh: "=refreshable"
-        },
-        link: function (scope, element, attr) {
-            scope.$watch('refresh', function (newVal, oldVal) {
-                if (scope.refresh) {
-                    element.attr('src', scope.refresh);
-                }
-            });
-        }
+      restrict: 'E',
+      template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
+      '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1"/>  ' +
+      '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
+      '<input class="mt-1 h-75 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+      controller: function ($scope,$timeout) {
+          $scope.delete = function($index) {
+              
+              $scope.applyChange = true;
+              
+              var list = $scope.elementParentEdit[$scope.elementEdit].split('|');
+              var newList = '';
+              for(var i=0;i<list.length;i++) {
+                  if(i!=$index) {
+                      if(newList.length>0) {
+                          newList = newList + '|';
+                      }
+                      newList = newList + list[i];
+                  }
+              }
+              $scope.elementParentEdit[$scope.elementEdit] = newList;     
+          }
+          $scope.onChangeSplit = function($index,split) {
+              $scope.applyChange = true;
+              var list = $scope.elementParentEdit[$scope.elementEdit].split('|');
+              var newList = '';
+              for(var i=0;i<list.length;i++) {
+                  if(newList.length>0) {
+                      newList = newList + '|';
+                  }
+                  if(i!=$index) {                    
+                      newList = newList + list[i];
+                  }
+                  else {
+                      newList = newList + split; 
+                  }
+              }
+              $scope.elementParentEdit[$scope.elementEdit] = newList;     
+          }
+          $scope.onNewSplit = function() {
+              $scope.applyChange = true;
+              if($scope.newSplit && $scope.newSplit.length > 0) {
+                  if($scope.elementParentEdit[$scope.elementEdit].length > 0) {
+                      $scope.elementParentEdit[$scope.elementEdit] += '|';
+                  }
+                  $scope.elementParentEdit[$scope.elementEdit] += $scope.newSplit;
+              }
+              $scope.newSplit = '';
+          }     
+          $scope.onChangeInput = function() {
+              $scope.applyChange = true;
+              if($scope.dataJstree.type==='openSequenceSectionPart') {                
+                  $scope.sequence[$scope.sequenceSectionIndex] = angular.toJson($scope.sequenceSection);                
+              }    
+              $timeout(function() {                
+                  $scope.resizeSequenceCard();
+              },10);
+          }
+          $scope.onChangeWidthHeight = function(elementEdit,type){
+              if($scope.bindWidthHeight) {
+                  if(type === 'w') {
+                      var deltaW = elementEdit.w - $scope.widthOriginal;
+                      var deltaH = Math.round(deltaW * $scope.heightOriginal / $scope.widthOriginal);
+                      elementEdit.h += deltaH;
+                  }
+                  else if(type === 'h') {
+                      var deltaH = elementEdit.h - $scope.heightOriginal;
+                      var deltaW = Math.round(deltaH * $scope.widthOriginal / $scope.heightOriginal);
+                      elementEdit.w += deltaW;
+                  }
+              }
+              $scope.widthOriginal = elementEdit.w;
+              $scope.heightOriginal = elementEdit.h;
+                  
+              $scope.applyChange = true;
+              
+              $timeout(function() {           
+                  $scope.resizeSequenceCard();
+              },10);
+              
+          }
+      }
     };
-}])
-
+  });
 
 //JASCRIPT JQUERY METHODS
 //TOOGLE MENU

@@ -35,6 +35,7 @@
 <div ng-controller="sequencesGetCtrl" ng-init="init()" class="w-100">
    <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
+
       <span class="col">@{{ errorMessageFilter }}</span>
       <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></a></i></span>
    </div>
@@ -42,13 +43,18 @@
       <div class="card-body">
          <div class="no-gutters row">
             <div class="d-none-result2 d-none mb-3 col-12 row">
-               <div class="col-6">
+               <div class="col-12 col-lg-8">
                      <!-- Swiper -->
                      <div class="swiper-container">
                         <div class="swiper-wrapper sequence">
-                           <div class="swiper-slide" ng-repeat="imagen in sequence.images" width="75px"
-                              style=" background-image: url('{{App::environment('APP_URL')}}/@{{ imagen }}');
-                                      background-size: 100% 100%; ">
+                        
+                           <div class="swiper-slide" ng-repeat="imagen in sequence.images  track by $index" width="75px"
+                              @if(App::environment('APP_URL'))
+                                  style="background-image: url('{{App::environment('APP_URL')}}/@{{ imagen }}');background-size: 100% 100%; "
+                              @else
+                                  style="background-image:  url('{{env('APP_URL')}}@{{ imagen }}');background-size: 100% 100%; "
+                              @endif
+                            >
                            </div>
                         </div>
                         <!-- Add Arrows -->
@@ -56,8 +62,8 @@
                         <div class="swiper-button-prev" style="color: white;"></div>
                      </div>
                </div>
-               <div class="col-6">
-                  <iframe width="560" height="315" src="sequence.url_vimeo" frameborder="0"
+               <div class="col-12 mt-3 mt-lg-0 col-lg-4">
+                  <iframe src="sequence.url_vimeo" frameborder="0" width="100%" height="100%" refreshable="sequence.url_vimeo"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                </div>
             </div>

@@ -49,7 +49,7 @@
                               @foreach($elements as $element)
                                 @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
                                    <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
-                                        class="p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
+                                        class="@if(isset($element['class'])) $element['class'] @endif p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
                                     {!! $element['text'] !!}
                                    </div>
                                 @endif
@@ -58,12 +58,28 @@
                                         <img src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
                                     </div>    
                                 @endif
-                                @if($element['type'] == 'video-element')
+                                @if($element['type'] == 'video-element' && isset($element['url_vimeo']))
                                    <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
                                         <iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
                                            webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
                                         </iframe>
                                     </div>
+                                @endif
+                                @if($element['type'] == 'button-element')
+                                    <button 
+                                    @if(isset($element['action']))
+                                      onclick="location='{{route('student.show_moment_section',
+                                      [ 'empresa'=>auth('afiliadoempresa')->user()->company_name(), 
+                                        'sequence_id'=>$sequence->id, 
+                                        'moment_id'=>explode('|',$element['action'])[1],
+                                        'order_moment_id'=>explode('|',$element['action'])[2],
+                                        'section'=>explode('|',$element['action'])[3],
+                                        'account_service_id'=>$account_service_id,
+                                      ])}}'"
+                                    @endif
+                                      class="{{$element['class']}} cursor-pointer" ml="{{$element['ml']}}" mt="{{$element['mt']}}" w="{{$element['w']}}" h="{{$element['h']}}">
+                                     {{$element['text']}}
+                                    </button>
                                 @endif
                               @endforeach
                               @endif

@@ -71,14 +71,14 @@
                 <img class="welcome-thumbnail img-fluid rounded-circle mb-3 shadow-sm"
                    src="{{ asset('images/iconosParteInferiorHome/guiasprendizaje_Mesa de trabajo 1.png') }}" width="100" alt=""></a>
              <h6 class="mb-1 font-weight-bold">
-			   <a href="{{route('sequences.search')}}">Guías de aprendizaje</a>
-			 </h6>
+               <a href="{{route('sequences.search')}}">Guías de aprendizaje</a>
+             </h6>
              <p class="fs--2 mb-1">
                 <div class="fs--1 text-aling">
                    Contamos con una completa serie de guías para el aprendizaje de las ciencias naturales en formato
                    multimedia,
                    disponibles en el portal educativo <strong class="font-weight-bold">Conexiones</strong> 
-				   <a href="{{route('sequences.search')}}" class="font-weight-bold"> (Ver +).</a>
+                   <a href="{{route('sequences.search')}}" class="font-weight-bold"> (Ver +).</a>
                 </div>
              </p>
           </div>
@@ -94,7 +94,7 @@
                    Ofrecemos implementos de laboratorio para la realización de las prácticas experimentales propuestas por
                    <strong> Conexiones </strong>,
                    y de otras que surjan de la indagación científica 
-				   <a href="{{route('elementsKits.search')}}" class="font-weight-bold"> (Ver +).</a>
+                   <a href="{{route('elementsKits.search')}}" class="font-weight-bold"> (Ver +).</a>
                 </div>
              </p>
           </div>
@@ -110,7 +110,7 @@
                 <div class="fs--1 text-aling">
                    Tenemos diferentes planes de acceso a los contenidos educativos de <strong> Conexiones </strong>, 
                    de manera que  se puede elegir tener acceso a las guías de aprendizaje completas, o seleccionar las partes de estas que les interesan 
-				   <a href="{{route('ratingPlan.list')}}" class="font-weight-bold"> (Ver +).</a>
+                   <a href="{{route('ratingPlan.list')}}" class="font-weight-bold"> (Ver +).</a>
                 </div>
              </p>
           </div>

@@ -24,3 +24,20 @@ window.onload = function() {
         },
      });
 };
+
+MyApp.directive('refreshable', [function () {
+    return {
+        restrict: 'A',
+        scope: {
+            refresh: "=refreshable"
+        },
+        link: function (scope, element, attr) {
+            scope.$watch('refresh', function (newVal, oldVal) {
+                if (scope.refresh) {
+                    element.attr('src', scope.refresh);
+                }
+            });
+        }
+    };
+}])
+

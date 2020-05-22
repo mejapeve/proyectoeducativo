@@ -184,26 +184,36 @@
                      </div>
                   </div>
                </div>
-               <div  class="bg-light card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
-                  <div class="p-3 row fs--1" ng-show="dataJstree.type === 'openSequence'">
+               <div ng-class="{'h-100': dataJstree.type === 'openSequence'}" class="bg-light card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
+                  <div class="p-4 row fs--1" ng-show="dataJstree.type === 'openSequence'">
                      <div class="conx-element col-auto" ng-click="onClickElement(sequence,'url_image','Carátula','img')">
+                        <h6>Carátula</h6>
                         <img ng-show="sequence.url_image" ng-src="../../../@{{sequence.url_image}}" width="79px" height="auto"/>
                         <img ng-hide="sequence.url_image" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
                      </div>
                      <div class="col-3 conx-element" ng-click="onClickElement(sequence,'name','Nombre','text')">
-                        <h6 type="text" class="">@{{sequence.name}}</h6>
+                        <h6>Nombre</h6>
+                        @{{sequence.name}}
                      </div>
                      <div class="col-4 conx-element" ng-click="onClickElement(sequence,'description','Descripción','textArea')">
+                        <h6>Descripción</h6>
                         @{{ sequence.description || '---Descripcion--' }}
                      </div>
-                     <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_vimeo','Video','video')">
+                     <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_vimeo','Situación Generadora','video')">
+                        <h6 class="mr-3">Situación Generadora</h6>
                         <img ng-hide="sequence.url_vimeo" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
                         <div ng-show="sequence.url_vimeo"> 
-                        <iframe width="120" height="115" src="sequence.url_vimeo" frameborder="0" refreshable="sequence.url_vimeo"
+                        <iframe width="120" height="115" frameborder="0" refreshable="sequence.url_vimeo"
                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
-                        
                      </div>
+                     <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_slider_images','Imágenes','slide-images')">
+                           <h6 class="mr-3">Imágenes</h6>
+                           <img ng-hide="sequence.url_slider_images" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
+                           <div ng-show="sequence.url_slider_images" ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index"> 
+                              <img src="/@{{slide}}" width="30px" height="30px"/>
+                           </div>
+                        </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex" ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">
                         <h6>Palabras clave</h6>
                         &nbsp; &nbsp;  @{{ sequence.keywords }}
@@ -277,20 +287,18 @@
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
-                        <div>
+                        <div ng-show="element.type==='button-element'">
                             <button id="@{{element.type==='button-element' ? element.id : ''}}" 
-                               ng-show="element.type==='button-element'" 
                                class="@{{element.class}} font-text conx-element  position-absolute" 
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                mt="@{{element.mt}}" ml="@{{element.ml}}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                               @{{element.text}}
-                           <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
-                              <i class="far fa-times-circle"></i>
-                           </div>
-
-                            </button>
+                               @{{element.text || '--texto guía--'}} 
+                               <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                                  <i class="far fa-times-circle"></i>
+                               </div>
+                           </button>
                         </div>
                      </div>
                   </div>
@@ -364,19 +372,18 @@
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
-                        <div>
+                        <div ng-show="element.type==='button-element'">
                             <button id="@{{element.type==='button-element' ? element.id : ''}}" 
-                               ng-show="element.type==='button-element'" 
                                class="@{{element.class}} font-text conx-element  position-absolute" 
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                mt="@{{element.mt}}" ml="@{{element.ml}}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                               @{{element.text}}
+                               @{{element.text || '--texto guía--'}} 
                                <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                                   <i class="far fa-times-circle"></i>
                                </div>
-                            </button>
+                           </button>
                         </div>
                      </div>
                   </div>
@@ -404,8 +411,12 @@
          </div>
          <div class="bg-light card-body">
             <input type="text" ng-show="typeEdit === 'text'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
+            <textarea ng-change="onChangeInput(elementEdit.text)" ng-show="typeEdit === 'textArea'" ng-model="elementParentEdit[elementEdit]" rows="5" class="w-100">
+            </textarea>
             <input ng-show="typeEdit === 'video'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
-            <input type="text" ng-change="onChangeInput(elementEdit.url_vimeo)" ng-model="elementEdit.url_vimeo" class="w-100"/>
+            <div ng-show="typeEdit === 'slide-images'">
+               <conx-slide-images elementParent="elementParentEdit" elementChild="elementEdit"></conx-slide-images>   
+            </div>
 
             <div ng-show="typeEdit === 'img'">
                <img ng-src="../../../@{{elementParentEdit[elementEdit]}}" width="79px" height="auto" class=""/>
@@ -581,6 +592,16 @@
                <div class="d-flex mt-3">
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
+               </div>
+               
+               <div class="line-separator"></div>
+               <div class="d-flex mt-3">
+                  <h6>
+                  <i class="fab fa-flickr mr-3"></i>Ir a:</h6>
+                  <select ng-change="onChangeInput()" ng-model="elementEdit.action" class="ml-3 w-75">
+                    <option value=""></option>
+                    <option ng-repeat="moment in moments" value="@{{sequence.id+'|'+moment.id+'|'+moment.order+'|1'}}">momento @{{$index + 1}}</option>
+                  </select>
                </div>
             </div>
          </div>
