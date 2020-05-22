@@ -48,12 +48,14 @@ class AnswerController extends Controller
             })->first();
             //$tutor = AfiliadoEmpresa::find(1);
             //dd($tutor->email);
+            //agregar reporte por los momentos - pendiente por definir de estrategica
+            /*
             $advanceLine = AdvanceLine::where([
                 ['affiliated_company_id',$request->student_affiliated_company_id],
                 ['affiliated_account_service_id',$request->student_affiliated_company_id],
                 ['sequence_id',$request->sequence_id],
                 ['moment_id',$request->moment_id]
-            ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
+            ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();*/
             $reportAnswers = $this->get_answers($request);
             $performance =  (collect($reportAnswers)->sum('review_student')/500) * 100;
             if( $performance >= 90 ){

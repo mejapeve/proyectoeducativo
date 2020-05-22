@@ -19,6 +19,48 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                 serverSide: false,
                 responsive: true,
                 order: [[ 1, "desc" ]],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        text:'<i class="far fa-file-excel"></i> Excel',
+                        className: 'btn-primary btn-sm',
+                        filename: function(){
+                            return `Conexiones - Historial de pagos`
+
+                        },
+                        title:function(){
+                            return 'Conexiones - Historial de pagos'
+                        },
+                        /*exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4, 7, 8, 9 ]
+                        }
+*/
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: '<i class="far fa-file-pdf"></i> PDF',
+                        className: 'btn-primary btn-sm',
+                        filename: function(){
+                            return `Conexiones - Historial de pagos`
+
+                        },
+                        title:function(){
+                            return 'Conexiones - Historial de pagos'
+                        },
+                        exportOptions: {
+                            columns: [1,2,3,4,5]
+                        },
+                        customize : function(doc) {
+                            doc.content[1].table.widths = ['28%', '22%','15%', '15%', '25%'];
+                            var rowCount = document.getElementById("myTable").rows.length;
+                            for (i = 0; i <= rowCount; i++) {
+                                doc.content[1].table.body[i][0].alignment = 'center';
+                                doc.content[1].table.body[i][3].alignment = 'center';
+                            };
+                        }
+                    }
+                ],
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
