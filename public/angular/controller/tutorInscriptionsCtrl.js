@@ -112,14 +112,14 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
         }
 
     }
-    $scope.mostrarPassword = function(){
-        var cambio = document.getElementById("txtPassword");
+    $scope.viewPassword = (idInput) => {
+        var cambio = document.getElementById(idInput)
         if(cambio.type == "password"){
             cambio.type = "text";
-            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            $(`.${idInput}`).removeClass('fa fa-eye-slash').addClass('fa fa-eye');
         }else{
             cambio.type = "password";
-            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            $(`.${idInput}`).removeClass('fa fa-eye').addClass('fa fa-eye-slash');
         }
     }
     $scope.onValidateUserName = function () {
