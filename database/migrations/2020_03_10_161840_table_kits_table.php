@@ -18,7 +18,7 @@ class TableKitsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('url_image');
-            $table->string('price');
+            $table->bigInteger('price');
             $table->string('url_slider_images');
             $table->timestamps();
         });
