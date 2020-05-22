@@ -19,7 +19,7 @@ class NotifyCallbackController extends Controller
         MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
 
         $merchant_order = null;
-		//dd($request);
+        //dd($request);
         if (isset($_GET["topic"])) {
             switch ($_GET["topic"]) {
                 case "payment":
@@ -34,47 +34,52 @@ class NotifyCallbackController extends Controller
             }
         }
 
-        $paid_amount = 0;
-
+        //Enviar correo
+        //Iniciar el tiempo de acceso a las secuencias
+        //dd($_GET);
         if ($request->collection_status == 'approved') {
-            //$paid_amount += $payment['transaction_amount'];
-			$update = ShoppingCart::where([ ["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-											['payment_status_id', 2 ],
-											['payment_transaction_id', $request->preference_id]])->
-			update(array(
+
+            $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+                ['payment_status_id', 2],
+                ['payment_transaction_id', $request->preference_id]])->
+                update(array(
                 'payment_status_id' => '3',
                 // cambiar por la nueva columna para que no se sobre escriba la fecha
-				'payment_init_date' =>  date("Y-m-d H:i:s")
+                'payment_init_date' => date("Y-m-d H:i:s"),
             ));
-        }
-
-		//Enviar correo
-		//Iniciar el tiempo de acceso a las secuencias 
-//dd($_GET);
-        if ($request->collection_status == 'approved') {
-
-           // $payment_transaction_id = $_GET["payment_transaction_id"];
 
             if ($request->user('afiliadoempresa')) {
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
 
-				$shoppingCarts = ShoppingCart::
-					with('rating_plan', 'shopping_cart_product')->
-					where([
-					['company_affiliated_id', $request->user('afiliadoempresa')->id],
-					['payment_transaction_id', $request->preference_id],
-					['payment_status_id', 3],
-				])->get();
+                $shoppingCarts = ShoppingCart::
+                    with('rating_plan', 'shopping_cart_product')->
+                    where([
+                    ['company_affiliated_id', $request->user('afiliadoempresa')->id],
+                    ['payment_transaction_id', $request->preference_id],
+                    ['payment_status_id', 3],
+                ])->get();
 
-				foreach ($shoppingCarts as $shoppingCart) {
-					$ratingPlan = $shoppingCart->rating_plan;
-					if ($ratingPlan) {
-						$this->addRatingPlanPaid($shoppingCart, $ratingPlan, $afiliado_empresa);
-					}
-				}
+                foreach ($shoppingCarts as $shoppingCart) {
+                    $ratingPlan = $shoppingCart->rating_plan;
+                    if ($ratingPlan) {
+                        $this->addRatingPlanPaid($shoppingCart, $ratingPlan, $afiliado_empresa);
+                    }
+                }
             }
             return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
+
+        } else if ($request->collection_status == 'rejected') {
+
+            $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+                ['payment_status_id', 2],
+                ['payment_transaction_id', $request->preference_id]])->
+                update(array(
+                'payment_status_id' => '4',
+                // cambiar por la nueva columna para que no se sobre escriba la fecha
+                'payment_init_date' => date("Y-m-d H:i:s"),
+            ));
+            return redirect()->route('home');
         }
     }
 

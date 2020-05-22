@@ -196,7 +196,7 @@ class ShoppingCartController extends Controller
         $preference->auto_return = "approved";
         $preference->back_urls = array(
             "success" => route('notification_gwpayment_callback'),
-            "failure" => route('notification_gwpayment_failure_callback'),
+            "failure" => route('notification_gwpayment_callback')
         );
 
         $ratingPlans = DB::table('rating_plans')
