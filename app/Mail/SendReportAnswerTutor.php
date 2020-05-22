@@ -21,15 +21,20 @@ class SendReportAnswerTutor  extends Mailable
     private $student;
     private $family;
     private $data;
-
-    public function __construct($family,$student,$data,$sequence,$moment)
+    private $sequence;
+    private $moment;
+    private $level;
+    private $performance_comment;
+    public function __construct($family,$student,$data,$sequence,$moment,$level,$performance_comment)
     {
         //
         $this->family = $family;
         $this->student = $student;
         $this->data = $data;
-        $this->sequence=$sequence;
-        $this->moment=$moment;
+        $this->sequence = $sequence;
+        $this->moment = $moment;
+        $this->level = $level;
+        $this->performance_comment = $performance_comment;
 
     }
 
@@ -43,7 +48,15 @@ class SendReportAnswerTutor  extends Mailable
         return
             $this->from('contacto@educonexiones.com')
                 ->markdown('vendor.notifications.reportStudentAnswer',
-                    ['family' => $this->family,'student' => $this->student,'data' => $this->data,'moment' => $this->moment,'sequence' => $this->sequence])
+                    [
+                        'family' => $this->family,
+                        'student' => $this->student,
+                        'data' => $this->data,
+                        'moment' => $this->moment,
+                        'sequence' => $this->sequence,
+                        'level' => $this->level,
+                        'performance_comment' => $this->performance_comment
+                    ])
                 ->subject('Conexiones - Reporte estudiante');
 
     }

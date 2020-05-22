@@ -1,29 +1,33 @@
 @component('mail::message')
 # Hola {{$family->name}} {{$family->last_name}}
 <br>
-El estudainte <strong>{{$student->name}}</strong> <strong>{{$student->last_name}}</strong>
-ha contestado las preguntas de la secuecnia: <strong>{{$sequence->name}}</strong> del momento: <strong>{{$moment->name}}</strong> .
+Te escribimos para contarte que <strong>{{$student->name}}</strong> <strong>{{$student->last_name}}</strong>
+acaba de realiza el test de pregunta cerrada del momento <strong><i>{{$moment->name}}</i></strong>, en la guía de aprendizaje: <strong><i>{{$sequence->name}}</i></strong>,
+y su desempeño está en el {{$level}}
 <br>
-Estas son las preguntas, respuestas del estudiante y respuestas correctas:
+{{$performance_comment}}
+<br>
+A continuación, presentamos el reporte detallado de desempeño en las preguntas:
 <br>
 @foreach($data as $questionAnswer)
-Pregunta:{{$questionAnswer['tittle']}}
+<strong>Pregunta:</strong>{{$questionAnswer['tittle']}}
 <br>
-Repuesta estudiante:{{$questionAnswer['answer_student']}}
-<br>
-Repuesta correcta:{{$questionAnswer['answer_question']}}
+Repuesta:{{$questionAnswer['answer_student']}}
 <br>
 @if($questionAnswer['is_correct'])
-La respuesta del estudiante es correcta:si
+Aprobado:si
 @else
-La respuesta del estudiante es correcta:no
+Aprobado:no
 @endif
 <br>
+Concepto clave a tener en cuenta:{{$questionAnswer['answer_question']}}
 <hr>
 @endforeach
 <br>
+Hasta pronto,
 <br>
-Gracias.
+Coordinación pedagógica
 <br>
-{{ config('app.name') }}
+<strong>Educonexiones</strong>
+
 @endcomponent

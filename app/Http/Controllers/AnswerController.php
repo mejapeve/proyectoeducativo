@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendReportAnswerTutor;
+use App\Models\AdvanceLine;
 use App\Models\AfiliadoEmpresa;
 use App\Models\Answer;
 use App\Models\CompanySequence;
@@ -23,7 +24,7 @@ class AnswerController extends Controller
                         [
                             'student_affiliated_company_id' => $request->student_affiliated_company_id,
                             'company_id' => $request->company_id,
-                            'affiliated_account_service_id'=>1,
+                            'affiliated_account_service_id'=>$request->affiliated_account_service_id,
                             'question_id'=>$question_answer->question_id,
                         ]
                         ,
@@ -36,17 +37,40 @@ class AnswerController extends Controller
                     );
                 //}
             }
-            $tutor = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($request){
-                $query->has('conection_tutor')->where([
+            $student = AfiliadoEmpresa::find($request->student_affiliated_company_id);
+            $tutor = AfiliadoEmpresa::whereHas('affiliated_company',function($query)use($request,$student){
+                $query->whereHas('conection_tutor',function($query)use($student,$request){
+                    $query->where('student_company_id',$student->affiliated_company->where('rol_id',1)->where('company_id',$request->company_id)->first()->id);
+                })->where([
                     ['rol_id',3],
                     ['company_id',$request->company_id]
                 ]);
-            })->get();
-            $student = AfiliadoEmpresa::find($request->student_affiliated_company_id);
+            })->first();
+            //$tutor = AfiliadoEmpresa::find(1);
+            //dd($tutor->email);
+            $advanceLine = AdvanceLine::where([
+                ['affiliated_company_id',$request->student_affiliated_company_id],
+                ['affiliated_account_service_id',$request->student_affiliated_company_id],
+                ['sequence_id',$request->sequence_id],
+                ['moment_id',$request->moment_id]
+            ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
             $reportAnswers = $this->get_answers($request);
+            $performance =  (collect($reportAnswers)->sum('review_student')/500) * 100;
+            if( $performance >= 90 ){
+                $performance_comment = "Las respuestas evidencian un buen proceso de aprendizaje. ¡Felicitaciones! ";
+                $level = "nivel superior (S) 90 – 100%.";
+            }else{
+                if($performance >= 70 && $performance <= 89 ){
+                    $performance_comment = "Los aprendizajes se están afianzando, se debe continuar en el proceso. ";
+                    $level = "nivel alto (A) 70 – 89%.";
+                }else{
+                    $performance_comment = "Recomendamos revisar de nuevo las Experiencias científicas y los conceptos claves presentados en las explicaciones de Ciencia en contexto";
+                    $level = "nivel básico (B) 0 – 69%.";
+                }
+            }
             $sequence = CompanySequence::select('name')->where('id',$request->sequence_id)->first();
             $moment = SequenceMoment::select('name')->where('id',$request->moment_id)->first();
-            Mail::to( $tutor->email)->send(new SendReportAnswerTutor($tutor,$student,$reportAnswers,$sequence,$moment));
+            Mail::to( $tutor->email)->send(new SendReportAnswerTutor($tutor,$student,$reportAnswers,$sequence,$moment,$level,$performance_comment));
             return response()->json(['data'=>'','message','Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'],200);
         }
         return response()->json(['data'=>'','message','El formato para registrar o actualizar los datos de respuesta no es el correcto'],200);
@@ -82,6 +106,7 @@ class AnswerController extends Controller
         $data['review_student'] = $reviews->firstWhere('id', $option_id)->review;
         $data['answer_question'] =  $options->firstWhere('id', $reviews->firstWhere('review', '100')->id)->option;
         $option_id == $reviews->firstWhere('review', '100')->id ? $data['is_correct'] = true : $data['is_correct'] = false;
+
         return $data;
     }
 
