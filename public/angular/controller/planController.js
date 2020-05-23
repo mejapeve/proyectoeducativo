@@ -1,16 +1,21 @@
 MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
 
     $scope.plan={}
+    $scope.planEdit={}
     $scope.plan.items=[]
     $scope.freePlan
+    $scope.isExpire
     $scope.moments
     $scope.route
     $scope.routeDatable
-    var table ;
-
+    $scope.types
+    $scope.sequences
+    var table = $('#myTable');
+    $scope.table = table;
     $scope.init = (route,routeDatable) => {
         $scope.route = route
         $scope.routeDatable = routeDatable
+
         table = $('#myTable').DataTable({
             processing: true,
             serverSide: true,
@@ -43,16 +48,21 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
                 {data: 'quantity_contents', className: 'text-center'},
                 {data: 'quantity_days', className: 'text-center'},
                 {data: 'price', className: 'text-center'},
+                {data: 'init_date', className: 'text-center'},
+                {data: 'expiration_date', className: 'text-center'},
                 {data: 'edit', className: 'text-center'},
             ]
         });
         new $.fn.dataTable.FixedHeader( table );
+
         $scope.freePlan = false;
+        $scope.isExpire = false;
         $http({
             url:'/get_types_plans/',
             method: "GET",
         }).
         then(function (response) {
+            $scope.types = response.data.data
             $scope.plan.types = response.data.data
         }).catch(function (e) {
 
@@ -63,12 +73,12 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
         }).
         then(function (response) {
             $scope.plan.sequences = response.data.data
+            $scope.sequences = response.data.data
         }).catch(function (e) {
 
         });
     };
     $scope.toggleSelection = (data) =>{
-
         (data.target.checked) ? $scope.plan.isFree = $scope.freePlan = true : $scope.plan.isFree = $scope.freePlan = false
     }
     $scope.sequenceChange = (data) =>{
@@ -84,7 +94,6 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
 
     $scope.deleteItem = (index) => {
         ($scope.plan.items).splice(index, 1)
-        console.log(index,'index',$scope.plan.items)
     }
     $scope.registerPlan = () =>{
 
@@ -97,7 +106,16 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
         formDatas.append('cost',$scope.plan.cost)
         formDatas.append('is_free',$scope.plan.isFree)
         formDatas.append('itmes',JSON.stringify($scope.plan.items))
-
+        var new_startDate= new Date($scope.plan.init_date);
+        var date = moment(new_startDate).format('YYYY-MM-DD');
+        formDatas.append('init_date',date)
+        formDatas.append('expiration_date',null)
+        if($scope.plan.isExpire){
+            new_startDate= new Date($scope.plan.expiration_date);
+            date = moment(new_startDate).format('YYYY-MM-DD');
+            formDatas.append('expiration_date',date)
+        }
+        formDatas.append('is_free',$scope.plan.isFree)
         if($scope.plan.isFree){
             formDatas.append('sequenceSelected',$scope.plan.sequenceSelected)
             formDatas.append('momentSelected',$scope.plan.momentSelected)
@@ -109,9 +127,13 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
             data:formDatas
 
         }).then((response)=>{
+            $('#exampleModal').modal('hide');
             $scope.plan={}
-            $scope.plan.items
+            $scope.plan.types = $scope.types
+            $scope.plan.sequences = $scope.sequences
+            $scope.plan.items = []
             $scope.freePlan = false
+            $scope.isExpire = false
             table.ajax.reload()
             swal({
                 text:'El plan ha sido creado' ,
@@ -119,8 +141,9 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
                 showCancelButton: false,
                 showConfirmButton: false
             }).catch(swal.noop);
-
+            //$("#types").val('').trigger('change')
         }).catch(function (e) {
+            console.log(e)
             swal({
                 text:'algo salio mal, intente de nuevo' ,
                 type: "warning",
@@ -130,5 +153,25 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
         });
 
     }
+    table.on('click', '.editPlan', function (e) {
+        $tr = $(this).closest('tr');
+        let dataTable = table.row($tr).data();
+        $scope.planEdit.name = dataTable.name
+        $scope.planEdit.description = dataTable.description
+        $scope.planEdit.price = parseInt(dataTable.price)
+        $scope.planEdit.days = parseInt(dataTable.days)
+        $scope.planEdit.init_date = new Date(dataTable.init_date+' 00:00:00');
+        if($scope.planEdit.expiration_date !== "No aplica"){
+            $scope.plan.isExpire = $scope.isExpire = true
 
+            $scope.planEdit.expiration_date = new Date(dataTable.expiration_date+' 00:00:00');
+        }
+
+        console.log(dataTable,$scope.planEdit.init_date,dataTable.init_date)
+        $('#modalEdit').modal('show')
+
+    });
+    $scope.toggleSelectionExpirtion = (data) =>{
+        (data.target.checked) ? $scope.plan.isExpire = $scope.isExpire = true : $scope.plan.isExpire = $scope.isExpire = false
+    }
 }]);

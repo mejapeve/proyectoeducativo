@@ -42,11 +42,13 @@ class RatingPlanController extends Controller
             $itemConcat = $itemConcat.$item->description.'|';
         }
         $ratingPlan->description_items = $itemConcat;
-        if($data['is_free']){
+        if($data['is_free']=="true"){
             $ratingPlan->is_free =   $data['is_free'];
             $ratingPlan->sequence_free_id =   $data['sequenceSelected'];
             $ratingPlan->moment_free_ids =   $data['momentSelected'];
         }
+        $ratingPlan->init_date = $data['init_date'];
+        $ratingPlan->expiration_date =  $data['expiration_date'];
         $ratingPlan->save();
         return response()->json(['data'=>$ratingPlan],200);
     }
@@ -93,8 +95,16 @@ class RatingPlanController extends Controller
             ->addColumn('price', function ($ratingPlan) {
                 return $ratingPlan->price;
             })
+            ->addColumn('init_date', function ($ratingPlan) {
+                return $ratingPlan->init_date;
+            })
+            ->addColumn('expiration_date', function ($ratingPlan) {
+                if($ratingPlan->expiration_date === null || $ratingPlan->expiration_date === '')
+                    return 'No aplica';
+                return $ratingPlan->expiration_date;
+            })
             ->addColumn('edit', function ($ratingPlan) {
-                return '<button class="btn btn-warning btn-sm mr-1 mb-1 editPlan" type="button" style="padding: 0.1875rem 1.75rem;font-size: 0.67rem;">Editar</button>';
+                return '<button class="btn btn-warning btn-sm mr-1 mb-1 editPlan" type="button" style="padding: 0.01875rem 1.0rem;font-size: 0.67rem;">Editar</button>';
             })
             ->rawColumns(['edit'])
             ->make(true);
