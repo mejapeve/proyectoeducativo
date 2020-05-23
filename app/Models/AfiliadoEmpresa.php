@@ -149,6 +149,10 @@ class AfiliadoEmpresa extends Model
     public function company_name() {
         return session('name_company' );
     }
+    
+    public function company_id() {
+        return session('company_id' );
+    }
 
     public function affiliated_account_services (){
 
@@ -185,7 +189,8 @@ class AfiliadoEmpresa extends Model
                     ['affiliated_company_id',$user_id],
                     ['rol_id',1]//estudiante
                   ])->first()->id;
-        $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id',$rol_id)->get();
-        return $kidSelected ? $kidSelected[0]['age_stage'] : '';
+        $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id',$rol_id)->get()->first();
+
+        return $kidSelected['age_stage'] || '';
     }
 }

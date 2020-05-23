@@ -1,7 +1,7 @@
 @extends('roles.student.sequences_layout')
 
 @section('content')
-    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init()">
+    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init({{auth('afiliadoempresa')->user()->company_id()}},{{$sequence->id}})">
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -76,10 +76,15 @@
                                         'section'=>explode('|',$element['action'])[3],
                                         'account_service_id'=>$account_service_id,
                                       ])}}'"
+                                      conx-action="{{$element['action']}}"
+                                      disabled
                                     @endif
-                                      class="{{$element['class']}} cursor-pointer" ml="{{$element['ml']}}" mt="{{$element['mt']}}" w="{{$element['w']}}" h="{{$element['h']}}">
+                                      class="{{$element['class']}} cursor-pointer button-moment-validate cursor-not-allowed "
+                                      ml="{{$element['ml']}}" mt="{{$element['mt']}}" w="{{$element['w']}}" h="{{$element['h']}}">
                                      {{$element['text']}}
                                     </button>
+                                    <span ml="{{$element['ml']}}" mt="{{$element['mt']}}" class="not-allowed">No tiene permisos</span>
+                                    
                                 @endif
                               @endforeach
                               @endif

@@ -22264,3 +22264,22 @@ footer .navbar-light {
     min-width: 80px;
     min-height: 100px;
 }
+
+
+.button-moment-validate.cursor-not-allowed {
+	
+}
+
+.button-moment-validate + .not-allowed  {
+	display: none;
+}
+
+.button-moment-validate.cursor-not-allowed + .not-allowed  {
+	display: block;
+	background: gray;
+	padding: 4px 14px 4px 15px;
+	color: white;
+	font-size: 10px;
+	border-radius: 7px;
+	text-align: center;
+}

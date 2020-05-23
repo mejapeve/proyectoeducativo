@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Facades\Password;
+use App\Models\Companies;
 
 class ResetPasswordController extends Controller
 {
@@ -44,7 +45,8 @@ class ResetPasswordController extends Controller
 
         //$redirectTo->
         session(['name_company' => $empresa]);
-        session(['company_id' => 1]);
+        $company = Companies::where('nick_name',$empresa)->first();
+        session(['company_id' => $company->id]);
         switch (intval($rol)){
             case 1:
                 $this->redirectTo = $empresa."/student";

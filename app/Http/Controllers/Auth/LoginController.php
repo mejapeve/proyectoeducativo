@@ -68,6 +68,7 @@ class LoginController extends Controller
         $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['name_company' => 'conexiones' ]);
+        session(['company_id' => 1 ]);
         session(['redirect_to_portal' => $this->redirectTo]);
         return Socialite::driver('facebook')->redirect();
     }
@@ -152,6 +153,7 @@ class LoginController extends Controller
         $this->rol = decrypt($rol);
         $this->rolLogin();
         session(['name_company' => 'conexiones' ]);
+        session(['company_id' => 1 ]);
         session(['social_action' => $socialAction]);
         if(isset($request->free_rating_plan_id)) {
             session(['free_rating_plan_id' => $request->free_rating_plan_id]);
@@ -173,7 +175,7 @@ class LoginController extends Controller
             if (AfiliadoEmpresa::where('email', $user->email)->first() === null) {
                 $afiliadoempresa = $this->createAfiliado($user, 'gmail');
                 Auth::guard('afiliadoempresa')->login($afiliadoempresa);
-				$redirect_to_portal = session('redirect_to_portal');
+                $redirect_to_portal = session('redirect_to_portal');
 
                 $free_rating_plan_id = session()->pull('free_rating_plan_id');
                 $redirect_shoppingcart = session()->pull('redirect_to_shoppingcart');
@@ -182,7 +184,7 @@ class LoginController extends Controller
                     $ratingPlan = RatingPlan::find($free_rating_plan_id);
                     if ($ratingPlan->is_free) {
                         $this->registerController->addFreeRatingPlan($ratingPlan, $afiliadoempresa);
-						$redirect_to_portal = 'tutor.products';
+                        $redirect_to_portal = 'tutor.products';
                     }
                 }
 

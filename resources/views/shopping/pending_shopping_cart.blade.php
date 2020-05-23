@@ -49,7 +49,7 @@
             </div>
          </div>
          <div class="col-12 row">
-            <div ng-show="shopping_cart.type_product_id === 1 || shopping_cart.type_product_id === 2" 
+            <div ng-show="shopping_cart.type_product_id === 1" 
                 ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" 
                class="col-6 d-flex pl-0">
                <div class="p-3" ng-show="shopping_cart_product.sequence">
@@ -64,29 +64,34 @@
             </div>
          </div>
          <div class="col-12 row">
-         <div ng-show="shopping_cart.type_product_id === 2" ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" class="col-12">
-            <div class="p-3 " ng-show="shopping_cart_product.sequence">
-              <img class="rounded mr-3" src="@{{shopping_cart_product.sequence.url_image}}" width="80px"/>
-              <h6 class="text-900">@{{shopping_cart_product.sequence.name}}</h6>
-              <p class="col-12 fs-0 text-900 ">
-                <small>@{{shopping_cart_product.sequence.description}}</small>
-              </p>
-            </div>
-            <div class="p-3 " ng-show="shopping_cart_product.sequenceStruct_moment">
-              <img class="rounded mr-3" src="@{{shopping_cart_product.sequenceStruct_moment.url_image}}" width="80px"/>
-              <h6 class="text-900">@{{shopping_cart_product.sequenceStruct_moment.name}}</h6>
-              <p class="col-12 fs-0 text-900 " style="top: 40px; left: 113px; width: 70%;"><small>@{{shopping_cart_product.sequenceStruct_moment.description}}</small></p>
+            <div ng-show="shopping_cart.type_product_id === 2" 
+                ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" 
+               class="col-6 d-flex pl-0">
+               <div class="p-3" ng-show="shopping_cart_product.sequenceStruct_moment">
+                 <img class="col-rounded" src="{{asset('/')}}@{{shopping_cart_product.sequenceStruct_moment.url_image}}" width="80px"/>
+               </div>
+               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="shopping_cart_product.sequenceStruct_moment">
+                 <h6 class="text-900">@{{shopping_cart_product.sequenceStruct_moment.name}}</h6>
+                 <p class="col-12 fs-0 text-900 pl-0">
+                   <small>@{{shopping_cart_product.sequenceStruct_moment.description}}</small>
+                 </p>
+               </div>
             </div>
          </div>
-         </div>
-         <div ng-show="shopping_cart.type_product_id === 3" class="col-lg-5 col-md-6 col-12">
-           <div ng-repeat="seq in shopping_cart.sequences" class="p-3 row"> 
-             <img class="rounded mr-3" src="@{{seq.url_image}}" width="80px"/>
-             <h6 class="text-900">@{{seq.name}}</h6>
-             <p class="col-12 fs-0 text-900 " style="top: 40px; left: 113px; width: 70%;">
-               <small>@{{seq.description}}</small>
-             </p>
-           </div>
+         <div class="col-12 row">
+            <div ng-show="shopping_cart.type_product_id === 3" 
+                ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" 
+               class="col-6 d-flex pl-0">
+               <div class="p-3" ng-show="shopping_cart_product.sequenceStruct_experience">
+                 <img class="col-rounded" src="{{asset('/')}}@{{shopping_cart_product.sequenceStruct_experience.url_image}}" width="80px"/>
+               </div>
+               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="shopping_cart_product.sequenceStruct_experience">
+                 <h6 class="text-900">@{{shopping_cart_product.sequenceStruct_experience.name}}</h6>
+                 <p class="col-12 fs-0 text-900 pl-0">
+                   <small>@{{shopping_cart_product.sequenceStruct_experience.description}}</small>
+                 </p>
+               </div>
+            </div>
          </div>
        </div>
        <div ng-show="shopping_cart.type_product_id === 4" class="row p-3" ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product">
@@ -128,8 +133,8 @@
       <div class="py-2 px-md-3 ml-auto text-900 col-9 col-md-8">Total</div>
       <div class="px-3 col">
          <div class="row">
-            <div class="py-2 d-none d-md-block text-center col-md-8">@{{shopping_carts.length}} (elementos)</div>
-            <div ng-show="totalPrices >= 0" class="col-12 col-md-4 ml-auto py-2 pr-md-3 pl-0 col">$ @{{totalPrices}}</div>
+            <div class="py-2 d-none d-md-block text-center col-md-8">1 (elementos)</div>
+            <div class="col-12 col-md-4 ml-auto py-2 pr-md-3 pl-0 col">$14398.00</div>
          </div>
       </div>
      </div>
