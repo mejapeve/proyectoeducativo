@@ -207,11 +207,11 @@
                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                      </div>
-                     <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_slider_images','Imágenes','slide-images')">
+                     <div class="col-4 d-flex mt-3 conx-element" ng-click="onClickElement(sequence,'url_slider_images','Imágenes','slide-images')">
                            <h6 class="mr-3">Imágenes</h6>
                            <img ng-hide="sequence.url_slider_images" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
-                           <div ng-show="sequence.url_slider_images" ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index"> 
-                              <img src="/@{{slide}}" width="30px" height="30px"/>
+                           <div class="w-100" ng-show="sequence.url_slider_images" ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index"> 
+                              <img src="/@{{slide}}" width="40px" height="40px" style="margin-left: -10px"/>
                            </div>
                         </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex" ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">
@@ -253,7 +253,7 @@
                      <div class="col-4 fs--1 position-absolute" ng-repeat="element in sequenceSectionPart.elements">
                         <div id="@{{element.type === 'text-element' ? element.id : ''}}"
                            ng-show="element.type === 'text-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
-                           class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                           class="@{{element.class}} font-text conx-element" conx-draggable="element" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
@@ -261,44 +261,48 @@
                            </div>
                         </div>
                         <div id="@{{element.type==='text-area-element' ? element.id : ''}}" ng-show="element.type==='text-area-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
-                           class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                           class="@{{element.class}} font-text conx-element" conx-draggable="element"  ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}    
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
-                        <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="../../../@{{element.url_image}}" w="@{{element.w}}" h="@{{element.h}}"/>
+                        <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  class="conx-element">
+                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="../../../@{{element.url_image}}" 
+                                ng-class="element.class + 'conx-element'" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                                conx-draggable="element" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
                         <div ng-show="element.type==='video-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="@{{element.class}} font-text conx-element">
+                           class="conx-element">
                            <iframe id="@{{element.type==='video-element' ? element.id : ''}}" refreshable="element.url_vimeo" src="https://player.vimeo.com/video/286898202" w="@{{element.w}}" h="@{{element.h}}" frameborder="0" 
                               webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
                            </iframe>
                            <button class="btn btn-sm btn-primary position-absolute" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
                            Editar
                            </button>
+                           <span conx-draggable="element">
+                              <i class="fas fa-arrows-alt position-absolute" style="left: 70px;color: white;font-size: 23px;border: 1px solid gray;border-radius: 34px;   padding:8px;height: 42px;width: 42px;margin-left: 10px;background: rgba(243, 243, 243, 0.2);"></i>
+                           </span>
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
-                        <div ng-show="element.type==='button-element'">
-                            <button id="@{{element.type==='button-element' ? element.id : ''}}" 
-                               class="@{{element.class}} font-text conx-element  position-absolute" 
+                        <div ng-show="element.type==='button-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
+                            <div id="@{{element.type==='button-element' ? element.id : ''}}" 
+                               class="@{{element.class}} conx-element position-absolute" 
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
-                               mt="@{{element.mt}}" ml="@{{element.ml}}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
+                               conx-draggable="element"
                                ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                               @{{element.text || '--texto guía--'}} 
-                               <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
-                                  <i class="far fa-times-circle"></i>
-                               </div>
-                           </button>
+                               @{{element.text || '--texto guía--'}}
+                           </div>
+                           <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                             <i class="far fa-times-circle"></i>
+                           </div>
                         </div>
                      </div>
                   </div>

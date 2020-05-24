@@ -26,6 +26,7 @@
     <link href="{{ asset('css/fonts/helvetica-rounded-lt.css') }}" rel="stylesheet" type="text/css" />
 
     <script src="{{ asset('js/jquery-3.5.0.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
     
     <script src="{{ asset('js/select2.full.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>

@@ -22267,19 +22267,19 @@ footer .navbar-light {
 
 
 .button-moment-validate.cursor-not-allowed {
-	
+    
 }
 
 .button-moment-validate + .not-allowed  {
-	display: none;
+    display: none;
 }
 
 .button-moment-validate.cursor-not-allowed + .not-allowed  {
-	display: block;
-	background: gray;
-	padding: 4px 14px 4px 15px;
-	color: white;
-	font-size: 10px;
-	border-radius: 7px;
-	text-align: center;
+    display: block;
+    background: gray;
+    padding: 4px 14px 4px 15px;
+    color: white;
+    font-size: 10px;
+    border-radius: 7px;
+    text-align: center;
 }
