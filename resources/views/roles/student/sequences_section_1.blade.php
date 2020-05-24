@@ -49,19 +49,21 @@
                               @foreach($elements as $element)
                                 @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
                                    <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
-                                        class="@if(isset($element['class'])) $element['class'] @endif p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
+                                        class="@if(isset($element['class'])){{ $element['class']}} @endif p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
                                     {!! $element['text'] !!}
                                    </div>
                                 @endif
                                 @if($element['type'] == 'image-element')
                                     <div class="z-index-1" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
-                                        <img src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
+                                        <img class="@if(isset($element['class'])){{ $element['class']}} @endif"
+                                        src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
                                     </div>    
                                 @endif
                                 @if($element['type'] == 'video-element' && isset($element['url_vimeo']))
                                    <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
                                         <iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
                                            webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
+                                           class="@if(isset($element['class'])){{ $element['class']}} @endif"
                                         </iframe>
                                     </div>
                                 @endif
