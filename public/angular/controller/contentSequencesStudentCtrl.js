@@ -116,10 +116,12 @@ function resizeSequenceCard() {
     var h = Number(card.attr('h'));
     var newW = Number(card.css('width').replace('px', ''));
     var newH = newW * h / w;
-    card.css('height', newH);
-    background.css('height', card.css('height').replace('px', ''));
-
     var deltaX = 1 + Math.abs(newW - w) / w;
+    card.css('height', newH  );
+    var background = $('.background-sequence-image');
+        background.css('width', card.css('width'));
+        background.css('height', card.css('height'));
+        
 
     $(card).find('[fs]').each(function (value, key) {
         var fs = $(this).attr('fs');
