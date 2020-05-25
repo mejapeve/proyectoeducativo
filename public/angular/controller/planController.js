@@ -167,7 +167,7 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
             $scope.planEdit.expiration_date = new Date(dataTable.expiration_date+' 00:00:00');
         }
 
-        console.log(dataTable,$scope.planEdit.init_date,dataTable.init_date)
+        $scope.$apply();
         $('#modalEdit').modal('show')
 
     });
