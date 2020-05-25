@@ -517,10 +517,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                 else {
                     swal('Conexiones', 'Error al modificar la secuencia', 'danger');
                 }
-            });
-        //.error(function(reason) {
-        //    swal('Conexiones','Error al modificar la secuencia','danger');
-        //});
+            }).catch(function(reason) {
+				swal('Conexiones','Error al modificar la secuencia','danger');
+			});
     }
 
     $scope.onSaveSequenceSection = function () {
@@ -645,9 +644,32 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.openChangeAlert = function () {
         swal({
-            text: "Debe guardar cambios para continuar",
-            showConfirmButton: false, showCancelButton: false,
-            dangerMode: false,
+            text: "Debe guardar cambios para continuar!",
+            type: "warning",
+            showCancelButton: true,
+			confirmButtonColor: '#8CD4F5',
+            cancelButtonText: "Ok",
+            confirmButtonText: "Aceptar",
+            closeOnConfirm: false
+        })
+        .then((result) => {
+            if (result) {
+                swal({
+                  text: "Confirma para deshacer los cambios!",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Confirmar",
+                  cancelButtonText: "Cancelar",
+                  closeOnConfirm: false,
+                  closeOnCancel: false
+                })
+                .then((isConfirm) => {
+                    if (isConfirm) {
+                        loadSequence($scope.sequence.id);
+                    }
+                }).catch(swal.noop);
+			}
         }).catch(swal.noop);
     }
 
