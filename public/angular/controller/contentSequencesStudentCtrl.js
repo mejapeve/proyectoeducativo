@@ -16,21 +16,29 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             then(function (response) {
                 $scope.sequences = response.data;
                 resizeSequenceCard();
+                $('#loading').addClass('d-none');
                 $('.button-moment-validate[conx-action]').each(function (index, value) {
                     var momentId = Number($(value).attr('conx-action').split('|')[1]);
                     for (var i = 0; i < $scope.sequences.length; i++) {
                         scp = $scope.sequences[i];
                         if (scp.sequence_id === sequenceId) {
                             if (scp.type_product_id === 1) {
+                                console.log($(this));
                                 $(this).removeClass('cursor-not-allowed');
+                                $(this).attr('disabled', false);
+                                $(this).prop('disabled', false);
                             }
                             else if (scp.type_product_id === 2 && scp.moment_id === momentId) {
+                                console.log($(this));
                                 $(this).removeClass('cursor-not-allowed');
                                 $(this).attr('disabled', false);
                                 $(this).prop('disabled', false);
                             }
                             else if (scp.type_product_id === 3) {
+                                console.log($(this));
                                 $(this).removeClass('cursor-not-allowed');
+                                $(this).attr('disabled', false);
+                                $(this).prop('disabled', false);
                             }
                         }
                     }
@@ -38,6 +46,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             }).catch(function (e) {
                 $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
                 swal('Conexiones', $scope.errorMessage, 'error');
+                $('#loading').addClass('d-none');
             });
     }
     $(window).resize(function () {
@@ -52,17 +61,17 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
         $('#sidemenu-sequences-content').addClass('d-none');
         $('#sidemenu-sequences-content').removeClass("show");
-        $('#sidemenu-sequences-content').removeClass("d-lg-block");
+        $('#sidemenu-sequences-content').removeClass("d-md-block");
 
         $('#sidemenu-tools-content').addClass('d-none');
         $('#sidemenu-tools-content').removeClass("show");
-        $('#sidemenu-tools-content').removeClass("d-lg-block");
+        $('#sidemenu-tools-content').removeClass("d-md-block");
 
-        $('#sidemenu-sequences').addClass("col-lg-0_5");
-        $('#sidemenu-sequences').removeClass("col-lg-3");
+        $('#sidemenu-sequences').addClass("col-md-0_5");
+        $('#sidemenu-sequences').removeClass("col-md-3");
 
-        $('#content-section-sequences').removeClass("col-lg-9");
-        $('#content-section-sequences').addClass("col-lg-11_5");
+        $('#content-section-sequences').removeClass("col-md-9");
+        $('#content-section-sequences').addClass("col-md-11_5");
 
         resizeSequenceCard();
     };
@@ -72,11 +81,11 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
         $('#sidemenu-sequences-content').removeClass('d-none');
         $('#sidemenu-sequences-content').addClass("show");
-        $('#sidemenu-sequences-content').addClass("d-lg-block");
+        $('#sidemenu-sequences-content').addClass("d-md-block");
 
         $('#sidemenu-tools-content').removeClass('d-none');
         $('#sidemenu-tools-content').addClass("show");
-        $('#sidemenu-tools-content').addClass("d-lg-block");
+        $('#sidemenu-tools-content').addClass("d-md-block");
 
         $('#sidemenu-sequences-button').addClass('fa-caret-square-left');
         $('#sidemenu-sequences-button').removeClass('fa-caret-square-right');
@@ -88,11 +97,11 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         $('#sidemenu-tools-content').addClass("show");
         $('#sidemenu-tools-content').removeClass("d-none");
 
-        $('#sidemenu-sequences').removeClass("col-lg-0_5");
-        $('#sidemenu-sequences').addClass("col-lg-3");
+        $('#sidemenu-sequences').removeClass("col-md-0_5");
+        $('#sidemenu-sequences').addClass("col-md-3");
 
-        $('#content-section-sequences').addClass("col-lg-9");
-        $('#content-section-sequences').removeClass("col-lg-11_5");
+        $('#content-section-sequences').addClass("col-md-9");
+        $('#content-section-sequences').removeClass("col-md-11_5");
 
         resizeSequenceCard();
     }
@@ -116,7 +125,7 @@ function resizeSequenceCard() {
     var h = Number(card.attr('h'));
     var newW = Number(card.css('width').replace('px', ''));
     var newH = newW * h / w;
-    var deltaX = 1 + Math.abs(newW - w) / w;
+    var deltaX = 1 + (newW - w) / w;
     card.css('height', newH  );
     var background = $('.background-sequence-image');
         background.css('width', card.css('width'));

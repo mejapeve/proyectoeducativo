@@ -160,7 +160,7 @@
                <span class="col-auto"><a ng-click="errorMessage = null"><i class="far fa-times-circle"></i></a></span>
             </div>
             <div class="mb-3 card z-index-0">
-               <div class="card-header d-flex">
+               <div class="card-header d-flex bg-light ">
                   <h5 class="">@{{PageName}}</h5>
                   <div ng-show="dataJstree.type==='openMomentSectionPart'"  class="ml-3 pt-1 conx-element" ng-click="onClickElement(momentSection,'title','Título','text')">
                      <h6  type="text" class="">@{{momentSection.title || '---Título---'}} </h6>
@@ -184,7 +184,7 @@
                      </div>
                   </div>
                </div>
-               <div ng-class="{'h-100': dataJstree.type === 'openSequence'}" class="bg-light card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
+               <div ng-class="{'h-100': dataJstree.type === 'openSequence'}" class="card-body min-card-body p-0 background-sequence-card z-index--1" w="@{{container.w}}" h="@{{container.h}}">
                   <div class="p-4 row fs--1" ng-show="dataJstree.type === 'openSequence'">
                      <div class="conx-element col-auto" ng-click="onClickElement(sequence,'url_image','Carátula','img')">
                         <h6>Carátula</h6>

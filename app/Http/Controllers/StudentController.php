@@ -55,7 +55,7 @@ class StudentController extends Controller
             $section = json_decode($sequence->section_1, true);
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
 
@@ -67,7 +67,7 @@ class StudentController extends Controller
             $section = json_decode($sequence->section_2, true);
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
 
@@ -84,7 +84,7 @@ class StudentController extends Controller
             $section = json_decode($sequence->section_3, true);
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data)
+            return view('roles.student.content_sequence_section',$data)
             ->with('account_service_id',$account_service_id)
             ->with('sequence_id',$sequence_id);
         }
@@ -104,15 +104,15 @@ class StudentController extends Controller
             $section = json_decode($sequence->section_4, true);
             $section = $section['part_' . $part_id];
             $data = array_merge(['sequence'=>$sequence],$section);
-            return view('roles.student.sequences_section_1',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     
-    public function show_moment_section(Request $request,$empresa, $sequence_id, $moment_id, $section_id=1,$account_service_id,$order_moment_id) {
+    public function show_moment_section(Request $request,$empresa, $sequence_id, $moment_id, $section_id=1,$account_service_id,$order_moment_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id,true,$sequence_id,$moment_id);
-        $moment = SequenceMoment::
-            where('sequence_moments.sequence_company_id', $sequence_id )
+        $moment = SequenceMoment::with('sequence')
+            ->where('sequence_moments.sequence_company_id', $sequence_id )
             ->where('sequence_moments.id',$moment_id )
             ->first();
 
@@ -132,9 +132,11 @@ class StudentController extends Controller
             $section_2 = json_decode($moment->section_2, true);
             $section_3 = json_decode($moment->section_3, true);
             $section_4 = json_decode($moment->section_4, true);
-            $data = array_merge(['sequence_id'=>$sequence_id,'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section);
-//            dd($data);
-            return view('roles.student.moment_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
+            $part = json_decode($moment['section_'.$section_id], true)['part_'.$part_id];
+			
+            $data = array_merge(['sequence'=>$moment->sequence,'sequence_id'=>$moment->sequence->id,
+            'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section,$part);
+            return view('roles.student.content_moment_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
         }
     }
     

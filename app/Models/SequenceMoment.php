@@ -19,4 +19,10 @@ class SequenceMoment extends Model
         return $this->hasMany(MomentKits::class,'sequence_moment_id','id');
 
     }
+    
+    public function sequence(){
+
+        return $this->belongsTo(CompanySequence::class,'sequence_company_id','id');
+
+    }
 }

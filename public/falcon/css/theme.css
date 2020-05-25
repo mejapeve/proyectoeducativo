@@ -22283,3 +22283,7 @@ footer .navbar-light {
     border-radius: 7px;
     text-align: center;
 }
+
+.background-white {
+    background: white;
+}
