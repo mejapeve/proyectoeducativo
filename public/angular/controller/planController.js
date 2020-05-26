@@ -90,7 +90,6 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
     $scope.addItem = ()=> {
         $scope.plan.items.push({'description':$scope.plan.item})
         $scope.plan.item = ''
-        console.log($scope.plan.items);
     }
 
     $scope.deleteItem = (index) => {
@@ -204,11 +203,6 @@ MyApp.controller("PlanContoller", ["$scope", "$http", function($scope, $http) {
 
         }).then((response)=>{
             $('#modalEdit').modal('hide');
-            $scope.plan={}
-            $scope.plan.types = $scope.types
-            $scope.plan.sequences = $scope.sequences
-            $scope.plan.items = []
-            $scope.freePlan = false
             $scope.isExpire = false
             table.ajax.reload()
             swal({
