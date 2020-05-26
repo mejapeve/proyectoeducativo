@@ -1,14 +1,12 @@
 <?php
 
-
 namespace App\Mail;
-
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendRejectedPaymentNotification  extends Mailable
+class SendRejectedPaymentNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,18 +16,16 @@ class SendRejectedPaymentNotification  extends Mailable
      * @return void
      */
 
-    private $student;
-    private $family;
-    private $data;
+    private $shoppingCart;
+    private $ratingPlan;
+    private $afiliadoEmpresa;
 
-    public function __construct($family,$student,$data,$sequence,$moment)
+    public function __construct($shoppingCart, $ratingPlan, $afiliadoEmpresa)
     {
         //
-        $this->family = $family;
-        $this->student = $student;
-        $this->data = $data;
-        $this->sequence=$sequence;
-        $this->moment=$moment;
+        $this->shoppingCart = $shoppingCart;
+        $this->ratingPlan = $ratingPlan;
+        $this->afiliadoEmpresa = $afiliadoEmpresa;
 
     }
 
@@ -41,10 +37,13 @@ class SendRejectedPaymentNotification  extends Mailable
     public function build()
     {
         return
-            $this->from('contacto@educonexiones.com')
-                ->markdown('vendor.notifications.rejectedPaymentNotification',
-                    ['family' => $this->family,'student' => $this->student,'data' => $this->data,'moment' => $this->moment,'sequence' => $this->sequence])
-                ->subject('Conexiones - Notificación de pago rechazado');
+        $this->from('contacto@educonexiones.com')
+            ->markdown('vendor.notifications.rejectedPaymentNotification',
+                [   'shoppingCart' => $this->shoppingCart,
+                    'ratingPlan' => $this->ratingPlan,
+                    'afiliadoEmpresa' => $this->afiliadoEmpresa,
+                ])
+            ->subject('Conexiones - Notificación de pago rechazado');
 
     }
 }
