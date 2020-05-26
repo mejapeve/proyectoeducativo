@@ -8,6 +8,7 @@ use App\Models\RatingPlan;
 use App\Models\SequenceMoment;
 use App\Models\AffiliatedAccountService;
 use App\Models\TypesRatingPlan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -16,7 +17,7 @@ class RatingPlanController extends Controller
 
     public function get_rating_plans(Request $request){
 
-        $ratingPlan = RatingPlan::with('type_plan')->get();
+        $ratingPlan = RatingPlan::where('expiration_date','<',Carbon::now()->format('Y-m-d'))->orWhere('expiration_date',NULL)->with('type_plan')->get();
 
         return response()->json(['data'=>$ratingPlan],200);
     }
