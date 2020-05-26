@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div ng-controller="PlanContoller" ng-init="init('{{route("create_rating_plan")}}','{{route("get_plans_dt")}}')">
+    <div ng-controller="PlanContoller" ng-init="init('{{route("create_rating_plan")}}','{{route("get_plans_dt")}}','{{route("edit_rating_plan")}}')">
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -161,7 +161,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-primary btn-sm" type="button" id="onEdit" ng-click=""><i id="move" class=""></i>Editar</button></div>
+                        <button class="btn btn-primary btn-sm" type="button" id="onEdit" ng-click="editPlan()"><i id="move" class=""></i>Editar</button></div>
                 </div>
             </div>
         </div>

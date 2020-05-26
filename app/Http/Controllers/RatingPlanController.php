@@ -56,16 +56,17 @@ class RatingPlanController extends Controller
     public function update(Request $request){
 
         $data = $request->all();
-
         $ratingPlan = RatingPlan::findOrFail($data['id']);
         $ratingPlan->name = $data['name'];
         $ratingPlan->description = $data['description'];
-        $ratingPlan->image_url = $data['image_url'];
-        $ratingPlan->price = $data['price'];
-        $ratingPlan->is_free = $data['is_free'];
-        $ratingPlan->type_rating_plan_id = $data['type_rating_plan_id'];
-        $ratingPlan->count = $data['count'];
+        $ratingPlan->price = $data['cost'];
         $ratingPlan->days = $data['days'];
+        $ratingPlan->init_date = $data['init_date'];
+        if($data['isExpiration'] == 'true'){
+            $ratingPlan->expiration_date = $data['expiration_date'];
+        }else{
+            $ratingPlan->expiration_date =  NULL;
+        }
         $ratingPlan->save();
         return response()->json(['data'=>$ratingPlan],200);
 
