@@ -71,7 +71,8 @@ class NotifyCallbackController extends Controller
                 'payment_process_date' => date("Y-m-d H:i:s"),
             ));
             // Generando registro nuevo para shoppingCart
-            $shoppingCarts = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+            $shoppingCarts = ShoppingCart::with( 'shopping_cart_product')->
+                where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                 ['payment_status_id', 4],
                 ['payment_transaction_id', $request->preference_id]])->get();
 
@@ -85,10 +86,10 @@ class NotifyCallbackController extends Controller
                 $shoppingCart_n->payment_init_date = $shoppingCart->payment_process_date;
 
                 $shoppingCart_n->save();
-                dd($shoppingCart->shopping_cart_product());
-                foreach ($shoppingCart->shopping_cart_product() as $shopping_cart_product) {
+                
+                foreach ($shoppingCart->shopping_cart_product as $shopping_cart_product) {
                     $shopping_cart_product_n = new ShoppingCartProduct();
-                    $shopping_cart_product_n->shopping_cart_id = $shoppingCart->id;
+                    $shopping_cart_product_n->shopping_cart_id = $shoppingCart_n->id;
                     $shopping_cart_product_n->product_id = $shopping_cart_product->product_id;
                     $shopping_cart_product_n->save();
                 }
