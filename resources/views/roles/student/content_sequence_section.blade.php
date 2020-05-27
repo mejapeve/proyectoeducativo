@@ -9,7 +9,11 @@
                 </div>
                 <div class="col-md-3 open" id="sidemenu-sequences"  >
                     <div class="mb-3 card fade show" id="sidemenu-sequences-content">
-                        @include('roles/student/sidebar_sequences')
+                        @if(isset($order_moment_id))
+                            @include('roles/student/sidebar_moment')
+                        @else 
+                            @include('roles/student/sidebar_sequences')
+                        @endif
                     </div>
                     <div class="h-75 mb-3 fade show d-none card w-10" id="sidemenu-sequences-empty">
                     </div>
@@ -98,7 +102,17 @@
                                             No tiene permisos
                                         </span>
                                         @endif
-                                        
+                                    @endif
+                                    @if($element['type'] == 'evidence-element')
+                                    <div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
+                                        <div class="{{$element['class']}} evidence-head cursor-pointer" 
+                                           ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
+                                           w="{{$element['w']}}" h="{{$element['h']}}" fs="{{$element['fs']}}"
+                                           ng-click="onClickEvidence()">
+                                           <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+                                           {{$element['text']}}
+                                         </div>
+                                    </div>
                                     @endif
                                   @endforeach
                                   @endif

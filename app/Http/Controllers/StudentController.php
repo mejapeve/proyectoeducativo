@@ -133,10 +133,10 @@ class StudentController extends Controller
             $section_3 = json_decode($moment->section_3, true);
             $section_4 = json_decode($moment->section_4, true);
             $part = json_decode($moment['section_'.$section_id], true)['part_'.$part_id];
-			
+            
             $data = array_merge(['sequence'=>$moment->sequence,'sequence_id'=>$moment->sequence->id,
             'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section,$part);
-            return view('roles.student.content_moment_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
         }
     }
     

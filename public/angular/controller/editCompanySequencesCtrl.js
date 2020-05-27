@@ -26,6 +26,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.widthOriginal = null;
     $scope.heightOriginal = null;
     $scope.mbDelete = null;
+    $scope.showEvidenceModal = false;
 
     var card = $('.background-sequence-card');
     $scope.container.h = Math.round(Number(card.css('height').replace('px', '')));
@@ -458,6 +459,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             parentElement.elements = parentElement.elements || [];
             parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 130, 'h': 26, 'text': '', 'class': 'btn-sm btn-primary' });
         }
+        else if (typeItem === 'evidence-element') {
+            parentElement.elements = parentElement.elements || [];
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '' });
+        }
+        
         $timeout(function () {
             $scope.resizeSequenceCard();
         }, 10);
@@ -518,8 +524,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                     swal('Conexiones', 'Error al modificar la secuencia', 'danger');
                 }
             }).catch(function(reason) {
-				swal('Conexiones','Error al modificar la secuencia','danger');
-			});
+                swal('Conexiones','Error al modificar la secuencia','danger');
+            });
     }
 
     $scope.onSaveSequenceSection = function () {
@@ -647,7 +653,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             text: "Debe guardar cambios para continuar!",
             type: "warning",
             showCancelButton: true,
-			confirmButtonColor: '#8CD4F5',
+            confirmButtonColor: '#8CD4F5',
             cancelButtonText: "Ok",
             confirmButtonText: "Aceptar",
             closeOnConfirm: false
@@ -666,13 +672,21 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                 })
                 .then((isConfirm) => {
                     if (isConfirm) {
+                        $scope.applyChange = false;
                         loadSequence($scope.sequence.id);
                     }
                 }).catch(swal.noop);
-			}
+            }
         }).catch(swal.noop);
     }
 
+    $scope.openEvidence = function(elementEvidence) {
+        $scope.showEvidenceModal = true;
+    }
+
+    $scope.closeEvidence = function() {
+        $scope.showEvidenceModal = false;
+    }
     $scope.resizeSequenceCard = function () {
         var card = $('.background-sequence-card');
 
@@ -815,6 +829,7 @@ MyApp.directive('conxDraggable', function () {
                                 case 'image-element':
                                 case 'button-element':
                                 case 'video-element':
+                                case 'evidence-element':
                                     $element.parent().css('top', $scope.element.mt + 'px');
                                     $element.parent().css('left', $scope.element.ml + 'px');
                                     $element.css('top', '0px');
@@ -839,9 +854,9 @@ MyApp.directive('conxTextList', function () {
     return {
         restrict: 'E',
         template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
-            '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1"/>  ' +
+            '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
-            '<input class="mt-1 w-75 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+            '<input class="mt-1 w-90 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
         controller: function ($scope, $timeout) {
             $scope.delete = function ($index) {
 
@@ -878,6 +893,7 @@ MyApp.directive('conxTextList', function () {
             }
             $scope.onNewSplit = function () {
                 $scope.applyChange = true;
+                $scope.elementParentEdit[$scope.elementEdit] = $scope.elementParentEdit[$scope.elementEdit] || '';
                 if ($scope.newSplit && $scope.newSplit.length > 0) {
                     if ($scope.elementParentEdit[$scope.elementEdit].length > 0) {
                         $scope.elementParentEdit[$scope.elementEdit] += '|';
@@ -922,13 +938,65 @@ MyApp.directive('conxTextList', function () {
     };
 });
 
+MyApp.directive('conxEvidenceOptions', function () {
+    return {
+        restrict: 'E',
+        template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="question in elementParentEdit[elementEdit].questions track by $index"> ' +
+            '<input ng-change="onChangeQuestion($index,question)" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-90"/>  ' +
+            '<a ng-click="delete($index)" style="marging-top: 8px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
+            '<a href="#" ng-click="onNewQuestion()"><i class="fas fa-plus cursor-pointer"></i><a/>',
+        controller: function ($scope, $timeout) {
+            $scope.questionEdit = null;
+            if($scope.elementParentEdit)
+                $scope.elementParentEdit[$scope.elementEdit].questions = $scope.elementParentEdit[$scope.elementEdit].questions || [];
+        
+            $scope.onOpenEvidenceQuestion = function(question) {
+                $scope.questionEdit = question;
+            }
+            $scope.delete = function ($index) {
+                $scope.applyChange = true;
+                var list = $scope.elementParentEdit[$scope.elementEdit].questions;
+                var newList = [];
+                for (var i = 0; i < list.length; i++) {
+                    if (i != $index) {
+                        newList.push(list[i]);
+                    }
+                }
+                $scope.elementParentEdit[$scope.elementEdit] = newList;
+            }
+            $scope.onChangeQuestion = function ($index, question) {
+                $scope.applyChange = true;
+                var list = $scope.elementParentEdit[$scope.elementEdit].questions;
+                var newList = [];
+                for (var i = 0; i < list.length; i++) {
+                    if (i != $index) {
+                        newList.push(list[i]);
+                    }
+                    else {
+                        newList.push(question);
+                    }
+                }
+                $scope.elementParentEdit[$scope.elementEdit] = newList;
+            }
+            $scope.onNewQuestion = function () {
+                $scope.applyChange = true;
+                $scope.newQuestion = {};
+                $scope.elementParentEdit.questions.push($scope.newQuestion);
+            }
+            $scope.onChangeQuestion = function () {
+                $scope.applyChange = true;
+            }
+        }
+    };
+});
+
 MyApp.directive('conxSlideImages', function () {
     return {
         restrict: 'E',
         template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
-            '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1"/>  ' +
+            '<span>{{$index}}</span><input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
-            '<input class="mt-1 h-75 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+            '<input class="mt-1 w-90 fs--1" type="text" ng-model="newSplit"/> <a href="#" class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
         controller: function ($scope, $timeout) {
             $scope.delete = function ($index) {
 
@@ -965,6 +1033,7 @@ MyApp.directive('conxSlideImages', function () {
             }
             $scope.onNewSplit = function () {
                 $scope.applyChange = true;
+                $scope.elementParentEdit[$scope.elementEdit] = $scope.elementParentEdit[$scope.elementEdit] || '';
                 if ($scope.newSplit && $scope.newSplit.length > 0) {
                     if ($scope.elementParentEdit[$scope.elementEdit].length > 0) {
                         $scope.elementParentEdit[$scope.elementEdit] += '|';

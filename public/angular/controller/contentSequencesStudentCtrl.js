@@ -8,6 +8,10 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         getAvailableSequences(companyId, sequenceId);
     }
 
+    $scope.onClickEvidence = function() {
+       
+    }
+
     function getAvailableSequences(companyId, sequenceId) {
         $http({
             url: "/conexiones/get_available_sequences/" + companyId,

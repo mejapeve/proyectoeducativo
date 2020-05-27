@@ -114,9 +114,17 @@
                               </div>
                            </a>
                         </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="#"  ng-click="newElement('evidence-element')">
+                              <div class="d-flex align-items-center">
+                                 <i class="fas fa-edit mr-3"></i>
+                                 Evidencias
+                              </div>
+                           </a>
+                        </li>
                      </ul>
                   </div>
-                  <div class="col-6" ng-show="dataJstree.type==='openSequenceSectionPart'">
+                  <div class="col-6" ng-show="dataJstree.type==='openSequenceSectionPart' || dataJstree.type==='openMomentSectionPart'">
                      <h6> Elementos</h6>
                      <div ng-repeat="element in elementParentEdit.elements track by $index"  class="cursor-pointer"
                         ng-click="onClickElementWithDelete(elementParentEdit,element,$index)">
@@ -126,20 +134,7 @@
                            <i ng-show="element.type === 'image-element'" class="fas fa-image mr-3"></i>
                            <i ng-show="element.type === 'video-element'" class="fab fa-youtube mr-3"></i>
                            <i ng-show="element.type === 'button-element'" class="fab fa-flickr mr-3"></i>
-                           @{{element.type}}
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-6" ng-show="dataJstree.type==='openMomentSectionPart'">
-                     <h6> Elementos</h6>
-                     <div ng-repeat="element in elementParentEdit.elements track by $index"  class="cursor-pointer"
-                        ng-click="onClickElementWithDelete(elementParentEdit,element,$index)">
-                        <div class="d-flex align-items-center fs--2">
-                           <i ng-show="element.type === 'text-element'" class="fas fa-heading mr-3"></i>
-                           <i ng-show="element.type === 'text-area-element'" class="fas fa-align-left mr-3"></i>
-                           <i ng-show="element.type === 'image-element'" class="fas fa-image mr-3"></i>
-                           <i ng-show="element.type === 'video-element'" class="fab fa-youtube mr-3"></i>
-                           <i ng-show="element.type === 'button-element'" class="fab fa-flickr mr-3"></i>
+                           <i ng-show="element.type === 'evidence-element'" class="fas fa-edit mr-3"></i>
                            @{{element.type}}
                         </div>
                      </div>
@@ -304,6 +299,20 @@
                              <i class="far fa-times-circle"></i>
                            </div>
                         </div>
+                        <div ng-show="element.type==='evidence-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
+                            <div id="@{{element.type==='evidence-element' ? element.id : ''}}" 
+                               class="@{{element.class}} conx-element position-absolute evidence-head" 
+                               ng-style="{'color':element.color, 'background-color': element.background_color}"
+                               w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
+                               conx-draggable="element"
+                               ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
+                               <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+                               @{{element.text}}
+                           </div>
+                           <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                             <i class="far fa-times-circle"></i>
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div ng-show="dataJstree.type === 'openMoment'"  class="p-3 row m-0 fs--1" >
@@ -388,6 +397,20 @@
                                   <i class="far fa-times-circle"></i>
                                </div>
                            </button>
+                        </div>
+                        <div ng-show="element.type==='evidence-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
+                            <div id="@{{element.type==='evidence-element' ? element.id : ''}}" 
+                               class="@{{element.class}} conx-element position-absolute evidence-head" 
+                               ng-style="{'color':element.color, 'background-color': element.background_color}"
+                               w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
+                               conx-draggable="element"
+                               ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
+                               <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+                                @{{element.text}}
+                           </div>
+                           <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                             <i class="far fa-times-circle"></i>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -608,6 +631,81 @@
                   </select>
                </div>
             </div>
+            <div ng-show="typeEdit === 'evidence-element'">
+               <div class="position-absolute text-align" ng-click="openEvidence(elementEdit)" style="right: 15px;top: 102px;">
+                  <h6 class="cursor-pointer mb-0 fs--2" style=""> Evidencias </h6>
+                  <img src="/images/icons/evidences.png" width="34" height="34" class="cursor-pointer">
+               </div>
+              <div ng-show="showEvidenceModal" class="w-100 h-100 position-absolute" style="top:0; left:0;">
+                  <div class="modal-backdrop fade show"></div>
+                  <div class="modal-menu card-notification shadow-none card  w-100 h-100">
+                    <div class="card-header bg-light">
+                        Evidencias de aprendizaje
+                    </div>
+                    <div class="position-absolute" style="right: 15px;top: 9px;" ng-click="closeEvidence()">
+                        <button type="button" class="close" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                       </button>
+                    </div>
+                    <div class="card-body" style="overflow: auto;">
+                        <h6>Preguntas</h6>
+                        <conx-evidence-options elementParent="elementEdit" elementChild="options"></conx-evidence-options>
+                        <div class="line-separator"></div>
+                        <div class="" ng-show="newQuestion">
+                            <div class="mt-2"> 
+                                <h6>Título pregunta</h6>
+                                <input type="text" ng-model="newQuestion.title"/>
+                            </div>
+                            <div class="mt-2"> 
+                                <h6>Respuestas</h6>
+                                <conx-text-list elementParent="newQuestion" elementChild="options"></conx-text-list>
+                            </div>
+                            <div class="mt-2"> 
+                                <div class="line-separator"></div>
+                                <h6 class="mt-2">Calificación</h6>
+                                <div type="text" ng-repeat="aswer in newQuestion.review">
+                                    <input type="text" ng-model="aswer.review"/>
+                                </div>
+                                <a href="#" class="cursor-pointer" ng-click="newQuestion.review.push({});"> <i class="fas fa-plus"></i><a/>
+                                
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+               <input type="text"  ng-change="onChangeInput(elementEdit.text)" ng-model="elementEdit.text" class="w-100"/>
+               <div  class="d-flex mt-3">
+                  <i class="fas fa-arrow-right mr-2"></i>
+                  <input class="mr-2 col-4" type="number"  ng-keypress="onChangeInput()" ng-change="onChangeInput()" ng-model="elementEdit.ml"/>
+                  <i class="fas fa-arrow-down mr-2 "></i>
+                  <input class="col-4" type="number" ng-keypress="onChangeInput()" ng-change="onChangeInput()" ng-model="elementEdit.mt"/>
+               </div>
+               <div  class="d-flex mt-3">
+                  <i class="fas fa-arrows-alt-h mr-2"></i>
+                  <input class="mr-2 col-4" type="number" ng-keypress="onChangeInput()" ng-change="onChangeInput()" ng-model="elementEdit.w"/>
+                  <i class="fas fa-arrows-alt-v mr-2"></i>
+                  <input class="col-4" type="number"  ng-keypress="onChangeInput()" ng-change="onChangeInput()" ng-model="elementEdit.h"/>
+               </div>
+               <div class="d-flex mt-3">
+                  <i class="fas fa-text-height mr-2"></i><small>Tamaño letra</small>
+                  <input class="col-4 ml-2" type="number" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.fs"/>
+               </div>
+               <div class="d-flex mt-3">
+                  <i class="fas fa-palette mr-2"></i><small>Color</small>
+                  <input class="ml-2" type="color" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.color"/>
+                  <input class="ml-2" type="text" size="7" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.color"/>
+               </div>
+               <div class="d-flex mt-3">
+                  <i class="fas fa-fill-drip mr-2"></i><small>Fondo</small>
+                  <input class="ml-2" type="color" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.background_color"/>
+                  <input class="ml-2" type="text" size="7" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.background_color"/>
+               </div>
+               <div class="d-flex mt-3">
+                  <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
+               </div>
+            </div>
+
          </div>
       </div>
    </div>
