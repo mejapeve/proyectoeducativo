@@ -31,6 +31,7 @@ class AfiliadoEmpresa extends Model
         'department_id',
         'city_id',
         'city',
+        'password'
     ];
    // protected $guarded = ['id'];
 
