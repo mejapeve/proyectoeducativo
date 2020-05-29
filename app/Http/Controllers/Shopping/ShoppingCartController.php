@@ -189,10 +189,8 @@ class ShoppingCartController extends Controller
 
     public function get_preference_initPoint()
     {
-//dd(11);
-        //MercadoPago\SDK::setClientId("TEST-7b92f740-e376-40ee-8108-a8a0c3fa067a");
-        //MercadoPago\SDK::setClientSecret("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
-        MercadoPago\SDK::setAccessToken("TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387");
+
+        MercadoPago\SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
 
         # Create a preference object
         $preference = new MercadoPago\Preference();

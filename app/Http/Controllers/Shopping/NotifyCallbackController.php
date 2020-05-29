@@ -19,8 +19,7 @@ class NotifyCallbackController extends Controller
     public function notificacion_callback(Request $request)
     {
         $price_callback = $request->session()->pull('shopping_cart_notify_price'); //remove cache to session
-        //MercadoPago\SDK::setAccessToken("ENV_ACCESS_TOKEN");
-        MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
+        MercadoPago\SDK::setAccessToken(env('MERCADOPAGO_ACCESS_TOKEN'));
         $shoppingCart = null;
         $ratingPlan = null;
         $afiliado_empresa = null;
