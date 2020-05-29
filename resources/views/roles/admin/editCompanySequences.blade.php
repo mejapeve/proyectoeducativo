@@ -649,25 +649,23 @@
                     </div>
                     <div class="card-body" style="overflow: auto;">
                         <h6>Preguntas</h6>
-                        <conx-evidence-options elementParent="elementEdit" elementChild="options"></conx-evidence-options>
+                        <conx-evidence-questions></conx-evidence-questions>
                         <div class="line-separator"></div>
-                        <div class="" ng-show="newQuestion">
+                        <div class="" ng-show="questionEdit">
                             <div class="mt-2"> 
-                                <h6>Título pregunta</h6>
-                                <input type="text" ng-model="newQuestion.title"/>
+                                <h6>Pregunta @{{questionEdit.$index + 1}}: <small>@{{questionEdit.title}}</small></h6>
                             </div>
-                            <div class="mt-2"> 
+                            <div class="p-2"> 
                                 <h6>Respuestas</h6>
-                                <conx-text-list elementParent="newQuestion" elementChild="options"></conx-text-list>
+                                <conx-evidence-options></conx-evidence-options>
                             </div>
-                            <div class="mt-2"> 
+                            <div class="p-2"> 
                                 <div class="line-separator"></div>
                                 <h6 class="mt-2">Calificación</h6>
-                                <div type="text" ng-repeat="aswer in newQuestion.review">
-                                    <input type="text" ng-model="aswer.review"/>
+                                <div type="text" ng-repeat="itemReview in questionEdit.review">
+                                    <span class="fs--1 font-weight-semi-bold">@{{itemReview.id}}</span>
+                                    <input class="ml-2 fs--1" type="text" ng-model="itemReview.review"/>
                                 </div>
-                                <a href="#" class="cursor-pointer" ng-click="newQuestion.review.push({});"> <i class="fas fa-plus"></i><a/>
-                                
                             </div>
                         </div>
                     </div>

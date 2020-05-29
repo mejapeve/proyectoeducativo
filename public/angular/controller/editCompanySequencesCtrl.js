@@ -686,7 +686,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.closeEvidence = function() {
         $scope.showEvidenceModal = false;
+		$scope.questionEdit = null;
     }
+    
     $scope.resizeSequenceCard = function () {
         var card = $('.background-sequence-card');
 
@@ -853,11 +855,14 @@ MyApp.directive('conxDraggable', function () {
 MyApp.directive('conxTextList', function () {
     return {
         restrict: 'E',
-        template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
-            '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
+        template: '<div ng-show="elementParentEdit" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
+            '<span ng-show="showIndexLetter">{{letters[$index]}}</span><input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-75"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
-            '<input class="mt-1 w-90 fs--1" type="text" ng-model="newSplit"/> <a class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+            '<input class="mt-1 w-75 fs--1" type="text" ng-model="newSplit"/>' +
+            '<a class="cursor-pointer" ng-click="onNewSplit()"> ' +
+            '<i class="fas fa-plus"></i><a/>',
         controller: function ($scope, $timeout) {
+            
             $scope.delete = function ($index) {
 
                 $scope.applyChange = true;
@@ -938,35 +943,46 @@ MyApp.directive('conxTextList', function () {
     };
 });
 
-MyApp.directive('conxEvidenceOptions', function () {
+MyApp.directive('conxEvidenceQuestions', function () {
     return {
         restrict: 'E',
-        template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="question in elementParentEdit[elementEdit].questions track by $index"> ' +
-            '<input ng-change="onChangeQuestion($index,question)" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-90"/>  ' +
-            '<a ng-click="delete($index)" style="marging-top: 8px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
-            '<a href="#" ng-click="onNewQuestion()"><i class="fas fa-plus cursor-pointer"></i><a/>',
+        template: '<div class="d-flex" ng-show="elementEdit && elementEdit.questions.length > 0"  ng-repeat="question in elementEdit.questions track by $index"> ' +
+            '<div class="fs--1 mt-1 font-weight-semi-bold mr-2">{{$index + 1}}) </div> <input ng-change="onChangeQuestion($index,question)" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-75 mr-1 cursor-pointer"/>  ' +
+            '<a ng-click="deleteQuestion($index)" style="marging-top: 8px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
+            '<a href="#" ng-click="onNewQuestion()"><span class="fs--1"> Nueva pregunta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
+            
+            $scope.questions = null;
             $scope.questionEdit = null;
-            if($scope.elementParentEdit)
-                $scope.elementParentEdit[$scope.elementEdit].questions = $scope.elementParentEdit[$scope.elementEdit].questions || [];
-        
+            
+            $scope.onNewQuestion = function () {
+                $scope.applyChange = true;
+                $scope.elementEdit.questions = $scope.elementEdit.questions || [];
+                $scope.questionEdit = {"review":[],"options":[],"$index":$scope.elementEdit.questions.length};
+                $scope.elementEdit.questions.push($scope.questionEdit);
+            }
+            
             $scope.onOpenEvidenceQuestion = function(question) {
                 $scope.questionEdit = question;
             }
-            $scope.delete = function ($index) {
+            
+            $scope.deleteQuestion = function ($index) {
                 $scope.applyChange = true;
-                var list = $scope.elementParentEdit[$scope.elementEdit].questions;
+                $scope.elementEdit.questions = $scope.elementEdit.questions || [];
+                var list = $scope.elementEdit.questions;
                 var newList = [];
                 for (var i = 0; i < list.length; i++) {
                     if (i != $index) {
                         newList.push(list[i]);
                     }
                 }
-                $scope.elementParentEdit[$scope.elementEdit] = newList;
+                $scope.elementEdit.questions = newList;
             }
+            
             $scope.onChangeQuestion = function ($index, question) {
                 $scope.applyChange = true;
-                var list = $scope.elementParentEdit[$scope.elementEdit].questions;
+                $scope.elementEdit.questions = $scope.elementEdit.questions || [];
+                var list = $scope.elementEdit.questions;
                 var newList = [];
                 for (var i = 0; i < list.length; i++) {
                     if (i != $index) {
@@ -976,25 +992,75 @@ MyApp.directive('conxEvidenceOptions', function () {
                         newList.push(question);
                     }
                 }
-                $scope.elementParentEdit[$scope.elementEdit] = newList;
+                $scope.elementEdit.questions = newList;
             }
-            $scope.onNewQuestion = function () {
+        }
+    };
+});
+
+MyApp.directive('conxEvidenceOptions', function () {
+    return {
+        restrict: 'E',
+        template: '<div ng-show="questionEdit" ng-repeat="itemOption in questionEdit.options track by $index"> ' +
+            '<span class="fs--1 font-weight-semi-bold">{{itemOption.id}} </span>' +
+            '<input ng-model="itemOption.option" class="mt-1 fs--1 w-75"/>  ' +
+            '<a ng-click="onDelete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
+            '<input class="mt-1 w-75 fs--1" type="text" ng-model="newOption" style="margin-left: 15px;"/>' +
+            '<a class="cursor-pointer" ng-click="onNew()"> ' +
+            '<i class="fas fa-plus"></i><a/>',
+        controller: function ($scope, $timeout) {
+            
+            $scope.letters = ['a)','b)','c)','d)','e)','f)','g)','h)','i)','j)','k)','l)','m)'];
+
+            $scope.onDelete = function ($index) {
+
                 $scope.applyChange = true;
-                $scope.newQuestion = {};
-                $scope.elementParentEdit.questions.push($scope.newQuestion);
+
+                var list = $scope.questionEdit.options;
+                var newList = [];
+                for (var i = 0; i < list.length; i++) {
+                    if (i != $index) {
+                        newList.push(list[i]);
+                    }
+                }
+                $scope.questionEdit.options = newList;
+                
+                var list = $scope.questionEdit.review;
+                var newList = [];
+                for (var i = 0; i < list.length; i++) {
+                    if (i != $index) {
+                        newList.push(list[i]);
+                    }
+                }
+                $scope.questionEdit.review = newList;
             }
-            $scope.onChangeQuestion = function () {
+            $scope.onChange = function ($index, split) {
+                $scope.applyChange = true;
+            }
+            $scope.onNew = function () {
+                $scope.applyChange = true;
+                var list = $scope.questionEdit.options = $scope.questionEdit.options || [];
+                var list = $scope.questionEdit.review = $scope.questionEdit.review || [];
+                if ($scope.newOption.length > 0) {
+                    var id = $scope.letters[$scope.questionEdit.options.length];
+                    $scope.questionEdit.options.push({"id":id,"option":$scope.newOption});
+                    $scope.questionEdit.review.push({"id":id,"review":"0"});
+                }
+                $scope.newOption = '';
+            }
+            $scope.onChangeInput = function () {
                 $scope.applyChange = true;
             }
         }
     };
 });
 
+
 MyApp.directive('conxSlideImages', function () {
     return {
         restrict: 'E',
         template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
-            '<span>{{$index}}</span><input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
+            '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
             '<input class="mt-1 w-90 fs--1" type="text" ng-model="newSplit"/> <a href="#" class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
         controller: function ($scope, $timeout) {

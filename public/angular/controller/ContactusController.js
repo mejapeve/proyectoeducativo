@@ -3,6 +3,9 @@ MyApp.controller("contactusController", ["$scope", "$http", function($scope, $ht
     $scope.email;
     $scope.affair;
     $scope.message;
+    $scope.init = function() {
+       $('.d-result').removeClass('d-none');
+    }
     $scope.insertData = function (contactusForm) {
         $('#move').addClass('fa fa-spinner fa-spin');
         $('#send').attr('disabled',true);
