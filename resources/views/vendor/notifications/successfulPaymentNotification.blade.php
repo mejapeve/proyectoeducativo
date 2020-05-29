@@ -11,6 +11,6 @@ Usuario: {{$afiliadoEmpresa->user_name}}
 Estado de la transacción: Aprobada
 Id transacción: {{$request->collection_id}}
 Id de preferencia: {{$request->preference_id}}
-Descripción:
-Valor de la transacción:
-Fecha de la transacción:
+Descripción: 
+Valor de la transacción:{{$price_callback}}
+Fecha de la transacción:{{$transaction_date}}
