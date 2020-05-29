@@ -247,6 +247,8 @@ class ShoppingCartController extends Controller
                     array_push($items,$item);
                 }
         }
+
+        session(['shopping_cart_notify_price' => $sum]);
         $preference->items = $items;
 
         $preference->payment_methods = array(

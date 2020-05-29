@@ -19,8 +19,9 @@ class SendSuccessfulPaymentNotification extends Mailable
     private $shoppingCart;
     private $request;
     private $afiliadoEmpresa;
+    private $price;
 
-    public function __construct($shoppingCart, $request, $afiliadoEmpresa)
+    public function __construct($shoppingCart, $request, $afiliadoEmpresa,$price)
     {
         //
         $this->shoppingCart = $shoppingCart;

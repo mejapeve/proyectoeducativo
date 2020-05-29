@@ -18,14 +18,13 @@ class NotifyCallbackController extends Controller
 {
     public function notificacion_callback(Request $request)
     {
-
+        $price_callback = $request->session()->pull('shopping_cart_notify_price'); //remove cache to session
         //MercadoPago\SDK::setAccessToken("ENV_ACCESS_TOKEN");
         MercadoPago\SDK::setAccessToken('TEST-7394833091802936-031118-6efb7b3446ef18d20bccb024638e38f3-271000387');
         $shoppingCart = null;
         $ratingPlan = null;
         $afiliado_empresa = null;
 
-        
         if ($request->collection_status == 'approved') {
 
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
@@ -35,7 +34,7 @@ class NotifyCallbackController extends Controller
                 'payment_status_id' => '3',
                 'payment_process_date' => date("Y-m-d H:i:s"),
             ));
-            
+            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id',$request->preference_id)->first();
             if ($request->user('afiliadoempresa')) {
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
@@ -58,7 +57,7 @@ class NotifyCallbackController extends Controller
 
             //Envío correo de pago exitoso
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendSuccessfulPaymentNotification($shoppingCart, $request, $afiliado_empresa));
+                new SendSuccessfulPaymentNotification($shoppingCart, $request, $afiliado_empresa,$price_callback));
             return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
 
         } else if ($request->collection_status == 'rejected') {
@@ -98,7 +97,7 @@ class NotifyCallbackController extends Controller
 
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendRejectedPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa));
+                new SendRejectedPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa,$price_callback));
             return redirect()->route('shoppingCart');
         } else {
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
@@ -136,7 +135,7 @@ class NotifyCallbackController extends Controller
 
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendRejectedPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa));
+                new SendRejectedPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa,$price_callback));
             return redirect()->route('shoppingCart');
         }
 
