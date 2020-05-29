@@ -20,7 +20,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'Acceso limitado a 1 guía de aprendizaje, esta prueba solo estará activa por 15 días',
                     "description_items"=>'Acceso limitado a 1 guía de aprendizaje|Esta prueba solo estará activa por 15 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2050,
                     "is_free"=>true,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>1,
@@ -33,7 +33,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a 1 guía de aprendizaje, acceso por 2 meses',
                     "description_items"=>'Acceso completo a 1 guía de aprendizaje|Acceso por 2 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2100,
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>1,
@@ -46,7 +46,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a 2 guías de aprendizaje, acceso por 4 meses',
                     "description_items"=>'Acceso completo a 2 guías de aprendizaje|Acceso por 4 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2150,
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>2,
@@ -59,7 +59,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a 4 guías de aprendizaje, acceso por 8 meses',
                     "description_items"=>'Acceso completo a 4 guías de aprendizaje|Acceso por 8 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2200,
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>4,
@@ -72,7 +72,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a 6 guías de aprendizaje, acceso por 12 meses',
                     "description_items"=>'Acceso completo a 6 guías de aprendizaje|Acceso por 12 meses|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2250,
                     "is_free"=>false,
                     "type_rating_plan_id"=>1,//secuencia
                     "count"=>6,
@@ -85,7 +85,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a los momentos que desee de guia de aprendizaje',
                     "description_items"=>'Acceso completo a los momentos que desee de guia de aprendizaje|Acceso por 10 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2300,
                     "is_free"=>false,
                     "type_rating_plan_id"=>2,//momento
                     "count"=>4,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
@@ -98,7 +98,7 @@ class RatingPlanSeeder extends Seeder
                     "descrption"=>'acceso completo a las experiencias que desee de guia de aprendizaje',
                     "description_items"=>'Acceso completo a las experiencias que desee de guia de aprendizaje|Acceso por 10 días|Lorem ipsum dolor sit amet, consectetuer',
                     "url_image" => "/images/kits-elements/ezgif-3e721b0d38a8.jpg",
-                    "price"=>"198000",
+                    "price"=>2350,
                     "is_free"=>false,
                     "type_rating_plan_id"=>3,//experiencia
                     "count"=>0,//las que desee (validar desde el front esta cantidad para que pueda seleccionar las que desee)
