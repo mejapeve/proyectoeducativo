@@ -6,6 +6,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
     $scope.preferenceInitPoint = null;
 
     $scope.init = function () {
+        $scope.totalPrices = 0;
         $('.d-none-result').removeClass('d-none');
         $http({
             url: "/get_shopping_cart/",
@@ -15,23 +16,18 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                 $scope.shopping_carts = response.data.data;
                 if ($scope.shopping_carts && $scope.shopping_carts.length > 0) {
                     for (var i = 0; i < $scope.shopping_carts.length; i++) { 
-                        sc = $scope.shopping_carts[i];
+                        var sc = $scope.shopping_carts[i];
                         if (sc.rating_plan_id != null) {
                             $scope.totalPrices += sc.rating_plan.price;
                         }
                         else {
-                            console.log("entro ", $sc);
-                            for (var l = 0; l < $sc.shopping_cart_product; l++) {
-                                
-                                scp = sc.shopping_cart_product[l];
-                                if ($sc.type_product_id == 4) {
-                                    for (var k = 0; k < $scp.kiStruct.length; k++) {
-                                        $scope.totalPrices += $scp.kiStruct[k].price;
-                                    }
+                            for (var l = 0; l <  sc.shopping_cart_product.length; l++) {
+                                var scp = sc.shopping_cart_product[l];
+                                if (sc.type_product_id == 4) {
+                                    $scope.totalPrices += scp.kiStruct.price;//parseInt(scp.kiStruct.price);
                                 } else if (sc.type_product_id == 5) {
-                                    console.log("entro");
-                                    for (var k = 0; k < $scp.elementStruct.length; k++) {
-                                        $scope.totalPrices += $scp.elementStruct[k].price;
+                                    for (var k = 0; k < scp.elementStruct.length; k++) {
+                                        $scope.totalPrices += scp.elementStruct[k].price;
                                     }
                                 }
                             }
@@ -61,7 +57,6 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                 $scope.errorMessage = 'Error consultando el carrito de compras, compruebe su conexión a internet';
             });
     };
-
     $scope.onRegistryWithPendingShoppingCart = function () {
         swal({
             text: "Serás redireccionado al registro",

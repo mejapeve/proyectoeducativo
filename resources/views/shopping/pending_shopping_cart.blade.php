@@ -117,7 +117,7 @@
               <div class="media-body">
                 <h5 class="fs-0"><a class="text-900">@{{shopping_cart_product.elementStruct[0].name}}</a></h5>
                 <h4 class="fs-0"><a class="text-600">@{{shopping_cart_product.elementStruct[0].description}}</a></h4>
-                <div class="fs--2 fs-md--1 text-danger cursor-pointer">Remover</div>
+                <div class="fs--2 fs-md--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
               </div>
             </div>
             </div>
