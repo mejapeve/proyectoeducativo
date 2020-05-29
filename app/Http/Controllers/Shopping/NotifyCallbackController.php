@@ -96,7 +96,7 @@ class NotifyCallbackController extends Controller
 
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendRejectedPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa,$price_callback));
+                new SendRejectedPaymentNotification($shoppingCart, $request, $afiliado_empresa,$price_callback, $transaction_date));
             return redirect()->route('shoppingCart');
         } else {
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],

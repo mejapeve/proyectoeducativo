@@ -17,15 +17,19 @@ class SendRejectedPaymentNotification extends Mailable
      */
 
     private $shoppingCart;
-    private $ratingPlan;
+    private $request;
     private $afiliadoEmpresa;
+    private $price_callback;
+    private $transaction_date;
 
-    public function __construct($shoppingCart, $ratingPlan, $afiliadoEmpresa)
+    public function __construct($shoppingCart, $request, $afiliadoEmpresa, $price_callback, $transaction_date)
     {
         //
         $this->shoppingCart = $shoppingCart;
-        $this->ratingPlan = $ratingPlan;
+        $this->request = $request;
         $this->afiliadoEmpresa = $afiliadoEmpresa;
+        $this->price_callback = $price_callback;
+        $this->$transaction_date = $transaction_date;
 
     }
 
@@ -39,9 +43,11 @@ class SendRejectedPaymentNotification extends Mailable
         return
         $this->from('contacto@educonexiones.com')
             ->markdown('vendor.notifications.rejectedPaymentNotification',
-                [   'shoppingCart' => $this->shoppingCart,
-                    'ratingPlan' => $this->ratingPlan,
-                    'afiliadoEmpresa' => $this->afiliadoEmpresa,
+                ['shoppingCart' => $this->shoppingCart,
+                'request' => $this->request,
+                'afiliadoEmpresa' => $this->afiliadoEmpresa,
+                'price_callback' => $this->price_callback,
+                'transaction_date' => $this->transaction_date
                 ])
             ->subject('Conexiones - Notificación de pago rechazado');
 
