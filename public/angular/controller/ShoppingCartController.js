@@ -14,21 +14,24 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
             then(function (response) {
                 $scope.shopping_carts = response.data.data;
                 if ($scope.shopping_carts && $scope.shopping_carts.length > 0) {
-                    for (var i = 0; i < $scope.shopping_carts.length; i++) {
+                    for (var i = 0; i < $scope.shopping_carts.length; i++) { 
                         sc = $scope.shopping_carts[i];
-                        if (sc.rating_plan_id) {
+                        if (sc.rating_plan_id != null) {
                             $scope.totalPrices += sc.rating_plan.price;
                         }
                         else {
-                            for (var j = 0; j < $sc.shopping_cart_product.length; j++) {
-                                scp = sc.shopping_cart_product[j];
-                                if ($scp.shopping_cart_id == 5) {
-                                    for (var k = 0; k < $scp.shopping_cart_id.kiStruct.length; k++) {
-                                        $scope.totalPrices += $scp.shopping_cart_id.kiStruct[k].price;
+                            console.log("entro ", $sc);
+                            for (var l = 0; l < $sc.shopping_cart_product; l++) {
+                                
+                                scp = sc.shopping_cart_product[l];
+                                if ($sc.type_product_id == 4) {
+                                    for (var k = 0; k < $scp.kiStruct.length; k++) {
+                                        $scope.totalPrices += $scp.kiStruct[k].price;
                                     }
-                                } else if (scp.shopping_cart_id == 6) {
-                                    for (var k = 0; k < $scp.shopping_cart_id.elementStruct.length; k++) {
-                                        $scope.totalPrices += $scp.shopping_cart_id.elementStruct[k].price;
+                                } else if (sc.type_product_id == 5) {
+                                    console.log("entro");
+                                    for (var k = 0; k < $scp.elementStruct.length; k++) {
+                                        $scope.totalPrices += $scp.elementStruct[k].price;
                                     }
                                 }
                             }
@@ -77,7 +80,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
             method: "GET",
         }).
             then(function (response) {
-                window.location = response.data.initPoint;
+                //window.location = response.data.initPoint;
                 $('.btn-spinner').addClass('d-none');
             }).catch(function (e) {
                 $scope.errorMessage = 'Error registrando preferencia de compra';

@@ -133,7 +133,7 @@
       <div class="py-2 px-md-3 ml-auto text-900 col-9 col-md-8">Total</div>
       <div class="px-3 col">
          <div class="row">
-            <div class="py-2 d-none d-md-block text-center col-md-8">@{{shopping_carts.length}} (elementos)</div>
+            <div class="py-2 d-none d-md-block text-center col-md-8">@{{shopping_carts.shopping_cart_product.length}} (elementos)</div>
             <div ng-show="totalPrices >= 0" class="col-12 col-md-4 ml-auto py-2 pr-md-3 pl-0 col">$ @{{totalPrices}}</div>
          </div>
       </div>
