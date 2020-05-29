@@ -25,7 +25,7 @@ class NotifyCallbackController extends Controller
         $ratingPlan = null;
         $afiliado_empresa = null;
 
-        //dd($_GET);
+        
         if ($request->collection_status == 'approved') {
 
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
@@ -35,11 +35,10 @@ class NotifyCallbackController extends Controller
                 'payment_status_id' => '3',
                 'payment_process_date' => date("Y-m-d H:i:s"),
             ));
-
+            
             if ($request->user('afiliadoempresa')) {
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
-
                 $shoppingCarts = ShoppingCart::
                     with('rating_plan', 'shopping_cart_product')->
                     where([
@@ -56,9 +55,10 @@ class NotifyCallbackController extends Controller
                     }
                 }
             }
+
             //Envío correo de pago exitoso
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendSuccessfulPaymentNotification($shoppingCart, $ratingPlan, $afiliado_empresa));
+                new SendSuccessfulPaymentNotification($shoppingCart, $request, $afiliado_empresa));
             return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
 
         } else if ($request->collection_status == 'rejected') {

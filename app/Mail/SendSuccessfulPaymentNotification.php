@@ -17,14 +17,14 @@ class SendSuccessfulPaymentNotification extends Mailable
      */
 
     private $shoppingCart;
-    private $ratingPlan;
+    private $request;
     private $afiliadoEmpresa;
 
-    public function __construct($shoppingCart, $ratingPlan, $afiliadoEmpresa)
+    public function __construct($shoppingCart, $request, $afiliadoEmpresa)
     {
         //
         $this->shoppingCart = $shoppingCart;
-        $this->ratingPlan = $ratingPlan;
+        $this->request = $request;
         $this->afiliadoEmpresa = $afiliadoEmpresa;
 
     }
@@ -40,7 +40,7 @@ class SendSuccessfulPaymentNotification extends Mailable
         $this->from('contacto@educonexiones.com')
             ->markdown('vendor.notifications.successfulPaymentNotification',
                 [   'shoppingCart' => $this->shoppingCart,
-                    'ratingPlan' => $this->ratingPlan,
+                    'request' => $this->request,
                     'afiliadoEmpresa' => $this->afiliadoEmpresa
                 ])
             ->subject('Conexiones - Notificación de pago exitoso');
