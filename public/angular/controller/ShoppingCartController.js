@@ -75,7 +75,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
             method: "GET",
         }).
             then(function (response) {
-                //window.location = response.data.initPoint;
+                window.location = response.data.initPoint;
                 $('.btn-spinner').addClass('d-none');
             }).catch(function (e) {
                 $scope.errorMessage = 'Error registrando preferencia de compra';
