@@ -28,7 +28,7 @@ class SendSuccessfulPaymentNotification extends Mailable
         $this->request = $request;
         $this->afiliadoEmpresa = $afiliadoEmpresa;
         $this->price_callback = $price_callback;
-        $this->$transaction_date = $transaction_date;
+        $this->transaction_date = $transaction_date;
 
     }
 
