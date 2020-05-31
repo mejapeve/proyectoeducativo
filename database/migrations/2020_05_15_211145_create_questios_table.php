@@ -15,7 +15,7 @@ class CreateQuestiosTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tittle');
+            $table->string('title');
             $table->longText('options');
             $table->longText('review');
             $table->bigInteger('type_answer')->unsigned();

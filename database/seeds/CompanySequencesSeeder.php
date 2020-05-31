@@ -90,7 +90,7 @@ class CompanySequencesSeeder extends Seeder
             for($i = 0; $i < $experiences; ++$i) {
                 $experienceN = new MomentExperience();
                 $experienceN->sequence_moment_id = $momentN->id;
-                $experienceN->tittle = 'experience '.($i+1) .', moment '.$moment_order;
+                $experienceN->title = 'experience '.($i+1) .', moment '.$moment_order;
                 $experienceN->decription = 'Experiencia científica';
                 $experienceN->objectives = '';
                 $experienceN->save();

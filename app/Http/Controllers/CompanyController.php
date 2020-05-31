@@ -28,7 +28,7 @@ class CompanyController extends Controller
         $activesPlan = [];
         if(auth('afiliadoempresa')->user()){
            $userId =  auth('afiliadoempresa')->user()->id;
-		   $activesPlan = AfiliadoEmpresa::
+           $activesPlan = AfiliadoEmpresa::
            with('affiliated_account_services.affiliated_content_account_service')
                ->whereHas('affiliated_account_services',function($query){
                $dt = new \DateTime();
@@ -56,7 +56,7 @@ class CompanyController extends Controller
             ['moments'=>function($query){
                 $query->select('id','sequence_company_id','order', 'name', 'description', 'objectives')
                     ->with(['experiences'=>function($query){
-                        $query->select('id','sequence_moment_id','tittle','decription','objectives');
+                        $query->select('id','sequence_moment_id','title','decription','objectives');
                     },'moment_kit.kit.kit_elements.element','moment_kit.element']);
             }]
         )

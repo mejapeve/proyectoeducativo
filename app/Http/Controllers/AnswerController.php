@@ -93,7 +93,7 @@ class AnswerController extends Controller
         $questions = [];
         foreach ($answers as $answer){
             $data = $this->get_answer_student($answer->answer,$answer->question->options,$answer->question->review);
-            $data['tittle'] = $answer->question->tittle;
+            $data['title'] = $answer->question->title;
             array_push($questions,$data);
         }
        return $questions;

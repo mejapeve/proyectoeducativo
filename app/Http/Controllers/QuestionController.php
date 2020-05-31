@@ -14,6 +14,35 @@ class QuestionController extends Controller
                 ['sequence_id' => $request->sequence_id, 'moment_id' => $request->moment_id,'experience_id'=>$request->experience_id,'order'=>$request->order ],
                 ['options' =>$request->options , 'review' => $request->review,'type_answer' => $request->type_answer]
             );
+            /*if(isset($request->id)) {
+                $question = Question::where([ 'id' => $request->id ])
+                ->update([ 'title' => $request->title, 
+                      'sequence_id' => $request->sequence_id, 
+                      'moment_id' => $request->moment_id,
+                      'experience_id'=>$request->experience_id,
+                      'order'=>$request->order,
+                      'options' =>$request->options , 
+                      'review' => $request->review,
+                      'type_answer' => $request->type_answer
+                ]);
+                if($question) {
+                    $question = Question::find($request->id);
+                }
+            }
+            else {
+                $questionId = Question::insertGetId( 
+                    [ 'title' => $request->title, 
+                      'sequence_id' => $request->sequence_id, 
+                      'moment_id' => $request->moment_id,
+                      'experience_id'=>$request->experience_id,
+                      'order'=>$request->order,
+                      'options' =>$request->options , 
+                      'review' => $request->review,
+                      'type_answer' => $request->type_answer
+                    ]
+                );
+                $question = Question::find($questionId);
+            }*/
         }else{
             if(!@json_decode($request->options))
                 return response()->json(['data'=>'','message','El formato para registrar o actualizar los datos de preguntas no es el correcto'],200);

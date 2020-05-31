@@ -4,13 +4,28 @@
         <img width="70px" class="avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
         <span class="nameTimeLine fs--1">{{auth('afiliadoempresa')->user()->name}}</span>
         <div class="position-absolute d-flex" style="top: 12px;left: 220px;">
-            <a class="ml-8 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-home fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-left fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-arrow-right fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}"><i class="fas fa-book-open fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}"><i class="fas fa-star fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-calendar-alt fs-1"></i></a>
-            <a class="ml-1 btn btn-sm btn-secondary cursor-pointer" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-door-open fs-1"></i></a>
+            <a class="ml-8 cursor-pointer" href="{{route('student','conexiones')}}">
+                <img src="{{asset('images/icons/portal-estudiante/home_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}">
+                <img src="{{asset('images/icons/portal-estudiante/atras_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}">
+                <img src="{{asset('images/icons/portal-estudiante/adelante_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <a class="ml-1 cursor-pointer" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}">
+                <img src="{{asset('images/icons/portal-estudiante/guias_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <a class="ml-1 cursor-pointer" href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}">
+                <img src="{{asset('images/icons/portal-estudiante/logros_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <!--a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}"><i class="fas fa-calendar-alt fs-1"></i></a-->
+            <a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}">
+                <img src="{{asset('images/icons/portal-estudiante/perfil_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
+            <a class="ml-1 cursor-pointer" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <img src="{{asset('images/icons/portal-estudiante/salir_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+            </a>
             <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
            @csrf
         </form>

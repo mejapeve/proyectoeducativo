@@ -14,8 +14,8 @@ class ExperienceController extends Controller
 
         $experience = MomentExperience::findOrFail($request->get('id'));
 
-        if (isset($data['tittle']))
-            $experience->name = $data['tittle'];
+        if (isset($data['title']))
+            $experience->name = $data['title'];
         if (isset($data['description']))
             $experience->description = $data['description'];
         if (isset($data['objectives']))

@@ -16,7 +16,7 @@
             <div class="modal-backdrop fade show"></div>
             <div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
                 <div ng-click="newRegisterForm=false" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
-                <div class="p-lg-6 p-sm-4">
+                <div class="p-lg-6 p-4">
                     @include('roles/tutor/register_student')
                 </div>
             </div>
@@ -25,7 +25,7 @@
            <div class="modal-backdrop fade show"></div>
            <div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
                <div ng-click="editRegisterForm=false" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
-               <div class="p-lg-6 p-sm-4">
+               <div class="p-lg-6 p-4">
                    @include('roles/tutor/edit_student')
                </div>
            </div>

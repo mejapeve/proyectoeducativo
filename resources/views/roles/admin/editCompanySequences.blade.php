@@ -115,7 +115,7 @@
                            </a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#"  ng-click="newElement('evidence-element')">
+                           <a ng-show="dataJstree.type === 'openMomentSectionPart'" class="nav-link" href="#"  ng-click="newElement('evidence-element')">
                               <div class="d-flex align-items-center">
                                  <i class="fas fa-edit mr-3"></i>
                                  Evidencias
@@ -272,7 +272,8 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='video-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="conx-element">
+                           class="@{{element.class}} conx-element">
+                           
                            <iframe id="@{{element.type==='video-element' ? element.id : ''}}" refreshable="element.url_vimeo" src="https://player.vimeo.com/video/286898202" w="@{{element.w}}" h="@{{element.h}}" frameborder="0" 
                               webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
                            </iframe>
@@ -293,7 +294,7 @@
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                conx-draggable="element"
                                ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                               @{{element.text || '--texto guía--'}}
+                               @{{element.text}}
                            </div>
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                              <i class="far fa-times-circle"></i>
@@ -367,7 +368,7 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="@{{element.class}}font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
+                           class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
                            <img id="@{{element.type==='image-element' ? element.id : ''}}" src="../../../@{{element.url_image}}" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
@@ -381,6 +382,9 @@
                            <button class="btn btn-sm btn-primary position-absolute" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
                            Editar
                            </button>
+                           <span conx-draggable="element">
+                              <i class="fas fa-arrows-alt position-absolute" style="left: 70px;color: white;font-size: 23px;border: 1px solid gray;border-radius: 34px;   padding:8px;height: 42px;width: 42px;margin-left: 10px;background: rgba(243, 243, 243, 0.2);"></i>
+                           </span>
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
@@ -391,9 +395,9 @@
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                mt="@{{element.mt}}" ml="@{{element.ml}}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
-                               ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
-                               @{{element.text || '--texto guía--'}} 
-                               <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                               ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
+                               @{{element.text}} 
+                               <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                                   <i class="far fa-times-circle"></i>
                                </div>
                            </button>
@@ -404,11 +408,11 @@
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                conx-draggable="element"
-                               ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)">
+                               ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
                                <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
                                 @{{element.text}}
                            </div>
-                           <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
+                           <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                              <i class="far fa-times-circle"></i>
                            </div>
                         </div>
@@ -427,11 +431,11 @@
             <div ng-click="typeEdit=''" class="position-absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;text-align: right;position: absolute;">
                <i class="far fa-times-circle"></i> 
             </div>
-            <div class="" ng-show="indexElement || indexElement >= 0">
-               <button ng-show="dataJstree.type==='openSequenceSectionPart'" class="btn btn-sm btn-outline-warning r-0 position-absolute mr-2 " ng-click="deleteElement(sequenceSectionPart, indexElement,false)">
+            <div class="position-absolute" style="top:7px; right:51px;" ng-show="indexElement || indexElement >= 0">
+               <button ng-show="dataJstree.type==='openSequenceSectionPart'" class="btn btn-sm btn-outline-warning" ng-click="deleteElement(sequenceSectionPart, indexElement,false)">
                <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
                </button>
-               <button ng-show="dataJstree.type==='openMomentSectionPart'" class="btn btn-sm btn-outline-warning r-0 position-absolute mr-2 " ng-click="deleteElement(momentSectionPart, indexElement,false)">
+               <button ng-show="dataJstree.type==='openMomentSectionPart'" class="btn btn-sm btn-outline-warning" ng-click="deleteElement(momentSectionPart, indexElement,false)">
                <i class="fa fa-trash" aria-hidden="true"></i> Eliminar
                </button>
             </div>
@@ -639,13 +643,11 @@
               <div ng-show="showEvidenceModal" class="w-100 h-100 position-absolute" style="top:0; left:0;">
                   <div class="modal-backdrop fade show"></div>
                   <div class="modal-menu card-notification shadow-none card  w-100 h-100">
-                    <div class="card-header bg-light">
+                    <div class="card-header bg-light pl-4">
                         Evidencias de aprendizaje
                     </div>
-                    <div class="position-absolute" style="right: 15px;top: 9px;" ng-click="closeEvidence()">
-                        <button type="button" class="close" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                       </button>
+                    <div class="position-absolute" style="left: 7px;top: 9px;" ng-click="closeEvidence()">
+                        <i class="fas fa-arrow-left cursor-position"></i>
                     </div>
                     <div class="card-body" style="overflow: auto;">
                         <h6>Preguntas</h6>
@@ -660,11 +662,11 @@
                                 <conx-evidence-options></conx-evidence-options>
                             </div>
                             <div class="p-2"> 
-                                <div class="line-separator"></div>
+                                <div class="line-separator m-0"></div>
                                 <h6 class="mt-2">Calificación</h6>
-                                <div type="text" ng-repeat="itemReview in questionEdit.review">
+                                <div type="text" ng-repeat="itemReview in questionEdit.review track by $index">
                                     <span class="fs--1 font-weight-semi-bold">@{{itemReview.id}}</span>
-                                    <input class="ml-2 fs--1" type="text" ng-model="itemReview.review"/>
+                                    <input class="ml-2 fs--1" type="text" ng-change="applyChange = true" ng-model="itemReview.review"/>
                                 </div>
                             </div>
                         </div>

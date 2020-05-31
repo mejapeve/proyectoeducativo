@@ -3,6 +3,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.errorMessage = null;
     $scope.sequence = null;
     $scope.sequenceSection = null;
+    $scope.sequenceSectionPart = null;
     $scope.moment = null;
     $scope.momentSection = null;
     $scope.momentSectionPart = null;
@@ -260,7 +261,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             .then(function (response) {
 
                 $scope.sequence = response.data[0];
-
                 if (!$scope.sequence['section_1']) $scope.sequence['section_1'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
                 if (!$scope.sequence['section_2']) $scope.sequence['section_2'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
                 if (!$scope.sequence['section_3']) $scope.sequence['section_3'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
@@ -300,10 +300,42 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                     section4 = Object.assign(section4, { 'momentSectionIndex': '3' });
                     moment.sections = [section1, section2, section3, section4];
                 }
+                
+                switch ($scope.dataJstree.type) {
+                    case 'openSequence':
+                        $scope.PageName = 'Guía de Aprendizaje';
+                        $scope.elementParentEdit = $scope.sequence;
+                        break;
+                    case 'openSequenceSectionPart':
+                        $scope.sequenceSection = JSON.parse($scope.sequence[$scope.sequenceSection.sequenceSectionIndex]);
+                        $scope.sequenceSectionPart = $scope.sequenceSection[$scope.sequenceSection.sequenceSectionPartIndex];
+                        $scope.PageName = $scope.sequenceSection.section.name;
+                        $scope.elementParentEdit = $scope.sequenceSectionPart;
+                        $scope.container = $scope.sequenceSectionPart.container || { "w": $scope.container.w, "h": 385 };
+                        $scope.resizeWidth();
+                        break;
+                    case 'openMoment':
+                        $scope.moment = findMoment($scope.moment.order);
+                        $scope.PageName = 'Momento ' + $scope.moment.order;
+                        $scope.elementParentEdit = $scope.moment;
+                        break;
+                    case 'openMomentSectionPart':
+                        $scope.moment = findMoment($scope.moment.order);
+                        $scope.momentSection = $scope.moment.sections[Number($scope.momentSection.momentSectionIndex)];
+                        $scope.PageName = $scope.momentSection.section.name;
+                        $scope.momentSectionPart = $scope.momentSection[$scope.momentSectionPart.momentSectionPartIndex];
+                        $scope.elementParentEdit = $scope.momentSectionPart;
+                        $scope.container = $scope.momentSectionPart.container || { "w": $scope.container.w, "h": 385 };
+                        $scope.resizeWidth();
+                        break;
+                }
 
                 $timeout(function () {
                     InitializeJstree();
-                }, 500);
+                    $scope.resizeSequenceCard();
+                }, 10);
+            }).catch(function(err){
+                swal('Conexiones','Error consultando secuencia: ' + err,'error');
             });
     };
 
@@ -400,10 +432,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
         }
 
-
         $timeout(function () {
             $scope.resizeSequenceCard();
-        }, 1000);
+        }, 10);
     }
 
     $scope.onChangeFolderImage = function (directoryPath) {
@@ -457,11 +488,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if (typeItem === 'button-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 130, 'h': 26, 'text': '', 'class': 'btn-sm btn-primary' });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 130, 'h': 26, 'text': '--texto de guía--', 'class': 'btn-sm btn-primary' });
         }
         else if (typeItem === 'evidence-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '' });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'questions': [] });
         }
         
         $timeout(function () {
@@ -492,7 +523,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             $timeout(function () {
                 $scope.resizeSequenceCard();
                 $scope.resizeWidth();
-            }, 500);
+            }, 10);
         }
         else {
             if (parentElement.background_image) {
@@ -500,7 +531,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             }
         }
     }
-
 
     function getLastPath(directory) {
         var dirSplit = directory.split('/');
@@ -527,32 +557,113 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                 swal('Conexiones','Error al modificar la secuencia','danger');
             });
     }
+    
+    function saveEvidence(sectionPart,callback){
+        var countElements = sectionPart.elements.length;
+        var countElementsError = [];
+        
+        var element = null;
+        var listQuestionModify = [];
+        function refreshQuestion(questions,response) {
+            for(var i=0;i<questions.length;i++){
+                if(response.data && response.data.id && questions[i].title === response.data.title) {
+                    questions[i].id = response.data.id;
+                }
+            }
+        }
+        
+        for(var i=0;i<sectionPart.elements.length;i++) {
+            element = sectionPart.elements[i];
+            if(element.type === 'evidence-element') {
+                if(element.questions.length === 0) {
+                    finishCallback();
+                }
+                else {
+                    countElements--;
+                    countElements += element.questions.length;
+                    for(var j=0;j<element.questions.length;j++) {
+                        var data = { 
+                            "id": element.questions[j].id,
+                            "title": element.questions[j].title,
+                            "sequence_id": $scope.sequence.id,
+                            "moment_id":  $scope.moment ? $scope.moment.id : '',
+                            "order":  $scope.moment ? $scope.moment.order : '',
+                            "experience_id":  $scope.moment ? $scope.moment.id : '',
+                            "options": removeHashKey(element.questions[j].options),
+                            "review": removeHashKey(element.questions[j].review),
+                            "type_answer": "2"
+                        }
+                        $http.post('/register_update_question/', data)
+                        .then(function (response) {
+                            if (response && response.status === 200) {
+                                refreshQuestion(element.questions,response.data);
+                                finishCallback();
+                            }
+                            else {
+                                var message = (reason && reason.data) ? reason.data.message : '';
+                                finishCallback('Error invocando el servicio register_update_question:['+message+']');
+                            }
+                        }, function (reason) {
+                            var message = (reason && reason.data) ? reason.data.message : '';
+                            finishCallback('Error invocando el servicio register_update_question:['+message+']');
+                        });
+                        
+                    }
+
+                }
+            }
+            else {
+                finishCallback();
+            }
+        }
+        
+        if(sectionPart.elements.length === 0) {
+            finishCallback();
+        }
+        
+        function finishCallback(error) {
+            countElements--;
+            if(error) countElementsError.push(error);
+            if(countElements <= 0) {
+                if(countElementsError.length === 0 ) {
+                    callback();    
+                }
+                else {
+                    swal('Conexiones', 'Error al actualizar las preguntas en el servidor. Han ocurrido los siguientes errores : '+JSON.stringify(countElementsError), 'error');
+                }
+                
+            }
+        }
+    }
 
     $scope.onSaveSequenceSection = function () {
 
         var sectionNumber = Number($scope.sequenceSection.sequenceSectionIndex.replace('section_', ''));
-        var data = {
-            'id': $scope.sequence.id,
-            'section_number': sectionNumber,
-            'data_section': JSON.stringify($scope.sequenceSection)
-        };
+        
+        saveEvidence($scope.sequenceSectionPart,function(){
+            var data = {
+                'id': $scope.sequence.id,
+                'section_number': sectionNumber,
+                'data_section': JSON.stringify($scope.sequenceSection)
+            };
 
-        $http.post('/update_sequence_section/', data)
-            .then(function (response) {
-                if (response && response.status === 200) {
-                    $scope.applyChange = false;
-                    swal('Conexiones', response.data.message, 'success');
+            $http.post('/update_sequence_section/', data)
+                .then(function (response) {
+                    if (response && response.status === 200) {
+                        $scope.applyChange = false;
+                        swal('Conexiones', response.data.message, 'success');
+                        loadSequence($scope.sequence.id);
+                    }
+                    else {
+                        swal('Conexiones', 'Error al modificar la sección de la secuencia', 'error');
+                    }
                     loadSequence($scope.sequence.id);
-                }
-                else {
-                    swal('Conexiones', 'Error al modificar la sección de la secuencia', 'error');
-                }
-                loadSequence($scope.sequence.id);
-            }, function (reason) {
-                var message = (reason && reason.data) ? reason.data.message : '';
-                swal('Conexiones', 'Error al modificar la secuencia: ' + message, 'error');
-                loadSequence($scope.sequence.id);
-            });
+                }, function (reason) {
+                    var message = (reason && reason.data) ? reason.data.message : '';
+                    swal('Conexiones', 'Error al modificar la secuencia: ' + message, 'error');
+                    loadSequence($scope.sequence.id);
+                });
+        });
     }
 
     $scope.onSaveMoment = function () {
@@ -579,28 +690,30 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         //var sectionNumber = Number($scope.momentSectionPart.momentSectionPartIndex.replace('part_',''));
         var sectionNumber = Number($scope.momentSection.momentSectionIndex) + 1;
 
-        var data = {
-            'id': $scope.moment.id,
-            'section_number': sectionNumber,
-            'data_section': angular.toJson($scope.momentSection)
-        };
+        saveEvidence($scope.momentSectionPart,function(){
+            var data = {
+                'id': $scope.moment.id,
+                'section_number': sectionNumber,
+                'data_section': angular.toJson($scope.momentSection)
+            };
 
-        $http.post('/update_moment_section/', data)
-            .then(function (response) {
-                if (response && response.status === 200) {
-                    $scope.applyChange = false;
+            $http.post('/update_moment_section/', data)
+                .then(function (response) {
+                    if (response && response.status === 200) {
+                        $scope.applyChange = false;
+                        loadSequence($scope.sequence.id);
+                        swal('Conexiones', response.data.message, 'success');
+                    }
+                    else {
+                        swal('Conexiones', 'Error al modificar la seccíón del momento', 'danger');
+                    }
+
+                }, function (reason) {
+                    var message = (reason && reason.data) ? reason.data.message : '';
+                    swal('Conexiones', 'Error al modificar la seccion de momento: ' + message, 'error');
                     loadSequence($scope.sequence.id);
-                    swal('Conexiones', response.data.message, 'success');
-                }
-                else {
-                    swal('Conexiones', 'Error al modificar la seccíón del momento', 'danger');
-                }
-
-            }, function (reason) {
-                var message = (reason && reason.data) ? reason.data.message : '';
-                swal('Conexiones', 'Error al modificar la seccion de momento: ' + message, 'error');
-                loadSequence($scope.sequence.id);
-            });
+                });
+        });
     }
 
     $scope.downSection = function (list, item) {
@@ -650,13 +763,15 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.openChangeAlert = function () {
         swal({
-            text: "Debe guardar cambios para continuar!",
-            type: "warning",
+            text: "Se deben guardar cambios para continuar!",
             showCancelButton: true,
-            confirmButtonColor: '#8CD4F5',
+            confirmButtonColor: '#748194',
+            confirmButtonClass: 'mr-4',
+            cancelButtonColor: '#2c7be5',
+            confirmButtonText: "Deshacer cambios",
             cancelButtonText: "Ok",
-            confirmButtonText: "Aceptar",
-            closeOnConfirm: false
+            closeOnConfirm: true,
+            closeOnCancel: false
         })
         .then((result) => {
             if (result) {
@@ -686,7 +801,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.closeEvidence = function() {
         $scope.showEvidenceModal = false;
-		$scope.questionEdit = null;
+        $scope.questionEdit = null;
     }
     
     $scope.resizeSequenceCard = function () {
@@ -826,7 +941,6 @@ MyApp.directive('conxDraggable', function () {
                         $scope.element.ml = $scope.element.ml + deltaX;
                         $scope.element.mt = $scope.element.mt + deltaY;
                         $scope.$apply();
-                        $timeout(function () {
                             switch ($scope.element.type) {
                                 case 'image-element':
                                 case 'button-element':
@@ -838,16 +952,9 @@ MyApp.directive('conxDraggable', function () {
                                     $element.css('left', '0px');
                                     break;
                             }
-                            /*else {
-                                var objMt = Number($element.attr('mt'));
-                                $element.css('top', objMt + 'px');
-                                var objMl = Number($element.attr('ml'));
-                                $element.css('left', objMl + 'px');
-                            }*/
-                        });
                     }
                 });
-            }, 100);
+            }, 10);
         }
     };
 });
@@ -947,23 +1054,24 @@ MyApp.directive('conxEvidenceQuestions', function () {
     return {
         restrict: 'E',
         template: '<div class="d-flex" ng-show="elementEdit && elementEdit.questions.length > 0"  ng-repeat="question in elementEdit.questions track by $index"> ' +
-            '<div class="fs--1 mt-1 font-weight-semi-bold mr-2">{{$index + 1}}) </div> <input ng-change="onChangeQuestion($index,question)" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-75 mr-1 cursor-pointer"/>  ' +
+            '<div class="fs--1 mt-1 font-weight-semi-bold mr-2">{{$index + 1}}) </div> <input ng-change="onChangeQuestion()" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-75 mr-1 cursor-pointer"/>  ' +
             '<a ng-click="deleteQuestion($index)" style="marging-top: 8px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
             '<a href="#" ng-click="onNewQuestion()"><span class="fs--1"> Nueva pregunta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
             
-            $scope.questions = null;
-            $scope.questionEdit = null;
-            
             $scope.onNewQuestion = function () {
                 $scope.applyChange = true;
                 $scope.elementEdit.questions = $scope.elementEdit.questions || [];
-                $scope.questionEdit = {"review":[],"options":[],"$index":$scope.elementEdit.questions.length};
+                $scope.questionEdit = {"review":[{"id":"a)","review":"0"}],"options":[{"id":"a)","option":""}],"$index":$scope.elementEdit.questions.length};
                 $scope.elementEdit.questions.push($scope.questionEdit);
             }
             
             $scope.onOpenEvidenceQuestion = function(question) {
                 $scope.questionEdit = question;
+            }
+            
+            $scope.onChangeQuestion = function() {
+                $scope.applyChange = true;
             }
             
             $scope.deleteQuestion = function ($index) {
@@ -977,22 +1085,7 @@ MyApp.directive('conxEvidenceQuestions', function () {
                     }
                 }
                 $scope.elementEdit.questions = newList;
-            }
-            
-            $scope.onChangeQuestion = function ($index, question) {
-                $scope.applyChange = true;
-                $scope.elementEdit.questions = $scope.elementEdit.questions || [];
-                var list = $scope.elementEdit.questions;
-                var newList = [];
-                for (var i = 0; i < list.length; i++) {
-                    if (i != $index) {
-                        newList.push(list[i]);
-                    }
-                    else {
-                        newList.push(question);
-                    }
-                }
-                $scope.elementEdit.questions = newList;
+                $scope.questionEdit = null;
             }
         }
     };
@@ -1003,11 +1096,10 @@ MyApp.directive('conxEvidenceOptions', function () {
         restrict: 'E',
         template: '<div ng-show="questionEdit" ng-repeat="itemOption in questionEdit.options track by $index"> ' +
             '<span class="fs--1 font-weight-semi-bold">{{itemOption.id}} </span>' +
-            '<input ng-model="itemOption.option" class="mt-1 fs--1 w-75"/>  ' +
-            '<a ng-click="onDelete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
-            '<input class="mt-1 w-75 fs--1" type="text" ng-model="newOption" style="margin-left: 15px;"/>' +
-            '<a class="cursor-pointer" ng-click="onNew()"> ' +
-            '<i class="fas fa-plus"></i><a/>',
+            '<input ng-change="onChange()" ng-model="itemOption.option" class="mt-1 fs--1 w-75"/>  ' +
+            '<a ng-click="onDelete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/>'+
+            '</div> ' +
+            '<a href="#" ng-click="onNew()"><span class="fs--1"> Nueva respuesta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
             
             $scope.letters = ['a)','b)','c)','d)','e)','f)','g)','h)','i)','j)','k)','l)','m)'];
@@ -1015,7 +1107,7 @@ MyApp.directive('conxEvidenceOptions', function () {
             $scope.onDelete = function ($index) {
 
                 $scope.applyChange = true;
-
+                //--delete option
                 var list = $scope.questionEdit.options;
                 var newList = [];
                 for (var i = 0; i < list.length; i++) {
@@ -1024,7 +1116,8 @@ MyApp.directive('conxEvidenceOptions', function () {
                     }
                 }
                 $scope.questionEdit.options = newList;
-                
+
+                //--delete review 
                 var list = $scope.questionEdit.review;
                 var newList = [];
                 for (var i = 0; i < list.length; i++) {
@@ -1039,22 +1132,13 @@ MyApp.directive('conxEvidenceOptions', function () {
             }
             $scope.onNew = function () {
                 $scope.applyChange = true;
-                var list = $scope.questionEdit.options = $scope.questionEdit.options || [];
-                var list = $scope.questionEdit.review = $scope.questionEdit.review || [];
-                if ($scope.newOption.length > 0) {
-                    var id = $scope.letters[$scope.questionEdit.options.length];
-                    $scope.questionEdit.options.push({"id":id,"option":$scope.newOption});
-                    $scope.questionEdit.review.push({"id":id,"review":"0"});
-                }
-                $scope.newOption = '';
-            }
-            $scope.onChangeInput = function () {
-                $scope.applyChange = true;
+                var id = $scope.letters[$scope.questionEdit.options.length];
+                $scope.questionEdit.options.push({"id":id,"option":$scope.newOption});
+                $scope.questionEdit.review.push({"id":id,"review":"0"});
             }
         }
     };
 });
-
 
 MyApp.directive('conxSlideImages', function () {
     return {
@@ -1192,3 +1276,12 @@ var showSideMenu = function () {
     $('#content-section-sequences').removeClass("col-lg-11_5");
 }
 
+function removeHashKey (appdata) {
+    return JSON.stringify( appdata, function( key, value ) {
+        if( key === "$$hashKey" ) {
+            return undefined;
+        }
+        
+        return value;
+    });
+}

@@ -10,7 +10,7 @@ y su desempeño está en el {{$level}}
 A continuación, presentamos el reporte detallado de desempeño en las preguntas:
 <br>
 @foreach($data as $questionAnswer)
-<strong>Pregunta:</strong>{{$questionAnswer['tittle']}}
+<strong>Pregunta:</strong>{{$questionAnswer['title']}}
 <br>
 Repuesta:{{$questionAnswer['answer_student']}}
 <br>
