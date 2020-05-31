@@ -239,3 +239,7 @@ Route::group([],function (){
 Route::get('page500', function(){
     return view('page500',['companies'=>Companies::all()]);
 })->name('page500');
+
+Route::get('/terminos_condiciones', function () {
+    return view('terms-conditions-social');
+})->name('terms_conditions_social');
