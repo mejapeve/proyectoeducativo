@@ -7,10 +7,16 @@
             <a class="ml-8 cursor-pointer" href="{{route('student','conexiones')}}">
                 <img src="{{asset('images/icons/portal-estudiante/home_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
             </a>
-            <a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}">
+            @if(isset($buttonBack) && $buttonBack != 'none')
+			<a class="ml-1 cursor-pointer" href="{{$buttonBack}}">
                 <img src="{{asset('images/icons/portal-estudiante/atras_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
             </a>
-            <a class="ml-1 cursor-pointer" href="{{route('student','conexiones')}}">
+			@else
+			<a class="ml-1 cursor-not-allowed" disabled style="opacity: .5;">
+				<img src="{{asset('images/icons/portal-estudiante/atras_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
+			</a>
+			@endif
+            <a class="ml-1 cursor-pointer" href="@if(isset($buttonNext)) {{$buttonNext }} @endif">
                 <img src="{{asset('images/icons/portal-estudiante/adelante_Mesa de trabajo 1.png')}}" width="32" height="auto"/>
             </a>
             <a class="ml-1 cursor-pointer" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}">

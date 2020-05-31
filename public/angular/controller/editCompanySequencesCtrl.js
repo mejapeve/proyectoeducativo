@@ -559,7 +559,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     }
     
     function saveEvidence(sectionPart,callback){
-        var countElements = sectionPart.elements.length;
+		sectionPart.elements = sectionPart.elements || [];
+		var countElements = sectionPart.elements.length;
         var countElementsError = [];
         
         var element = null;
