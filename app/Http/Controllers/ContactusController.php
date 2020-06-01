@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendContactus;
+use App\Models\Contacus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,7 +15,19 @@ class ContactusController extends Controller
 
         try{
             $var = $request->all();
-            Mail::to( 'contacto@educonexiones.com')->send(new SendContactus($var));
+            $contacus = new Contacus();
+            $contacus->name = $request->name;
+            $contacus->email = $request->email;
+            $contacus->case = $request->affair;
+            $contacus->message = $request->message;
+            $contacus->save();
+            $contacus->filing_number = 4000 + $contacus->id;
+            $contacus->save();
+            $var['contacus_id'] = 4000 + $contacus->id;
+            $var['user_notification'] = 1;
+            Mail::to( ['contacto@educonexiones.com'])->send(new SendContactus($var));
+            $var['user_notification'] = 2;
+            Mail::to( $request->email)->send(new SendContactus($var));
             return response()->json([
                     ['message'=>'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
                     ['status'=>'success']

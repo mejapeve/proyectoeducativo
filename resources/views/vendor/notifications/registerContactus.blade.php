@@ -10,7 +10,7 @@
 {{$data['message']}}
 <br>
 <strong>Nº radicado:</strong>
-1
+{{$data['contacus_id']}}
 <br>
 Gracias.
 <br>

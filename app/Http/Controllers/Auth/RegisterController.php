@@ -137,7 +137,7 @@ class RegisterController extends Controller
     }
     
     public function show_register(Request $request, $errorEmailSocial = false, $email = 'empty') {
-        //dd($errorEmailSocial);
+
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
         $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
         return view('auth.register',

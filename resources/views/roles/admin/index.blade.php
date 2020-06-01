@@ -22,5 +22,4 @@
     </div>
 @endsection
 @section('js')
-    <script src="{{asset('/../angular/controller/HomePageController.js')}}"></script>
 @endsection

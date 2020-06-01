@@ -13,12 +13,7 @@ use App\Models\Companies;
 |
 */
 Auth::routes();
-/*
-Route::get('/', function () {
-    $company = Companies::where('nick_name', 'conexiones')->first();
-    return view('auth.login.afiliadoEmpresa',['company' => $company ]);
-})->name('error_login_social');
-*/
+
 Route::get('/', 'WelcomeController@index')->name('/');
 
 Route::get('/inicio', 'WelcomeController@index')->name('home');
@@ -63,24 +58,19 @@ Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
     return view('ratingPlan.detail');
 })->name('ratingPlan.detailSequence');
 
+Route::get('page500', function(){
+    return view('page500',['companies'=>Companies::all()]);
+})->name('page500');
+
+Route::get('/terminos_condiciones', function () {
+    return view('terms-conditions-social');
+})->name('terms_conditions_social');
+
+//routes login
 Route::get('validate_registry_free_plan/{ratingPlanId}', 'Auth\RegisterController@validate_registry_free_plan')->name('validate_registry_free_plan');
 Route::get('registro_afiliado/{error_email_social?}/{email?}', 'Auth\RegisterController@show_register')->name('registerForm');
 Route::get('{empresa}/loginform', 'DataAffiliatedCompanyController@index')->middleware('company')->name('loginform');
 Route::get('conexiones/loginform/admin', ['as' => 'loginformadmin', 'uses' => 'DataAffiliatedCompanyController@index_admin']);
-
-
-Route::get('conexiones/admin/get_users_contracted_products_view', 'AdminController@get_users_contracted_products_view')->middleware('role:admin')->name('get_users_contracted_products_view');
-Route::get('conexiones/admin/get_user_contracted_products_view/{affiliatedId?}', 'AdminController@get_user_contracted_products_view')->middleware('role:admin')->name('get_user_contracted_products_view');
-Route::get('conexiones/admin/get_users_contracted_products_dt/', 'AdminController@get_users_contracted_products_dt')->middleware('role:admin')->name('get_users_contracted_products_dt');
-Route::get('conexiones/admin/get_user_contracted_products_dt/{affiliatedId?}', 'AdminController@get_user_contracted_products_dt')->middleware('role:admin')->name('get_user_contracted_products_dt');
-Route::post('conexiones/admin/update_date_expiration_content_user', 'AdminController@update_date_expiration_content_user')->middleware('role:admin')->name('update_date_expiration_content_user');
-Route::get('conexiones/admin/plans_view', 'AdminController@plans_view')->middleware('role:admin')->name('plans_view');
-Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
-
-Route::post('edit_image_perfil', 'TutorController@edit_image_perfil')->middleware('role:tutor')->name('edit_image_perfil');
-
-
-
 Route::prefix('user')
     ->as('user.')
     ->group(function() {
@@ -91,17 +81,30 @@ Route::prefix('user')
                 Route::post('logout', 'AffiliatedCompanyController@logout')->name('logout');
             });
         Route::get('home', 'Home\AfiliadoHomeController@index')->name('home');
-
         Route::get('redirectfacebook/{rol}/{action}', 'Auth\LoginController@redirectToProvider')->name('redirectfacebook');
         Route::get('callback', 'Auth\LoginController@handleProviderCallback')->name('callback');
         Route::get('redirectgmail/{rol}/{action}', 'Auth\LoginController@redirectToProviderGmail')->name('redirectgmail');
         Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
     });
+Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
+
+//routes admin
+Route::group(['middleware' =>['auth:afiliadoempresa']],function (){
+    Route::get('conexiones/admin/get_users_contracted_products_view', 'AdminController@get_users_contracted_products_view')->middleware('role:admin')->name('get_users_contracted_products_view');
+    Route::get('conexiones/admin/get_user_contracted_products_view/{affiliatedId?}', 'AdminController@get_user_contracted_products_view')->middleware('role:admin')->name('get_user_contracted_products_view');
+    Route::get('conexiones/admin/get_users_contracted_products_dt/', 'AdminController@get_users_contracted_products_dt')->middleware('role:admin')->name('get_users_contracted_products_dt');
+    Route::get('conexiones/admin/get_user_contracted_products_dt/{affiliatedId?}', 'AdminController@get_user_contracted_products_dt')->middleware('role:admin')->name('get_user_contracted_products_dt');
+    Route::post('conexiones/admin/update_date_expiration_content_user', 'AdminController@update_date_expiration_content_user')->middleware('role:admin')->name('update_date_expiration_content_user');
+    Route::get('conexiones/admin/plans_view', 'AdminController@plans_view')->middleware('role:admin')->name('plans_view');
+    Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
+});
+
+
+Route::post('edit_image_perfil', 'TutorController@edit_image_perfil')->middleware('role:tutor')->name('edit_image_perfil');
 
 Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'company'] ], function() {
-    Route::get('/profile', function () {
-        return 'esta loggeado';
-    });
+
     Route::get('{empresa}/teacher', 'TeacherController@index')->middleware('role:teacher')->name('teacher');
     Route::get('{empresa}/tutor', 'TutorController@index')->middleware('role:tutor')->name('tutor');
     Route::get('{empresa}/tutor/inscripciones', 'TutorController@showInscriptions')->middleware('role:tutor')->name('tutor.inscriptions');
@@ -119,19 +122,16 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes/{account_service_id}/{part_id?}', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
     Route::get('{empresa}/student/secuencia/{sequence_id}/Punto_de_encuentro/{account_service_id}/{part_id?}', 'StudentController@show_sequences_section_4')->middleware('role:student')->name('student.sequences_section_4');
     Route::get('{empresa}/student/momento/{sequence_id}/{moment_id}/{section}/{account_service_id}/{order_moment_id}', 'StudentController@show_moment_section')->middleware('role:student')->name('student.show_moment_section');
-    
     Route::get('{empresa}/tutor/registrar_estudiante', 'TutorController@showRegisterStudentForm')->middleware('role:tutor')->name('tutor.registerStudentForm');
-
-//servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
+    //servicio para consultar cursos asignados // cambiar por varibale de sesion company_id
     Route::get('{empresa}/get_available_sequences/{company_id}', 'StudentController@get_available_sequences')->name('get_available_sequences');
-//servicio para actualizar contraseña
+    //servicio para actualizar contraseña
     Route::get('{empresa}/validate_password/{password}', 'TutorController@validate_password')->name('validate_password')->middleware('role:tutor');
     Route::post('{empresa}/update_password', 'TutorController@update_password')->name('update_password')->middleware('role:tutor');
     Route::post('{empresa}/edit_column_tutor', 'TutorController@edit_column_tutor')->name('edit_column_tutor')->middleware('role:tutor');
 
 
 });
-
 //servicios carrito de compras
 Route::group([],function (){
         Route::get('carrito_de_compras', 'Shopping\ShoppingCartController@index')->name('shoppingCart');
@@ -151,12 +151,6 @@ Route::group([],function (){
 );
 
 Route::post('register_student', 'TutorController@register_student')->name('register_student');
-
-Route::get('login/github/callback', 'Auth\LoginController@handleProviderCallback');
-Route::get('callbackgmail', 'Auth\LoginController@handleProviderCallbackGmail')->name('callbackgmail');
-
-Route::get('testangular', 'HomeController@testangular')->name('testangular');
-
 
 Route::get('/conexiones/admin/fileupload', ['as' => 'fileupload', 'uses' => 'Admin\FileUploadController@index']);
 Route::get('/conexiones/admin/fileuploadlogs', ['as' => 'fileuploadlogs', 'uses' => 'Admin\FileUploadLogsController@index']);
@@ -198,34 +192,31 @@ Route::get('get_kit_element/element/{element_id}', 'KitElementController@get_ele
 //servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 Route::get('get_rating_plan/{rating_plan_id}', 'RatingPlanController@get_rating_plan_detail')->name('get_rating_plan');
-Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');
-Route::get('get_types_plans', 'RatingPlanController@get_types_plans')->name('get_types_plans');
-
+Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');//->middleware('role:admin')
+Route::post('edit_rating_plan', 'RatingPlanController@update')->name('edit_rating_plan');//->middleware('role:admin')
+Route::get('get_types_plans', 'RatingPlanController@get_types_plans')->name('get_types_plans');//->middleware('role:admin')
 
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
-Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');
-Route::post('update_sequence', 'SequencesController@update')->name('update_sequence');
-Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section');
+Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');//->middleware('role:admin')
+Route::post('update_sequence', 'SequencesController@update')->name('update_sequence');//->middleware('role:admin')
+Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section');//->middleware('role:admin')
 Route::get('get_all_sequences/{company_id?}', 'SequencesController@get_all_sequences')->name('get_all_sequences');
 
 //servicios momentos
-Route::post('update_moment', 'MomentController@update')->name('update_moment');
-Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section');
+Route::post('update_moment', 'MomentController@update')->name('update_moment');//->middleware('role:admin')
+Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section');//->middleware('role:admin')
 //servicios momentos
-Route::post('update_experience', 'ExperienceController@update')->name('update_experience');
-Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');
-
-
-Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line');
+Route::post('update_experience', 'ExperienceController@update')->name('update_experience');//delete
+Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');//delete
+//servicio consulta linea de avance
+Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line');//->middleware('role:student')
 //servicio consultar usuario
-Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user');
+Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user');//->middleware('role:tutor')
 //servicio editar usuario
-Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student');
+Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student');//->middleware('role:tutor,student')
 //servicio validar nombre de usuario
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
-
-
 //servicios gestión de preguntas y respuestras
 Route::group([],function (){
     Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_answer');//->middleware('role:admin');
@@ -235,11 +226,3 @@ Route::group([],function (){
 
 });
 
-
-Route::get('page500', function(){
-    return view('page500',['companies'=>Companies::all()]);
-})->name('page500');
-
-Route::get('/terminos_condiciones', function () {
-    return view('terms-conditions-social');
-})->name('terms_conditions_social');

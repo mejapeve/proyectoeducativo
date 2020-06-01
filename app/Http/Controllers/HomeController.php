@@ -26,12 +26,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function testangular () {
-
-        $varibale = "prueba variables";
-
-        return response()->json([
-            'variable' =>   $varibale
-        ]);
-    }
 }
