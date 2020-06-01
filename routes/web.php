@@ -210,7 +210,7 @@ Route::post('update_moment_section', 'MomentController@update_moment_section')->
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');//delete
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');//delete
 //servicio consulta linea de avance
-Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line')->middleware('role:student')
+Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line')->middleware('role:student');
 //servicio consultar usuario
 Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user')->middleware('role:tutor');
 //servicio editar usuario
