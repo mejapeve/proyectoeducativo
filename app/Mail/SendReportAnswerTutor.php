@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendReportAnswerTutor  extends Mailable
+class SendReportAnswerTutor extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -25,7 +25,8 @@ class SendReportAnswerTutor  extends Mailable
     private $moment;
     private $level;
     private $performance_comment;
-    public function __construct($family,$student,$data,$sequence,$moment,$level,$performance_comment)
+
+    public function __construct($family, $student, $data, $sequence, $moment, $level, $performance_comment)
     {
         //
         $this->family = $family;

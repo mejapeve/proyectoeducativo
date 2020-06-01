@@ -10,12 +10,14 @@ class SocialController extends Controller
 {
     //
 
-        public function redirect(){
-            return Socialite::driver('facebook')->user();
-        }
+    public function redirect()
+    {
+        return Socialite::driver('facebook')->user();
+    }
 
-        public function callback(){
-            $user = Socialite::driver('facebook')->user();
-            return $user->getAvatar();
-        }
+    public function callback()
+    {
+        $user = Socialite::driver('facebook')->user();
+        return $user->getAvatar();
+    }
 }

@@ -15,19 +15,22 @@ use Yajra\DataTables\DataTables;
 class RatingPlanController extends Controller
 {
 
-    public function get_rating_plans(Request $request){
+    public function get_rating_plans(Request $request)
+    {
 
-        $ratingPlan = RatingPlan::where('expiration_date','<',Carbon::now()->format('Y-m-d'))->orWhere('expiration_date',NULL)->with('type_plan')->get();
+        $ratingPlan = RatingPlan::where('expiration_date', '<', Carbon::now()->format('Y-m-d'))->orWhere('expiration_date', NULL)->with('type_plan')->get();
 
-        return response()->json(['data'=>$ratingPlan],200);
+        return response()->json(['data' => $ratingPlan], 200);
     }
-    
-    public function get_rating_plan_detail(Request $request, $rating_plan_id){
+
+    public function get_rating_plan_detail(Request $request, $rating_plan_id)
+    {
         $ratingPlan = RatingPlan::where('id', $rating_plan_id)->get();
-        return response()->json(['data'=>$ratingPlan],200);
+        return response()->json(['data' => $ratingPlan], 200);
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
 
         $data = $request->all();
         $ratingPlan = new RatingPlan();
@@ -39,22 +42,23 @@ class RatingPlanController extends Controller
         $ratingPlan->price = $data['cost'];
         $itmes = @json_decode($data['itmes']);
         $itemConcat = '';
-        foreach ($itmes as $item){
-            $itemConcat = $itemConcat.$item->description.'|';
+        foreach ($itmes as $item) {
+            $itemConcat = $itemConcat . $item->description . '|';
         }
         $ratingPlan->description_items = $itemConcat;
-        if($data['is_free']=="true"){
-            $ratingPlan->is_free =   $data['is_free'];
-            $ratingPlan->sequence_free_id =   $data['sequenceSelected'];
-            $ratingPlan->moment_free_ids =   $data['momentSelected'];
+        if ($data['is_free'] == "true") {
+            $ratingPlan->is_free = $data['is_free'];
+            $ratingPlan->sequence_free_id = $data['sequenceSelected'];
+            $ratingPlan->moment_free_ids = $data['momentSelected'];
         }
         $ratingPlan->init_date = $data['init_date'];
-        $ratingPlan->expiration_date =  $data['expiration_date'];
+        $ratingPlan->expiration_date = $data['expiration_date'];
         $ratingPlan->save();
-        return response()->json(['data'=>$ratingPlan],200);
+        return response()->json(['data' => $ratingPlan], 200);
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         $data = $request->all();
         $ratingPlan = RatingPlan::findOrFail($data['id']);
@@ -63,22 +67,22 @@ class RatingPlanController extends Controller
         $ratingPlan->price = $data['cost'];
         $ratingPlan->days = $data['days'];
         $ratingPlan->init_date = $data['init_date'];
-        if($data['isExpiration'] == 'true'){
+        if ($data['isExpiration'] == 'true') {
             $ratingPlan->expiration_date = $data['expiration_date'];
-        }else{
-            $ratingPlan->expiration_date =  NULL;
+        } else {
+            $ratingPlan->expiration_date = NULL;
         }
         $ratingPlan->save();
-        return response()->json(['data'=>$ratingPlan],200);
+        return response()->json(['data' => $ratingPlan], 200);
 
     }
 
-    public function get_plans_dt (){
+    public function get_plans_dt()
+    {
 
         $ratingPlans = RatingPlan::with('type_plan')->get();
 
         return DataTables::of($ratingPlans)
-
             ->addColumn('name', function ($ratingPlan) {
                 return $ratingPlan->name;
             })
@@ -101,7 +105,7 @@ class RatingPlanController extends Controller
                 return $ratingPlan->init_date;
             })
             ->addColumn('expiration_date', function ($ratingPlan) {
-                if($ratingPlan->expiration_date === null || $ratingPlan->expiration_date === '')
+                if ($ratingPlan->expiration_date === null || $ratingPlan->expiration_date === '')
                     return 'No aplica';
                 return $ratingPlan->expiration_date;
             })
@@ -112,10 +116,11 @@ class RatingPlanController extends Controller
             ->make(true);
     }
 
-    public function get_types_plans(){
+    public function get_types_plans()
+    {
 
         $typesRatingPlans = TypesRatingPlan::all();
-        return response()->json(['data'=>$typesRatingPlans],200);
+        return response()->json(['data' => $typesRatingPlans], 200);
 
     }
 

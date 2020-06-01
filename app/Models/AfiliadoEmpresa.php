@@ -19,9 +19,9 @@ class AfiliadoEmpresa extends Model
     //
     use Notifiable;
 
-    protected $table="afiliado_empresas";
+    protected $table = "afiliado_empresas";
 
-    protected $fillable=[
+    protected $fillable = [
         'user_name',
         'name',
         'last_name',
@@ -33,7 +33,7 @@ class AfiliadoEmpresa extends Model
         'city',
         'password'
     ];
-   // protected $guarded = ['id'];
+    // protected $guarded = ['id'];
 
     protected $hidden = [
         'password', 'remember_token',
@@ -55,7 +55,7 @@ class AfiliadoEmpresa extends Model
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Roles','afiliado_empresa_roles','afiliado_empresa_id','rol_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Roles', 'afiliado_empresa_roles', 'afiliado_empresa_id', 'rol_id')->withTimestamps();
     }
 
     public function authorizeRoles($roles)
@@ -65,6 +65,7 @@ class AfiliadoEmpresa extends Model
         }
         abort(401, 'Esta acción no está autorizada.');
     }
+
     public function hasAnyRole($roles)
     {
         if (is_array($roles)) {
@@ -80,21 +81,22 @@ class AfiliadoEmpresa extends Model
         }
         return false;
     }
+
     public function hasRole($rol)
     {
-        $role = cache()->tags('connection_roles_redis')->rememberForever('roles_redis',function(){
+        $role = cache()->tags('connection_roles_redis')->rememberForever('roles_redis', function () {
             return Roles::all();//where('name',$rol) ->first();
         });
-        $company = cache()->tags('connection_companies_redis')->rememberForever('companies_redis',function(){
+        $company = cache()->tags('connection_companies_redis')->rememberForever('companies_redis', function () {
             return Companies::all();//where('name',$rol) ->first();
         });
-        $company =  $company->where('nick_name',session('name_company'))->first();
-        $role = $role->where('name',$rol) ->first();
-        if(AffiliatedCompanyRole::where([
-            ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
-            ['rol_id',$role->id],
-            ['company_id',$company->id],
-        ])->first()){
+        $company = $company->where('nick_name', session('name_company'))->first();
+        $role = $role->where('name', $rol)->first();
+        if (AffiliatedCompanyRole::where([
+            ['affiliated_company_id', auth('afiliadoempresa')->user()->id],
+            ['rol_id', $role->id],
+            ['company_id', $company->id],
+        ])->first()) {
             return true;
         }
 
@@ -103,94 +105,105 @@ class AfiliadoEmpresa extends Model
 
     public function companies()
     {
-        return $this->belongsToMany('App\Models\Companies','affiliated_company_roles','affiliated_company_id','company_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Companies', 'affiliated_company_roles', 'affiliated_company_id', 'company_id')->withTimestamps();
     }
 
-    public function hasCompany($company){
+    public function hasCompany($company)
+    {
         if ($this->companies()->where('nick_name', $company)->first()) {
             return true;
         }
         return false;
     }
 
-    public function company_teacher_rol (){
+    public function company_teacher_rol()
+    {
 
-        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
-
-    }
-
-    public function country (){
-
-        return $this->belongsTo(Country::class,'country_id','id');
-
-    }
-    public function cityName (){
-
-        return $this->belongsTo(City::class,'city_id','id');
+        return $this->hasMany(AffiliatedCompanyRole::class, 'affiliated_company_id', 'id');
 
     }
 
-    public function affiliated_company (){
+    public function country()
+    {
 
-        return $this->hasMany(AffiliatedCompanyRole::class,'affiliated_company_id','id');
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+
+    }
+
+    public function cityName()
+    {
+
+        return $this->belongsTo(City::class, 'city_id', 'id');
+
+    }
+
+    public function affiliated_company()
+    {
+
+        return $this->hasMany(AffiliatedCompanyRole::class, 'affiliated_company_id', 'id');
     }
 
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new MyResetPassword($token,session('name_company'),session('rol')));
+        $this->notify(new MyResetPassword($token, session('name_company'), session('rol')));
     }
-    
+
     public function sendWelcomeNotification($rol)
     {
         $token = app(PasswordBroker::class)->createToken($this);
-        $this->notify(new WelcomeMail($token, session('name_company'),$rol));
+        $this->notify(new WelcomeMail($token, session('name_company'), $rol));
     }
 
-    public function company_name() {
-        return session('name_company' );
-    }
-    
-    public function company_id() {
-        return session('company_id' );
+    public function company_name()
+    {
+        return session('name_company');
     }
 
-    public function affiliated_account_services (){
-
-        return $this->hasMany(AffiliatedAccountService::class,'company_affiliated_id','id');
+    public function company_id()
+    {
+        return session('company_id');
     }
 
-    public function last_payment_date() {
+    public function affiliated_account_services()
+    {
+
+        return $this->hasMany(AffiliatedAccountService::class, 'company_affiliated_id', 'id');
+    }
+
+    public function last_payment_date()
+    {
         $payment_statys_success = 3;
         $user_id = $this->id;
-        $lastShoppingCart = ShoppingCart::where(['company_affiliated_id'=> $user_id, 'payment_status_id'=>$payment_statys_success])
-        ->orderBy('payment_init_date', 'DESC')->first();
-        if(isset($lastShoppingCart)) {
-           return $lastShoppingCart->payment_init_date;
-        }
-        else {
-             return null;
+        $lastShoppingCart = ShoppingCart::where(['company_affiliated_id' => $user_id, 'payment_status_id' => $payment_statys_success])
+            ->orderBy('payment_init_date', 'DESC')->first();
+        if (isset($lastShoppingCart)) {
+            return $lastShoppingCart->payment_init_date;
+        } else {
+            return null;
         }
     }
 
-    public function first_last_access() {
+    public function first_last_access()
+    {
         $user_id = $this->id;
-        
-        $dates = AdvanceLine::with(['affiliated_account_service'=>function($query){
-            $query->where('init_date', '>=',date('Y-m-d'))
-                   ->where('end_date', '<=',date('Y-m-d', strtotime('+ 1 day')));
-        }])->where('affiliated_company_id',$user_id)->get();
-        
-        return ['first'=>$dates->min('updated_at'),'last'=>$dates->max('created_at')];        
+
+        $dates = AdvanceLine::with(['affiliated_account_service' => function ($query) {
+            $query->where('init_date', '>=', date('Y-m-d'))
+                ->where('end_date', '<=', date('Y-m-d', strtotime('+ 1 day')));
+        }])->where('affiliated_company_id', $user_id)->get();
+
+        return ['first' => $dates->min('updated_at'), 'last' => $dates->max('created_at')];
     }
-    
-    public function kidSelected() {
+
+    public function kidSelected()
+    {
         $user_id = $this->id;
         $rol_id = AffiliatedCompanyRole::select('id')->where([
-                    ['affiliated_company_id',$user_id],
-                    ['rol_id',1]//estudiante
-                  ])->first()->id;
-        $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id',$rol_id)->get()->first();
+            ['affiliated_company_id', $user_id],
+            ['rol_id', 1]//estudiante
+        ])->first()->id;
+        $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id', $rol_id)->get()->first();
 
         return $kidSelected['age_stage'] || '';
     }

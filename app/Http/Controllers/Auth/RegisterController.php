@@ -55,15 +55,15 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
             //'user_name' => ['required', 'string', 'max:255','unique:afiliado_empresas'],
-            'name' => ['required', 'string','min:4', 'max:255'],
-            'last_name' => ['required', 'string','min:4', 'max:255'],
+            'name' => ['required', 'string', 'min:4', 'max:255'],
+            'last_name' => ['required', 'string', 'min:4', 'max:255'],
             'country_id' => ['required', 'string', 'max:255'],
             'city' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:afiliado_empresas'],
@@ -74,7 +74,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -96,7 +96,7 @@ class RegisterController extends Controller
             'city' => $data['city'],
         ]);
 
-        
+
         $affiliated_company_role = new AffiliatedCompanyRole();
         $affiliated_company_role->affiliated_company_id = $afiliado_empresa->id;
         $affiliated_company_role->rol_id = 3;
@@ -104,29 +104,29 @@ class RegisterController extends Controller
         $affiliated_company_role->save();
 
         $afiliado_empresa->sendWelcomeNotification($affiliated_company_role->rol_id);
-		$this->redirectTo = 'conexiones/tutor';
+        $this->redirectTo = 'conexiones/tutor';
 
         session()->pull('free_rating_plan_id'); //remove cache to session
-        if(isset($data['free_rating_plan_id'])){
-            $free_rating_plan_id = $data['free_rating_plan_id'];    
+        if (isset($data['free_rating_plan_id'])) {
+            $free_rating_plan_id = $data['free_rating_plan_id'];
             $ratingPlanFree = RatingPlan::find($free_rating_plan_id);
-            if($ratingPlanFree && $ratingPlanFree->is_free) {
-                $this->addFreeRatingPlan($ratingPlanFree,$afiliado_empresa);
-				$this->redirectTo = 'conexiones/tutor/productos';
+            if ($ratingPlanFree && $ratingPlanFree->is_free) {
+                $this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
+                $this->redirectTo = 'conexiones/tutor/productos';
             }
         }
         if (session_id() == "") {
             session_start();
         }
-        
-		ShoppingCart:: where('session_id', session_id())
-                 ->where('payment_status_id', 1)
-                 ->update(['company_affiliated_id' => $afiliado_empresa->id, 'session_id'=>'NULL']);
-        
-        if(isset($data['redirect_to_shoppingcart'])){
+
+        ShoppingCart:: where('session_id', session_id())
+            ->where('payment_status_id', 1)
+            ->update(['company_affiliated_id' => $afiliado_empresa->id, 'session_id' => 'NULL']);
+
+        if (isset($data['redirect_to_shoppingcart'])) {
             $this->redirectTo = 'carrito_de_compras';
         }
-        
+
         return $afiliado_empresa;
     }
 
@@ -135,84 +135,85 @@ class RegisterController extends Controller
     {
         return Auth::guard('afiliadoempresa');
     }
-    
-    public function show_register(Request $request, $errorEmailSocial = false, $email = 'empty') {
+
+    public function show_register(Request $request, $errorEmailSocial = false, $email = 'empty')
+    {
 
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
         $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
         return view('auth.register',
             [
-                'free_rating_plan_id'=>$free_rating_plan_id,
-                'redirect_to_shoppingcart'=>$redirect_to_shoppingcart,
-                'errorEmailSocial'=>$errorEmailSocial,
-                'email'=>$email,
+                'free_rating_plan_id' => $free_rating_plan_id,
+                'redirect_to_shoppingcart' => $redirect_to_shoppingcart,
+                'errorEmailSocial' => $errorEmailSocial,
+                'email' => $email,
             ]);
     }
-    
-    public static function addFreeRatingPlan($ratingPlanFree,$afiliado_empresa) {
-        
-        if($ratingPlanFree->is_free) {
-            if( $ratingPlanFree->moment_free_ids == null || $ratingPlanFree->moment_free_ids == '' ){
-               $affiliatedAccountService = new AffiliatedAccountService();
-               $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
-               $affiliatedAccountService->rating_plan_id = $ratingPlanFree->id;
-               $affiliatedAccountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;;
-               $affiliatedAccountService->company_sequence_id = $ratingPlanFree->sequence_free_id;
-               $affiliatedAccountService->init_date = date('Y-m-d');
-               $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
-               $affiliatedAccountService->save();
-               $affiliatedContentAccountService = new AffiliatedContentAccountService();
-               $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
-               $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;;
-               $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
-               $affiliatedAccountService->init_date = date('Y-m-d');
-               $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
-               $affiliatedContentAccountService->save();
 
-           }else{
-               $ids = explode(',',$ratingPlanFree->moment_free_ids);
-               
-               $affiliatedAccountService = new AffiliatedAccountService();
-               $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
-               $affiliatedAccountService->rating_plan_id = $ratingPlanFree->id;
-               $affiliatedAccountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;
-               $affiliatedAccountService->init_date = date('Y-m-d');
-               $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ '.$ratingPlanFree->days.' day'));
-               $affiliatedAccountService->save();
-               foreach ($ids as $id){
-                  $affiliatedContentAccountService = new AffiliatedContentAccountService();
-                  $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
-                  $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;
-                  $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
-                  $affiliatedContentAccountService->moment_id = $id;
-                  $affiliatedContentAccountService->save();
-               }
-           }
+    public static function addFreeRatingPlan($ratingPlanFree, $afiliado_empresa)
+    {
+
+        if ($ratingPlanFree->is_free) {
+            if ($ratingPlanFree->moment_free_ids == null || $ratingPlanFree->moment_free_ids == '') {
+                $affiliatedAccountService = new AffiliatedAccountService();
+                $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+                $affiliatedAccountService->rating_plan_id = $ratingPlanFree->id;
+                $affiliatedAccountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;;
+                $affiliatedAccountService->company_sequence_id = $ratingPlanFree->sequence_free_id;
+                $affiliatedAccountService->init_date = date('Y-m-d');
+                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ ' . $ratingPlanFree->days . ' day'));
+                $affiliatedAccountService->save();
+                $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;;
+                $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
+                $affiliatedAccountService->init_date = date('Y-m-d');
+                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ ' . $ratingPlanFree->days . ' day'));
+                $affiliatedContentAccountService->save();
+
+            } else {
+                $ids = explode(',', $ratingPlanFree->moment_free_ids);
+
+                $affiliatedAccountService = new AffiliatedAccountService();
+                $affiliatedAccountService->company_affiliated_id = $afiliado_empresa->id;
+                $affiliatedAccountService->rating_plan_id = $ratingPlanFree->id;
+                $affiliatedAccountService->rating_plan_type = $ratingPlanFree->type_rating_plan_id;
+                $affiliatedAccountService->init_date = date('Y-m-d');
+                $affiliatedAccountService->end_date = date('Y-m-d', strtotime('+ ' . $ratingPlanFree->days . ' day'));
+                $affiliatedAccountService->save();
+                foreach ($ids as $id) {
+                    $affiliatedContentAccountService = new AffiliatedContentAccountService();
+                    $affiliatedContentAccountService->affiliated_account_service_id = $affiliatedAccountService->id;
+                    $affiliatedContentAccountService->type_product_id = $ratingPlanFree->type_rating_plan_id;
+                    $affiliatedContentAccountService->sequence_id = $ratingPlanFree->sequence_free_id;
+                    $affiliatedContentAccountService->moment_id = $id;
+                    $affiliatedContentAccountService->save();
+                }
+            }
         }
     }
-    
-    public function validate_registry_free_plan(Request $request,$rating_plan_id){
-        
+
+    public function validate_registry_free_plan(Request $request, $rating_plan_id)
+    {
+
         $ratingPlanFree = RatingPlan::find($rating_plan_id);
-        
-        if(!$ratingPlanFree || !$ratingPlanFree->is_free) {
-            return view('page404',['message'=>'Plan gratuito no encontrado']);
+
+        if (!$ratingPlanFree || !$ratingPlanFree->is_free) {
+            return view('page404', ['message' => 'Plan gratuito no encontrado']);
         }
         $afiliado_empresa = $request->user('afiliadoempresa');
-        if($afiliado_empresa) {
+        if ($afiliado_empresa) {
             //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
-            
-            if($afiliado_empresa->hasRole('tutor')) {
-                $this->addFreeRatingPlan($ratingPlanFree,$afiliado_empresa);
+
+            if ($afiliado_empresa->hasRole('tutor')) {
+                $this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
                 return redirect('conexiones/tutor');
-            }
-            else {
-                $request->session()->put('free_rating_plan_id',$rating_plan_id);
+            } else {
+                $request->session()->put('free_rating_plan_id', $rating_plan_id);
                 return redirect()->action('Auth\RegisterController@show_register');
             }
-        }
-        else {
-            $request->session()->put('free_rating_plan_id',$rating_plan_id);
+        } else {
+            $request->session()->put('free_rating_plan_id', $rating_plan_id);
             return redirect()->action('Auth\RegisterController@show_register');
         }
     }

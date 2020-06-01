@@ -9,7 +9,8 @@ class Empresas extends Model
     //
     protected $table = "empresas";
 
-    public function afiliados(){
+    public function afiliados()
+    {
         return $this->hasMany();
     }
 }

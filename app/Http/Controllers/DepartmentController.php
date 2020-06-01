@@ -9,10 +9,11 @@ class DepartmentController extends Controller
 {
     //
 
-    public function get_departments (){
+    public function get_departments()
+    {
 
         return response()->json(
-            ['data'=>Department::all()],
+            ['data' => Department::all()],
             200
         );
 

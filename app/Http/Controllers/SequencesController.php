@@ -7,35 +7,38 @@ use App\Models\SequenceMoment;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
 
-class SequencesController extends Controller {
+class SequencesController extends Controller
+{
 
 
-    public function get (Request $request,$sequence_id) {
+    public function get(Request $request, $sequence_id)
+    {
 
-        return CompanySequence::with('moments.experiences','moments.moment_kit.kit.kit_elements.element')->where('id',$sequence_id)->get();
+        return CompanySequence::with('moments.experiences', 'moments.moment_kit.kit.kit_elements.element')->where('id', $sequence_id)->get();
 
     }
 
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $data = $request->all();
 
-        try{
-            $sequence =  new CompanySequence();
+        try {
+            $sequence = new CompanySequence();
             $sequence->company_id = 1;
-            $sequence->name = isset($data['name'])?$data['name']:null;
-            $sequence->description = isset($data['description'])?$data['description']:null;
-            $sequence->url_image = isset($data['url_image'])?$data['url_image']:null;
-            $sequence->url_slider_images = isset($data['url_slider_images'])?$data['url_slider_images']:null;
-            $sequence->keywords = isset($data['keywords'])?$data['keywords']:null;
-            $sequence->areas = isset($data['areas'])?$data['areas']:null;
-            $sequence->themes = isset($data['themes'])?$data['themes']:null;
-            $sequence->objectives = isset($data['objectives'])?$data['objectives']:null;
-            $var_sections = ['section_1','section_2','section_3','section_4'];
-            for ($i=0; $i < count($var_sections); $i++ ){
-                if(isset($data[$var_sections[$i]])){
+            $sequence->name = isset($data['name']) ? $data['name'] : null;
+            $sequence->description = isset($data['description']) ? $data['description'] : null;
+            $sequence->url_image = isset($data['url_image']) ? $data['url_image'] : null;
+            $sequence->url_slider_images = isset($data['url_slider_images']) ? $data['url_slider_images'] : null;
+            $sequence->keywords = isset($data['keywords']) ? $data['keywords'] : null;
+            $sequence->areas = isset($data['areas']) ? $data['areas'] : null;
+            $sequence->themes = isset($data['themes']) ? $data['themes'] : null;
+            $sequence->objectives = isset($data['objectives']) ? $data['objectives'] : null;
+            $var_sections = ['section_1', 'section_2', 'section_3', 'section_4'];
+            for ($i = 0; $i < count($var_sections); $i++) {
+                if (isset($data[$var_sections[$i]])) {
                     $test = @json_decode($data[$var_sections[$i]]);
                     if ($test) {
-                        switch ($i){
+                        switch ($i) {
                             case 0:
                                 $sequence->section_1 = $data[$var_sections[$i]];
                                 break;
@@ -51,23 +54,23 @@ class SequencesController extends Controller {
                             default:
                                 return response()->json([
                                     'message' => 'Algo salio mal'
-                                ],500);
+                                ], 500);
                         }
                     } else {
                         return response()->json([
                             'message' => 'El formato para guardar los datos de la sección(es) no es el correcto, no se pudo crear la secuencia'
-                        ],400);
+                        ], 400);
                     }
 
                 }
             }
-            $sequence->init_date = isset($data['init_date'])?$data['init_date']:null;
-            $sequence->expiration_date = isset($data['expiration_date'])?$data['expiration_date']:null;
+            $sequence->init_date = isset($data['init_date']) ? $data['init_date'] : null;
+            $sequence->expiration_date = isset($data['expiration_date']) ? $data['expiration_date'] : null;
             $sequence->save();
-            for($i=0; $i < 8; $i++){
+            for ($i = 0; $i < 8; $i++) {
                 $moment = new SequenceMoment();
                 $moment->sequence_company_id = $sequence->id;
-                $moment->order =  $i+1; 
+                $moment->order = $i + 1;
                 $moment->save();
                 $experience = new MomentExperience();
                 $experience->sequence_moment_id = $moment->id;
@@ -78,21 +81,22 @@ class SequencesController extends Controller {
             cache()->tags('connection_moments_redis')->flush();
             cache()->tags('connection_experiences_redis')->flush();
             return response()->json([
-                'sequence_id' =>   $sequence->id,
+                'sequence_id' => $sequence->id,
                 'message' => 'secuencia creada correctamente'
-            ],200);
-        }catch (\Exception $e){
+            ], 200);
+        } catch (\Exception $e) {
 
             return response()->json([
-                'error' =>   $e->getMessage(),
+                'error' => $e->getMessage(),
                 'message' => 'La secuencia no pudo ser creada, revise que los campos esten correctos'
-            ],500);
+            ], 500);
 
         }
 
     }
 
-    public function update (Request $request){
+    public function update(Request $request)
+    {
 
         $data = $request->all();
 
@@ -121,22 +125,22 @@ class SequencesController extends Controller {
         $sequence->save();
         cache()->tags('connection_sequences_redis')->flush();
         return response()->json([
-            'sequence_id' =>   $sequence->id,
+            'sequence_id' => $sequence->id,
             'message' => 'secuencia modificada correctamente'
-        ],200);
-
+        ], 200);
 
 
     }
 
-    public function update_sequence_section (Request $request){
+    public function update_sequence_section(Request $request)
+    {
 
         $data = $request->all();
 
         $sequence = CompanySequence::findOrFail($request->get('id'));
         $test = @json_decode($data['data_section']);
         if ($test) {
-            switch (intval(($data['section_number']))){
+            switch (intval(($data['section_number']))) {
                 case 1:
                     $sequence->section_1 = $data['data_section'];
                     break;
@@ -152,35 +156,35 @@ class SequencesController extends Controller {
                 default:
                     return response()->json([
                         'message' => 'La sección no existe'
-                    ],400);
+                    ], 400);
             }
             $sequence->save();
-        } else{
+        } else {
             return response()->json([
                 'message' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección'
-            ],400);
+            ], 400);
         }
         cache()->tags('connection_sequences_redis')->flush();
         return response()->json([
-            'sequence_id' =>   $sequence->id,
-            'sequence_section_number' =>   $data['section_number'],
+            'sequence_id' => $sequence->id,
+            'sequence_section_number' => $data['section_number'],
             'message' => 'sección de secuencia modificada correctamente'
-        ],200);
-
+        ], 200);
 
 
     }
 
-    public function get_all_sequences(Request $request, $companyId = 1){//id conexiones
+    public function get_all_sequences(Request $request, $companyId = 1)
+    {//id conexiones
 
-        $companySequences = CompanySequence::with('moments')->where('company_id',$companyId)
+        $companySequences = CompanySequence::with('moments')->where('company_id', $companyId)
             ->where(function ($query) {
                 $dt = new \DateTime();
-                $query->where('expiration_date','>',$dt->format('Y-m-d H:i:s'))
+                $query->where('expiration_date', '>', $dt->format('Y-m-d H:i:s'))
                     ->orWhereNull('expiration_date');
             })->get();
 
-        return response()->json(['data'=>$companySequences],200);
+        return response()->json(['data' => $companySequences], 200);
 
     }
 

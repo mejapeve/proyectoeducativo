@@ -17,6 +17,7 @@ class SendContactus extends Mailable
      * @return void
      */
     private $data;
+
     public function __construct($data)
     {
         //
@@ -30,15 +31,15 @@ class SendContactus extends Mailable
      */
     public function build()
     {
-        if($this->data['user_notification'] == 1){
+        if ($this->data['user_notification'] == 1) {
             return
                 $this->from($this->data['email'])
-                    ->markdown('vendor.notifications.registerContactus',['data'=>$this->data])
+                    ->markdown('vendor.notifications.registerContactus', ['data' => $this->data])
                     ->subject('Conexiones - Notificación contactenos');
         }
         return
             $this->from('contacto@educonexiones.com')
-                ->markdown('vendor.notifications.registerContactus',['data'=>$this->data])
+                ->markdown('vendor.notifications.registerContactus', ['data' => $this->data])
                 ->subject('Conexiones - Notificación contactenos');
     }
 }

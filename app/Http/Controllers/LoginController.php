@@ -8,7 +8,10 @@ class LoginController extends Controller
 {
     //
 
-    public function index($nombre){
-        return view('prueba')->with('nombre',$nombre);
+    public function index($nombre)
+    {
+        return view('prueba')->with('nombre', $nombre);
     }
-};
+}
+
+;

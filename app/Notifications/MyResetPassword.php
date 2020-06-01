@@ -12,9 +12,9 @@ class MyResetPassword extends Notification
 {
     use Queueable;
     private $token;
-	private $company_name;
+    private $company_name;
     private $rol;
-	
+
     /**
      * Create a new notification instance.
      *
@@ -24,13 +24,13 @@ class MyResetPassword extends Notification
     {
         $this->company_name = $company_name;
         $this->token = $token;
-        $this->rol =  $rol;
+        $this->rol = $rol;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -41,21 +41,21 @@ class MyResetPassword extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
 
-        $users = AfiliadoEmpresa::where('email',$notifiable->email)->get();
+        $users = AfiliadoEmpresa::where('email', $notifiable->email)->get();
         return (new MailMessage)->markdown(
             'vendor.notifications.email', ['data' => $users]
         )
             ->from('operaciones@educonexiones.com')
             ->subject(' contraseña')
-            ->greeting('Hola '.$notifiable->name.' '.$notifiable->last_name)
+            ->greeting('Hola ' . $notifiable->name . ' ' . $notifiable->last_name)
             ->line('Estás recibiendo este correo porque hiciste una solicitud de recuperación de contraseña para tu cuenta.')
-            ->action('Recuperar contraseña', route('password.reset', ['empresa'=>$this->company_name, 'token'=>$this->token,'rol'=>$this->rol,'email'=>$notifiable->email]))
+            ->action('Recuperar contraseña', route('password.reset', ['empresa' => $this->company_name, 'token' => $this->token, 'rol' => $this->rol, 'email' => $notifiable->email]))
             ->line('Si no realizaste esta solicitud, no es necesario realizar ninguna acción.')
             ->line('Saludos,')
             ->line('Equipo técnico')
@@ -65,7 +65,7 @@ class MyResetPassword extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

@@ -10,19 +10,17 @@ class CountryController extends Controller
 {
     //
 
-    public function getCountriesList () {
+    public function getCountriesList()
+    {
 
-		$country = DB::table('countries')
-                  ->select('countries.id','countries.name as text')
-				  ->get();
-	
+        $country = DB::table('countries')
+            ->select('countries.id', 'countries.name as text')
+            ->get();
+
         return response()->json([
             'data' => $country
-        ],200);
+        ], 200);
 
-		/*return response()->json([
-            'data' => Country::all()
-        ],200);*/
 
     }
 

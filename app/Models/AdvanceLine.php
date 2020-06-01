@@ -4,11 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class AdvanceLine
+ * @package App\Models
+ */
 class AdvanceLine extends Model
 {
     //
+    /**
+     * @var string
+     */
     protected $table = "advance_lines";
-    protected $fillable=[
+    /**
+     * @var array
+     */
+    protected $fillable = [
         'affiliated_account_service_id',
         'affiliated_company_id',
         'sequence_id',
@@ -16,9 +26,13 @@ class AdvanceLine extends Model
         'moment_section_id'
     ];
 
-    public function affiliated_account_service (){
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function affiliated_account_service()
+    {
 
-        return $this->belongsTo(AffiliatedAccountService::class,'affiliated_account_service_id','id');
+        return $this->belongsTo(AffiliatedAccountService::class, 'affiliated_account_service_id', 'id');
 
     }
 }

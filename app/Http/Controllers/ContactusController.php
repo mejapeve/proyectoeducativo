@@ -11,9 +11,10 @@ class ContactusController extends Controller
 {
     //
 
-    public function send_email_contactus(Request $request){
+    public function send_email_contactus(Request $request)
+    {
 
-        try{
+        try {
             $var = $request->all();
             $contacus = new Contacus();
             $contacus->name = $request->name;
@@ -25,19 +26,19 @@ class ContactusController extends Controller
             $contacus->save();
             $var['contacus_id'] = 4000 + $contacus->id;
             $var['user_notification'] = 1;
-            Mail::to( ['contacto@educonexiones.com'])->send(new SendContactus($var));
+            Mail::to(['contacto@educonexiones.com'])->send(new SendContactus($var));
             $var['user_notification'] = 2;
-            Mail::to( $request->email)->send(new SendContactus($var));
+            Mail::to($request->email)->send(new SendContactus($var));
             return response()->json([
-                    ['message'=>'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
-                    ['status'=>'success']
+                ['message' => 'El mensaje ha sido enviado satisfactoriamente, la respuesta se enviará al correo'],
+                ['status' => 'success']
 
-            ],200);
-        }catch (\Exception $e){
+            ], 200);
+        } catch (\Exception $e) {
             return response()->json([
-                    ['message'=>'No se ha podido notificar su mesaje, intente de nuevo, gracias'.$e],
-                    ['status'=>'error']
-            ],500);
+                ['message' => 'No se ha podido notificar su mesaje, intente de nuevo, gracias' . $e],
+                ['status' => 'error']
+            ], 500);
         }
 
     }

@@ -23,7 +23,8 @@ class SendChangeDateExpirationContent extends Mailable
     private $end_date;
     private $plan;
     private $full_name;
-    public function __construct($originalEndDate,$end_date,$plan,$full_name)
+
+    public function __construct($originalEndDate, $end_date, $plan, $full_name)
     {
         //
         $this->originalEndDate = $originalEndDate;
@@ -44,10 +45,10 @@ class SendChangeDateExpirationContent extends Mailable
             $this->from('contacto@educonexiones.com')
                 ->markdown('vendor.notifications.changeDateExpirationContent',
                     [
-                        'originalEndDate'=>$this->originalEndDate,
-                        'end_date'=>$this->end_date,
-                        'plan'=>$this->plan,
-                        'full_name'=>$this->full_name,
+                        'originalEndDate' => $this->originalEndDate,
+                        'end_date' => $this->end_date,
+                        'plan' => $this->plan,
+                        'full_name' => $this->full_name,
                     ])
                 ->subject('Conexiones - Ampliación fecha de expiración');
 

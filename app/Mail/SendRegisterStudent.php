@@ -20,7 +20,7 @@ class SendRegisterStudent extends Mailable
     private $student;
     private $family;
 
-    public function __construct($student,$family)
+    public function __construct($student, $family)
     {
         //
         $this->student = $student;
@@ -37,7 +37,7 @@ class SendRegisterStudent extends Mailable
     {
         return
             $this->from('contacto@educonexiones.com')
-                ->markdown('vendor.notifications.registerStudent',['family' => $this->family,'student' => $this->student])
+                ->markdown('vendor.notifications.registerStudent', ['family' => $this->family, 'student' => $this->student])
                 ->subject('Conexiones - Registro estudiante');
 
     }

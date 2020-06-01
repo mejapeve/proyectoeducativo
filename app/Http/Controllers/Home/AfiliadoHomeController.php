@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Home;
+
 use App\Http\Controllers\Controller;
 use App\Models\Empresas;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class AfiliadoHomeController extends Controller
     {
         $this->middleware('auth:afiliadoempresa');
     }
+
     public function index()
     {
 

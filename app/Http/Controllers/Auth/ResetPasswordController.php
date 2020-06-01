@@ -39,26 +39,27 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
-    public function reset(Request $request,$empresa,$rol)
+
+    public function reset(Request $request, $empresa, $rol)
     {
         //dd($request,$empresa,$rol);
 
         //$redirectTo->
         session(['name_company' => $empresa]);
-        $company = Companies::where('nick_name',$empresa)->first();
+        $company = Companies::where('nick_name', $empresa)->first();
         session(['company_id' => $company->id]);
-        switch (intval($rol)){
+        switch (intval($rol)) {
             case 1:
-                $this->redirectTo = $empresa."/student";
+                $this->redirectTo = $empresa . "/student";
                 break;
             case 2:
-                $this->redirectTo = $empresa."/teacher";
+                $this->redirectTo = $empresa . "/teacher";
                 break;
             case 3:
-                $this->redirectTo = $empresa."/tutor";
+                $this->redirectTo = $empresa . "/tutor";
                 break;
             case 4:
-                $this->redirectTo = $empresa."/admin";
+                $this->redirectTo = $empresa . "/admin";
 
                 break;
         }

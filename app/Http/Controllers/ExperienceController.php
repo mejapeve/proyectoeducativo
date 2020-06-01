@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class ExperienceController extends Controller
 {
     //
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         $data = $request->all();
 
@@ -23,21 +24,22 @@ class ExperienceController extends Controller
         $experience->save();
 
         return response()->json([
-            'moment_id' =>   $experience->id,
+            'moment_id' => $experience->id,
             'message' => 'experiencia modificada correctamente'
-        ],200);
+        ], 200);
 
 
     }
 
-    public function update_experience_section (Request $request){
+    public function update_experience_section(Request $request)
+    {
 
         $data = $request->all();
 
         $moment = MomentExperience::findOrFail($request->get('id'));
         $test = @json_decode($data['data_section']);
         if ($test) {
-            switch (intval(($data['section_number']))){
+            switch (intval(($data['section_number']))) {
                 case 1:
                     $moment->section_1 = $data['data_section'];
                     break;
@@ -53,21 +55,20 @@ class ExperienceController extends Controller
                 default:
                     return response()->json([
                         'message' => 'La sección no existe'
-                    ],400);
+                    ], 400);
             }
             $moment->save();
-        } else{
+        } else {
             return response()->json([
                 'message' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección '
-            ],400);
+            ], 400);
         }
 
         return response()->json([
-            'experience_id' =>   $moment->id,
-            'experience_section_number' =>   $data['section_number'],
+            'experience_id' => $moment->id,
+            'experience_section_number' => $data['section_number'],
             'message' => 'experiencia modificada correctamente'
-        ],200);
-
+        ], 200);
 
 
     }

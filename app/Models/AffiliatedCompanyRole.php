@@ -9,34 +9,38 @@ class AffiliatedCompanyRole extends Model
     //
     protected $table = "affiliated_company_roles";
 
-    protected $fillable=[
+    protected $fillable = [
         'id',
         'affiliated_company_id',
         'rol_id',
         'company_id',
     ];
 
-    public function conection_students (){
+    public function conection_students()
+    {
 
-        return $this->hasMany(ConectionAffiliatedStudents::class,'student_company_id','id');
-
-    }
-
-    public function company (){
-
-        return $this->belongsTo(Companies::class,'company_id','id');
+        return $this->hasMany(ConectionAffiliatedStudents::class, 'student_company_id', 'id');
 
     }
 
-    public function rol (){
+    public function company()
+    {
 
-        return $this->belongsTo(Roles::class,'rol_id','id');
+        return $this->belongsTo(Companies::class, 'company_id', 'id');
 
     }
 
-    public function conection_tutor (){
+    public function rol()
+    {
 
-        return $this->hasMany(ConectionAffiliatedStudents::class,'tutor_company_id','id');
+        return $this->belongsTo(Roles::class, 'rol_id', 'id');
+
+    }
+
+    public function conection_tutor()
+    {
+
+        return $this->hasMany(ConectionAffiliatedStudents::class, 'tutor_company_id', 'id');
 
     }
 }

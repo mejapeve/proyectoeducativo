@@ -9,32 +9,33 @@ class MomentController extends Controller
 {
     //
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         $data = $request->all();
 
         $moment = SequenceMoment::findOrFail($request->get('id'));
 
-        if (isset($data['order'])){
-            if( $data['order'] > 0 && $data['order'] < 9 ){
+        if (isset($data['order'])) {
+            if ($data['order'] > 0 && $data['order'] < 9) {
                 $momentChangeOrder = SequenceMoment::where([
-                    ['sequence_company_id',$moment->sequence_company_id],
-                    ['order',$data['order']]
+                    ['sequence_company_id', $moment->sequence_company_id],
+                    ['order', $data['order']]
                 ])->get();
-                if(count($momentChangeOrder)){
+                if (count($momentChangeOrder)) {
                     $momentChangeOrder = $momentChangeOrder->first();
                     $momentChangeOrder->order = $moment->order;
                     $momentChangeOrder->save();
                     $moment->order = $data['order'];
-                }else{
+                } else {
                     $moment->order = $data['order'];
                 }
 
-            }else{
+            } else {
                 return response()->json([
-                    'sequence_id' =>   $moment->id,
+                    'sequence_id' => $moment->id,
                     'message' => 'el numero de orden no esta en el rango de 1 a 8'
-                ],400);
+                ], 400);
             }
         }
 
@@ -55,21 +56,22 @@ class MomentController extends Controller
         $moment->save();
         cache()->tags('connection_moments_redis')->flush();
         return response()->json([
-            'moment_id' =>   $moment->id,
+            'moment_id' => $moment->id,
             'message' => 'momento modificado correctamente'
-        ],200);
+        ], 200);
 
 
     }
 
-    public function update_moment_section (Request $request){
+    public function update_moment_section(Request $request)
+    {
 
         $data = $request->all();
 
         $moment = SequenceMoment::findOrFail($request->get('id'));
         $test = @json_decode($data['data_section']);
         if ($test) {
-            switch (intval(($data['section_number']))){
+            switch (intval(($data['section_number']))) {
                 case 1:
                     $moment->section_1 = $data['data_section'];
                     break;
@@ -85,22 +87,21 @@ class MomentController extends Controller
                 default:
                     return response()->json([
                         'message' => 'La sección no existe'
-                    ],400);
+                    ], 400);
             }
             $moment->save();
 
-        } else{
+        } else {
             return response()->json([
                 'message' => 'El formato para guardar los datos del momento no es el correcto, no se pudo modificar el momento'
-            ],400);
+            ], 400);
         }
         cache()->tags('connection_moments_redis')->flush();
         return response()->json([
-            'moment_id' =>   $moment->id,
-            'moment_section_number' =>   $data['section_number'],
+            'moment_id' => $moment->id,
+            'moment_section_number' => $data['section_number'],
             'message' => 'seccion de momento modificada correctamente'
-        ],200);
-
+        ], 200);
 
 
     }

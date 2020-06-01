@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 class KitController extends Controller
 {
     //
-    public function get_kits(Request $request){
+    public function get_kits(Request $request)
+    {
 
         return Kit::all();
 
     }
-    public function create(Request $request){
 
+    public function create(Request $request)
+    {
 
 
     }
-    public function update(Request $request, $id){
 
+    public function update(Request $request, $id)
+    {
 
 
     }

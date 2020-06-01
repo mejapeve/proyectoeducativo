@@ -31,36 +31,37 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
     /**
      * Display the form to request a password reset link.
      *
      * @return \Illuminate\Http\Response
      */
-    public function showLinkRequestForm($empresa,$rol)
+    public function showLinkRequestForm($empresa, $rol)
     {
         //dd($empresa);
-        $empresa = Companies::where('nick_name',$empresa)->first();
+        $empresa = Companies::where('nick_name', $empresa)->first();
         session(['rol' => $rol]);
-       // dd($empresa,$rol);
-        return strtolower($empresa->name) === 'conexiones' ? 
-        view('auth.passwords.email',['company'=>$empresa,'rol'=>$rol]) :
-        view('auth.passwords.emailCompany',['company'=>$empresa]) ;
+        // dd($empresa,$rol);
+        return strtolower($empresa->name) === 'conexiones' ?
+            view('auth.passwords.email', ['company' => $empresa, 'rol' => $rol]) :
+            view('auth.passwords.emailCompany', ['company' => $empresa]);
     }
-	
-	public function showResetForm(Request $request, $empresa = null, $token = null ,$rol = null, $email = null)
-    {
-        $empresa = Companies::where('nick_name',$empresa)->first();
-        
-        return strtolower($empresa->name) === 'conexiones' ? 
-            view('auth.passwords.reset')->with(
-            ['token' => $token, 'empresa'=> $empresa, 'email' => $email, 'rol'=>$rol]
-        ): view('auth.passwords.resetCompany')->with(
-            ['token' => $token, 'empresa'=> $empresa, 'email' => $email, 'rol'=>$rol]
-        ); ;
-    }
-/*
-    public function sendResetLinkEmail(){
 
+    public function showResetForm(Request $request, $empresa = null, $token = null, $rol = null, $email = null)
+    {
+        $empresa = Companies::where('nick_name', $empresa)->first();
+
+        return strtolower($empresa->name) === 'conexiones' ?
+            view('auth.passwords.reset')->with(
+                ['token' => $token, 'empresa' => $empresa, 'email' => $email, 'rol' => $rol]
+            ) : view('auth.passwords.resetCompany')->with(
+                ['token' => $token, 'empresa' => $empresa, 'email' => $email, 'rol' => $rol]
+            );;
     }
-*/
+    /*
+        public function sendResetLinkEmail(){
+
+        }
+    */
 }
