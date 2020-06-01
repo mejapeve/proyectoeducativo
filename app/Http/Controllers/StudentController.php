@@ -218,12 +218,20 @@ class StudentController extends Controller
                 'part_id' => ($part_id - 1 )]);
             }
             else {
-                if($section_id > 1 || $part_id > 1 ){
-                    
-                }
+                
             }
-            if(isset(json_decode($sequence->section_4, true)['part_'.($part_id + 1)])) { 
-                $buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+			$sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+			$last_part = 1;
+            if(isset($section['part_'.($part_id + 1)])) {
+				$last_part = $part_id + 1;
+                $buttonNext = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 
+					'sequence_id'=>$moment->sequence,
+					'moment_id'    => $moment_id,
+					'section_id' => $section_id,
+					'account_service_id' => $account_service_id,
+					'order_moment_id' => $order_moment_id,
+					'part_id' => $last_part]);
+
             }
             else {
                 $buttonNext = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id,
