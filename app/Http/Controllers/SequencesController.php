@@ -7,10 +7,19 @@ use App\Models\SequenceMoment;
 use Illuminate\Http\Request;
 use App\Models\CompanySequence;
 
+/**
+ * Class SequencesController
+ * @package App\Http\Controllers
+ */
 class SequencesController extends Controller
 {
 
 
+    /**
+     * @param Request $request
+     * @param $sequence_id
+     * @return CompanySequence[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function get(Request $request, $sequence_id)
     {
 
@@ -18,6 +27,10 @@ class SequencesController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
         $data = $request->all();
@@ -95,6 +108,11 @@ class SequencesController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function update(Request $request)
     {
 
@@ -132,6 +150,11 @@ class SequencesController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function update_sequence_section(Request $request)
     {
 
@@ -174,6 +197,11 @@ class SequencesController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param int $companyId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_all_sequences(Request $request, $companyId = 1)
     {//id conexiones
 

@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
+/**
+ * Class QuestionController
+ * @package App\Http\Controllers
+ */
 class QuestionController extends Controller
 {
     //
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register_update_question(Request $request)
     {
         if (@json_decode($request->options) && @json_decode($request->review)) {
@@ -53,6 +61,10 @@ class QuestionController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_questions(Request $request)
     {
 

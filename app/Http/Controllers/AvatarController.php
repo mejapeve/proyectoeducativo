@@ -4,14 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class AvatarController
+ * @package App\Http\Controllers
+ */
 class AvatarController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         return view('roles.student.avatar');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update_avatar(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -36,6 +48,10 @@ class AvatarController extends Controller
     }
 
 
+    /**
+     * @param $length
+     * @return string
+     */
     function random_string($length)
     {
         $key = '';

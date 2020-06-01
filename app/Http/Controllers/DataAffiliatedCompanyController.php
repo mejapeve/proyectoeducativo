@@ -5,10 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Companies;
 
+/**
+ * Class DataAffiliatedCompanyController
+ * @package App\Http\Controllers
+ */
 class DataAffiliatedCompanyController extends Controller
 {
     //
 
+    /**
+     * @param $empresa
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index($empresa)
     {
 
@@ -24,6 +32,9 @@ class DataAffiliatedCompanyController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index_admin()
     {
         session(['name_company' => 'conexiones']);

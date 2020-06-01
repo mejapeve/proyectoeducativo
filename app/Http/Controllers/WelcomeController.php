@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\RatingPlan;
 use Illuminate\Http\Request;
 
+/**
+ * Class WelcomeController
+ * @package App\Http\Controllers
+ */
 class WelcomeController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $rating_plan_id_free = RatingPlan::where('is_free', true)->first();

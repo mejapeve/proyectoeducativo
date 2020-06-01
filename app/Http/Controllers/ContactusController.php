@@ -7,10 +7,18 @@ use App\Models\Contacus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class ContactusController
+ * @package App\Http\Controllers
+ */
 class ContactusController extends Controller
 {
     //
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function send_email_contactus(Request $request)
     {
 

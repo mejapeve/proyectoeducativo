@@ -15,12 +15,20 @@ use App\Traits\RelationRatingPlan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Class TutorController
+ * @package App\Http\Controllers
+ */
 class TutorController extends Controller
 {
     //
     use CreateUserRelations;
     use RelationRatingPlan;
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -29,12 +37,20 @@ class TutorController extends Controller
         return view('roles.tutor.profile')->with('route', $route)->with('tutor', $tutor);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showRegisterStudentForm(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         return view('roles.tutor.registerStudent');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showInscriptions(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -42,6 +58,10 @@ class TutorController extends Controller
         return view('roles.tutor.inscriptions')->with('tutor', $tutor);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showProducts(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -49,6 +69,10 @@ class TutorController extends Controller
         return view('roles.tutor.products')->with('tutor', $tutor);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showHistory(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -56,6 +80,10 @@ class TutorController extends Controller
         return view('roles.tutor.history')->with('tutor', $tutor);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showWishList(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
@@ -63,6 +91,10 @@ class TutorController extends Controller
         return view('roles.tutor.wish_list')->with('tutor', $tutor);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register_student(Request $request)
     {
 
@@ -72,6 +104,10 @@ class TutorController extends Controller
         return redirect()->route('tutor', session('name_company'));
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function get_students_tutor(Request $request)
     {
 
@@ -92,6 +128,10 @@ class TutorController extends Controller
         return $students;
     }
 
+    /**
+     * @param Request $request
+     * @return AffiliatedContentAccountService[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function get_products_tutor(Request $request)
     {
 
@@ -114,6 +154,10 @@ class TutorController extends Controller
             ->whereIn('affiliated_account_service_id', $ids)->groupBy('sequence_id')->get();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_history_tutor(Request $request)
     {
         $shoppingCarts = ShoppingCart::
@@ -128,6 +172,12 @@ class TutorController extends Controller
         return response()->json(['data' => $shoppingCarts], 200);
     }
 
+    /**
+     * @param Request $request
+     * @param $company
+     * @param $password
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function validate_password(Request $request, $company, $password)
     {
 
@@ -146,6 +196,11 @@ class TutorController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $company
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update_password(Request $request, $company)
     {
 
@@ -167,6 +222,10 @@ class TutorController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit_column_tutor(Request $request)
     {
 
@@ -184,6 +243,10 @@ class TutorController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit_image_perfil(Request $request)
     {
         if ($request->hasFile('image')) {

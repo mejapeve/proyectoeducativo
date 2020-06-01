@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AdvanceLine;
 
+/**
+ * Class AdvanceLineController
+ * @package App\Http\Controllers
+ */
 class AdvanceLineController extends Controller
 {
     //
+    /**
+     * @param Request $request
+     * @param $accountServiceId
+     * @param $sequenceId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get(Request $request, $accountServiceId, $sequenceId)
     {
         $advanceLine = AdvanceLine::where([

@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\MomentExperience;
 use Illuminate\Http\Request;
 
+/**
+ * Class ExperienceController
+ * @package App\Http\Controllers
+ */
 class ExperienceController extends Controller
 {
     //
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request)
     {
 
@@ -31,6 +39,10 @@ class ExperienceController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update_experience_section(Request $request)
     {
 

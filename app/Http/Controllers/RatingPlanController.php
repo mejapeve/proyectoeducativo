@@ -12,9 +12,17 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
+/**
+ * Class RatingPlanController
+ * @package App\Http\Controllers
+ */
 class RatingPlanController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_rating_plans(Request $request)
     {
 
@@ -23,12 +31,21 @@ class RatingPlanController extends Controller
         return response()->json(['data' => $ratingPlan], 200);
     }
 
+    /**
+     * @param Request $request
+     * @param $rating_plan_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_rating_plan_detail(Request $request, $rating_plan_id)
     {
         $ratingPlan = RatingPlan::where('id', $rating_plan_id)->get();
         return response()->json(['data' => $ratingPlan], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
 
@@ -57,6 +74,10 @@ class RatingPlanController extends Controller
         return response()->json(['data' => $ratingPlan], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request)
     {
 
@@ -77,6 +98,10 @@ class RatingPlanController extends Controller
 
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function get_plans_dt()
     {
 
@@ -116,6 +141,9 @@ class RatingPlanController extends Controller
             ->make(true);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_types_plans()
     {
 

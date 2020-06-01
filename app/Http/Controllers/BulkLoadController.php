@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class BulkLoadController
+ * @package App\Http\Controllers
+ */
 class BulkLoadController extends Controller
 {
     //
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function list_files()
     {
 
@@ -16,6 +23,9 @@ class BulkLoadController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function read_file()
     {
 

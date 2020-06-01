@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Class FolderImageController
+ * @package App\Http\Controllers
+ */
 class FolderImageController extends Controller
 {
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getFiles(Request $request)
     {
         $directory = $request->dir;

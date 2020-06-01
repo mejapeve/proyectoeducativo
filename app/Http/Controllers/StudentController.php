@@ -15,10 +15,21 @@ use Illuminate\Http\Request;
 use App\Models\CompanySequence;
 use App\Models\SequenceMoment;
 
+/**
+ * Class StudentController
+ * @package App\Http\Controllers
+ */
 class StudentController extends Controller
 {
+    /**
+     * @var
+     */
     private $sequencesCache;
 
+    /**
+     * StudentController constructor.
+     * @throws \Exception
+     */
     public function __construct()
     {
 
@@ -28,6 +39,10 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -43,12 +58,22 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_available_sequences(Request $request)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         return view('roles.student.available_sequences');
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param int $company_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_achievements(Request $request, $empresa, $company_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -60,6 +85,14 @@ class StudentController extends Controller
         return view('roles.student.achievements_sequences', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess]);
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $sequence_id
+     * @param $account_service_id
+     * @param int $part_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_sequences_section_1(Request $request, $empresa, $sequence_id, $account_service_id, $part_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -83,6 +116,14 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $sequence_id
+     * @param $account_service_id
+     * @param int $part_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_sequences_section_2(Request $request, $empresa, $sequence_id, $account_service_id, $part_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -118,6 +159,14 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $sequence_id
+     * @param $account_service_id
+     * @param int $part_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_sequences_section_3(Request $request, $empresa, $sequence_id, $account_service_id, $part_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -154,6 +203,14 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $sequence_id
+     * @param $account_service_id
+     * @param int $part_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_sequences_section_4(Request $request, $empresa, $sequence_id, $account_service_id, $part_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -194,6 +251,17 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $sequence_id
+     * @param $moment_id
+     * @param $section_id
+     * @param $account_service_id
+     * @param $order_moment_id
+     * @param int $part_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show_moment_section(Request $request, $empresa, $sequence_id, $moment_id, $section_id, $account_service_id, $order_moment_id, $part_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
@@ -259,6 +327,12 @@ class StudentController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param $company_id
+     * @return AffiliatedContentAccountService[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function get_available_sequences(Request $request, $empresa, $company_id)
     {
 
@@ -283,6 +357,12 @@ class StudentController extends Controller
 
     }
 
+    /**
+     * @param $account_service_id
+     * @param bool $validation_moments
+     * @param null $sequence_id
+     * @param null $moment_id
+     */
     public function validation_access_sequence_content($account_service_id, $validation_moments = false, $sequence_id = null, $moment_id = null)
     {
         $affiliatedAccountService = AffiliatedAccountService::with('affiliated_content_account_service')->

@@ -5,10 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\SequenceMoment;
 use Illuminate\Http\Request;
 
+/**
+ * Class MomentController
+ * @package App\Http\Controllers
+ */
 class MomentController extends Controller
 {
     //
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function update(Request $request)
     {
 
@@ -63,6 +72,11 @@ class MomentController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function update_moment_section(Request $request)
     {
 

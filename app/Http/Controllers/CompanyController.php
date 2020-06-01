@@ -11,10 +11,17 @@ use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use DB;
 
+/**
+ * Class CompanyController
+ * @package App\Http\Controllers
+ */
 class CompanyController extends Controller
 {
     //
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_companies()
     {
 
@@ -25,6 +32,11 @@ class CompanyController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $company_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_company_sequences(Request $request, $company_id)
     {
         $activesPlan = [];
@@ -76,6 +88,11 @@ class CompanyController extends Controller
         ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @param $company_id
+     * @return mixed
+     */
     public function get_company_groups(Request $request, $company_id)
     {
 
@@ -83,6 +100,11 @@ class CompanyController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $company_id
+     * @return mixed
+     */
     public function get_teachers_company(Request $request, $company_id)
     {
 

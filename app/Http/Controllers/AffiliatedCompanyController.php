@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Class AffiliatedCompanyController
+ * @package App\Http\Controllers
+ */
 class AffiliatedCompanyController extends Controller
 {
     //
+    /**
+     * @param Request $request
+     * @param $user_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function get_user(Request $request, $user_id)
     {
 
@@ -24,6 +33,10 @@ class AffiliatedCompanyController extends Controller
             'age_stage' => $age_stage], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function edit_user_student(Request $request)
     {
         if (auth('afiliadoempresa')->user()) {
@@ -114,6 +127,11 @@ class AffiliatedCompanyController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $userName
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function validate_user_name(Request $request, $userName)
     {
 

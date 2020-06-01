@@ -12,8 +12,16 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class AnswerController
+ * @package App\Http\Controllers
+ */
 class AnswerController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function register_update_answer(Request $request)
     {
 
@@ -80,9 +88,12 @@ class AnswerController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function get_answers(Request $request)
     {
-//dd($request);
         $answers = Answer::with('question')->whereHas('question', function ($query) use ($request) {
             $query->where([
                 ['sequence_id', '=', $request->sequence_id],
@@ -102,6 +113,12 @@ class AnswerController extends Controller
         return $questions;
     }
 
+    /**
+     * @param $option_id
+     * @param $options
+     * @param $reviews
+     * @return array
+     */
     public function get_answer_student($option_id, $options, $reviews)
     {
 

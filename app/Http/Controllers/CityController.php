@@ -6,10 +6,17 @@ use DB;
 use App\Models\City;
 use Illuminate\Http\Request;
 
+/**
+ * Class CityController
+ * @package App\Http\Controllers
+ */
 class CityController extends Controller
 {
     //
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCitiesList()
     {
 

@@ -6,9 +6,17 @@ use App\Models\Kit;
 use App\Models\Element;
 use Illuminate\Http\Request;
 
+/**
+ * Class KitElementController
+ * @package App\Http\Controllers
+ */
 class KitElementController extends Controller
 {
     //
+    /**
+     * @param Request $request
+     * @return Kit[]|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function get_kit_elements(Request $request)
     {
 
@@ -16,6 +24,11 @@ class KitElementController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $kid_id
+     * @return mixed
+     */
     public function get_kit(Request $request, $kid_id)
     {
 
@@ -23,6 +36,11 @@ class KitElementController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @param $element_id
+     * @return mixed
+     */
     public function get_element(Request $request, $element_id)
     {
 
