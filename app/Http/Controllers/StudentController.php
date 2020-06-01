@@ -54,18 +54,18 @@ class StudentController extends Controller
         if($sequence->section_1) {
             $section = json_decode($sequence->section_1, true);
             $section = $section['part_' . $part_id];
-			$buttonBack = 'none';
-			if($part_id > 1) {
-				$buttonBack = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
-			}
-			if(isset(json_decode($sequence->section_1, true)['part_'.($part_id + 1)])) { 
-				$buttonNext = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
-			}
-			else {
-				$buttonNext = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
-			}
-			$data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
-			return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            $buttonBack = 'none';
+            if($part_id > 1) {
+                $buttonBack = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
+            }
+            if(isset(json_decode($sequence->section_1, true)['part_'.($part_id + 1)])) { 
+                $buttonNext = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+            }
+            else {
+                $buttonNext = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
+            }
+            $data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
 
@@ -76,31 +76,31 @@ class StudentController extends Controller
         if($sequence->section_2) {
             $section = json_decode($sequence->section_2, true);
             $section = $section['part_' . $part_id];
-			$buttonBack = 'none';
-			if($part_id > 1) {
-				$buttonBack = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
-			}
-			else {
-				$section_1 = json_decode($sequence->section_1, true);
-				$last_part_id = 1;
-				foreach($section_1 as $key=>$value) {
-					if(strpos('_'.$key,'part_')!=false) {
-						$num = (int)str_replace('part_','',$key);
-						if($num > $last_part_id) {
-							$last_part_id = $num;
-						}
-					}
-				}
-				$buttonBack = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
-			}
-			if(isset(json_decode($sequence->section_2, true)['part_'.($part_id + 1)])) { 
-				$buttonNext = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
-			}
-			else {
-				$buttonNext = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
-			}
-			$data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
-			return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            $buttonBack = 'none';
+            if($part_id > 1) {
+                $buttonBack = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
+            }
+            else {
+                $section_1 = json_decode($sequence->section_1, true);
+                $last_part_id = 1;
+                foreach($section_1 as $key=>$value) {
+                    if(strpos('_'.$key,'part_')!=false) {
+                        $num = (int)str_replace('part_','',$key);
+                        if($num > $last_part_id) {
+                            $last_part_id = $num;
+                        }
+                    }
+                }
+                $buttonBack = route('student.sequences_section_1',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
+            }
+            if(isset(json_decode($sequence->section_2, true)['part_'.($part_id + 1)])) { 
+                $buttonNext = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+            }
+            else {
+                $buttonNext = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
+            }
+            $data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
     }
     
@@ -112,31 +112,31 @@ class StudentController extends Controller
         if($sequence->section_3) {
             $section = json_decode($sequence->section_3, true);
             $section = $section['part_' . $part_id];
-			$buttonBack = 'none';
-			if($part_id > 1) {
-				$buttonBack = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
-			}
-			else {
-				$section_2 = json_decode($sequence->section_2, true);
-				$last_part_id = 1;
-				foreach($section_2 as $key=>$value) {
-					if(strpos('_'.$key,'part_')!=false) {
-						$num = (int)str_replace('part_','',$key);
-						if($num > $last_part_id) {
-							$last_part_id = $num;
-						}
-					}
-				}
-				$buttonBack = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
-			}
-			if(isset(json_decode($sequence->section_3, true)['part_'.($part_id + 1)])) { 
-				$buttonNext = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
-			}
-			else {
-				$buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
-			}
-			$data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
-			return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            $buttonBack = 'none';
+            if($part_id > 1) {
+                $buttonBack = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
+            }
+            else {
+                $section_2 = json_decode($sequence->section_2, true);
+                $last_part_id = 1;
+                foreach($section_2 as $key=>$value) {
+                    if(strpos('_'.$key,'part_')!=false) {
+                        $num = (int)str_replace('part_','',$key);
+                        if($num > $last_part_id) {
+                            $last_part_id = $num;
+                        }
+                    }
+                }
+                $buttonBack = route('student.sequences_section_2',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
+            }
+            if(isset(json_decode($sequence->section_3, true)['part_'.($part_id + 1)])) { 
+                $buttonNext = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+            }
+            else {
+                $buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id]);
+            }
+            $data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
 
     }
@@ -148,40 +148,40 @@ class StudentController extends Controller
         if($sequence->section_4) {
             $section = json_decode($sequence->section_4, true);
             $section = $section['part_' . $part_id];
-			$buttonBack = 'none';
-			if($part_id > 1) {
-				$buttonBack = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
-			}
-			else {
-				$section_3 = json_decode($sequence->section_3, true);
-				$last_part_id = 1;
-				foreach($section_3 as $key=>$value) {
-					if(strpos('_'.$key,'part_')!=false) {
-						$num = (int)str_replace('part_','',$key);
-						if($num > $last_part_id) {
-							$last_part_id = $num;
-						}
-					}
-				}
-				$buttonBack = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
-			}
-			if(isset(json_decode($sequence->section_4, true)['part_'.($part_id + 1)])) { 
-				$buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
-			}
-			else {
-				$buttonNext = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id,
-				'moment_id'=>'0',
-				'section'=>1,
-				'order_moment_id'=>0,
-				'sequence_id'=>$sequence_id]);
-			}
-			$data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
-			return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
+            $buttonBack = 'none';
+            if($part_id > 1) {
+                $buttonBack = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => ($part_id - 1 )]);
+            }
+            else {
+                $section_3 = json_decode($sequence->section_3, true);
+                $last_part_id = 1;
+                foreach($section_3 as $key=>$value) {
+                    if(strpos('_'.$key,'part_')!=false) {
+                        $num = (int)str_replace('part_','',$key);
+                        if($num > $last_part_id) {
+                            $last_part_id = $num;
+                        }
+                    }
+                }
+                $buttonBack = route('student.sequences_section_3',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 'sequence_id'=>$sequence_id,'part_id' => $last_part_id]);
+            }
+            if(isset(json_decode($sequence->section_4, true)['part_'.($part_id + 1)])) { 
+                $buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+            }
+            else {
+                $buttonNext = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id,
+                'moment_id'=>'0',
+                'section'=>1,
+                'order_moment_id'=>0,
+                'sequence_id'=>$sequence_id]);
+            }
+            $data = array_merge(['sequence'=>$sequence,'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext],$section);
+            return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('sequence_id',$sequence_id);
         }
 
     }
     
-    public function show_moment_section(Request $request,$empresa, $sequence_id, $moment_id, $section_id=1,$account_service_id,$order_moment_id,$part_id=1) {
+    public function show_moment_section(Request $request,$empresa, $sequence_id, $moment_id, $section_id,$account_service_id,$order_moment_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id,true,$sequence_id,$moment_id);
         $moment = SequenceMoment::with('sequence')
@@ -206,8 +206,35 @@ class StudentController extends Controller
             $section_3 = json_decode($moment->section_3, true);
             $section_4 = json_decode($moment->section_4, true);
             $part = json_decode($moment['section_'.$section_id], true)['part_'.$part_id];
+            
+            $buttonBack = 'none';
+            if($part_id > 1) {
+                $buttonBack = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id, 
+                'sequence_id'=>$moment->sequence,
+                'moment_id'    => $moment_id,
+                'section_id' => $section_id,
+                'account_service_id' => $account_service_id,
+                'order_moment_id' => $order_moment_id,
+                'part_id' => ($part_id - 1 )]);
+            }
+            else {
+                if($section_id > 1 || $part_id > 1 ){
+                    
+                }
+            }
+            if(isset(json_decode($sequence->section_4, true)['part_'.($part_id + 1)])) { 
+                $buttonNext = route('student.sequences_section_4',['empresa'=>'conexiones','account_service_id'=>$account_service_id,'sequence_id'=>$sequence_id,'part_id'=>($part_id + 1)]);
+            }
+            else {
+                $buttonNext = route('student.show_moment_section',['empresa'=>'conexiones','account_service_id'=>$account_service_id,
+                'moment_id'=>'0',
+                'section'=>1,
+                'order_moment_id'=>0,
+                'sequence_id'=>$sequence_id]);
+            }
+
             $data = array_merge(['sequence'=>$moment->sequence,'sequence_id'=>$moment->sequence->id,
-            'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section,$part);
+            'buttonBack'=>$buttonBack,'buttonNext'=>$buttonNext,'moment'=>$moment,'sections'=>[$section_1,$section_2,$section_3,$section_4]],$section,$part);
             return view('roles.student.content_sequence_section',$data)->with('account_service_id',$account_service_id)->with('order_moment_id',$order_moment_id);
         }
     }
