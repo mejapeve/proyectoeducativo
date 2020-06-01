@@ -145,8 +145,8 @@ Route::group([],function (){
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
         Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');
         Route::post('delete_shopping_cart', 'Shopping\ShoppingCartController@delete')->name('delete_shopping_cart');
-        Route::get('notification_gwpayment_callback', 'Shopping\NotifyCallbackController@notificacion_callback')->name('notification_gwpayment_callback');//->middleware('auth:afiliadoempresa');
-        Route::get('notification_gwpayment_failure_callback', 'Shopping\NotifyFailureCallbackController@notificacion_failure_callback')->name('notification_gwpayment_failure_callback');//->middleware('auth:afiliadoempresa');
+        Route::get('notification_gwpayment_callback', 'Shopping\NotifyCallbackController@notificacion_callback')->name('notification_gwpayment_callback')->middleware('auth:afiliadoempresa');
+        Route::get('notification_gwpayment_failure_callback', 'Shopping\NotifyFailureCallbackController@notificacion_failure_callback')->name('notification_gwpayment_failure_callback')->middleware('auth:afiliadoempresa');
     }
 );
 
@@ -192,36 +192,36 @@ Route::get('get_kit_element/element/{element_id}', 'KitElementController@get_ele
 //servcio planes
 Route::get('get_rating_plans', 'RatingPlanController@get_rating_plans')->name('get_rating_plans');
 Route::get('get_rating_plan/{rating_plan_id}', 'RatingPlanController@get_rating_plan_detail')->name('get_rating_plan');
-Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan');//->middleware('role:admin')
-Route::post('edit_rating_plan', 'RatingPlanController@update')->name('edit_rating_plan');//->middleware('role:admin')
-Route::get('get_types_plans', 'RatingPlanController@get_types_plans')->name('get_types_plans');//->middleware('role:admin')
+Route::post('create_rating_plan', 'RatingPlanController@create')->name('create_rating_plan')->middleware('role:admin');
+Route::post('edit_rating_plan', 'RatingPlanController@update')->name('edit_rating_plan')->middleware('role:admin');
+Route::get('get_types_plans', 'RatingPlanController@get_types_plans')->name('get_types_plans')->middleware('role:admin');
 
 //servicios secuencias
 Route::get('get_sequence/{sequence_id}', 'SequencesController@get')->name('get_sequence');
-Route::post('create_sequence', 'SequencesController@create')->name('create_sequence');//->middleware('role:admin')
-Route::post('update_sequence', 'SequencesController@update')->name('update_sequence');//->middleware('role:admin')
-Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section');//->middleware('role:admin')
+Route::post('create_sequence', 'SequencesController@create')->name('create_sequence')->middleware('role:admin');
+Route::post('update_sequence', 'SequencesController@update')->name('update_sequence')->middleware('role:admin');
+Route::post('update_sequence_section', 'SequencesController@update_sequence_section')->name('update_sequence_section')->middleware('role:admin');
 Route::get('get_all_sequences/{company_id?}', 'SequencesController@get_all_sequences')->name('get_all_sequences');
 
 //servicios momentos
-Route::post('update_moment', 'MomentController@update')->name('update_moment');//->middleware('role:admin')
-Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section');//->middleware('role:admin')
+Route::post('update_moment', 'MomentController@update')->name('update_moment')->middleware('role:admin');
+Route::post('update_moment_section', 'MomentController@update_moment_section')->name('update_moment_section')->middleware('role:admin');
 //servicios momentos
 Route::post('update_experience', 'ExperienceController@update')->name('update_experience');//delete
 Route::post('update_experience_section', 'ExperienceController@update_experience_section')->name('update_experience_section');//delete
 //servicio consulta linea de avance
-Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line');//->middleware('role:student')
+Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineController@get')->name('get_advance_line')->middleware('role:student')
 //servicio consultar usuario
-Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user');//->middleware('role:tutor')
+Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user')->middleware('role:tutor');
 //servicio editar usuario
-Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student');//->middleware('role:tutor,student')
+Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student')->middleware('role:tutor,student');
 //servicio validar nombre de usuario
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
 //servicios gestión de preguntas y respuestras
 Route::group([],function (){
-    Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_answer');//->middleware('role:admin');
+    Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_answer')->middleware('role:admin');
     Route::get('get_questions', 'QuestionController@get_questions')->name('get_questions');
-    Route::post('register_update_answer', 'AnswerController@register_update_answer')->name('register_update_answer');//->middleware('role:admin');
+    Route::post('register_update_answer', 'AnswerController@register_update_answer')->name('register_update_answer')->middleware('role:admin');
     Route::get('get_answers', 'AnswerController@get_answers')->name('get_answers');
 
 });
