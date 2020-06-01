@@ -12,7 +12,7 @@ class QuestionController extends Controller
         if(@json_decode($request->options) && @json_decode($request->review)){
             $question = Question::updateOrCreate(
                 ['sequence_id' => $request->sequence_id, 'moment_id' => $request->moment_id,'experience_id'=>$request->experience_id,'order'=>$request->order ],
-                ['options' =>$request->options , 'review' => $request->review,'type_answer' => $request->type_answer]
+                ['title' =>$request->title, 'options' =>$request->options, 'review' => $request->review,'type_answer' => $request->type_answer]
             );
             /*if(isset($request->id)) {
                 $question = Question::where([ 'id' => $request->id ])

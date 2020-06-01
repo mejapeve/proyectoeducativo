@@ -16,6 +16,7 @@ class Question extends Model
         'options',
         'review',
         'type_answer',
-        'order'
+        'order',
+        'title'
     ];
 }
