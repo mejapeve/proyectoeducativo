@@ -17,6 +17,15 @@ use App\Models\SequenceMoment;
 
 class StudentController extends Controller
 {
+    private $sequencesCache;
+    public function __construct() {
+
+        $this->sequencesCache = cache()->tags('connection_sequences_redis')->rememberForever('sequences_redis',function(){
+            return CompanySequence::all();
+        });
+        
+    }
+
     public function index (Request $request){
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         if($request->user('afiliadoempresa')->url_image == null) {
@@ -50,7 +59,8 @@ class StudentController extends Controller
     public function show_sequences_section_1(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
-        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        //$sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        $sequence = $this->sequencesCache->where('id',$sequence_id)->first();
         if($sequence->section_1) {
             $section = json_decode($sequence->section_1, true);
             $section = $section['part_' . $part_id];
@@ -72,7 +82,8 @@ class StudentController extends Controller
     public function show_sequences_section_2(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $this->validation_access_sequence_content($account_service_id);
-        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        //$sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        $sequence = $this->sequencesCache->where('id',$sequence_id)->first();
         if($sequence->section_2) {
             $section = json_decode($sequence->section_2, true);
             $section = $section['part_' . $part_id];
@@ -107,8 +118,8 @@ class StudentController extends Controller
     public function show_sequences_section_3(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
-        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
-        
+        //$sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        $sequence = $this->sequencesCache->where('id',$sequence_id)->first();
         if($sequence->section_3) {
             $section = json_decode($sequence->section_3, true);
             $section = $section['part_' . $part_id];
@@ -144,7 +155,8 @@ class StudentController extends Controller
     public function show_sequences_section_4(Request $request,$empresa, $sequence_id,$account_service_id,$part_id=1) {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         
-        $sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        //$sequence = CompanySequence::where('id',$sequence_id)->get()->first();
+        $sequence = $this->sequencesCache->where('id',$sequence_id)->first();
         if($sequence->section_4) {
             $section = json_decode($sequence->section_4, true);
             $section = $section['part_' . $part_id];

@@ -74,6 +74,9 @@ class SequencesController extends Controller {
                 $experience->save();
 
             }
+            cache()->tags('connection_sequences_redis')->flush();
+            cache()->tags('connection_moments_redis')->flush();
+            cache()->tags('connection_experiences_redis')->flush();
             return response()->json([
                 'sequence_id' =>   $sequence->id,
                 'message' => 'secuencia creada correctamente'
@@ -116,7 +119,7 @@ class SequencesController extends Controller {
         if (isset($data['expiration_date']))
             $sequence->expiration_date = $data['expiration_date'];
         $sequence->save();
-
+        cache()->tags('connection_sequences_redis')->flush();
         return response()->json([
             'sequence_id' =>   $sequence->id,
             'message' => 'secuencia modificada correctamente'
@@ -157,7 +160,7 @@ class SequencesController extends Controller {
                 'message' => 'El formato para guardar los datos de la sección no es el correcto, no se pudo modificar la sección'
             ],400);
         }
-
+        cache()->tags('connection_sequences_redis')->flush();
         return response()->json([
             'sequence_id' =>   $sequence->id,
             'sequence_section_number' =>   $data['section_number'],
@@ -180,4 +183,5 @@ class SequencesController extends Controller {
         return response()->json(['data'=>$companySequences],200);
 
     }
+
 }

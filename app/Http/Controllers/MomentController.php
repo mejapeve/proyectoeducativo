@@ -53,7 +53,7 @@ class MomentController extends Controller
         if (isset($data['section_4']))
             $moment->section_4 = $data['section_4'];
         $moment->save();
-
+        cache()->tags('connection_moments_redis')->flush();
         return response()->json([
             'moment_id' =>   $moment->id,
             'message' => 'momento modificado correctamente'
@@ -88,12 +88,13 @@ class MomentController extends Controller
                     ],400);
             }
             $moment->save();
+
         } else{
             return response()->json([
                 'message' => 'El formato para guardar los datos del momento no es el correcto, no se pudo modificar el momento'
             ],400);
         }
-
+        cache()->tags('connection_moments_redis')->flush();
         return response()->json([
             'moment_id' =>   $moment->id,
             'moment_section_number' =>   $data['section_number'],
