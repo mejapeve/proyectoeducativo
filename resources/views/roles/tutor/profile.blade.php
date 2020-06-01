@@ -87,8 +87,7 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ asset('angular/controller/tutorProfileCtrl.js') }}" defer></script>
+    <script src="{{ asset('angular/controller/TutorProfileCtrl.js') }}" defer></script>
     <script>
         function subMethod(obj) {
             var data = new FormData();
