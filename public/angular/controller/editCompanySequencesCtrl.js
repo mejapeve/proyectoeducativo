@@ -476,7 +476,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if (typeItem === 'text-area-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 100, 'mt': 76, 'w': 100, 'h': 200, 'text': '--Parrafo 1--' });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 100, 'mt': 76, 'w': 100, 'h': 100, 'text': '--Parrafo 1--' });
         }
         else if (typeItem === 'image-element') {
             parentElement.elements = parentElement.elements || [];
@@ -559,8 +559,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     }
     
     function saveEvidence(sectionPart,callback){
-		sectionPart.elements = sectionPart.elements || [];
-		var countElements = sectionPart.elements.length;
+        sectionPart.elements = sectionPart.elements || [];
+        var countElements = sectionPart.elements.length;
         var countElementsError = [];
         
         var element = null;
@@ -822,67 +822,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         background.css('height', + (h + deltaH));
         card.css('height', + (h + deltaH));
 
-        if ($scope.elementParentEdit && $scope.elementParentEdit.elements) {
-            var element = null;
-            var card = $('.background-sequence-card');
-            var w = Number(card.attr('w'));
-            var h = Number(card.attr('h'));
-            var newW = Number(card.css('width').replace('px', ''));
-            var newH = Number(card.css('height').replace('px', ''));
-
-            var deltaW = newW - w;
-            var deltaH = newH - h;
-
-            var percentW = deltaW / w;
-            var percentH = deltaH / h;
-
-            for (var i = 9999990; i < $scope.elementParentEdit.elements.length; i++) {
-                element = $scope.elementParentEdit.elements[i];
-                var jsElement = $('#' + element.id);
-
-
-                if (element.w) {
-                    var newObjH = element.h + (element.h * percentH);
-                    var newObjW = element.w + (element.w * percentW);
-                    $(jsElement).addClass('position-absolute');
-                    $(jsElement).css('width', newObjW + 'px');
-                    $(jsElement).css('height', newObjH + 'px');
-
-                    element.w = newObjW;
-                    element.h = newObjH;
-
-                }
-                if (element.ml) {
-                    var newObjMl = element.ml + (element.ml * percentW);
-
-
-                    if (element.type === 'video-element' || element.type === 'image-element') {
-                        $(jsElement).parent().css('margin-left', newObjMl + 'px');
-                        $(jsElement).parent().addClass('position-absolute');
-                    }
-                    else {
-                        $(jsElement).css('margin-left', newObjMl + 'px');
-                        $(jsElement).addClass('position-absolute');
-                    }
-                    element.ml = newObjMl;
-                }
-                if (element.mt) {
-                    var newObjMt = element.mt + (element.mt * percentH);
-                    var jsElement = $('#' + element.id + '-' + element.type);
-
-                    if (element.type === 'video-element' || element.type === 'image-element') {
-                        $(jsElement).parent().css('margin-top', newObjMt + 'px');
-                        $(jsElement).parent().addClass('position-absolute');
-                    }
-                    else {
-                        $(jsElement).css('margin-top', newObjMt + 'px');
-                        $(jsElement).addClass('position-absolute');
-                    }
-                    element.mt = newObjMt;
-                }
-            }
-        }
-
         $(card).find('[fs]').each(function (value, key) {
             var fs = $(this).attr('fs');
             var newFs = fs;//( fs * newW / w);
@@ -965,7 +904,7 @@ MyApp.directive('conxTextList', function () {
     return {
         restrict: 'E',
         template: '<div ng-show="elementParentEdit" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
-            '<span ng-show="showIndexLetter">{{letters[$index]}}</span><input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-75"/>  ' +
+            '<span ng-show="showIndexLetter">{{letters[$index]}}).</span><input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-75"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
             '<input class="mt-1 w-75 fs--1" type="text" ng-model="newSplit"/>' +
             '<a class="cursor-pointer" ng-click="onNewSplit()"> ' +
@@ -1064,7 +1003,7 @@ MyApp.directive('conxEvidenceQuestions', function () {
             $scope.onNewQuestion = function () {
                 $scope.applyChange = true;
                 $scope.elementEdit.questions = $scope.elementEdit.questions || [];
-                $scope.questionEdit = {"review":[{"id":"a)","review":"0"}],"options":[{"id":"a)","option":""}],"$index":$scope.elementEdit.questions.length};
+                $scope.questionEdit = {"review":[{"id":"a","review":"0"}],"options":[{"id":"a","option":""}],"$index":$scope.elementEdit.questions.length};
                 $scope.elementEdit.questions.push($scope.questionEdit);
             }
             
@@ -1097,14 +1036,14 @@ MyApp.directive('conxEvidenceOptions', function () {
     return {
         restrict: 'E',
         template: '<div ng-show="questionEdit" ng-repeat="itemOption in questionEdit.options track by $index"> ' +
-            '<span class="fs--1 font-weight-semi-bold">{{itemOption.id}} </span>' +
+            '<span class="fs--1 font-weight-semi-bold">{{itemOption.id}}) </span>' +
             '<input ng-change="onChange()" ng-model="itemOption.option" class="mt-1 fs--1 w-75"/>  ' +
-            '<a ng-click="onDelete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/>'+
+            '<a ng-click="onDelete($index)" style="marging-top: 8px;"><i class="far fa-times-circle"></i><a/>'+
             '</div> ' +
             '<a href="#" ng-click="onNew()"><span class="fs--1"> Nueva respuesta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
             
-            $scope.letters = ['a)','b)','c)','d)','e)','f)','g)','h)','i)','j)','k)','l)','m)'];
+            $scope.letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
 
             $scope.onDelete = function ($index) {
 

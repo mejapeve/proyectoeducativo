@@ -24,21 +24,24 @@ class AnswerController extends Controller
      */
     public function register_update_answer(Request $request)
     {
-
-        if (@json_decode($request->questions_answers)) {
-            $questions_answers = @json_decode($request->questions_answers);
+        if (true) {//@json_decode($request->questions_answers)) {
+            $questions_answers = $request->questions_answers;
+            $student = $request->user('afiliadoempresa');
+            
+            //$questions_answers = $request->questions_answers;
             foreach ($questions_answers as $question_answer) {
                 //if(@json_decode($question_answer->answer)){
+                //return response()->json(['data' => $question_answer['question_id'], 'message' => 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);
                 Answer::updateOrCreate(
                     [
-                        'student_affiliated_company_id' => $request->student_affiliated_company_id,
+                        'student_affiliated_company_id' => $student->id,
                         'company_id' => $request->company_id,
                         'affiliated_account_service_id' => $request->affiliated_account_service_id,
-                        'question_id' => $question_answer->question_id,
+                        'question_id' => $question_answer['question_id'],
                     ]
                     ,
                     [
-                        'answer' => $question_answer->answer,
+                        'answer' => $question_answer['answer'],
                         //'feedback' => $request->feedback, v2
                         //'teacher_affiliated_company_id' => $request->teacher_affiliated_company_id, v2
                         'date_evaluation' => Carbon::now()
@@ -46,7 +49,7 @@ class AnswerController extends Controller
                 );
                 //}
             }
-            $student = AfiliadoEmpresa::find($request->student_affiliated_company_id);
+            
             $tutor = AfiliadoEmpresa::whereHas('affiliated_company', function ($query) use ($request, $student) {
                 $query->whereHas('conection_tutor', function ($query) use ($student, $request) {
                     $query->where('student_company_id', $student->affiliated_company->where('rol_id', 1)->where('company_id', $request->company_id)->first()->id);
@@ -82,9 +85,9 @@ class AnswerController extends Controller
             $sequence = CompanySequence::select('name')->where('id', $request->sequence_id)->first();
             $moment = SequenceMoment::select('name')->where('id', $request->moment_id)->first();
             Mail::to($tutor->email)->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment));
-            return response()->json(['data' => '', 'message', 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);
+            return response()->json(['data' => '', 'message' => 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);
         }
-        return response()->json(['data' => '', 'message', 'El formato para registrar o actualizar los datos de respuesta no es el correcto'], 200);
+        return response()->json(['data' => '', 'message'=> 'El formato para registrar o actualizar los datos de respuesta no es el correcto'], 401);
 
     }
 
@@ -94,6 +97,8 @@ class AnswerController extends Controller
      */
     public function get_answers(Request $request)
     {
+        $student = $request->user('afiliadoempresa');
+        
         $answers = Answer::with('question')->whereHas('question', function ($query) use ($request) {
             $query->where([
                 ['sequence_id', '=', $request->sequence_id],
@@ -101,7 +106,7 @@ class AnswerController extends Controller
                 ['experience_id', '=', $request->experience_id]
             ]);
         })->where([
-            ['student_affiliated_company_id', $request->student_affiliated_company_id],
+            ['student_affiliated_company_id', $student->id],
             ['company_id', $request->company_id]
         ])->get();
         $questions = [];

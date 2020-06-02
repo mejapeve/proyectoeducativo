@@ -1,7 +1,8 @@
 @extends('roles.student.sequences_layout')
 
 @section('content')
-    <div class="container"  ng-controller="contentSequencesStudentCtrl" ng-init="init({{auth('afiliadoempresa')->user()->company_id()}},{{$sequence->id}})">
+    <div class="container"  ng-controller="contentSequencesStudentCtrl" 
+            ng-init="init({{auth('afiliadoempresa')->user()->company_id()}},{{$sequence->id}},{{$account_service_id}})">
         <div class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -104,14 +105,14 @@
                                         @endif
                                     @endif
                                     @if($element['type'] == 'evidence-element')
-									<div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
+                                    <div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
                                         <div id="{{$element['id']}}" class="{{$element['class']}} evidence-head cursor-pointer" 
                                            ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
                                            w="{{$element['w']}}" h="{{$element['h']}}" fs="{{$element['fs']}}"
                                            ng-click="onClickEvidence('{{$sequence_id}}','{{$moment->id}}','{{$element['id']}}')">
                                            <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
-                                           <span class="d-none ml-3"><i style="width: 30px;height: auto;" class="fa fa-spinner fa-spin"></i></span> 
-										   {{$element['text']}}
+                                           <span class="d-none ml-3"><i style="width: 30px;height: auto;" class="fa fa-spinner fa-spin"></i></span>
+                                           {{$element['text']}}
                                          </div>
                                     </div>
                                     @endif
@@ -124,28 +125,38 @@
                 </div>
             </div>
         </div>
-		<div ng-show="questionsOpened" class="d-result d-none position-absolute col-xl-9 col-lg-8 col-10" style="top: 10%;left:12%;">
-			<div class="d-result d-none modal-backdrop fade show w-100"></div>
-			<div class="card ml-lg-6" style="z-index: 1040;">
-				<div class="p-2">
-					<img class="ml-2" src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
-					<span class="ml-4 fs-0 font-weight-bold">Evidencias de aprendizaje</span>
-					<button class="close mt-2 mr-2" ng-click="closeEvidence()">
-						<span class="font-weight-light" >&times;</span>
-					</button>
-				</div>
-				<div class="card-body" >
-					<div ng-repeat="question in questionsOpened track  by $index">
-						<div class="" >
-						<h6>@{{question.title}}</h6>
-						</div>
-						<div class="" ng-repeat="option in JSON.parse(question.options) track by $index">
-							<input type="checkbox" name="question_@{{question.id}}"/>@{{option}}
-						</div>
-					</div>
-				</div>
-			</div>
-		 </div>
-	</div>
+        <div ng-show="questionsOpened" class="d-result d-none position-absolute col-xl-9 col-lg-8 col-10" style="top: 10%;left:12%;">
+            <div class="d-result d-none modal-backdrop fade show w-100"></div>
+            <div class="card ml-lg-6" style="z-index: 1040;">
+                <div class="p-2">
+                    <img class="ml-2" src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+                    <span class="ml-4 fs-0 font-weight-bold">Evidencias de aprendizaje</span>
+                    <button class="close mt-2 mr-2" ng-click="closeEvidence()">
+                        <span class="font-weight-light" >&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div ng-repeat="question in questionsOpened track by $index" class="ml-6" ng-show="indexQuestion === $index">
+                        <h5 class="mt-2 mb-4"> Pregunta # @{{$index + 1}} </h5>
+                        <h6>@{{question.title}} </h6>
+                        <div class="ml-2" ng-repeat="option in question.options track by $index">
+                        <input type="radio"
+                            name="optionQuestion-@{{question.id}}"
+                            ng-model="question.menu"
+                            ng-checked="@{{question.menu === $index}}"
+                            ng-change="onSelectOption(question,option)"
+                            value="@{{$index}}" class="mr-2">@{{option.option}}
+                        </div>
+                    </div>
+                    <div class="d-flex mt-4 ml-6">
+                        <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atrás</button>
+                        <button class="btn btn-sm btn-outline-primary" ng-class="{'opacity-0': indexQuestion >= questionsOpened.length - 1 }" ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
+                        <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === questionsOpened.length - 1" ng-click="onFinishEvidence()">
+                        <span ng-show="onFinishEvidenceLoad" ><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
     <script src="{{ asset('angular/controller/contentSequencesStudentCtrl.js') }}" defer></script>
 @endsection

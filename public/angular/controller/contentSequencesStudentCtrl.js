@@ -2,42 +2,102 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
     $scope.errorMessage = null;
     $scope.sequences = null;
-	$scope.questionsOpened = null;
+    $scope.questionsOpened = null;
+    $scope.indexQuestion = 0;
+    $scope.optionSelected = false;
+    $scope.companyId = null;
+    $scope.accountServiceId = null;
+    $scope.sequenceId = null;
+    $scope.momentId = null;
+    $scope.onFinishEvidenceLoad = false;
+    
 
-    $scope.init = function (companyId, sequenceId) {
+    $scope.init = function (companyId, sequenceId, accountServiceId) {
+        $scope.companyId = companyId;
+        $scope.accountServiceId = accountServiceId;
         $('.d-none-result').removeClass('d-none');
         getAvailableSequences(companyId, sequenceId);
     }
 
     $scope.onClickEvidence = function(sequenceId,momentId,experienceId) {
-		$scope.questionsOpened = null;
-		$scope.evidenceId = experienceId;
-		$('#' + $scope.evidenceId + ' img').addClass('d-none');
-		$('#' + $scope.evidenceId + ' span').removeClass('d-none');
-		$http({
+        $scope.questionsOpened = null;
+        $scope.indexQuestion = 0;
+        $scope.sequenceId = sequenceId;
+        $scope.momentId = momentId;
+        $scope.experienceId = experienceId;
+        $scope.optionSelected = false;
+        $('#' + $scope.experienceId + ' img').addClass('d-none');
+        $('#' + $scope.experienceId + ' span').removeClass('d-none');
+        $http({
             url: "/get_questions/"+sequenceId+"/"+momentId+"/"+experienceId,
             method: "GET",
         }).
         then(function (response) {
-			$scope.questionsOpened = response.data.data;
-			$('#' + $scope.evidenceId + ' img').removeClass('d-none');
-			$('#' + $scope.evidenceId + ' span').addClass('d-none');
-			
-		}).catch(function (e) {
-			$scope.errorMessage = 'Error consultando las preguntas, compruebe su conexión a internet';
-			swal('Conexiones', $scope.errorMessage, 'error');
-			$('#' + $scope.evidenceId + ' img').removeClass('d-none');
-			$('#' + $scope.evidenceId + ' span').addClass('d-none');
-		});
-		
-		
+            $scope.questionsOpened = response.data.data;
+            if($scope.questionsOpened)
+            for(var i=0; i<$scope.questionsOpened.length;i++) {
+                $scope.questionsOpened[i].options = JSON.parse($scope.questionsOpened[i].options);
+                $scope.questionsOpened[i].optionSelected = false;
+            }
+            $('#' + $scope.experienceId + ' img').removeClass('d-none');
+            $('#' + $scope.experienceId + ' span').addClass('d-none');
+            
+        }).catch(function (e) {
+            $scope.errorMessage = 'Error consultando las preguntas';
+            swal('Conexiones', $scope.errorMessage, 'error');
+            $('#' + $scope.experienceId + ' img').removeClass('d-none');
+            $('#' + $scope.experienceId + ' span').addClass('d-none');
+        });
     }
 
-	$scope.closeEvidence = function() {
-		$scope.questionsOpened = null;
-		$scope.evidenceId = experienceId;
-	}
-	
+    $scope.closeEvidence = function() {
+        $scope.questionsOpened = null;
+        $scope.experienceId = null;
+    }
+    
+    $scope.onSelectOption = function(question,option) {
+        question.optionSelected  = option;
+    }
+    
+    $scope.onFinishEvidence = function() {
+        var questionsAnswers = [];
+        var answer = null;
+        $scope.onFinishEvidenceLoad = true;
+        
+        for(var i=0;i<$scope.questionsOpened.length;i++) {
+            answer = { "question_id": $scope.questionsOpened[i].id,
+                       "answer": $scope.questionsOpened[i].optionSelected.id
+            };
+            questionsAnswers.push(answer);
+        }
+        var data = {
+            "questions_answers":questionsAnswers,
+            "company_id": $scope.companyId,
+            "affiliated_account_service_id": $scope.accountServiceId,
+            "sequence_id": $scope.sequenceId,
+            "moment_id": $scope.momentId,
+            "experience_id": $scope.experienceId
+        };
+        $http({
+            url: "/register_update_answer/",
+            method: "POST",
+            data: data
+        }).
+        then(function (response) {
+            swal('Conexiones', 'Evidencias de aprendizaje finalizada exitósamente', 'success');
+            $scope.questionsOpened = null;
+            $scope.indexQuestion = 0;
+            $scope.onFinishEvidenceLoad = false;
+            
+        }).catch(function (e) {
+            $scope.errorMessage = e.data.message || 'Error guardando las respuestas';
+            swal('Conexiones', $scope.errorMessage, 'error');
+            $('#' + $scope.experienceId + ' img').removeClass('d-none');
+            $('#' + $scope.experienceId + ' span').addClass('d-none');
+            $scope.onFinishEvidenceLoad = false;
+        });
+    }
+    
     function getAvailableSequences(companyId, sequenceId) {
         $http({
             url: "/conexiones/get_available_sequences/" + companyId,
@@ -45,7 +105,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         }).
             then(function (response) {
                 $scope.sequences = response.data;
-				$('.d-result').removeClass('d-none');
+                $('.d-result').removeClass('d-none');
                 resizeSequenceCard();
                 $('#loading').addClass('d-none');
                 $('.button-moment-validate[conx-action]').each(function (index, value) {
@@ -77,7 +137,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             }).catch(function (e) {
                 $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
                 swal('Conexiones', $scope.errorMessage, 'error');
-				$('.d-result').removeClass('d-none');
+                $('.d-result').removeClass('d-none');
                 $('#loading').addClass('d-none');
             });
     }
