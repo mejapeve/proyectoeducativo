@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col-md-9" id="content-section-sequences">
-                   <div>
+                   <div> 
                         @if (isset($success))
                         <div class="fade-message alert alert-success" role="alert" id="alert1" >
                            @{{ $success }}
@@ -149,7 +149,7 @@
                         </div>
                     </div>
                     <div class="d-flex mt-4 ml-6">
-                        <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atr·s</button>
+                        <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atr√°s</button>
                         <button class="btn btn-sm btn-outline-primary" ng-class="{'opacity-0': indexQuestion >= questionsOpened.length - 1 }" ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
                         <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === questionsOpened.length - 1" ng-click="onFinishEvidence()">
                         <span ng-show="onFinishEvidenceLoad" ><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
