@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PaymentStatusSeeder::class);
         $this->call(ShoppingCarSeeder::class);
         $this->call(ConnectionStructContentSeeder::class);
+        $this->call(TypesAnswersSeeder::class);
         //$this->call(AffiliatedAccountServicesSeeder::class);
 
     }
