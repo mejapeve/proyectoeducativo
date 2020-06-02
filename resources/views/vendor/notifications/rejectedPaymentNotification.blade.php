@@ -4,7 +4,7 @@
         <tbody>
             <tr style="height:340.088px">
                 <td style="width:10.7244px;height:340.088px">
-                    <img alt="" height="341" src="http://localhost:8000/images/sliderCarrucelHome/slide3.jpg" style="display:block;margin-left:auto;margin-right:auto" width="700" class="CToWUd a6T" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 655px; top: 307px;"><div id=":qb" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Descargar el archivo adjunto " data-tooltip-class="a1V" data-tooltip="Descargar"><div class="aSK J-J5-Ji aYr"></div></div></div>
+                    <img src="https://educonexiones.com/images/sliderCarrucelHome/slide3.jpg"  data-skip-embed>
                 </td>
             </tr>
             <tr style="height:235px">
@@ -54,7 +54,7 @@
                                         </span>
                                         <span style="color:#999999">Compra Educonexiones<br>
 									        Valor de la Transacción: {{$price_callback}} COP<br>
-                                            Fecha de Transacción: {{$transaction_date}}<br>
+                                            Fecha de Transacción: {{$transaction_date->payment_process_date}}<br>
                                             Id de preferencia: {{$request->preference_id}}
                                         </span>
                                     </span>
