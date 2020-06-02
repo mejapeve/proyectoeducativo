@@ -49,7 +49,7 @@ class SendSuccessfulPaymentNotification extends Mailable
                         'price_callback' => $this->price_callback,
                         'transaction_date' => $this->transaction_date
                     ])
-                ->subject('Conexiones - Notificación de pago exitoso');
+                ->subject('Educonexiones - Notificación de pago exitoso');
 
     }
 }
