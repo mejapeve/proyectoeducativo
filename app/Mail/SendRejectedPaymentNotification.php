@@ -42,14 +42,14 @@ class SendRejectedPaymentNotification extends Mailable
     {
         return
             $this->from('contacto@educonexiones.com')
-                ->markdown('vendor.notifications.rejectedPaymentNotification',
+            ->markdown('vendor.notifications.rejectedPaymentNotification',
                     ['shoppingCart' => $this->shoppingCart,
                         'request' => $this->request,
                         'afiliadoEmpresa' => $this->afiliadoEmpresa,
                         'price_callback' => $this->price_callback,
                         'transaction_date' => $this->transaction_date
                     ])
-                ->subject('Conexiones - Notificación de pago rechazado');
+                    ->subject('Educonexiones - Notificación de pago rechazado');
 
     }
 }

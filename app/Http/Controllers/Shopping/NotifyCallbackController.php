@@ -94,9 +94,10 @@ class NotifyCallbackController extends Controller
 
             }
             $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id',$request->preference_id)->first();
+            //dd($transaction_date, $request, $afiliado_empresa);
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendRejectedPaymentNotification($shoppingCart, $request, $afiliado_empresa,$price_callback, $transaction_date));
+                new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'),$price_callback, $transaction_date));
             return redirect()->route('shoppingCart');
         } else {
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
@@ -134,7 +135,7 @@ class NotifyCallbackController extends Controller
             $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id',$request->preference_id)->first();
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
-                new SendRejectedPaymentNotification($shoppingCart, $request, $afiliado_empresa,$price_callback, $transaction_date));
+                new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'),$price_callback, $transaction_date));
             return redirect()->route('shoppingCart');
         }
 
