@@ -104,13 +104,14 @@
                                         @endif
                                     @endif
                                     @if($element['type'] == 'evidence-element')
-                                    <div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
-                                        <div class="{{$element['class']}} evidence-head cursor-pointer" 
+									<div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
+                                        <div id="{{$element['id']}}" class="{{$element['class']}} evidence-head cursor-pointer" 
                                            ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
                                            w="{{$element['w']}}" h="{{$element['h']}}" fs="{{$element['fs']}}"
-                                           ng-click="onClickEvidence()">
+                                           ng-click="onClickEvidence('{{$sequence_id}}','{{$moment->id}}','{{$element['id']}}')">
                                            <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
-                                           {{$element['text']}}
+                                           <span class="d-none ml-3"><i style="width: 30px;height: auto;" class="fa fa-spinner fa-spin"></i></span> 
+										   {{$element['text']}}
                                          </div>
                                     </div>
                                     @endif
@@ -123,6 +124,28 @@
                 </div>
             </div>
         </div>
-    </div>
+		<div ng-show="questionsOpened" class="d-result d-none position-absolute col-xl-9 col-lg-8 col-10" style="top: 10%;left:12%;">
+			<div class="d-result d-none modal-backdrop fade show w-100"></div>
+			<div class="card ml-lg-6" style="z-index: 1040;">
+				<div class="p-2">
+					<img class="ml-2" src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+					<span class="ml-4 fs-0 font-weight-bold">Evidencias de aprendizaje</span>
+					<button class="close mt-2 mr-2" ng-click="closeEvidence()">
+						<span class="font-weight-light" >&times;</span>
+					</button>
+				</div>
+				<div class="card-body" >
+					<div ng-repeat="question in questionsOpened track  by $index">
+						<div class="" >
+						<h6>@{{question.title}}</h6>
+						</div>
+						<div class="" ng-repeat="option in JSON.parse(question.options) track by $index">
+							<input type="checkbox" name="question_@{{question.id}}"/>@{{option}}
+						</div>
+					</div>
+				</div>
+			</div>
+		 </div>
+	</div>
     <script src="{{ asset('angular/controller/contentSequencesStudentCtrl.js') }}" defer></script>
 @endsection

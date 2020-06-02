@@ -590,7 +590,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                             "moment_id":  $scope.moment ? $scope.moment.id : '',
                             //"order":  $scope.moment ? $scope.moment.order : '',
                             "order":   j + 1,
-                            "experience_id":  $scope.moment ? $scope.moment.id : '',
+                            "experience_id":  element.id,
                             "options": removeHashKey(element.questions[j].options),
                             "review": removeHashKey(element.questions[j].review),
                             "type_answer": "2"

@@ -2,16 +2,42 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
     $scope.errorMessage = null;
     $scope.sequences = null;
+	$scope.questionsOpened = null;
 
     $scope.init = function (companyId, sequenceId) {
         $('.d-none-result').removeClass('d-none');
         getAvailableSequences(companyId, sequenceId);
     }
 
-    $scope.onClickEvidence = function() {
-       
+    $scope.onClickEvidence = function(sequenceId,momentId,experienceId) {
+		$scope.questionsOpened = null;
+		$scope.evidenceId = experienceId;
+		$('#' + $scope.evidenceId + ' img').addClass('d-none');
+		$('#' + $scope.evidenceId + ' span').removeClass('d-none');
+		$http({
+            url: "/get_questions/"+sequenceId+"/"+momentId+"/"+experienceId,
+            method: "GET",
+        }).
+        then(function (response) {
+			$scope.questionsOpened = response.data.data;
+			$('#' + $scope.evidenceId + ' img').removeClass('d-none');
+			$('#' + $scope.evidenceId + ' span').addClass('d-none');
+			
+		}).catch(function (e) {
+			$scope.errorMessage = 'Error consultando las preguntas, compruebe su conexión a internet';
+			swal('Conexiones', $scope.errorMessage, 'error');
+			$('#' + $scope.evidenceId + ' img').removeClass('d-none');
+			$('#' + $scope.evidenceId + ' span').addClass('d-none');
+		});
+		
+		
     }
 
+	$scope.closeEvidence = function() {
+		$scope.questionsOpened = null;
+		$scope.evidenceId = experienceId;
+	}
+	
     function getAvailableSequences(companyId, sequenceId) {
         $http({
             url: "/conexiones/get_available_sequences/" + companyId,
@@ -19,6 +45,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         }).
             then(function (response) {
                 $scope.sequences = response.data;
+				$('.d-result').removeClass('d-none');
                 resizeSequenceCard();
                 $('#loading').addClass('d-none');
                 $('.button-moment-validate[conx-action]').each(function (index, value) {
@@ -50,6 +77,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             }).catch(function (e) {
                 $scope.errorMessage = 'Error consultando las secuencias, compruebe su conexión a internet';
                 swal('Conexiones', $scope.errorMessage, 'error');
+				$('.d-result').removeClass('d-none');
                 $('#loading').addClass('d-none');
             });
     }

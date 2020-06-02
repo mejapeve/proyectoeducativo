@@ -65,15 +65,12 @@ class QuestionController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get_questions(Request $request)
-    {
+     public function get_questions (Request $request){
 
-        $question = Question::where([
-            ['sequence_id' => $request->sequence_id],
-            ['moment_id' => $request->moment_id],
-            ['experience_id' => $request->experience_id],
-        ]);
-        return response()->json(['data' => $question], 200);
+        $question = Question::where('sequence_id',$request->sequence_id)
+                   ->where('moment_id',$request->moment_id)
+				   ->where('experience_id',$request->experience_id)->get();
+        return response()->json(['data'=>$question],200);
 
     }
 
