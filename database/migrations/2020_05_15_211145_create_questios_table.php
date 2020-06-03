@@ -24,6 +24,7 @@ class CreateQuestiosTable extends Migration
             $table->bigInteger('moment_id')->unsigned()->nullable();
             $table->bigInteger('experience_id')->unsigned()->nullable();
             $table->bigInteger('order')->unsigned();
+            $table->longText('objetive');
             $table->timestamps();
         });
     }
