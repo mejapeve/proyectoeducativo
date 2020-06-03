@@ -219,7 +219,7 @@ Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student'
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
 //servicios gestión de preguntas y respuestras
 Route::group([],function (){
-    Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_answer')->middleware('role:admin');
+    Route::post('register_update_question', 'QuestionController@register_update_question')->name('register_update_question')->middleware('role:admin');
     Route::get('get_questions/{sequence_id}/{moment_id}/{experience_id}', 'QuestionController@get_questions')->name('get_questions');
     Route::post('register_update_answer', 'AnswerController@register_update_answer')->name('register_update_answer')->middleware('role:student');
     Route::get('get_answers', 'AnswerController@get_answers')->name('get_answers');
