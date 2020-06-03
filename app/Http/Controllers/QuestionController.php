@@ -21,7 +21,7 @@ class QuestionController extends Controller
         if (@json_decode($request->options) && @json_decode($request->review)) {
             $question = Question::updateOrCreate(
                 ['sequence_id' => $request->sequence_id, 'moment_id' => $request->moment_id, 'experience_id' => $request->experience_id, 'order' => $request->order],
-                ['title' => $request->title, 'options' => $request->options, 'review' => $request->review, 'type_answer' => $request->type_answer]
+                ['title' => $request->title,'objective' => $request->objective, 'options' => $request->options, 'review' => $request->review, 'type_answer' => $request->type_answer]
             );
             /*if(isset($request->id)) {
                 $question = Question::where([ 'id' => $request->id ])
@@ -69,7 +69,7 @@ class QuestionController extends Controller
 
         $question = Question::where('sequence_id',$request->sequence_id)
                    ->where('moment_id',$request->moment_id)
-				   ->where('experience_id',$request->experience_id)->get();
+                   ->where('experience_id',$request->experience_id)->get();
         return response()->json(['data'=>$question],200);
 
     }

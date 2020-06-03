@@ -658,6 +658,12 @@
                                 <h6>Pregunta @{{questionEdit.$index + 1}}: <small>@{{questionEdit.title}}</small></h6>
                             </div>
                             <div class="p-2"> 
+                                <h6>Objetivo</h6>
+                                <textarea class="ml-2 fs--1 w-100" ng-change="applyChange = true" ng-model="questionEdit.objective" rows="3"></textarea>
+                                
+            </textarea>
+                            </div>
+                            <div class="p-2"> 
                                 <h6>Respuestas</h6>
                                 <conx-evidence-options></conx-evidence-options>
                             </div>

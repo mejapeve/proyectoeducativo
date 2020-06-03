@@ -15,6 +15,7 @@ class Question extends Model
         'experience_id',
         'options',
         'review',
+        'objective',
         'type_answer',
         'order',
         'title'

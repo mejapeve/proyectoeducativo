@@ -137,8 +137,8 @@
                 </div>
                 <div class="card-body">
                     <div ng-repeat="question in questionsOpened track by $index" class="ml-6" ng-show="indexQuestion === $index">
-                        <h5 class="mt-2 mb-4"> Pregunta # @{{$index + 1}} </h5>
-                        <h6>@{{question.title}} </h6>
+                        <h5 class="mt-2 mb-4">@{{question.objective}} </h5>
+                        <h6>@{{$index + 1 }}). @{{question.title}} </h6>
                         <div class="ml-2" ng-repeat="option in question.options track by $index">
                         <input type="radio"
                             name="optionQuestion-@{{question.id}}"
@@ -150,7 +150,7 @@
                     </div>
                     <div class="d-flex mt-4 ml-6">
                         <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atrás</button>
-                        <button class="btn btn-sm btn-outline-primary" ng-class="{'opacity-0': indexQuestion >= questionsOpened.length - 1 }" ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
+                        <button class="btn btn-sm btn-outline-primary ml-2" ng-disable="indexQuestion >= questionsOpened.length - 1 " ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
                         <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === questionsOpened.length - 1" ng-click="onFinishEvidence()">
                         <span ng-show="onFinishEvidenceLoad" ><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
                     </div>
