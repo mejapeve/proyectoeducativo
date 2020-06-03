@@ -114,9 +114,10 @@ class AnswerController extends Controller
             $data = $this->get_answer_student($answer->answer, $answer->question->options, $answer->question->review);
             $data['title'] = $answer->question->title;
             array_push($questions, $data);
-            Answer::where('id',$answer->id)->update(array(
-                'feedback' =>  $data['review_student']
-            ));
+            Answer::where('id',$answer->id)->update(array([
+                'feedback' =>  $data['review_student'],
+                'date_evaluation' => Carbon::now()
+            ]));
         }
         return $questions;
     }
