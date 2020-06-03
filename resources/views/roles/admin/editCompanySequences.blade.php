@@ -464,9 +464,9 @@
                    </div>
                </div>
                <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow"> 
-                  <div class="col-12" ng-repeat="field in directory"  ng-click="onChangeFolderImage(field.dir)">
-                     <a class="btn btn-sm btn-outline-primary" href="#">
-                     @{{field.name}}
+                  <div class="col-12" ng-repeat="field in directory">
+                     <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage(field.dir)">
+                         @{{field.name}}
                      </a>
                   </div>
                   <div class="col-12 row mt-3">

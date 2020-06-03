@@ -1,7 +1,14 @@
 <div ng-controller="timelineSequencesStudentCtrl" ng-init=init(1,"{{$account_service_id}}","{{$sequence_id}}") class="row">
     <div class="col-5 pr-0" style="height: 106px;">
         <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
-        <img width="70px" class="avatar-default rounded-circle" src="{{ asset('images/avatars/avatar-default/avatar1.png') }}" alt="Chania">
+        
+        @if(isset(auth('afiliadoempresa')->user()->url_image)) 
+            <img width="70px" class="avatar-default rounded-circle" src="{{ asset(auth('afiliadoempresa')->user()->url_image) }}">
+        @else 
+            <img src="{{asset('images/icons/default-avatar.png')}}" width="70px" height="auto"/>
+        @endif
+        
+        
         <span class="nameTimeLine fs--1">{{auth('afiliadoempresa')->user()->name}}</span>
         <div class="position-absolute d-flex" style="top: 12px;left: 220px;">
             <a class="ml-8 cursor-pointer" href="{{route('student','conexiones')}}">
