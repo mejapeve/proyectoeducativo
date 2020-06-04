@@ -254,20 +254,22 @@ class TutorController extends Controller
             if ($request->file('image')->isValid()) {
                 $destinationPath = 'users/avatars/';
                 $extension = $request->file('image')->getClientOriginalExtension();
-                $fileName = auth('afiliadoempresa')->user()->id . '.' . $extension;
-                $request->file('image')->move($destinationPath, $fileName);
+                if($extension == 'jpg' || $extension == 'png' || $extension == 'jpeg'){
+                    $fileName = auth('afiliadoempresa')->user()->id . '.' . $extension;
+                    $request->file('image')->move($destinationPath, $fileName);
 
-                $afiliadoempresa = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
-                $afiliadoempresa->url_image = asset('/users/avatars/') . '/' . $fileName;
-                $afiliadoempresa->save();
-                return response()->json(['valid' => true, 'imagenNueva' => $afiliadoempresa->url_image]);
+                    $afiliadoempresa = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
+                    $afiliadoempresa->url_image = asset('/users/avatars/') . '/' . $fileName;
+                    $afiliadoempresa->save();
+                    return response()->json(['valid' => true, 'imagenNueva' => $afiliadoempresa->url_image]);
+                }
+                return response()->json(['valid' => false,'message'=>'El formato no es valido, formatos permitidos JPG , PNG , JPEG']);
             } else {
-
-                return response()->json(['valid' => false]);
+                return response()->json(['valid' => false,'message'=>'No fue posible cargar la imagen']);
             }
 
         } else {
-            dd($request->all(), 123);
+            return response()->json(['valid' => false,'message'=>'No fue posible cargar la imagen']);
         }
 
 

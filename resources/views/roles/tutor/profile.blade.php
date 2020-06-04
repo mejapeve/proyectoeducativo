@@ -104,8 +104,24 @@
                 method: 'POST',
                 type: 'POST',
                 success: function (response, xhr, request){
-                    
-                    $('.rounded-pill,.rounded-circle ').attr("src",response.imagenNueva+"?timestamp=" + new Date().getTime());
+                    if(response.valid){
+                        $('.rounded-pill,.rounded-circle ').attr("src",response.imagenNueva+"?timestamp=" + new Date().getTime());
+                    }else{
+                        swal({
+                            text: response.message,
+                            type: "warning",
+                            showCancelButton: false,
+                            showConfirmButton: false
+                        }).catch(swal.noop);
+                    }
+                },
+                error: function (response, xhr, request) {
+                    swal({
+                        text: response.message,
+                        type: "warning",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    }).catch(swal.noop);
                 }
             });
         }
