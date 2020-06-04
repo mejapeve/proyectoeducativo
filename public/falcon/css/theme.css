@@ -21866,13 +21866,14 @@ footer .navbar-light {
     width: 130px;
     padding-top: 8px;
     margin: auto;
+    text-align: center
 }
 
 .register-avatar-kid.selected,
 .register-avatar-kid:hover {
     border: 1px solid;
     border-radius: 16px;
-    background: linear-gradient(70deg, #edf2f9, white);
+    background: linear-gradient(70deg, #fdfdfd, white);
 }
 
 .register-avatar-kid img {

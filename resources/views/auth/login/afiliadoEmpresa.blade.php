@@ -118,10 +118,6 @@
                             </div>
                             
                             <div class="form-group row mb-0">
-                                @if ($errors->any())
-                                {{ $errors }}
-                                  @endif
-                                
                                 <div class="mt-2 custom-control">
                                     @if (Route::has('password.sendlink'))
                                     <label class="label"><a href="{{route('password.sendlink',[$company->nick_name,3])}}">¿ Olvidó sus datos ?</a></label>

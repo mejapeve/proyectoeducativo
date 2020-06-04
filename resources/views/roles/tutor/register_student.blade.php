@@ -4,15 +4,15 @@
      
        <div class="col-12 d-flex mt-3">
            <div class="register-avatar-kid" ng-click="onKidSelected('niño')" ng-class="{'selected':newStudent.kidSelected==='niño'}">
-               <img src="{{asset('images/icons/kid2.png')}}" width="103px;"/>
+               <img src="{{asset('images/icons/kid2.png')}}" width="93px;" height="auto"/>
                <span>Niño</span>
            </div>
            <div class="register-avatar-kid" ng-click="onKidSelected('niña')" ng-class="{'selected':newStudent.kidSelected==='niña'}">
-               <img src="{{asset('images/icons/kid1.png')}}" width="103px;"/>
+               <img src="{{asset('images/icons/kid1.png')}}" width="93px;" height="auto"/>
                <span>Niña</span>
            </div>
            <div class="register-avatar-kid" ng-click="onKidSelected('joven')" ng-class="{'selected':newStudent.kidSelected==='joven'}">
-               <img src="{{asset('images/icons/kid3.png')}}" width="103px;"/>
+               <img src="{{asset('images/icons/kid3.png')}}" width="186px;" height="auto"/>
                <span>Joven</span>
            </div>
        </div>
