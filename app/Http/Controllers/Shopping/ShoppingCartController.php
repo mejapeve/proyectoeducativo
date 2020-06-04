@@ -265,4 +265,44 @@ class ShoppingCartController extends Controller
 
         return response()->json(['preference_id' => $preference->id, 'initPoint' => $preference->init_point, 'message' => 'preferencia creada correctamente'], 200);
     }
+    public function get_preference_simulator()
+    {
+
+       $preference_id = date("Y-m-d H:i:s");
+       $preference_init_point = '';
+       $shopping_carts = ShoppingCart::with('shopping_cart_product')->where([
+            ['company_affiliated_id',auth("afiliadoempresa")->user()->id],
+            ['payment_status_id',1],
+        ])->get();
+       $sum = 0;
+       $items = [];
+        foreach ($shopping_carts as $shopping_cart){
+                if($shopping_cart->type_product_id == 4 or $shopping_cart->type_product_id == 5 ){
+                    if($shopping_cart->type_product_id == 4){
+                        foreach ($shopping_cart->shopping_cart_product as $shopping_cart_product){
+                            $kit = Kit::find($shopping_cart_product->product_id);
+                            $sum += $kit->price;
+                        }
+                    }else{
+                        foreach ($shopping_cart->shopping_cart_product as $shopping_cart_product){
+                            $element = Element::find($shopping_cart_product->product_id);
+                            $sum += $element->price;
+                        }
+                    }
+                }else{
+                    $ratingPlanf = RatingPlan::find($shopping_cart->rating_plan_id);
+                    $sum += $ratingPlanf->price;
+                }
+        }
+
+        session(['shopping_cart_notify_price' => $sum]);
+
+        $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+            ['payment_status_id', 1]])->
+            update(array('payment_transaction_id' => $preference_id,
+                         'payment_status_id' => 2));
+
+        return response()->json(['preference_id' => $preference_id, 'message' => 'pago simulado correctamente'], 200);
+    }
+
 }

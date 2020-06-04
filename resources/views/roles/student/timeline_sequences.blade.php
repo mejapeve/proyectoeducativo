@@ -3,9 +3,9 @@
         <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
         
         @if(isset(auth('afiliadoempresa')->user()->url_image)) 
-            <img width="70px" class="avatar-default rounded-circle" src="{{ asset(auth('afiliadoempresa')->user()->url_image) }}">
+            <img class="avatar-student-timeline avatar-default rounded-circle" src="{{ asset(auth('afiliadoempresa')->user()->url_image) }}" width="70px" height="auto">
         @else 
-            <img src="{{asset('images/icons/default-avatar.png')}}" width="70px" height="auto"/>
+            <img class="avatar-student-timeline" src="{{asset('images/icons/default-avatar.png')}}" width="70px" height="auto"/>
         @endif
         
         

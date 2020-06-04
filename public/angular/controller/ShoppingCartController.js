@@ -87,7 +87,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
     $scope.simulator = function () {
         $('.btn-spinner').removeClass('d-none');
         $http({
-            url: "/get_preference_initPoint/",
+            url: "/get_preference_simulator/",
             method: "GET",
         }).
             then(function (response) {
@@ -95,7 +95,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                 document.getElementById('simulate-form').submit();
                 $('.btn-spinner').addClass('d-none');
             }).catch(function (e) {
-                $scope.errorMessage = 'Error registrando preferencia de compra';
+				$scope.errorMessage = 'Error registrando preferencia de compra:'+ JSON.stringify(e);
                 swal('Conexiones', $scope.errorMessage, 'error');
                 $('.btn-spinner').addClass('d-none');
             });

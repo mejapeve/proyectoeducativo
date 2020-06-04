@@ -22302,3 +22302,19 @@ footer .navbar-light {
 .color-gray-dark { 
     color: #4d5969;
 }
+
+.avatar-student-timeline {
+    width:70px; 
+    height:auto;
+}
+
+@media(max-width:393px) {
+    .avatar-student-timeline {
+        width:57px; 
+        height:auto;
+    }
+    .avatar-logo-sequence +.avatar-student-timeline {
+        width:65px;
+        height:auto;
+    }
+}

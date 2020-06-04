@@ -143,6 +143,7 @@ Route::group([],function (){
         })->name('registryWithPendingShoppingCart');
         Route::get('get_shopping_cart/', 'Shopping\ShoppingCartController@get_shopping_cart')->name('get_shopping_cart');
         Route::get('get_preference_initPoint', 'Shopping\ShoppingCartController@get_preference_initPoint')->name('get_preference_initPoint');
+        Route::get('get_preference_simulator', 'Shopping\ShoppingCartController@get_preference_simulator')->name('get_preference_simulator');
         Route::get('checkout', ['as' => 'checkout', 'uses' => 'Shopping\CheckoutController@index']);
         Route::post('create_shopping_cart', 'Shopping\ShoppingCartController@create')->name('create_shopping_cart');
         Route::post('delete_shopping_cart', 'Shopping\ShoppingCartController@delete')->name('delete_shopping_cart');
