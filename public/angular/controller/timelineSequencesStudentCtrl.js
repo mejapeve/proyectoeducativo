@@ -17,17 +17,18 @@ MyApp.controller("timelineSequencesStudentCtrl", ["$scope", "$http", function ($
                 if(!flag){
                     moment = value.moment_id;
                     flag = true;
-                    console.log('ingresa')
+                    //console.log('ingresa')
                 }else{
                     if(moment == value.moment_id){
                        if(++count == 4){
-                           console.log('cantidad',count)
+                           console.log('cantidad',count,'')
                            $(`.star${value.moment_id}`).attr('fill', '#FFD400');
                            $(`.star${value.moment_id}`).attr('stroke', '#FFD400');
                            $(`.number${value.moment_id}`).attr('stroke', '#FFFFFF');
                            count = 1;
+                           flag = false;
                        }
-                        console.log('ingresa2',moment,value.moment_id,count)
+                        //console.log('ingresa2',moment,value.moment_id,count)
                     }else{
                         count = 1;
                         flag = false;
