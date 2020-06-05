@@ -22,7 +22,7 @@ class AdvanceLine extends Model
         'affiliated_account_service_id',
         'affiliated_company_id',
         'sequence_id',
-        'moment_id',
+        'moment_order',
         'moment_section_id'
     ];
 

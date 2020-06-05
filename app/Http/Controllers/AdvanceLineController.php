@@ -24,7 +24,7 @@ class AdvanceLineController extends Controller
             ['affiliated_company_id', auth('afiliadoempresa')->user()->id],
             ['affiliated_account_service_id', $accountServiceId],
             ['sequence_id', $sequenceId]
-        ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
+        ])->orderBy('moment_order', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
         return response()->json(['data' => $advanceLine], 200);
     }
 }

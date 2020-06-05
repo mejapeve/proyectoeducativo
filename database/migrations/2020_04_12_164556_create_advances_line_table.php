@@ -20,7 +20,7 @@ class CreateAdvancesLineTable extends Migration
             $table->bigInteger('affiliated_company_id')->unsigned();
             $table->foreign('affiliated_company_id')->references('id')->on('afiliado_empresas');
             $table->bigInteger('sequence_id');
-            $table->bigInteger('moment_id');
+            $table->bigInteger('moment_order');
             $table->bigInteger('moment_section_id');
             // $table->bigInteger('struct_content_id')->unsigned();
            // $table->foreign('struct_content_id')->references('id')->on('connection_structures_contents');
