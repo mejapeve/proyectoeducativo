@@ -120,6 +120,13 @@
                                   @endif
                                 </div>   
                             </div>
+							
+							@if(isset($part_id) && isset($section['part_' . ($part_id - 1)]))
+							<a class="btn btn-sm btn-outline-primary" ml="100" mt="{{$container['h'] - 50 }}"> Part 1</a>
+							@endif
+							@if(isset($part_id) && isset($section['part_' . ($part_id + 1)]))
+							<a class="btn btn-sm btn-outline-primary" ml="300" mt="{{$container['h'] - 50 }}"> Part 2</a>
+							@endif
                         </div>
                     </div>
                 </div>
