@@ -216,7 +216,7 @@ Route::get('get_advance_line/{account_service_id}/{sequence_id}', 'AdvanceLineCo
 //servicio consultar usuario
 Route::get('get_user/{user_id}', 'AffiliatedCompanyController@get_user')->name('get_user')->middleware('role:tutor');
 //servicio editar usuario
-Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student')->middleware('role:tutor,student');
+Route::post('edit_user_student', 'AffiliatedCompanyController@edit_user_student')->name('edit_user_student')->middleware('role:tutor|student');
 //servicio validar nombre de usuario
 Route::get('validate_user_name/{user_name}', 'AffiliatedCompanyController@validate_user_name')->name('validate_user_name');
 //servicios gestión de preguntas y respuestras

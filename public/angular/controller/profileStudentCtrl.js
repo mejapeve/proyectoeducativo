@@ -45,6 +45,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
          data: data
       }).
       then(function (response) {
+          console.log(response);
          $scope.loadingRegistry = false;
          if(response.status === 200) {
             swal({
@@ -56,7 +57,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
             
             
             $timeout(function() {
-                location="";
+               location="";
             },1000);
             
          }

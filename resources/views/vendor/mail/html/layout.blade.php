@@ -27,8 +27,7 @@
         <tr>
             <td align="center">
                 <table class="content" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                    {{ $header ?? '' }}
-
+                    <img style="width:10%;margin-left: 40%;" src="https://educonexiones.com/images/icons/iconosoloConexiones-01.png"  data-skip-embed>
                     <!-- Email Body -->
                     <tr>
                         <td class="body" width="100%" cellpadding="0" cellspacing="0">

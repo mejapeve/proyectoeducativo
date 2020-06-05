@@ -17,7 +17,7 @@ class CheckRole
     public function handle($request, Closure $next, $role)
     {
 
-        if (! $request->user('afiliadoempresa')->hasRole($role)) {
+        if (! $request->user('afiliadoempresa')->hasAnyRole(explode("|", $role)) ){
             return redirect('home');
         }
         return $next($request);
