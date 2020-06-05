@@ -39,7 +39,12 @@ class AvatarController extends Controller
             if (!$im) { // Validate that the GD library was able to load the image
                 die('Base64 value is not a valid image'); // This is important, because you should not miss corrupted or unsupported images
             }
-            imagepng($im, public_path() . $img_file, 0); // Save the GD resource as PNG in the best possible quality (no compression)
+            if(env('APP_ENV') == 'production'){
+                imagepng($im, '/home/educonexiones/public_html' . $img_file, 0); // Save the GD resource as PNG in the best possible quality (no compression)
+            }else{
+                imagepng($im, public_path() . $img_file, 0); // Save the GD resource as PNG in the best possible quality (no compression)
+            }
+
             $user->url_image = $img_file;
             $user->save();
 
