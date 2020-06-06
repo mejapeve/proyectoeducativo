@@ -12,8 +12,7 @@
     <div class="mt-3 ml-3 row">
         <img class="col-lg-4 col-6 mb-3" src="{{ asset('images/acercaConexiones/tituloMomento.jpg') }}" alt="">
         <div class="col-lg-8 col-12 pr-5">
-            <div class="font-weight-bold fs-md-0 fs-sm--1">Aprendizaje por indagación y desarrollo de pensamiento
-                científicos</div>
+            <div class="font-weight-bold fs-md-0 fs-sm--1">Aprendizaje por indagación y desarrollo de pensamiento científicos</div>
             <div class="text-justify fs-0 mt-3">
                 <p>La propuesta educativa de Conexiones se sustenta en un enfoque pedagógico de aprendizaje por indagación,
                     que tiene la intención de promover en los niños, las niñas y los jóvenes, el desarrollo de pensamiento
@@ -174,49 +173,101 @@
         <div class="row">
             <div class="col-1-7"></div>
             <div class="col-2-3  text-align">
-                <img class="cursor-pointer" ng-click="icon-pedagogy='central_question'" width="60" height="60" src="{{ asset('images/icons/preguntaCentral.png') }}">
+                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'central_question'" ng-click="icon_pedagogy === 'central_question'" width="60" height="60" src="{{ asset('images/icons/preguntaCentral.png') }}">
                 <p class="cursor-pointer fs--1 p-3 " >Pregunta Central</p>
-                <div class="panel-icon-pedagogy fs--3">
+                <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='central_question'">
+					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
+					  </div>
+				    </div>				
                     <div class="header">
                       <span>Pregunta central</span>
                     </div>
-                    <div class="body" ng-show="icon-pedagogy==='central_question'">
+                    <div class="body">
                         <p>Una pregunta puede motivarnos a viajar… para responderla podemos recorrer diferentes caminos </p>
-                        <p>Permite movilizar y reconocer diferentes saberes previos para construir progresivamente
-                            explicaciones más complejas a partir de estos. </p>
-                        <p>Tiene el propósito de promover la indagación y curiosidad científica. </p>
-                        <p>Es formulada de manera abierta, sencilla y contextualizada. </p>
-                        <p>Constituye el eje sobre el que se despliegan los contenidos de cada momento. </p>
+						<ul>
+                        <li>Permite movilizar y reconocer diferentes saberes previos para construir progresivamente
+                            explicaciones más complejas a partir de estos. </li>
+                        <li>Tiene el propósito de promover la indagación y curiosidad científica. </li>
+                        <li>Es formulada de manera abierta, sencilla y contextualizada. </li>
+                        <li>Constituye el eje sobre el que se despliegan los contenidos de cada momento. </li>
+						</ul>
                     </div>
                 </div>
             </div>
             <div class="col-2-3  text-align">
-                <img class="cursor-pointer" ng-click="icon-pedagogy='scientific_experience'" width="60" height="60" src="{{ asset('images/icons/eCientifica.png') }}">
+				<img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'scientific_experience'"  ng-click="icon_pedagogy === 'scientific_experience' " width="60" height="60" src="{{ asset('images/icons/eCientifica.png') }}">
                 <p class="cursor-pointer fs--1 p-3">Experiencia científica</p>
-                <div class="panel-icon-pedagogy fs--3">
+                <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='scientific_experience'">
+					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
+					  </div>
+				    </div>
                     <div class="header">
                       <span>Experiencia científica</span>
                     </div>
-                    <div class="body" ng-show="icon-pedagogy==='scientific_experience'">
-                        <p>Una pregunta puede motivarnos a viajar… para responderla podemos recorrer diferentes caminos </p>
-                        <p>Permite movilizar y reconocer diferentes saberes previos para construir progresivamente
-                            explicaciones más complejas a partir de estos. </p>
-                        <p>Tiene el propósito de promover la indagación y curiosidad científica. </p>
-                        <p>Es formulada de manera abierta, sencilla y contextualizada. </p>
-                        <p>Constituye el eje sobre el que se despliegan los contenidos de cada momento. </p>
+                    <div class="body">
+                        <p>Un viaje es un conjunto de experiencias, pues más allá de los destinos y lugares que se visitan es lo que se vive en ellos lo que permanece.</p>
+						<ul>
+                        <li>Están diseñadas para que las y los estudiantes tengan un rol activo, protagónico y propositivo. </li>
+                        <li>Crean condiciones de posibilidad para el diálogo.</li>
+                        <li>Proponen la vivencia del trabajo colaborativo y su valoración.</li>
+                        <li>Integran diferentes áreas de conocimiento para la comprensión de los fenómenos naturales.</li>
+						</ul>                        
                     </div>
                 </div>
             </div>
             <div class="col-2-3  text-align">
-                <img class="" width="60" height="60" src="{{ asset('images/icons/cienciaCotidiana.png') }}">
+                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'everyday_science'" ng-click="icon_pedagogy === 'everyday_science'" width="60" height="60" src="{{ asset('images/icons/cienciaCotidiana.png') }}">
                 <p class="fs--1 p-3">Ciencia cotidiana</p>
+				  <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='everyday_science'">
+					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
+					  </div>
+				    </div>				
+                    <div class="header">
+                      <span>Ciencia cotidiana</span>
+                    </div>
+                    <div class="body">
+                        <p>Uno de los hechos más valiosos de un viaje, es vivir por si mismos aquello que se ha oído, imaginado o escuchado  </p>
+						<ul>
+							<li>Presenta conocimientos propios de las ciencias de manera contextualizada, gradual y sencilla. </li>
+							<li>La dosificación de contenidos permite a los estudiantes construir explicaciones cada vez más elaboradas sobre de los fenómenos estudiados. </li>
+							<li>Integra conocimientos de diferentes áreas para la comprensión amplia de los fenómenos naturales.</li>
+						</ul>
+                    </div>
+                </div>
             </div>
             <div class="col-2-3 text-align">
-                <img class="" width="60" height="60" src="{{ asset('images/icons/masConexiones.png') }}">
+                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'more_conextion'" ng-click="icon_pedagogy === 'more_conextion'" width="60" height="60" src="{{ asset('images/icons/masConexiones.png') }}">
                 <p class="fs--1 p-3">+ Conexiones</p>
+				<div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='more_conextion'">
+					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
+					  </div>
+				    </div>				
+                    <div class="header">
+                      <span>+ Conexiones</span>
+                    </div>
+                    <div class="body">
+                        <p>Durante un viaje o después de este, se conocen nuevas personas, olores, sabores y lugares, en otras palabras se abren puertas a nuevos conocimientos que puede incitar la realización de un nuevo viaje</p>
+						<p>Los recursos seleccionados posibilitan:</p>
+						<ul>
+                        <li>Profundizar en el conocimiento científico. </li>
+                        <li>Estimular el estudio de los fenómenos naturales desde diferentes campos de saber.</li>
+                        <li>Motivar el planteamiento de nuevas preguntas y estimular la indagación.</li>
+						</ul>
+                    </div>
+                </div>
+            
             </div>
             <div class="col-1-7"></div>
         </div>
     </div>
 </div>
+<script>
+  $( document ).ready(function() {
+     $('.d-result').removeClass('d-none');
+  });  
+</script>
 @endsection

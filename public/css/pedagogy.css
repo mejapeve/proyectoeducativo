@@ -6,6 +6,11 @@
   background-color: white;
 }
 
+.panel-icon-pedagogy:before {
+	
+}
+
+
 .panel-icon-pedagogy .header {
   margin-bottom: 23px;
 }
@@ -40,4 +45,21 @@
   border-style: solid;
   border-color: #77A3A3;
   box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+}
+
+
+.panel-icon-pedagogy ul {
+	list-style: none;
+	padding: 0px;
+	margin-left: 10px;
+}
+
+.panel-icon-pedagogy ul li::before {
+    content: "\2022";
+    color: #77A3A3;
+    display: inline-block;
+    font-size: 31px;
+    line-height: 12px;
+    vertical-align: -8px;
+    width: 20px;
 }
