@@ -225,10 +225,6 @@
                         <h6>Objetivos</h6>
                         &nbsp; &nbsp;  @{{ sequence.objectives }}
                      </div>
-                     <div class="col-12 mt-2 pt-1 conx-element d-flex" ng-click="onClickElement(sequence,'performances','Desempeños','text-list')">
-                        <h6>Desempeños</h6>
-                        &nbsp; &nbsp;  @{{ sequence.performances }}
-                     </div>
                      <div class="col-12 mt-2">
                         <button ng-hide="hidePublicateBtn || sequence.init_date" class="btn btn-sm btn-primary" ng-click="hidePublicateBtn=true">Publicar</button>
                      </div>
@@ -330,6 +326,10 @@
                      <div class="col-12 mt-2 pt-1 conx-element d-flex" ng-click="onClickElement(moment,'objectives','Objetivos','text-list')">
                         <h6>Objetivos</h6>
                         &nbsp; &nbsp;  @{{ moment.objectives }}
+                     </div>
+                     <div class="col-12 mt-2 pt-1 conx-element d-flex" ng-click="onClickElement(moment,'performances','Desempeños','text-list')">
+                        <h6>Desempeños</h6>
+                        &nbsp; &nbsp;  @{{ moment.performances }}
                      </div>
                      <div class="col-12 mt-2 pt-1">
                         <h6>Secciones</h6>
