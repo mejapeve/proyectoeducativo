@@ -660,8 +660,12 @@
                             <div class="p-2"> 
                                 <h6>Objetivo</h6>
                                 <textarea class="ml-2 fs--1 w-100" ng-change="applyChange = true" ng-model="questionEdit.objective" rows="3"></textarea>
-                                
-            </textarea>
+                                </textarea>
+                            </div>
+                            <div class="p-2"> 
+                                <h6>Concepto:</h6>
+                                <textarea class="ml-2 fs--1 w-100" ng-change="applyChange = true" ng-model="questionEdit.concept" rows="3"></textarea>
+                                </textarea>
                             </div>
                             <div class="p-2"> 
                                 <h6>Respuestas</h6>
