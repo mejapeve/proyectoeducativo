@@ -145,7 +145,7 @@
                 <div class="card-body">
                     <div ng-repeat="question in questionsOpened track by $index" class="ml-6" ng-show="indexQuestion === $index">
                         <h5 class="mt-2 mb-4">@{{question.objective}} </h5>
-                        <h6>@{{$index + 1 }}). @{{question.title}} </h6>
+						<h6>@{{$index + 1 }}). @{{question.title}} </h6>
                         <div class="ml-2" ng-repeat="option in question.options track by $index">
                         <input type="radio"
                             name="optionQuestion-@{{question.id}}"
