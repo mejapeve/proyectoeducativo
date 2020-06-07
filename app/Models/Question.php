@@ -18,6 +18,7 @@ class Question extends Model
         'objective',
         'type_answer',
         'order',
-        'title'
+        'title',
+        'concept'
     ];
 }

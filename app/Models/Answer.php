@@ -17,6 +17,7 @@ class Answer extends Model
         'feedback',
         'teacher_affiliated_company_id',
         'date_evaluation',
+        'concept',
     ];
 
 
