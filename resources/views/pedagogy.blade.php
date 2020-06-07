@@ -169,12 +169,12 @@
             diferentes acciones
             de pensamiento y producción esenciales para que las niñas, niños y jóvenes desarrollen pensamiento científico.
         </p>
-        <p>Los siguientes iconos permiten identificar la ubicación y relación de cada momento de aprendizaje</p>
-        <div class="row">
+        <p>Los siguientes iconos permiten identificar la ubicación y relación de cada momento de aprendizaje <strong>(Ver + haciendo clic en cada ícono)</strong></p>
+		
+        <div class="row mt-4">
             <div class="col-1-7"></div>
             <div class="col-2-3  text-align">
-                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'central_question'" ng-click="icon_pedagogy === 'central_question'" width="60" height="60" src="{{ asset('images/icons/preguntaCentral.png') }}">
-                <p class="cursor-pointer fs--1 p-3 " >Pregunta Central</p>
+                <img class="mb-3 cursor-pointer" ng-mouseover="icon_pedagogy = 'central_question'" ng-click="icon_pedagogy === 'central_question'" width="74px" height="auto" src="{{ asset('images/icons/iconos_con_letra/preguntaCentral.png') }}">
                 <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='central_question'">
 					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
 					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
@@ -196,8 +196,7 @@
                 </div>
             </div>
             <div class="col-2-3  text-align">
-				<img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'scientific_experience'"  ng-click="icon_pedagogy === 'scientific_experience' " width="60" height="60" src="{{ asset('images/icons/eCientifica.png') }}">
-                <p class="cursor-pointer fs--1 p-3">Experiencia científica</p>
+				<img class="mb-3 cursor-pointer" ng-mouseover="icon_pedagogy = 'scientific_experience'"  ng-click="icon_pedagogy === 'scientific_experience' " width="74px" height="auto" src="{{ asset('images/icons/iconos_con_letra/iconoExperiencia.png') }}">
                 <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='scientific_experience'">
 					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
 					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
@@ -218,8 +217,7 @@
                 </div>
             </div>
             <div class="col-2-3  text-align">
-                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'everyday_science'" ng-click="icon_pedagogy === 'everyday_science'" width="60" height="60" src="{{ asset('images/icons/cienciaCotidiana.png') }}">
-                <p class="fs--1 p-3">Ciencia cotidiana</p>
+                <img class="mb-3 cursor-pointer" ng-mouseover="icon_pedagogy = 'everyday_science'" ng-click="icon_pedagogy === 'everyday_science'" width="74px" height="auto" src="{{ asset('images/icons/iconos_con_letra/cienciaCotidiana.png') }}">
 				  <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='everyday_science'">
 					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
 					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
@@ -239,9 +237,8 @@
                 </div>
             </div>
             <div class="col-2-3 text-align">
-                <img class="cursor-pointer" ng-mouseover="icon_pedagogy = 'more_conextion'" ng-click="icon_pedagogy === 'more_conextion'" width="60" height="60" src="{{ asset('images/icons/masConexiones.png') }}">
-                <p class="fs--1 p-3">+ Conexiones</p>
-				<div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='more_conextion'">
+                <img class="mb-3 cursor-pointer" ng-mouseover="icon_pedagogy = 'more_conextion'" ng-click="icon_pedagogy === 'more_conextion'" width="74px" height="auto" src="{{ asset('images/icons/iconos_con_letra/masConexiones.png') }}">
+                <div class="d-result d-none panel-icon-pedagogy fs--3" ng-show="icon_pedagogy==='more_conextion'">
 					<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
 					  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -6px;">
 					  </div>
@@ -259,7 +256,6 @@
 						</ul>
                     </div>
                 </div>
-            
             </div>
             <div class="col-1-7"></div>
         </div>

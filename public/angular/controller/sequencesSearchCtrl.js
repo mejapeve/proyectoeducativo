@@ -15,8 +15,23 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
     {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
-        
+		$('[icon-pedagogy]').each(function(index){
+			var left = $(this).position().left - 60;
+			var top = $(this).position().top + 150;
+			$(this).next().css('left',left);
+			$(this).next().css('top',top);
+		});
     };
+	
+	$(window).resize(function () {
+        $('[icon-pedagogy]').each(function(index){
+			var left = $(this).position().left  -  100;
+			var top = $(this).position().top + 150;
+			$(this).next().css('left',left);
+			$(this).next().css('top',top);
+		});
+    });
+	
     function searchArea(areaName) {
         for (var i = 0; i < $scope.areas.length; i++) {
             if ($scope.areas[i] === areaName) { return true; }

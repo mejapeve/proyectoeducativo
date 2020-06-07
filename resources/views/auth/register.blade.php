@@ -5,7 +5,7 @@
     
    <div class="container-fluid d-none-result d-none" ng-show="!registrer_ini || @if($errors->any()>0) true @else false @endif">
       <div class="flex-center no-gutters row">
-         <div class="col-xxl-5 col-lg-10">
+         <div class="card-register-page">
             <div class="overflow-hidden z-index-1 card">
                <div class="p-0 card-body">
                   <div class="h-100 no-gutters row">
@@ -83,6 +83,12 @@
                               <div class="form-group">
                                    <div class="register-band-addon">
                                       Podrás realizar el pago de tus productos luego del registro
+                                   </div>
+                              </div>
+                              @endif
+							  @if(!old('redirect_to_shoppingcart') && !isset($redirect_to_shoppingcart) && !old('free_rating_plan_id') && !isset($free_rating_plan_id))
+                              <div class="form-group">
+                                   <div class="p-4">
                                    </div>
                               </div>
                               @endif
@@ -200,7 +206,7 @@
         <div class="p-4" style="padding-bottom: 0px!important;">
                <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Crea tu cuenta</h6>
         </div>
-        <div class="modal-menu min-content-height pl-md-9 pl-md-12 pt-4">
+        <div class="modal-menu min-content-height">
            
            <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
                 <button type="button" class="btn btn-secondary btn-block d-flex h-100" ng-click="registrer_ini=false">

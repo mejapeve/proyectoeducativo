@@ -21,14 +21,166 @@
                <p>Todas las <strong>guías de aprendizaje</strong> que hacen parte de <strong>Conexiones</strong>, usan como metáfora para estructurar sus contenidos la idea de viaje, como una invitación para explorar, conocer y comprender a través de la indagación el mundo natural del que hacemos parte . Así, cada <strong>guía de aprendizaje</strong>&nbsp; está compuesta por una <strong>situación generadora</strong> o punto de partida, un <strong>mapa de ruta</strong> flexible, un entramado <strong>saberes </strong>a desarrollar y un <strong>punto de encuentro</strong> o propósito, que integra un conjunto amplio de recursos didácticos orientados al desarrollo de pensamiento científico. </p>
                <p> Cada <strong>guía de aprendizaje</strong> propone una ruta de <strong>ocho momentos </strong>&nbsp;o estaciones que se componen &nbsp;a su vez de preguntas, experiencias científicas, explicaciones en contexto y enlaces sugeridos para más conexiones. <strong>(Ver + haciendo clic en cada ícono)</strong></p>
                <ul class="nav row fs--1 text-align mt-1">
-                  <li class="ml-auto mr-md-2 mr-lg-3 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/situacionGeneradora.png')}}" width="50px" height="auto"> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Situación generadora </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/rutaViaje.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Ruta de viaje </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/puntoEncuentro.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Punto de encuentro </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/GuiaSaberes.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Guía de saberes </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/preguntaCentral.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Pregunta Central </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/eCientifica.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Experiencia Científica </span></li>
-                  <li class="ml-sm-1 ml-md-2 mr-md-2 ml-lg-3 mr-lg-3 ml-xl-4 mr-xl-4" style="width:63px;"><img src="{{asset('images/icons/cienciaCotidiana.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> Ciencia cotidiana </span></li>
-                  <li class="mr-auto" style="width:73px;"><img src="{{asset('images/icons/masConexiones.png')}}" width="50px" height="auto"/> <span class="d-flex mt-1 ml-auto mr-auto w-75"> + Conexiones </span></li>
+                  <li class="ml-auto" >
+				    <img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/situacionGeneradora.png')}}" width="74px" height="auto" ng-click="icon_pedagogy='pedagogy1'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy1'" style="background-color: white; z-index:102;">
+						<div style="margin-	left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 50px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Situación Generadora</span>
+						</div>
+						<div class="body">
+							<p>Todo viaje inicia con un impulso, un deseo o una motivación.</p>
+							<ul>
+							<li>Plantean situaciones y problemas contextualizados para ser analizados desde el contexto local y global.</li>
+							<li>Estimulan la curiosidad para indagar</li>
+							<li>Incluye preguntas abiertas que motiven el interés de aprender</li>
+							<li>Constituye el eje articulador de todos los momentos y contenidos de la guías de aprendizaje.</li>
+							</ul>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/rutaViaje.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy2'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy2'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Ruta de viaje</span>
+						</div>
+						<div class="body">
+							<p>Saber a dónde ir requiere pensar en una ruta o itinerario para trazar caminos hacia varios destinos</p>
+							<p> Aunque hay una ruta trazada, tanto los y las estudiantes como el profesorado pueden elegir hacer el recorrido en el orden propuesto o de manera aleatoria, pues aunque los momentos de cada guía de aprendizaje se relacionan entre sí, cada uno puede abordarse independientemente.</p>
+							<p> De esta manera, quienes hacen uso de Conexiones tienen la posibilidad de aprovechar el material de acuerdo con los intereses personales o el plan de estudios.</p>
+						</div>
+					</div>
+					</li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/puntoEncuentro.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy3'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy3'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Punto de encuentro</span>
+						</div>
+						<div class="body">
+							<p>Los viajes tienen un propósito u objetivo, pero en el recorrido se pueden vivir otras experiencias de las cuales emergen otras enseñanzas y aprendizajes. </p>
+							<p>Es el propósito articulador de todos los contenidos y momentos que constituyen la guía de aprendizaje. Se caracteriza por ser amplio y por integrar  en su desarrollo diferentes saberes (Saber qué, saber cómo, Saber por qué, saber ser).</p>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/GuiaSaberes.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy4'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy4'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Guía de saber</span>
+						</div>
+						<div class="body">
+							<p>Algunos viajes se planean con el propósito de lograr algún objetivo pero en el recorrido se pueden vivir experiencias no planeadas de las cuales emergen otras enseñanzas»</p>
+							<p>Cada guía de aprendizaje propone el despliegue e integración de un conjunto de acciones de pensamiento y producción que hacen parte de los tres ejes articuladores que las estructuran:</p>
+							<ul>
+							<li>Aproximación al conocimiento como científicos</li>
+							<li>Manejo de conocimientos propios de las ciencias, y</li>
+							<li>Desarrollo de compromisos personales y sociales.</li>
+							</ul>
+							<p>Así, en las primeras páginas de la guía, tanto el profesorado como los y las estudiantes pueden identificar fácilmente lo que se espera que aprendan durante el desarrollo de estas. 
+							</p>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/preguntaCentral.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy5'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy5'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Pregunta central</span>
+						</div>
+						<div class="body">
+							<p>Una pregunta puede motivarnos a viajar…  para responderla podemos recorrer diferentes caminos</p>
+							<ul>
+							<li>Permite movilizar y reconocer diferentes saberes previos para construir progresivamente explicaciones más complejas a partir de estos.</li>
+							<li>Tiene el propósito de promover la indagación y curiosidad científica.</li>
+							<li>Es formulada de manera abierta, sencilla y contextualizada.</li>
+							<li>Constituye el eje sobre el que se despliegan los contenidos de cada momento.</li>
+							</ul>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/iconoExperiencia.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy6'"  class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy6'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Experiencia científica</span>
+						</div>
+						<div class="body">
+							<p>Un viaje es un conjunto de experiencias, pues más allá de los destinos y lugares que se visitan es lo que se vive en ellos lo que permanece.</p>
+							<ul>
+								<li>Están diseñadas para que las y los estudiantes tengan un rol activo, protagónico y propositivo.</li>
+								<li>Crean condiciones de posibilidad para el diálogo.</li>
+								<li>Proponen la vivencia del trabajo colaborativo y su valoración.</li>
+								<li>Integran diferentes áreas de conocimiento para la comprensión de los fenómenos naturales.</li>
+							</ul>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/cienciaCotidiana.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy7'" class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy7'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>Ciencia cotidiana</span>
+						</div>
+						<div class="body">
+							<p>Uno de los hechos más valiosos de un viaje, es vivir por si mismos aquello que se ha oído, imaginado o escuchado </p>
+							<ul>
+								<li>Presenta conocimientos propios de las ciencias de manera contextualizada, gradual y sencilla. </li>
+								<li>La dosificación de contenidos permite a los estudiantes construir explicaciones cada vez más elaboradas sobre de los fenómenos estudiados;</li>
+								<li>Integra conocimientos de diferentes áreas para la comprensión amplia de los fenómenos naturales.</li>
+							</ul>
+						</div>
+					</div>
+				  </li>
+                  <li class="ml-auto mr-auto" >
+					<img icon-pedagogy src="{{asset('images/icons/iconos_con_letra/masConexiones.png')}}" width="74px" height="auto"  ng-click="icon_pedagogy='pedagogy8'" class="cursor-pointer">
+					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy8'" style="background-color: white; z-index:102;">
+						<div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
+						  <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 30px;">
+						  </div>
+						</div>				
+						<div class="header">
+						  <span>+ Conexiones</span>
+						</div>
+						<div class="body">
+							<p>Durante un viaje o después de este, se conocen nuevas personas, olores, sabores y lugares, en otras palabras se abren puertas a nuevos conocimientos que puede incitar la realización de un nuevo viaje</p>
+							<p>Los recursos seleccionados posibilitan:</p>
+							<ul>
+							<li>Profundizar en el conocimiento científico. </li>
+							<li>Estimular el estudio de los fenómenos naturales desde diferentes campos de saber.</li>
+							<li>Motivar el planteamiento de nuevas preguntas y estimular la indagación.</li>
+							</ul>
+						</div>
+					</div>
+				  </li>
                </ul>
             </div>
             <div class="mb-1 mt-3 col-12 mt-2">
@@ -64,10 +216,10 @@
                </div>
             </div>
             <div class="d-none-result d-none row w-100 p-3">
-               <div class="col-md-6 ml-2 pr-2 border-white-extent card card-body bg-dark row d-flex" ng-repeat="sequence in sequences | filter: searchText">
+               <div class="col-lg-6 ml-2 pr-2 border-white-extent card card-body bg-dark row d-flex" ng-repeat="sequence in sequences | filter: searchText">
                   <div class="view" id="sequence-description-@{{sequence.id}}">
                      <div class="media">
-                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="80px" height="100px"/> 
+                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="142px" height="auto" style="width:142px"/> 
                         <div class="media-body pl-2 pr-3">
                            <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}}</h5>
                            <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
