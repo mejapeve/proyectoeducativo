@@ -21,6 +21,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.applyChange = false;
 
     $scope.elementEdit = null;
+    $scope.questionEdit = null;
     $scope.indexElement = null;
 
     $scope.directoryPath = null;
@@ -492,7 +493,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if (typeItem === 'evidence-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'questions': [] });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'questionEditType': "1",'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'questions': [] });
         }
         
         $timeout(function () {
@@ -589,12 +590,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                             "sequence_id": $scope.sequence.id,
                             "moment_id":  $scope.moment ? $scope.moment.id : '',
                             "objective":  element.questions[j].objective,
-							"concept":  element.questions[j].concept,
+                            "concept":  element.questions[j].concept,
                             "order":   j + 1,
                             "experience_id":  element.id,
                             "options": removeHashKey(element.questions[j].options),
                             "review": removeHashKey(element.questions[j].review),
-                            "type_answer": "2"
+                            "type_answer": $scope.elementEdit.questionEditType
                         }
                         $http.post('/register_update_question/', data)
                         .then(function (response) {

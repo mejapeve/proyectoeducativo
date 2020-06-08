@@ -653,6 +653,14 @@
                     <div class="position-absolute" style="left: 7px;top: 9px;" ng-click="closeEvidence()">
                         <i class="fas fa-arrow-left cursor-position"></i>
                     </div>
+                    <div class="fs--1 position-absolute" style="right: 12px; top: 42px;">
+                        <span class=""> Tipo Pregunta @{{elementEdit.questionEditType}}</span>
+                        <select ng-model="elementEdit.questionEditType">
+                            <option value="1">Pregunta sin respuesta</option>
+                            <option value="2">Pregunta cerrada </option>
+                            <option value="3">Pregunta docente </option>
+                        </select>
+                    </div>
                     <div class="card-body" style="overflow: auto;">
                         <h6>Preguntas</h6>
                         <conx-evidence-questions></conx-evidence-questions>
@@ -666,16 +674,16 @@
                                 <textarea class="ml-2 fs--1 w-100" ng-change="applyChange = true" ng-model="questionEdit.objective" rows="3"></textarea>
                                 </textarea>
                             </div>
-                            <div class="p-2"> 
+                            <div class="p-2" ng-show="elementEdit.questionEditType==='2'"> 
                                 <h6>Concepto:</h6>
                                 <textarea class="ml-2 fs--1 w-100" ng-change="applyChange = true" ng-model="questionEdit.concept" rows="3"></textarea>
                                 </textarea>
                             </div>
-                            <div class="p-2"> 
+                            <div class="p-2" ng-show="elementEdit.questionEditType==='2'">
                                 <h6>Respuestas</h6>
                                 <conx-evidence-options></conx-evidence-options>
                             </div>
-                            <div class="p-2"> 
+                            <div class="p-2" ng-show="elementEdit.questionEditType==='2'"> 
                                 <div class="line-separator m-0"></div>
                                 <h6 class="mt-2">Calificación</h6>
                                 <div type="text" ng-repeat="itemReview in questionEdit.review track by $index">
