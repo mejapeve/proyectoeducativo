@@ -91,7 +91,7 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                             product = row.shopping_cart_product ? row.shopping_cart_product[0] : null;
                             return_data.push({
                               'id': row.id,
-                              'date': row.payment_init_date,
+                              'date': row.payment_process_date || row.payment_init_date || updated_at,
                               'shipping_price': row.shipping_price,
                               'description': row.rating_plan ? row.rating_plan.name : 
                                          product && product.kiStruct ? product.kiStruct.name : 
