@@ -15,10 +15,11 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
         }).
         then(function (response) {
             $scope.students = response.data;
-            $('.d-none-result.d-none').removeClass('d-none');
+            $('.d-none-result').removeClass('d-none');
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los estudiantes';
+			$('.d-none-result').removeClass('d-none');
         });
     };
     

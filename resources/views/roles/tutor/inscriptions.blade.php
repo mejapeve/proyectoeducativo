@@ -1,15 +1,15 @@
 @extends('roles.tutor.layout')
 
 @section('content-tutor-index')
-   <div class="list-group" ng-controller="tutorInscriptionsCtrl" ng-init="initInscriptions()" >
-        <div ng-click=editUserForm(student.id) class="student-tutor-inscription btn btn-light" ng-repeat="student in students">
+   <div class="d-none-result d-none list-group" ng-controller="tutorInscriptionsCtrl" ng-init="initInscriptions()" >
+        <div ng-click="editUserForm(student.id)" class=" student-tutor-inscription btn btn-light" ng-repeat="student in students">
           <img class="rounded-circle" ng-src="{{asset('/')}}@{{student.url_image || 'images/icons/default-avatar.png'}}" width="100px"/>
-          <p>@{{student.name}} @{{student.last_name}}</p>
+          <div class=""><p>@{{student.name}} @{{student.last_name}}</p></div>
         </div>
-        <div class="fs--1" ng-show="students && students.length === 0">
+        <div class="fs--1 d-none-result d-none" ng-show="students && students.length === 0">
           <p>Aún no has registrado estudiantes para la realización de las guías de aprendizaje</p>
         </div>
-        <div ng-click="registerUserForm()" class="cursor-pointer">
+        <div ng-click="registerUserForm()" class="cursor-pointer d-none-result d-none">
           <i class="fas fa-user-plus"></i> Registrar nuevo estudiante
         </div>
         <div ng-show="newRegisterForm" class="d-none-result d-none  dropdown-menu-card" id="elementkitsModal">
