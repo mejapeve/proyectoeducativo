@@ -70,4 +70,3 @@
 @section('js')
 <script src="{{asset('/../angular/controller/FileUploadController.js')}}"></script>
 @endsection
-@extends('layouts.app')
