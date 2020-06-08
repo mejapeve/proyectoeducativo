@@ -54,7 +54,7 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                         customize : function(doc) {
                             doc.content[1].table.widths = ['28%', '22%','15%', '15%', '25%'];
                             var rowCount = document.getElementById("myTable").rows.length;
-                            for (i = 0; i <= rowCount; i++) {
+                            for (i = 0; i < rowCount; i++) {
                                 doc.content[1].table.body[i][0].alignment = 'center';
                                 doc.content[1].table.body[i][3].alignment = 'center';
                             };
