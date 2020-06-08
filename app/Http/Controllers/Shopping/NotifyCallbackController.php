@@ -198,46 +198,6 @@ class NotifyCallbackController extends Controller
                 Mail::to($request->user('afiliadoempresa')->email)->send(
                     new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'), $price_callback, $transaction_date));
                 return redirect()->route('shoppingCart');
-
-            } else {
-                $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-                    ['payment_status_id', 2],
-                    ['payment_transaction_id', $request->preference_id]])->
-                    update(array(
-                    'payment_status_id' => '4',
-                    'payment_process_date' => date("Y-m-d H:i:s"),
-                ));
-                // Generando registro nuevo para shoppingCart
-                $shoppingCarts = ShoppingCart::with('shopping_cart_product')->
-                    where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
-                    ['payment_status_id', 4],
-                    ['payment_transaction_id', $request->preference_id]])->get();
-
-                foreach ($shoppingCarts as $shoppingCart) {
-                    $shoppingCart_n = new ShoppingCart();
-                    $shoppingCart_n->company_affiliated_id = $shoppingCart->company_affiliated_id;
-                    $shoppingCart_n->rating_plan_id = $shoppingCart->rating_plan_id;
-                    $shoppingCart_n->type_product_id = $shoppingCart->type_product_id;
-                    $shoppingCart_n->payment_status_id = 1;
-                    $shoppingCart_n->payment_transaction_id = $shoppingCart->payment_transaction_id;
-                    $shoppingCart_n->payment_init_date = $shoppingCart->payment_process_date;
-
-                    $shoppingCart_n->save();
-
-                    foreach ($shoppingCart->shopping_cart_product as $shopping_cart_product) {
-                        $shopping_cart_product_n = new ShoppingCartProduct();
-                        $shopping_cart_product_n->shopping_cart_id = $shoppingCart_n->id;
-                        $shopping_cart_product_n->product_id = $shopping_cart_product->product_id;
-                        $shopping_cart_product_n->save();
-                    }
-
-                }
-                $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->preference_id)->first();
-                //Envío correo de pago rechazado
-                Mail::to($request->user('afiliadoempresa')->email)->send(
-                    new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'), $price_callback, $transaction_date));
-                return redirect()->route('shoppingCart');
-
             }
         }
     }
