@@ -28,20 +28,20 @@ class NotifyCallbackController extends Controller
 
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                 ['payment_status_id', 2],
-                ['payment_transaction_id', $request->preference_id]])->
-                update(array(
+                ['payment_transaction_id', $request->external_reference]])->
+            update(array(
                 'payment_status_id' => '3',
                 'payment_process_date' => date("Y-m-d H:i:s"),
             ));
-            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->preference_id)->first();
+            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->external_reference)->first();
             if ($request->user('afiliadoempresa')) {
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
                 $shoppingCarts = ShoppingCart::
-                    with('rating_plan', 'shopping_cart_product')->
-                    where([
+                with('rating_plan', 'shopping_cart_product')->
+                where([
                     ['company_affiliated_id', $request->user('afiliadoempresa')->id],
-                    ['payment_transaction_id', $request->preference_id],
+                    ['payment_transaction_id', $request->external_reference],
                     ['payment_status_id', 3],
                 ])->get();
 
@@ -59,20 +59,20 @@ class NotifyCallbackController extends Controller
                 new SendSuccessfulPaymentNotification($shoppingCart, $request, $afiliado_empresa, $price_callback, $transaction_date));
             return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
 
-        } else if ($request->collection_status == 'rejected' || empty($request->collection_status)) {
+        } else if ($request->collection_status == 'rejected' || isset($request->collection_status)) {
 
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                 ['payment_status_id', 2],
-                ['payment_transaction_id', $request->preference_id]])->
-                update(array(
+                ['payment_transaction_id', $request->external_reference]])->
+            update(array(
                 'payment_status_id' => '4',
                 'payment_process_date' => date("Y-m-d H:i:s"),
             ));
             // Generando registro nuevo para shoppingCart
             $shoppingCarts = ShoppingCart::with('shopping_cart_product')->
-                where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+            where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                 ['payment_status_id', 4],
-                ['payment_transaction_id', $request->preference_id]])->get();
+                ['payment_transaction_id', $request->external_reference]])->get();
 
             foreach ($shoppingCarts as $shoppingCart) {
                 $shoppingCart_n = new ShoppingCart();
@@ -93,12 +93,13 @@ class NotifyCallbackController extends Controller
                 }
 
             }
-            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->preference_id)->first();
+            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->external_reference)->first();
             //Envío correo de pago rechazado
             Mail::to($request->user('afiliadoempresa')->email)->send(
                 new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'), $price_callback, $transaction_date));
             return redirect()->route('shoppingCart');
         } else {
+
             // Flujo PSE
             //dd('Entra a flujo PSE');
 
@@ -108,49 +109,41 @@ class NotifyCallbackController extends Controller
             parse_str(parse_url($referer, PHP_URL_QUERY), $queries);
             $payment_id = $queries['payment_id'];
             //Se genera el cliente para consumir el API de MP, se obtiene el estado del pago
-            $headers = [
-                'id' => $payment_id,
-            ];
-
             $client = new \GuzzleHttp\Client([
-                'headers' => $headers,
+                // 'headers' => $headers,
             ]);
 
-            $body = '{
-                "access_token" : ' . env('MERCADOPAGO_ACCESS_TOKEN') . '
-            }';
+            // $body = "access_token"  env('MERCADOPAGO_ACCESS_TOKEN');
 
+
+            // 'https://api.mercadopago.com/v1/payments/7001632717?access_token=APP_USR-3764584103744876-052802-214ee174865974c1821473fc8bafd65a-575372312',
             $res = $client->request(
                 'GET',
-                'https://api.mercadopago.com/v1/payments/', [
-                    'body' => $body,
-                ]);
+                'https://api.mercadopago.com/v1/payments/'.$payment_id,
+                ['query'=>["access_token" => env('MERCADOPAGO_ACCESS_TOKEN')
+                ]]
 
+            );
             $data = json_decode($res->getBody()->getContents());
-            $response_status = response()->json([
-                'status' => true,
-                'data' => $data->status,
-            ]);
-
             //Logica diferencial entre respuesta de pagos PSE
-            if ($response_status->data === 'approved') {
+            if ($data->status === 'approved') {
                 // Pago exitoso
                 $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                     ['payment_status_id', 2],
-                    ['payment_transaction_id', $request->preference_id]])->
-                    update(array(
+                    ['payment_transaction_id', $data->external_reference]])->
+                update(array(
                     'payment_status_id' => '3',
                     'payment_process_date' => date("Y-m-d H:i:s"),
                 ));
-                $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->preference_id)->first();
+                $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $data->external_reference)->first();
                 if ($request->user('afiliadoempresa')) {
 
                     $afiliado_empresa = $request->user('afiliadoempresa');
                     $shoppingCarts = ShoppingCart::
-                        with('rating_plan', 'shopping_cart_product')->
-                        where([
+                    with('rating_plan', 'shopping_cart_product')->
+                    where([
                         ['company_affiliated_id', $request->user('afiliadoempresa')->id],
-                        ['payment_transaction_id', $request->preference_id],
+                        ['payment_transaction_id', $data->external_reference],
                         ['payment_status_id', 3],
                     ])->get();
 
@@ -166,6 +159,45 @@ class NotifyCallbackController extends Controller
                 Mail::to($request->user('afiliadoempresa')->email)->send(
                     new SendSuccessfulPaymentNotification($shoppingCart, $request, $afiliado_empresa, $price_callback, $transaction_date));
                 return redirect()->route('tutor.products', ['empresa' => 'conexiones']);
+
+            } else {
+                $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+                    ['payment_status_id', 2],
+                    ['payment_transaction_id', $data->external_reference]])->
+                update(array(
+                    'payment_status_id' => '4',
+                    'payment_process_date' => date("Y-m-d H:i:s"),
+                ));
+                // Generando registro nuevo para shoppingCart
+                $shoppingCarts = ShoppingCart::with('shopping_cart_product')->
+                where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
+                    ['payment_status_id', 4],
+                    ['payment_transaction_id', $data->external_reference]])->get();
+
+                foreach ($shoppingCarts as $shoppingCart) {
+                    $shoppingCart_n = new ShoppingCart();
+                    $shoppingCart_n->company_affiliated_id = $shoppingCart->company_affiliated_id;
+                    $shoppingCart_n->rating_plan_id = $shoppingCart->rating_plan_id;
+                    $shoppingCart_n->type_product_id = $shoppingCart->type_product_id;
+                    $shoppingCart_n->payment_status_id = 1;
+                    $shoppingCart_n->payment_transaction_id = $shoppingCart->payment_transaction_id;
+                    $shoppingCart_n->payment_init_date = $shoppingCart->payment_process_date;
+
+                    $shoppingCart_n->save();
+
+                    foreach ($shoppingCart->shopping_cart_product as $shopping_cart_product) {
+                        $shopping_cart_product_n = new ShoppingCartProduct();
+                        $shopping_cart_product_n->shopping_cart_id = $shoppingCart_n->id;
+                        $shopping_cart_product_n->product_id = $shopping_cart_product->product_id;
+                        $shopping_cart_product_n->save();
+                    }
+
+                }
+                $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $data->external_reference)->first();
+                //Envío correo de pago rechazado
+                Mail::to($request->user('afiliadoempresa')->email)->send(
+                    new SendRejectedPaymentNotification($shoppingCart, $request, $request->user('afiliadoempresa'), $price_callback, $transaction_date));
+                return redirect()->route('shoppingCart');
 
             } else {
                 $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
