@@ -21,7 +21,6 @@ class TableSequenceMomentsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->longText('objectives');
-            $table->longText('performances');
             $table->longText('section_1')->nullable();
             $table->longText('section_2')->nullable();
             $table->longText('section_3')->nullable();
