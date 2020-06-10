@@ -37,10 +37,11 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
      public function get_questions (Request $request){
-
+//sin calificación
         $question = Question::where('sequence_id',$request->sequence_id)
                    ->where('moment_id',$request->moment_id)
                    ->where('experience_id',$request->experience_id)->get();
+       // dd($question);
         return response()->json(['data'=>$question],200);
 
     }

@@ -15,7 +15,7 @@ class AddColumnToAnswer extends Migration
     {
         Schema::table('answers', function (Blueprint $table) {
             //
-            $table->string('concept')->nullable()->after('date_evaluation');
+            $table->longText('concept')->nullable()->after('date_evaluation');
         });
     }
 

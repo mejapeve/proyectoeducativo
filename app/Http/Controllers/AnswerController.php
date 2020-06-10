@@ -70,24 +70,30 @@ class AnswerController extends Controller
             ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();*/
             $reportAnswers = $this->get_answers($request);
             $performance = (collect($reportAnswers)->sum('review_student') / count($reportAnswers));
+            $sequence = CompanySequence::select('name')->where('id', $request->sequence_id)->first();
+            $moment = SequenceMoment::select('name','performances')->where('id', $request->moment_id)->first();
+            $performance_comment_array = explode('|',$moment->performances) ;
+
             if ($performance >= 90) {
-                $performance_comment = "Las respuestas evidencian un buen proceso de aprendizaje. ¡Felicitaciones! ";
+                $color_performance = 'green';
+                $performance_comment = $performance_comment_array[0];
                 $level = "nivel superior (S) 90 – 100%.";
                 $qualification = '(S)';
             } else {
                 if ($performance >= 70 && $performance <= 89) {
-                    $performance_comment = "Los aprendizajes se están afianzando, se debe continuar en el proceso. ";
+                    $color_performance = 'orange';
+                    $performance_comment = $performance_comment_array[1];
                     $level = "nivel alto (A) 70 – 89%.";
                     $qualification = '(A)';
                 } else {
-                    $performance_comment = "Recomendamos revisar de nuevo las Experiencias científicas y los conceptos claves presentados en las explicaciones de Ciencia en contexto";
+                    $color_performance = '#FFF824';
+                    $performance_comment = $performance_comment_array[2];
                     $level = "nivel básico (B) 0 – 69%.";
                     $qualification = '(B)';
                 }
             }
-            $sequence = CompanySequence::select('name')->where('id', $request->sequence_id)->first();
-            $moment = SequenceMoment::select('name')->where('id', $request->moment_id)->first();
-            Mail::to($tutor->email)->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment));
+
+            Mail::to('cristianjojoa01@gmail.com')->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment,$color_performance));
             return response()->json(['data' => ['performance' => $performance, 'performance_comment' => $performance_comment, 'level' => $level, 'qualification' => $qualification], 'message' => 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);
         }
         return response()->json(['data' => '', 'message' => 'El formato para registrar o actualizar los datos de respuesta no es el correcto'], 401);
@@ -116,10 +122,13 @@ class AnswerController extends Controller
         foreach ($answers as $answer) {
             $data = $this->get_answer_student($answer->answer, $answer->question->options, $answer->question->review);
             $data['title'] = $answer->question->title;
+            $data['struct_concept'] = 'La respuesta esperada es: '.$data['type_numeral'].':'.$data['answer_question'].' '.$answer->question->concept;
+            $data['objective'] = $answer->question->objective;
             array_push($questions, $data);
             Answer::where('id', $answer->id)->update([
                 'feedback' => $data['review_student'],
-                'date_evaluation' => Carbon::now()
+                'date_evaluation' => Carbon::now(),
+                'concept' => $data['struct_concept']
             ]);
 
         }
@@ -141,6 +150,7 @@ class AnswerController extends Controller
         $data['answer_student'] = $options->firstWhere('id', $option_id)->option;
         $data['review_student'] = $reviews->firstWhere('id', $option_id)->review;
         $data['answer_question'] = $options->firstWhere('id', $reviews->firstWhere('review', '100')->id)->option;
+        $data['type_numeral'] = $reviews->firstWhere('review', '100')->id;
         $option_id == $reviews->firstWhere('review', '100')->id ? $data['is_correct'] = true : $data['is_correct'] = false;
 
         return $data;

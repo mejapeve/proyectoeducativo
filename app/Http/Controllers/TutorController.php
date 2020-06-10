@@ -99,9 +99,23 @@ class TutorController extends Controller
     {
 
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
-        $rol = "student";
-        $this->create_user_relation(auth('afiliadoempresa')->user(), $request, $rol);
-        return redirect()->route('tutor', session('name_company'));
+        $quantityStudents = AffiliatedCompanyRole::with('conection_tutor')->has('conection_tutor')->where([
+            ['affiliated_company_id',auth('afiliadoempresa')->user()->id],
+            ['company_id',1]
+        ])->first();
+        if($quantityStudents === null){
+            $rol = "student";
+            $this->create_user_relation(auth('afiliadoempresa')->user(), $request, $rol);
+            return response()->json(['status'=>200]);
+        }else{
+            if(count($quantityStudents->conection_tutor) < 3 ){
+                $rol = "student";
+                $this->create_user_relation(auth('afiliadoempresa')->user(), $request, $rol);
+                return response()->json(['status'=>200]);
+            }
+            return response()->json(['status'=>403]);
+        }
+
     }
 
     /**

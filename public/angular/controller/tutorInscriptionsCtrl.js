@@ -39,17 +39,25 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
         }).
         then(function (response) {
             $scope.loadingRegistry = false;
-            if(response.status === 200) {
+            if(response.data.status === 200) {
                 swal({
                   text: "Estudiante registrado exitosamente",
                   type: "success",
                   showCancelButton: false,
                   showConfirmButton: false
                 }).catch(swal.noop);
-                
+                $scope.initInscriptions();
+            }else{
+                swal({
+                    text: "Solo pueden registrar 3 estudiantes",
+                    type: "warning",
+                    showCancelButton: false,
+                    showConfirmButton: false
+                }).catch(swal.noop);
                 $scope.initInscriptions();
             }
-        }).catch(function (e) {
+        }
+        ).catch(function (e) {
             $scope.errorMessageRegister = 'Error registrando el estudiante';
             $scope.loadingRegistry = false;
         });

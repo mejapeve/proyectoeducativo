@@ -15,7 +15,7 @@ class AddColumnToQuestion extends Migration
     {
         Schema::table('questions', function (Blueprint $table) {
             //
-            $table->string('concept')->nullable()->after('objective');
+            $table->longText('concept')->nullable()->after('objective');
         });
     }
 

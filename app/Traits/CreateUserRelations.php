@@ -74,6 +74,8 @@ trait CreateUserRelations
 
     public function name_user_affiliated($data) {
 
+        $data['name'] = preg_split('/\s+/', $data['name'])[0];
+        $data['last_name'] = preg_split('/\s+/',$data['last_name'])[0];
         $name_user = $data['name'].$data['last_name'].'C';
         $asignarNombreUsuario = false;
         do{
