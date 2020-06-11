@@ -31,6 +31,7 @@
         border-radius: 50%;
         border-style: solid;
     border-width: 1px;">&nbsp;{{strtoupper($questionAnswer['type_numeral'])}}&nbsp;</span><br>{{$questionAnswer['answer_question']}}
+        <br>
 <strong>Concepto clave a tener en cuenta: </strong>{{$questionAnswer['concept']}}</p>
 <hr>
 @endforeach
