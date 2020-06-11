@@ -26,8 +26,9 @@ class SendReportAnswerTutor extends Mailable
     private $level;
     private $performance_comment;
     private $color_performance;
+    private $performance;
 
-    public function __construct($family, $student, $data, $sequence, $moment, $level, $performance_comment, $color_performance)
+    public function __construct($family, $student, $data, $sequence, $moment, $level, $performance_comment, $color_performance,$performance)
     {
         //
         $this->family = $family;
@@ -38,6 +39,7 @@ class SendReportAnswerTutor extends Mailable
         $this->level = $level;
         $this->performance_comment = $performance_comment;
         $this->color_performance = $color_performance;
+        $this->performance = $performance;
 
 
     }
@@ -60,7 +62,9 @@ class SendReportAnswerTutor extends Mailable
                         'sequence' => $this->sequence,
                         'level' => $this->level,
                         'performance_comment' => $this->performance_comment,
-                        'color_performance' => $this->color_performance
+                        'color_performance' => $this->color_performance,
+                        'performance' => $this->performance,
+
                     ])
                 ->subject('Conexiones - Reporte estudiante');
 
