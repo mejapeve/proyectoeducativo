@@ -1,6 +1,6 @@
 @component('mail::message')
 # Hola {{$family->name}} {{$family->last_name}}
-<p>Te escribimos para contarte que <strong>{{$student->name}}</strong> <strong>{{$student->last_name}}</strong>
+<p>Te escribimos para contarte que <strong>{{$student->name}}</strong> <strong>{{$student->last_name}}</strong> ha pasado por <strong>{{$place_advance_line}}</strong> y
     acaba de realiza el test de pregunta cerrada del momento <strong><i>{{$moment->name}}</i></strong>, en la guía de aprendizaje: <strong><i>{{$sequence->name}}</i></strong>.Su desempeño fue {{$performance}}%, y está en el {{$level}}</p>
 <strong><span style="width: 10px;
     height: 15px;

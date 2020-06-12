@@ -58,16 +58,41 @@ class AnswerController extends Controller
                     ['company_id', $request->company_id]
                 ]);
             })->first();
-            //$tutor = AfiliadoEmpresa::find(1);
-            //dd($tutor->email);
-            //agregar reporte por los momentos - pendiente por definir de estrategica
-            /*
             $advanceLine = AdvanceLine::where([
-                ['affiliated_company_id',$request->student_affiliated_company_id],
-                ['affiliated_account_service_id',$request->student_affiliated_company_id],
+                ['affiliated_company_id',$student->id],
+                ['affiliated_account_service_id',$request->affiliated_account_service_id],
                 ['sequence_id',$request->sequence_id],
-                ['moment_id',$request->moment_id]
-            ])->orderBy('moment_id', 'ASC')->orderBy('moment_section_id', 'ASC')->get();*/
+                ['moment_order',$request->moment_id]
+            ])->orderBy('moment_order', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
+            $place_advance_line = "";
+            foreach ($advanceLine as $advanceLineSection){
+                $sequenceMoment = SequenceMoment::where([
+                    ['sequence_company_id',$request->sequence_id],
+                    ['order',$request->moment_id]
+                ])->first();
+                switch ($advanceLineSection->moment_section_id){
+                    case 1:
+                        $section = json_decode($sequenceMoment->section_1, true);
+                        $place_advance_line = $section['section']['name'].', ';
+                        break;
+                    case 2:
+                        $section = json_decode($sequenceMoment->section_2, true);
+                        $place_advance_line = $place_advance_line.' '.$section['section']['name'].',';
+                        break;
+                    case 3:
+                        $section = json_decode($sequenceMoment->section_3, true);
+                        $place_advance_line = $place_advance_line.' '.$section['section']['name'].',';
+                        break;
+                    case 4:
+                        $section = json_decode($sequenceMoment->section_4, true);
+                        $place_advance_line = $place_advance_line.' '.$section['section']['name'].',';
+                        break;
+                }
+
+            }
+            if( substr($place_advance_line, -1) === ',' )
+                    $place_advance_line = substr($place_advance_line, 0, -1);
+
             $reportAnswers = $this->get_answers($request);
             $performance = (collect($reportAnswers)->sum('review_student') / count($reportAnswers));
             $sequence = CompanySequence::select('name')->where('id', $request->sequence_id)->first();
@@ -106,7 +131,7 @@ class AnswerController extends Controller
                     break;
             }
 
-            Mail::to($tutor->email)->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment,$color_performance,$performance));
+            Mail::to($tutor->email)->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment,$color_performance,$performance,$place_advance_line));
             return response()->json(['data' => ['performance' => $performance, 'performance_comment' => $performance_comment, 'level' => $level, 'qualification' => $qualification], 'message' => 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);
         }
         return response()->json(['data' => '', 'message' => 'El formato para registrar o actualizar los datos de respuesta no es el correcto'], 401);

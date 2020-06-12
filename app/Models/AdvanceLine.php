@@ -35,4 +35,10 @@ class AdvanceLine extends Model
         return $this->belongsTo(AffiliatedAccountService::class, 'affiliated_account_service_id', 'id');
 
     }
+
+    public function sequence_moment(){
+
+        return $this->belongsTo(SequenceMoment::class, 'sequence_id', 'id');
+
+    }
 }
