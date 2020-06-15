@@ -73,14 +73,14 @@
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.inscriptions' ) selected @endif"
                                             href="{{route('tutor.inscriptions','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/inscripciones-01.png')}}" class="ml-auto mr-auto" width="25px" height="auto"  style="width: 25px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/inscripciones-01.png')}}" class="ml-auto mr-auto" width="30px" height="auto"  style="width: 30px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Inscripciones</small>
                                             </a>
                                         </li>
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.products' ) selected @endif" 
                                                 href="{{route('tutor.products','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/productos-01.png')}}" class="ml-auto mr-auto" width="30px" height="auto"  style="width: 30px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/productos-01.png')}}" class="ml-auto mr-auto" width="30px" height="auto"  style="width: 30px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Productos</small>
                                             </a>
                                         </li>
@@ -94,21 +94,21 @@
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.reports' ) selected @endif"
                                                 href="{{route('tutor.inscriptions','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/reportes-01.png')}}" class="ml-auto mr-auto" width="55px" height="auto"  style="width: 55px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/reportes-01.png')}}" class="ml-auto mr-auto" width="45px" height="auto"  style="width: 45px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Reportes</small>
                                             </a>
                                         </li>
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.history' ) selected @endif"                                                
                                                 href="{{route('tutor.history','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/historialPagos-01.png')}}" class="ml-auto mr-auto" width="36px" height="auto"  style="width: 36px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/historialPagos-01.png')}}" class="ml-auto mr-auto" width="36px" height="auto"  style="width: 36px;height: auto;"/>
                                                 <div class="fs--2 mb-1 text-700 font-weight-bold" style="font-size: .55444rem!important;line-height: 1.2;margin-top: 6px;"> Historial de pagos</div>
                                             </a>
                                         </li>
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor.wishList' ) selected @endif"
                                             href="{{route('tutor.wishList','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/listaDeseos-01.png')}}" class="ml-auto mr-auto" width="22px" height="auto"  style="width: 22px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/listaDeseos-01.png')}}" class="ml-auto mr-auto" width="26px" height="auto"  style="width: 26px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Lista de deseos</small>
                                                 
                                             </a>
@@ -116,13 +116,13 @@
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head @if(\Route::current()->getName() == 'tutor' ) selected @endif"
                                                 href="{{route('tutor','conexiones')}}">
-                                                <img src="{{asset('images/icons/portalPadres/configuracion-01.png')}}" class="ml-auto mr-auto" width="42px" height="auto"  style="width: 42px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/configuracion-01.png')}}" class="ml-auto mr-auto" width="32px" height="auto"  style="width: 32px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Conﬁguración</small>
                                             </a>
                                         </li>
                                         <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                <img src="{{asset('images/icons/portalPadres/salir-01.png')}}" class="ml-auto mr-auto" width="20px" height="auto"  style="width: 20px;height: auto;"/>
+                                                <img src="{{asset('images/icons/portal-padres/salir-01.png')}}" class="ml-auto mr-auto" width="20px" height="auto"  style="width: 20px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Salir</small>
                                                 <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                                                    @csrf

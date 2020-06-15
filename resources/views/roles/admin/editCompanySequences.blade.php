@@ -183,8 +183,7 @@
                   <div class="p-4 row fs--1" ng-show="dataJstree.type === 'openSequence'">
                      <div class="conx-element col-auto" ng-click="onClickElement(sequence,'url_image','Carátula','img')">
                         <h6>Carátula</h6>
-                        <img ng-show="sequence.url_image" ng-src="../../../@{{sequence.url_image}}" width="79px" height="auto"/>
-                        <img ng-hide="sequence.url_image" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
+                        <img ng-src="@{{'/'+sequence.url_image || '/images/icons/NoImageAvailable.jpeg'}}" width="79px" height="auto"/>
                      </div>
                      <div class="col-3 conx-element" ng-click="onClickElement(sequence,'name','Nombre','text')">
                         <h6>Nombre</h6>
@@ -192,23 +191,21 @@
                      </div>
                      <div class="col-4 conx-element" ng-click="onClickElement(sequence,'description','Descripción','textArea')">
                         <h6>Descripción</h6>
-                        @{{ sequence.description || '---Descripcion--' }}
+                        @{{ sequence.description || '---Descripción--' }}
                      </div>
                      <div class="col-4 mt-3 conx-element" ng-click="onClickElement(sequence,'url_vimeo','Situación Generadora','video')">
                         <h6 class="mr-3">Situación Generadora</h6>
-                        <img ng-hide="sequence.url_vimeo" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
-                        <div ng-show="sequence.url_vimeo"> 
-                        <iframe width="120" height="115" frameborder="0" refreshable="sequence.url_vimeo"
+                        <iframe width="120" height="115" frameborder="0" refreshable="sequence.url_vimeo" src="https://player.vimeo.com/video/286898202"
                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                        
                      </div>
-                     <div class="col-4 d-flex mt-3 conx-element" ng-click="onClickElement(sequence,'url_slider_images','Imágenes','slide-images')">
-                           <h6 class="mr-3">Imágenes</h6>
+                     <div class="col-4 d-flex mt-3 conx-element" ng-click="onClickElement(sequence,'url_slider_images','Imágenes slide','slide-images')">
+                           <h6 class="mr-3">Imágenes slide</h6>
                            <img ng-hide="sequence.url_slider_images" ng-src="/images/icons/NoImageAvailable.jpeg" width="79px" height="auto"/>
                            <div class="w-100" ng-show="sequence.url_slider_images" ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index"> 
                               <img src="/@{{slide}}" width="40px" height="40px" style="margin-left: -10px"/>
                            </div>
-                        </div>
+                     </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex" ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">
                         <h6>Palabras clave</h6>
                         &nbsp; &nbsp;  @{{ sequence.keywords }}
@@ -264,7 +261,7 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  class="conx-element">
-                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="../../../@{{element.url_image}}" 
+                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" 
                                 ng-class="element.class + 'conx-element'" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
                                 conx-draggable="element" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
@@ -373,7 +370,7 @@
                         </div>
                         <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
                            class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
-                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="../../../@{{element.url_image}}" w="@{{element.w}}" h="@{{element.h}}"/>
+                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
@@ -448,37 +445,69 @@
             <input type="text" ng-show="typeEdit === 'text'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
             <textarea ng-change="onChangeInput(elementEdit.text)" ng-show="typeEdit === 'textArea'" ng-model="elementParentEdit[elementEdit]" rows="5" class="w-100">
             </textarea>
-            <input ng-show="typeEdit === 'video'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit]" class="w-100"/>
+            <input ng-show="typeEdit === 'video'" ng-change="onChangeInput(elementParentEdit[elementEdit])" ng-model="elementParentEdit[elementEdit] || 'https://player.vimeo.com/video/286898202'" class="w-100"/>
+            
             <div ng-show="typeEdit === 'slide-images'">
-               <conx-slide-images elementParent="elementParentEdit" elementChild="elementEdit"></conx-slide-images>   
+               <h6><small>Seleccione el directorio</small></h6>
+               <div class="col-12 d-flex">
+                  <h6 class="p-2 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
+                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
+                   </h6>
+                   <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;" style="position: absolute;right: 35px;top: 5px;">
+                      <i class="fas fa-caret-down"></i>
+                   </div>
+                   <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;" style="position: absolute;right: 35px;top: 5px;">
+                       <i class="fas fa-caret-up"></i>
+                   </div>
+               </div>
+               <!--conx-slide-images elementParent="elementParentEdit" elementChild="elementEdit"></conx-slide-images-->
+               <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow"> 
+                  <ul class="p-0 list-inline mt-2 mb-0">
+                      <li class="mb-2 ml-2" ng-repeat="field in directory">
+                         <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderSlideImage(field.dir)">
+                             @{{field.name}}
+                         </a>
+                      </li>
+                  </ul>
+                  <div class="col-12 row mt-3">
+                     <div ng-repeat="field in filesImages"  class="col-4">
+                        <img ng-src="/@{{field.url_image}}" width="79px" height="auto"/>
+                     </div>
+                  </div>
+               </div>
+               <div class="line-separator"></div>
+
             </div>
 
             <div ng-show="typeEdit === 'img'">
-               <img ng-src="../../../@{{elementParentEdit[elementEdit]}}" width="79px" height="auto" class=""/>
+               <img ng-src="/@{{elementParentEdit[elementEdit]}}" width="79px" height="auto" class=""/>
                <div class="line-separator"></div>
                <div class="col-12 d-flex">
                    <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
-                      ng-click="mbImageShow=!mbImageShow">Directorio: @{{directoryPath}}
+                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                    </h6>
-                   <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;" style="position: absolute;right: 0px;top: 19px;">
+                   <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;" style="position: absolute;right: 35px;top: 19px;">
                       <i class="fas fa-caret-down"></i>
                    </div>
-                   <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;" style="position: absolute;right: 0px;top: 19px;">
+                   <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;" style="position: absolute;right: 35px;top: 19px;">
                        <i class="fas fa-caret-up"></i>
                    </div>
                </div>
                <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow"> 
-                  <div class="col-12" ng-repeat="field in directory">
-                     <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage(field.dir)">
-                         @{{field.name}}
-                     </a>
-                  </div>
+                  <ul class="p-0 list-inline mt-2 mb-0">
+                      <li class="mb-2 ml-2" ng-repeat="field in directory">
+                         <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage(field.dir)">
+                             @{{field.name}}
+                         </a>
+                      </li>
+                  </ul>
                   <div class="col-12 row mt-3">
                      <div ng-repeat="field in filesImages"  class="col-4">
-                        <img ng-src="../../../@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"/>
+                        <img ng-src="/@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"  class="cursor-pointer"/>
                      </div>
                   </div>
                </div>
+               <div class="line-separator"></div>
             </div>
             <div ng-show="typeEdit === 'text-list'">
                <conx-text-list elementParent="elementParentEdit" elementChild="elementEdit"></conx-text-list>
@@ -526,7 +555,33 @@
                </div>
             </div>
             <div ng-show="typeEdit === 'image-element'">
-               <img ng-src="../../../@{{elementEdit.url_image}}" width="79px" height="auto" class=""/>
+               <img ng-src="/@{{elementEdit.url_image}}" width="79px" height="auto" class=""/>
+               <div class="line-separator"></div>
+               <div class="col-12 d-flex">
+                   <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
+                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
+                   </h6>
+                   <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;" style="position: absolute;right: 35px;top: 19px;">
+                      <i class="fas fa-caret-down"></i>
+                   </div>
+                   <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;" style="position: absolute;right: 35px;top: 19px;">
+                       <i class="fas fa-caret-up"></i>
+                   </div>
+               </div>
+               <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow">
+                  <ul class="p-0 list-inline mt-2 mb-0">
+                      <li class="mb-2 ml-2" ng-repeat="field in directory">
+                         <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage(field.dir)">
+                             @{{field.name}}
+                         </a>
+                      </li>
+                  </ul>
+                  <div class="col-12 row mt-3">
+                     <div ng-repeat="field in filesImages"  class="col-4">
+                        <img ng-src="/@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)" class="cursor-pointer"/>
+                     </div>
+                  </div>
+               </div>
                <div class="line-separator"></div>
                <div  class="d-flex mt-3">
                   <i class="fas fa-arrow-right mr-2"></i>
@@ -543,31 +598,6 @@
                   <i class="fas fa-link"></i>
                   </button>
                </div>
-               <div class="line-separator"></div>
-               <div class="col-12 d-flex">
-                   <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
-                      ng-click="mbImageShow=!mbImageShow">Directorio: @{{directoryPath}}
-                   </h6>
-                   <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;" style="position: absolute;right: 0px;top: 19px;">
-                      <i class="fas fa-caret-down"></i>
-                   </div>
-                   <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;" style="position: absolute;right: 0px;top: 19px;">
-                       <i class="fas fa-caret-up"></i>
-                   </div>
-               </div>
-               <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow">
-                  <div class="col-12" ng-repeat="field in directory"  ng-click="onChangeFolderImage(field.dir)">
-                     <a class="btn btn-sm btn-outline-primary" href="#">
-                     @{{field.name}}
-                     </a>
-                  </div>
-                  <div class="col-12 row mt-3">
-                     <div ng-repeat="field in filesImages"  class="col-4">
-                        <img ng-src="../../../@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"/>
-                     </div>
-                  </div>
-               </div>
-               <div class="line-separator"></div>
                <div class="d-flex mt-3">
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>

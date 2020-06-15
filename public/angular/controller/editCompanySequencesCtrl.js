@@ -375,7 +375,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
         $scope.titleEdit = title;
         if ($scope.typeEdit === 'img') {
-            var dir = $scope.elementParentEdit[$scope.elementEdit] || 'images/sequences/sequence' + $scope.sequence.id + '/.';
+            var dir = $scope.elementParentEdit[$scope.elementEdit] || '/';
             dir = getLastPath(dir);
             $scope.onChangeFolderImage(dir);
         }
@@ -383,6 +383,29 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             var dir = $scope.elementEdit.url_image || 'images/sequences/sequence' + $scope.sequence.id + '/.';
             dir = getLastPath(dir);
             $scope.onChangeFolderImage(dir);
+        }
+        else if ($scope.typeEdit === 'slide-images') {
+            if($scope.elementParentEdit[$scope.elementEdit] && $scope.elementParentEdit[$scope.elementEdit].length > 0) {
+                var dir = $scope.elementParentEdit[$scope.elementEdit].split('|')[0];
+                dir = getLastPath(dir);
+                $scope.onChangeFolderImage(dir,function(data){
+                    var images_str = '';
+                    var file = null;
+                    $scope.mbImageShow = true;
+                    for(var index in data.scanned_directory) {
+                        file = data.scanned_directory[index];
+                        if(file != '..' && file.includes('.') ) {
+                            if(images_str.length>0) images_str += '|';
+                            images_str += data.directory + '/' + file;
+                        }
+                    }
+                    images_str = images_str.replace('//','/');
+                    $scope.elementParentEdit[$scope.elementEdit] = images_str;
+                });
+            }
+            else {
+                $scope.onChangeFolderImage('');
+            }
         }
     }
 
@@ -409,7 +432,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         if (typeof $scope.elementEdit === 'object') {
             var image = new Image();
             var refSplit = window.location.href.split('/');
-            image.src = refSplit[0] + '//' + refSplit[2] + '/' + field.url_image;
+            //image.src = refSplit[0] + '//' + refSplit[2] + '/' + field.url_image;
+            image.src = '/'+field.url_image;
             image.onload = function () {
                 $scope.elementEdit.url_image = field.url_image;
                 $scope.elementEdit.w = this.width;
@@ -418,7 +442,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                 $scope.heightOriginal = $scope.elementEdit.h;
                 $scope.bindWidthHeight = true;
                 $scope.elementEdit.bindWidthHeight = $scope.bindWidthHeight;
-
+                $scope.mbImageShow = false;
                 $scope.$apply();
             };
         }
@@ -437,10 +461,26 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             $scope.resizeSequenceCard();
         }, 10);
     }
+    
+    $scope.onChangeFolderSlideImage = function (path,callback) {
+        $scope.onChangeFolderImage(path,function(data){
+            var images_str = '';
+            var file = null;
+            for(var index in data.scanned_directory) {
+                file = data.scanned_directory[index];
+                if(file != '..' && file.includes('.') ) {
+                    if(images_str.length>0) images_str += '|';
+                    images_str += data.directory + '/' + file;
+                }
+            }
+            images_str = images_str.replace('//','/');
+            $scope.elementParentEdit[$scope.elementEdit] = images_str;
+            $scope.applyChange = true;
+        });
+    }
 
-    $scope.onChangeFolderImage = function (directoryPath) {
-        $scope.directoryPath = null;
-        $http.post('/conexiones/admin/get_folder_image', { 'dir': directoryPath }).then(function (response) {
+    $scope.onChangeFolderImage = function (path,callback) {
+        $http.post('/conexiones/admin/get_folder_image', { 'dir': path }).then(function (response) {
             var list = response.data.scanned_directory;
             $scope.directoryPath = response.data.directory;
             $scope.directory = [];
@@ -449,20 +489,24 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             for (indx in list) {
                 item = list[indx];
                 if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                    $scope.filesImages.push({ 'type': 'img', 'url_image': directoryPath + '/' + item });
+                    var filedir = $scope.directoryPath + '/' + item;
+                    $scope.filesImages.push({ 'type': 'img', 'url_image': filedir });
                 }
                 else if (!item.includes('.')) {
-                    $scope.directory.push({ 'type': 'dir', 'name': item, 'dir': directoryPath + '/' + item });
+                    var dir = $scope.directoryPath + '/'+ item;
+                    dir = dir.replace('//','/');
+                    $scope.directory.push({ 'type': 'dir', 'name': item, 'dir': dir });
                 }
-                else if (item === '..' && directoryPath != 'images') {
-                    var dir = getLastPath(directoryPath);
+                else if (item === '..') {
+                    var dir = getLastPath($scope.directoryPath);
                     $scope.directory.push({ 'type': 'dir', 'name': item, 'dir': dir });
                 }
             }
-        });
-        /*.catch(e){
+            if(callback) callback(response.data);
+        },function(e){
             $scope.errorMessage = angular.toJson(e);
-        }*/
+            $scope.directoryPath = null;
+        });
     }
 
     $scope.newElement = function (typeItem) {
@@ -1086,10 +1130,12 @@ MyApp.directive('conxEvidenceOptions', function () {
 MyApp.directive('conxSlideImages', function () {
     return {
         restrict: 'E',
-        template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
+        /*template: '<div ng-show="elementParentEdit && elementParentEdit[elementEdit].length > 0" ng-repeat="split in elementParentEdit[elementEdit].split(\'|\') track by $index"> ' +
             '<input ng-change="onChangeSplit($index,split)" ng-model="split" class="mt-1 fs--1 w-90"/>  ' +
             '<a ng-click="delete($index)" style="marging-top: 8px:;"><i class="far fa-times-circle"></i><a/> </div> ' +
             '<input class="mt-1 w-90 fs--1" type="text" ng-model="newSplit"/> <a href="#" class="cursor-pointer" ng-click="onNewSplit()"> <i class="fas fa-plus"></i><a/>',
+            */
+        template: '',        
         controller: function ($scope, $timeout) {
             $scope.delete = function ($index) {
 

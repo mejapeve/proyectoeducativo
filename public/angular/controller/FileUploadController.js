@@ -60,7 +60,7 @@ MyApp.controller('FileUploadController', ['$scope', "$http", function ($scope, $
 
 
 MyApp.controller('FileUploadLogsController', ['$scope', function ($scope) {
-	$scope.showerror = function(fileid){
-		$(fileid).toggleClass("d-none");
-	} 
+    $scope.showerror = function(fileid){
+        $(fileid).toggleClass("d-none");
+    } 
 }]);

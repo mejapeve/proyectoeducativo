@@ -19,7 +19,7 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los estudiantes';
-			$('.d-none-result').removeClass('d-none');
+            $('.d-none-result').removeClass('d-none');
         });
     };
     

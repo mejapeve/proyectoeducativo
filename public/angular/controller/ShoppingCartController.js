@@ -92,10 +92,11 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
         }).
             then(function (response) {
                 document.getElementById('preference_id').value = response.data.preference_id;
+                document.getElementById('external_reference').value = response.data.preference_id;
                 document.getElementById('simulate-form').submit();
                 $('.btn-spinner').addClass('d-none');
             }).catch(function (e) {
-				$scope.errorMessage = 'Error registrando preferencia de compra:'+ JSON.stringify(e);
+                $scope.errorMessage = 'Error registrando preferencia de compra:'+ JSON.stringify(e);
                 swal('Conexiones', $scope.errorMessage, 'error');
                 $('.btn-spinner').addClass('d-none');
             });

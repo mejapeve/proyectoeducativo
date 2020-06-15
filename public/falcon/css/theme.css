@@ -22346,7 +22346,7 @@ footer .navbar-light {
 }
 
 .panel-icon-pedagogy:before {
-	
+    
 }
 
 
@@ -22388,9 +22388,9 @@ footer .navbar-light {
 
 
 .panel-icon-pedagogy ul {
-	list-style: none;
-	padding: 0px;
-	margin-left: 10px;
+    list-style: none;
+    padding: 0px;
+    margin-left: 10px;
 }
 
 .panel-icon-pedagogy ul li::before {

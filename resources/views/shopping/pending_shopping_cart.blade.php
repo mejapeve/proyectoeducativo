@@ -158,6 +158,7 @@
             @csrf
             <input type="text" name="collection_status" value="approved"/>
             <input type="text" name="preference_id" id="preference_id" value=""/>
+            <input type="text" name="external_reference" id="external_reference" value=""/>
          </form>
          <button class="btn btn-outline-primary">
             <span class="fs-lg-0 fs-md-0 fs-sm--1" ng-click="getPreferenceInitPoint()">
