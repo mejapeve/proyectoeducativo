@@ -177,4 +177,10 @@ class AdminController extends Controller
 
     }
 
+    public function management_kit_elements_view() {
+
+        return view('roles.admin.management_kit_elements');
+
+    }
+
 }
