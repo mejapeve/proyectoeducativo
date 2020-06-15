@@ -1,5 +1,4 @@
 @extends('roles.tutor.layout')
-
 @section('plugins')
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">-->
@@ -8,13 +7,9 @@
     <link href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet">
 @endsection
-
-
 @section('content-tutor-index')
    <div class="container" ng-controller="tutorHistoryCtrl" ng-init="init()" >
-        
         <h6>Historial de pagos</h6>
-        
         <div class="card row mt-3 mb-4" style="">
             <div class="card-body p-0">
             <div class="p-4">

@@ -2,18 +2,8 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
 
     $scope.errorMessage = '';
     $scope.history = null;
-    
     $scope.init = function() {
-        
         $('.d-none-result').removeClass('d-none');
-        
-        
-     // $http({
-     //     url:"/get_history_tutor/",
-     //     method: "GET",
-     // }).
-     // then(function (response) {
-     //     $scope.history = response.data;
             var table = $('#myTable').DataTable({
                 processing: true,
                 serverSide: false,
@@ -32,10 +22,6 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                         title:function(){
                             return 'Conexiones - Historial de pagos'
                         },
-                        /*exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 7, 8, 9 ]
-                        }
-*/
                     },
                     {
                         extend: 'pdfHtml5',
@@ -123,14 +109,7 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                 let dataTable = table.row($tr).data();
                 window.location="{{route('get_user_contracted_products_view')}}"+"/"+dataTable.id
             });
-            
-            
-            
-            
-        //}).catch(function (e) {
-        //    $scope.errorMessage = 'Error consultando los productos asociados';
-        //});
-        //
+
     };
 }]);
 

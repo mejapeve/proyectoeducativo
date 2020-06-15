@@ -19,7 +19,6 @@ class KitElementController extends Controller
      */
     public function get_kit_elements(Request $request)
     {
-
         return Kit::with('kit_elements', 'kit_elements.element')->get();
 
     }
@@ -45,6 +44,15 @@ class KitElementController extends Controller
     {
 
         return Element::where('id', $element_id)->get();
+
+    }
+
+    public function get_kit_element_dt (){
+
+        $kitsElements['kits'] = Kit::all();
+        $kitsElements['elements'] = Element::all();
+
+        return response()->json($kitsElements,200);
 
     }
 
