@@ -100,7 +100,7 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                               'price': row.rating_plan ? '$'+row.rating_plan.price+' USD' : 
                                        product && product.kiStruct ? '$'+product.kiStruct.price+' USD' : 
                                        product && product.elementStruct ? '$'+product.elementStruct[0].price+' USD' : '' ,
-                              'payment_transaction_id': row.payment_transaction_id ? '...'+row.payment_transaction_id.substr(row.payment_transaction_id.length-6,row.payment_transaction_id.length) : ''
+                              'payment_transaction_id': row.approval_code
                             })
                         
                       }

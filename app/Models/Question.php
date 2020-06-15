@@ -19,6 +19,8 @@ class Question extends Model
         'type_answer',
         'order',
         'title',
-        'concept'
+        'concept',
+        'url_image',
+        'url_video'
     ];
 }

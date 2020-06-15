@@ -18,8 +18,7 @@ class CreateQuestiosTable extends Migration
             $table->string('title');
             $table->longText('options');
             $table->longText('review');
-            $table->bigInteger('type_answer')->unsigned();
-            $table->foreign('type_answer')->references('id')->on('type_answers');
+            $table->bigInteger('type_answer')->unsigned()->comment('1:Pregunta sin respuesta,2:Cerrada,3:Pregunta docente');
             $table->bigInteger('sequence_id')->unsigned()->nullable();
             $table->bigInteger('moment_id')->unsigned()->nullable();
             $table->bigInteger('experience_id')->unsigned()->nullable();

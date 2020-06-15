@@ -4,7 +4,7 @@ APP_ENV=local
 APP_KEY=base64:R5l3t/O9P/ooPtlI+SfjVwCrrkoeXoEX93X+J8ZJxQU=
 APP_DEBUG=true
 APP_URL=http://localhost
-
+ADMIN_DESIGN_PATH=public_html/images/designerAdmin
 LOG_CHANNEL=stack
 
 #DB_CONNECTION=mysql

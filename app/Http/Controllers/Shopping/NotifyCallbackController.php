@@ -26,14 +26,17 @@ class NotifyCallbackController extends Controller
 
         if ($request->collection_status == 'approved') {
 
+            $transaction_date = date("Y-m-d H:i:s");
             $update = ShoppingCart::where([["company_affiliated_id", auth("afiliadoempresa")->user()->id],
                 ['payment_status_id', 2],
                 ['payment_transaction_id', $request->external_reference]])->
             update(array(
                 'payment_status_id' => '3',
-                'payment_process_date' => date("Y-m-d H:i:s"),
+                'payment_process_date' => $transaction_date,
+                'approval_code' => $request->collection_id,
+                'payment_method' => 'TC'
             ));
-            $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $request->external_reference)->first();
+
             if ($request->user('afiliadoempresa')) {
 
                 $afiliado_empresa = $request->user('afiliadoempresa');
@@ -67,6 +70,8 @@ class NotifyCallbackController extends Controller
             update(array(
                 'payment_status_id' => '4',
                 'payment_process_date' => date("Y-m-d H:i:s"),
+                'approval_code' => $request->collection_id,
+                'payment_method' => 'TC'
             ));
             // Generando registro nuevo para shoppingCart
             $shoppingCarts = ShoppingCart::with('shopping_cart_product')->
@@ -113,10 +118,6 @@ class NotifyCallbackController extends Controller
                 // 'headers' => $headers,
             ]);
 
-            // $body = "access_token"  env('MERCADOPAGO_ACCESS_TOKEN');
-
-
-            // 'https://api.mercadopago.com/v1/payments/7001632717?access_token=APP_USR-3764584103744876-052802-214ee174865974c1821473fc8bafd65a-575372312',
             $res = $client->request(
                 'GET',
                 'https://api.mercadopago.com/v1/payments/'.$payment_id,
@@ -134,6 +135,8 @@ class NotifyCallbackController extends Controller
                 update(array(
                     'payment_status_id' => '3',
                     'payment_process_date' => date("Y-m-d H:i:s"),
+                    'approval_code' => $payment_id,
+                    'payment_method' => 'PSE'
                 ));
                 $transaction_date = ShoppingCart::select('payment_process_date')->where('payment_transaction_id', $data->external_reference)->first();
                 if ($request->user('afiliadoempresa')) {
@@ -167,6 +170,8 @@ class NotifyCallbackController extends Controller
                 update(array(
                     'payment_status_id' => '4',
                     'payment_process_date' => date("Y-m-d H:i:s"),
+                    'approval_code' => $payment_id,
+                    'payment_method' => 'PSE'
                 ));
                 // Generando registro nuevo para shoppingCart
                 $shoppingCarts = ShoppingCart::with('shopping_cart_product')->
