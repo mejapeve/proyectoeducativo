@@ -160,6 +160,8 @@ Route::post('/fileupload/action', ['as' => 'fileuploadAction', 'uses' => 'Admin\
 Route::get('/conexiones/admin/sequences_list', 'Admin\EditCompanySequenceController@get_sequences_list')->name('admin.get_sequences_list');
 Route::get('/conexiones/admin/sequences_get/{sequence_id}', 'Admin\EditCompanySequenceController@get_sequences_get')->name('admin.get_sequences_get');
 Route::post('/conexiones/admin/get_folder_image', 'FolderImageController@getFiles')->name('get_folder_image');
+Route::get('/conexiones/admin/get_affiliates', 'AdminController@affiliates')->name('get_affiliates')->middleware('role:admin');;
+Route::get('/conexiones/admin/get_payments', 'AdminController@payments')->name('get_payments')->middleware('role:admin');;
 
 Route::get('get_companies', 'CompanyController@get_companies')->name('get_companies');
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');

@@ -37,4 +37,11 @@ class ShoppingCart extends Model
 
     }
 
+    public function affiliate()
+    {
+
+        return $this->belongsTo(AfiliadoEmpresa::class, 'company_affiliated_id', 'id');
+
+    }
+
 }

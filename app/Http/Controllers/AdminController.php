@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendChangeDateExpirationContent;
 use App\Models\AffiliatedAccountService;
 use App\Models\AfiliadoEmpresa;
+use App\Models\ShoppingCart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -161,6 +162,18 @@ class AdminController extends Controller
     {
 
         return view('roles.admin.plans');
+
+    }
+
+    public function payments(){
+
+        return response()->json(['data'=>ShoppingCart::with('affiliate')->get()],200);
+
+    }
+
+    public function affiliates(){
+
+       return response()->json(['data'=>AfiliadoEmpresa::all()->count()],200);
 
     }
 
