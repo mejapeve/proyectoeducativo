@@ -28,7 +28,17 @@ class ElementController extends Controller
      */
     public function create(Request $request)
     {
+        $data = $request->all();
+        $element = new Element();
+        $element->name = $data['name'];
+        $element->description = $data['description'];
+        $element->url_image = $data['url_image'];
+        $element->url_slider_images = $data['url_slider_images'];
+        $element->price = $data['price'];
+        $element->quantity = $data['quantity'];
+        $element->save();
 
+        return response()->json('Registro existoso',200);
 
     }
 
