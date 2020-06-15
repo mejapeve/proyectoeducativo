@@ -4,7 +4,7 @@
         <tbody>
             <tr style="height:340.088px">
                 <td style="width:10.7244px;height:340.088px">
-                    <img src="https://educonexiones.com/images/sliderCarrucelHome/slide3.jpg"  data-skip-embed>
+                    <img src="https://educonexiones.com/images/sliderCarrucelHome/slide1.jpg"  data-skip-embed>
                 </td>
             </tr>
             <tr style="height:235px">
@@ -55,7 +55,6 @@
                                         <span style="color:#999999">Compra Educonexiones<br>
 									        Valor de la Transacción: {{$price_callback}} COP<br>
                                             Fecha de Transacción: {{$transaction_date->payment_process_date}}<br>
-                                            Id de preferencia: {{$request->preference_id}}
                                         </span>
                                     </span>
                                 </td>

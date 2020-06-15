@@ -113,6 +113,8 @@ class NotifyCallbackController extends Controller
             //Se realiza proceso de split para obtener el paymentId
             parse_str(parse_url($referer, PHP_URL_QUERY), $queries);
             $payment_id = $queries['payment_id'];
+            $request->request->add(['variable' => 'value']);
+            $request->request->add(['collection_id' => $payment_id]);
             //Se genera el cliente para consumir el API de MP, se obtiene el estado del pago
             $client = new \GuzzleHttp\Client([
                 // 'headers' => $headers,

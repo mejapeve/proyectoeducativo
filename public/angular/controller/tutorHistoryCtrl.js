@@ -97,9 +97,9 @@ MyApp.controller("tutorHistoryCtrl", ["$scope", "$http", function($scope, $http)
                                          product && product.kiStruct ? product.kiStruct.name : 
                                          product && product.elementStruct ? product.elementStruct[0].name : '',
                               'status': row.payment_status.name,
-                              'price': row.rating_plan ? '$'+row.rating_plan.price+' USD' : 
-                                       product && product.kiStruct ? '$'+product.kiStruct.price+' USD' : 
-                                       product && product.elementStruct ? '$'+product.elementStruct[0].price+' USD' : '' ,
+                              'price': row.rating_plan ? '$'+row.rating_plan.price+' COP' :
+                                       product && product.kiStruct ? '$'+product.kiStruct.price+' COP' :
+                                       product && product.elementStruct ? '$'+product.elementStruct[0].price+' COP' : '' ,
                               'payment_transaction_id': row.approval_code
                             })
                         
