@@ -182,7 +182,7 @@ MyApp.controller("tutorProfileCtrl", ["$scope", "$http", function($scope, $http)
                         break;
                 }
                 swal({
-                    text: "No se puede editar el campo, debe tener minimo 3 caracteres maximo 10",
+                    text: "No se puede editar el campo, debe tener minimo 3 caracteres maximo 20",
                     type: "warning",
                     showCancelButton: false,
                     showConfirmButton: false
@@ -211,7 +211,7 @@ MyApp.controller("tutorProfileCtrl", ["$scope", "$http", function($scope, $http)
     }
 
     $scope.valiateInputs = () =>{
-        if( $scope.varChange.length >= 3 && $scope.varChange.length <= 10 )
+        if( $scope.varChange.length >= 3 && $scope.varChange.length <= 20 )
             return true;
         return false;
     }

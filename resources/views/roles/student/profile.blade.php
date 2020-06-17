@@ -1,7 +1,7 @@
 @extends('roles.student.layout')
 
 @section('content')
-    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile('{{$student->kidSelected()}}','{{$student->user_name}}');">
+    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile('{{$student->kidSelected()}}','{{$student->user_name}}')">
         <div class="content row">
             <div class="col-8 mt-4 ml-auto mr-auto">
                 <div class="border border-light rounded-radius-1 card card-body border-dark_opacity"  style="min-width: 24rem;">
@@ -34,15 +34,15 @@
                                    <div class="row">
                                         <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Registra los datos del estudiante</h6>
                                         <div class="col-12 d-flex mt-3">
-                                            <div class="register-avatar-kid" ng-click="kidSelected='niño'" ng-class="{'selected':kidSelected==='niño'}">
+                                            <div class="register-avatar-kid" ng-click="onKidSelected('niño')" ng-class="{'selected':kidSelected==='niño'}">
                                                 <img src="{{asset('images/icons/kid2.png')}}" width="103px;"/>
                                                 <span>Niño</span>
                                             </div>
-                                            <div class="register-avatar-kid" ng-click="kidSelected='niña'" ng-class="{'selected':kidSelected==='niña'}">
+                                            <div class="register-avatar-kid" ng-click="onKidSelected('niña')" ng-class="{'selected':kidSelected==='niña'}">
                                                 <img src="{{asset('images/icons/kid1.png')}}" width="103px;"/>
                                                 <span>Niña</span>
                                             </div>
-                                            <div class="register-avatar-kid" ng-click="kidSelected='joven'" ng-class="{'selected':kidSelected==='joven'}">
+                                            <div class="register-avatar-kid" ng-click="onKidSelected('joven')" ng-class="{'selected':kidSelected==='joven'}">
                                                 <img src="{{asset('images/icons/kid3.png')}}" width="103px;"/>
                                                 <span>Joven</span>
                                             </div>

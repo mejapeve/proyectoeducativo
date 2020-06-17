@@ -28,7 +28,7 @@
                                                     <span style="color:#999999;font-size:14pt">
                                                         Gracias por utilizar los servicios de EDUCONEXIONES.&nbsp;
                                                     </span>
-                                                    <span style="color:#999999;font-size:14pt">Los siguientes son los datos de tu transacción:
+                                                    <span style="color:#999999;font-size:14pt">Los siguientes son los datos de la transacción:
                                                     </span>
                                                 </span>
                                             </b>

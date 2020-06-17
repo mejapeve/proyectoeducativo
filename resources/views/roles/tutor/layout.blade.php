@@ -17,9 +17,9 @@
                                <div class="card-header">
                                   <div class="ml-auto mr-auto avatar-5xl">
                                      @if(isset(auth('afiliadoempresa')->user()->url_image))
-                                       <img class="rounded-circle m-auto" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="150px" height="auto">
+                                       <img class="rounded-circle m-auto" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="150px" height="150px">
                                       @else 
-                                       <img class="rounded-circle m-auto" src="{{asset('images/icons/default-avatar.png')}}" width="150px" height="auto">
+                                       <img class="rounded-circle m-auto" src="{{asset('images/icons/default-avatar.png')}}" width="150px" height="150px">
                                      @endif 
                                   </div>
                                   <div class="ml-auto mr-auto m-3 text-align" id="tutorProfileFullName">{{auth('afiliadoempresa')->user()->name }}

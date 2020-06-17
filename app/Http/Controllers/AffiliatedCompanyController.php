@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendChangesProfileStudent;
 use App\Models\AfiliadoEmpresa;
 use App\Models\ConectionAffiliatedStudents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Class AffiliatedCompanyController
@@ -88,36 +90,78 @@ class AffiliatedCompanyController extends Controller
             } else {
                 $userStudent = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
                 if ($userStudent->exists()) {
-                    $userStudent->name = $request->name;
-                    $userStudent->last_name = $request->last_name;
+                    $student['name'] = $userStudent->name;
+                    $student['last_name'] = $userStudent->last_name;
+                    $dataArray = array();
+                    if($userStudent->name != $request->name){
+                        $userStudent->name = $request->name;
+                        $dataToChange['key'] = 'Nombre';
+                        $dataToChange['value'] = $request->name;
+                        array_push($dataArray,$dataToChange);
+                    }
+                    if($userStudent->last_name != $request->last_name){
+                        $userStudent->last_name = $request->last_name;
+                        $dataToChange['key'] = 'Apellido';
+                        $dataToChange['value'] = $request->last_name;
+                        array_push($dataArray,$dataToChange);
+                    }
                     if (isset($request->user_name)) {
                         $exist = AfiliadoEmpresa::where('user_name', $request->user_name)->first();
                         if ($exist === null) {
                             $userStudent->user_name = $request->user_name;
+                            $dataToChange['user_name'] = $request->user_name;
+                            $dataToChange['key'] = 'Usuario';
+                            $dataToChange['value'] = $request->user_name;
+                            array_push($dataArray,$dataToChange);
                         } else {
                             return response()->json(['data' => '', 'message', 'El nombre de usuario ya esta en uso'], 200);
                         }
                     }
-                    if (isset($request->birthday)) {
-                        $userStudent->birthday = $request->birthday;
-                    }
+                    //if (isset($request->birthday)) {
+                        //$userStudent->birthday != $request->birthday?$dataToChange['birthday'] = $request->birthday:'';
+                        if($userStudent->birthday != $request->birthday){
+                            $userStudent->birthday = $request->birthday;
+                            $dataToChange['key'] = 'Fecha de nacimiento';
+                            $dataToChange['value'] = $request->birthday;
+                            array_push($dataArray,$dataToChange);
+                        }
+                    //}
                     if (isset($request->password)) {
                         $userStudent->password = Hash::make($request->password);
+                        $dataToChange['key'] = 'Contraseña';
+                        $dataToChange['value'] = $request->password ;
+                        array_push($dataArray,$dataToChange);
                         $request->session()->put([
                             'password_hash' => $userStudent->password,
                         ]);
 
                     }
-                    if (isset($request->kidSelected)) {
-                        ConectionAffiliatedStudents::
-                        where('student_company_id', $userStudent->affiliated_company->where(
-                            'rol_id', 1
-                        )->where('company_id', 1)->first()->id)->update(array(
-                            'age_stage' => $request->kidSelected,
-                        ));
-                    }
-                    $userStudent->save();
+                    //if (isset($request->kidSelected)) {
+                        if($userStudent->kidSelected() != $request->kidSelected){
+                            $dataToChange['age_stage'] = $request->kidSelected;
+                            $dataToChange['key'] = 'Etapa de edad';
+                            $dataToChange['value'] = $request->kidSelected ;
+                            array_push($dataArray,$dataToChange);
+                            ConectionAffiliatedStudents::
+                            where('student_company_id', $userStudent->affiliated_company->where(
+                                'rol_id', 1
+                            )->where('company_id', 1)->first()->id)->update(array(
+                                'age_stage' => $request->kidSelected,
+                            ));
+                        }
 
+                    //}
+                    $userStudent->save();
+                    $tutor = AfiliadoEmpresa::whereHas('affiliated_company', function ($query) use ($request, $userStudent) {
+                        $query->whereHas('conection_tutor', function ($query) use ($userStudent, $request) {
+                            $query->where('student_company_id', $userStudent->affiliated_company->where('rol_id', 1)->where('company_id', 1)->first()->id);
+                        })->where([
+                            ['rol_id', 3],
+                            ['company_id', 1]
+                        ]);
+                    })->first();
+
+                    Mail::to($tutor->email)->send(new SendChangesProfileStudent($dataArray,$tutor,$student));
                     return response()->json(['data' => $userStudent], 200);
                 }
                 return response()->json(['data' => '', 'message' => 'El usario ha editar no se encuentra'], 200);

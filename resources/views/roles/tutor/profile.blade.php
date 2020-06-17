@@ -7,9 +7,9 @@
             <div class="col-3">Imagen de perfíl</div>
             <div class="col-6">
             @if(isset(auth('afiliadoempresa')->user()->url_image)) 
-                <img class="rounded-pill" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="60px" style="margin:-15px;">
+                <img class="rounded-pill" src="{{asset(auth('afiliadoempresa')->user()->url_image)}}" width="60px" height="60px" style="margin:-15px;">
             @else 
-                <img class="rounded-pill" src="{{asset('images/icons/default-avatar.png')}}" width="60px" style="margin:-15px;">
+                <img class="rounded-pill" src="{{asset('images/icons/default-avatar.png')}}" width="60px" height="60px" style="margin:-15px;">
             @endif
             </div>
             <div class="col-3">

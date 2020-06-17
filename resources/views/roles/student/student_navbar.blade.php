@@ -26,7 +26,7 @@
            <a href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
            @if(Route::current()->getName() == 'student.available_sequences' ||  
                Route::current()->getName() == 'student.sequences_section_1'  ) 
-               selected @endif">Mis cursos</a>
+               selected @endif">Guías de aprendizaje</a>
            <i class="fas fa-book-open fs-1"></i>
         </li>
         <li class="nav-item ml-lg-14 col-auto d-flex">

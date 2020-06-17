@@ -34,7 +34,7 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
           "password": password,
           "kidSelected": $scope.kidSelected
       }
-      
+
       if($scope.userNameInit != user_name ) {
           data.user_name = user_name;
       }
@@ -55,11 +55,11 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
                showConfirmButton: false
             }).catch(swal.noop);
             
-            
+
             $timeout(function() {
                location="";
             },1000);
-            
+
          }
       }).catch(function (e) {
          $scope.errorMessageRegister = 'Error editando el estudiante';
@@ -76,5 +76,9 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
             cambio.type = "password";
             $(`.${idInput}`).removeClass('fa fa-eye').addClass('fa fa-eye-slash');
         }
+    }
+    $scope.onKidSelected = (type)=>{
+        $scope.kidSelected = type
+
     }
 });

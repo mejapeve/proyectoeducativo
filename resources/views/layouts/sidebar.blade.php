@@ -31,7 +31,7 @@
 								  <span class="ml-2 mr-2 nav-link-icon">
 									 <i class="fas fa-book-open fs-1"></i>
 								  </span>
-								  Mis cursos
+                                   Guías de aprendizaje
 							   </div>
 							</a>
 						</li>

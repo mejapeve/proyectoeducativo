@@ -16,7 +16,7 @@
                     <form method="POST" action="{{ route('password.email',[$company->nick_name,$rol]) }}">
                         @csrf
                         <div class="form-group p-4">
-                            <input autocomplete='off' placeholder="Usuario" name="email" id="email" type="text"
+                            <input autocomplete='off' placeholder="Correo electrónico" name="email" id="email" type="text"
                                 class="form-control @error('email') is-invalid @enderror"
                                 value="{{ old('email') }}" required autocomplete="name" autofocus>
                             @error('email')

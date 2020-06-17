@@ -9,6 +9,10 @@ class ConectionAffiliatedStudents extends Model
     //
     protected $table = "connection_affiliated_students";
 
+    protected $fillable = [
+        'age_stage'
+    ];
+
     public function student_family()
     {
 

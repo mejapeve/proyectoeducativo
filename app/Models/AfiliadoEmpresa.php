@@ -3,6 +3,7 @@
 namespace App\Models;
 
 //use Illuminate\Database\Eloquent\Model;
+use App\Models\ConectionAffiliatedStudents;
 use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,6 @@ use App\Notifications\MyResetPassword;
 use App\Notifications\WelcomeMail;
 use App\Models\ShoppingCart;
 use App\Models\AdvanceLine;
-use App\Models\ConectionAffiliatedStudents;
 use App\Models\AffiliatedCompanyRole;
 use Illuminate\Auth\Passwords\PasswordBroker;
 
@@ -204,7 +204,9 @@ class AfiliadoEmpresa extends Model
             ['rol_id', 1]//estudiante
         ])->first()->id;
         $kidSelected = ConectionAffiliatedStudents::select('age_stage')->where('student_company_id', $rol_id)->get()->first();
+        if( $kidSelected !== null)
+            return $kidSelected['age_stage'];
+        return '';
 
-        return $kidSelected['age_stage'] || '';
     }
 }
