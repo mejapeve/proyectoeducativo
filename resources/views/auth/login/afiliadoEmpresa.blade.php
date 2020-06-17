@@ -17,7 +17,7 @@
 
                             <div class="form-group">
                                 <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" 
-                                class="form-control " value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+                                class="form-control " value="@if(old('user_name') && session('rol_trans') == 1) {{ old('user_name') }} @endif" required autocomplete="name" autofocus>
                             </div>
 
                             <div class="form-group">
@@ -80,7 +80,7 @@
                             
                             <div class="form-group">
                                 <input autocomplete='off' placeholder="Usuario" name="user_name" id="user_name" type="text" 
-                                class="form-control" value="{{ old('user_name') }}" required autocomplete="name" autofocus>
+                                class="form-control" value="@if(old('user_name') && session('rol_trans') == 3) {{ old('user_name') }} @endif" required autocomplete="name" autofocus>
                             </div>
                             <div class="form-group">
                                 <input placeholder="Contraseña" id="password" type="password" 

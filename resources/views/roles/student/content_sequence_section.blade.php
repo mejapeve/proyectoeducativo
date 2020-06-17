@@ -144,8 +144,8 @@
                 </div>
                 <div class="card-body p-5" ng-show="questionsOpened[0].type_answer===1">
                     <div ng-repeat="question in questionsOpened track by $index" class="ml-auto mr-auto row">
-                        <div class="col-6"> <h6 style="color:#E15433;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >@{{question.title}}</h6></div>
-                        <div class="col-6"> <h6 class="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6></div>
+                        <div class="col-6"> <h6 ng-show="question.title" style="color:#E15433;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >@{{question}}<div ng-class="{'mt-n3': question.isHtml}" ng-bind-html="question.title"></div></h6></div>
+                        <div class="col-6"> <h6 ng-show="question.objective" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6></div>
                     </div>
                     <div class="d-flex mt-6 ml-6">
                         <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" 
@@ -156,7 +156,8 @@
                 <div class="card-body pl-7 pr-6" ng-show="questionsOpened[0].type_answer===2">
                     <div ng-repeat="question in questionsOpened track by $index" class="ml-auto mr-auto" ng-show="indexQuestion === $index">
                         <h5 style="color:#E15433;">
-                            <img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >Pregunta @{{$index + 1}}. <p>@{{question.title}}</p>
+                            <img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >
+							Pregunta @{{$index + 1}}. <div ng-bind-html="question.title"></div>
                         </h5>
                         <h6 class="mb-3" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6>
                         <div class="fs-0 ml-4" ng-repeat="option in question.options track by $index">

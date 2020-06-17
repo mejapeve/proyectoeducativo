@@ -10,6 +10,7 @@
             <div class="mb-3 card fade show d-none p-3 overflow-auto row" id="sidemenu-sequences-content-temp">
                <div id="jstree" class="fs--1" >
                   <ul>
+                     <li data-jstree='{ "type":"openAllSequence","icon": "jstree-file"}'> <a href="">Todas las secuencias</a></li>
                      <li data-jstree='{ "type":"openSequence", "opened": true, "selected": @{{ dataJstree.type === "openSequence" ? true: false  }} }'>
                         Secuencia: <strong>@{{sequence.name}}</strong>
                         <ul>
@@ -246,6 +247,7 @@
                         <div id="@{{element.type === 'text-element' ? element.id : ''}}"
                            ng-show="element.type === 'text-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                            class="@{{element.class}} font-text conx-element" conx-draggable="element" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                           style="@{{element.style}}"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
@@ -254,6 +256,7 @@
                         </div>
                         <div id="@{{element.type==='text-area-element' ? element.id : ''}}" ng-show="element.type==='text-area-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                            class="@{{element.class}} font-text conx-element" conx-draggable="element"  ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                           style="@{{element.style}}"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}    
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
@@ -261,16 +264,19 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  class="conx-element">
-                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" 
-                                ng-class="element.class + 'conx-element'" ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
+                           <img id="@{{element.type==='image-element' ? element.id : ''}}" 
+                                src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" 
+                                class="@{{element.class}} conx-element"
+                                style="@{{element.style}}"
+								ng-click="onClickElementWithDelete(sequenceSectionPart,element,$index)"
                                 conx-draggable="element" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(sequenceSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
                         <div ng-show="element.type==='video-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="@{{element.class}} conx-element">
-                           
+                           class="@{{element.class}} conx-element"
+                           style="@{{element.style}}">
                            <iframe id="@{{element.type==='video-element' ? element.id : ''}}" refreshable="element.url_vimeo" src="https://player.vimeo.com/video/286898202" w="@{{element.w}}" h="@{{element.h}}" frameborder="0" 
                               webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
                            </iframe>
@@ -287,6 +293,7 @@
                         <div ng-show="element.type==='button-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
                             <div id="@{{element.type==='button-element' ? element.id : ''}}" 
                                class="@{{element.class}} conx-element position-absolute" 
+                               style="@{{element.style}}"
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                conx-draggable="element"
@@ -300,6 +307,7 @@
                         <div ng-show="element.type==='evidence-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
                             <div id="@{{element.type==='evidence-element' ? element.id : ''}}" 
                                class="@{{element.class}} conx-element position-absolute evidence-head" 
+                               style="@{{element.style}}"
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                                conx-draggable="element"
@@ -354,6 +362,7 @@
                      <div class="col-4 fs--1 position-absolute" ng-repeat="element in momentSectionPart.elements track by $index">
                         <div id="@{{element.type==='text-element' ? element.id : ''}}" ng-show="element.type==='text-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                            class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)"
+                           style="@{{element.style}}"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
@@ -362,6 +371,7 @@
                         </div>
                         <div id="@{{element.type==='text-area-element' ? element.id : ''}}" ng-show="element.type==='text-area-element'" ml="@{{element.ml}}" mt="@{{element.mt}}" w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
                            class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)"
+                           style="@{{element.style}}"
                            ng-style="{'color':element.color, 'background-color': element.background_color}">
                            @{{element.text}}    
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
@@ -369,13 +379,16 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='image-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
-                           class="@{{element.class}} font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
-                           <img id="@{{element.type==='image-element' ? element.id : ''}}" src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" w="@{{element.w}}" h="@{{element.h}}"/>
+                           class="font-text conx-element" ng-click="onClickElementWithDelete(momentSectionPart,element,$index)">
+                           <img class="@{{element.class}}"
+                                style="@{{element.style}}"
+                                id="@{{element.type==='image-element' ? element.id : ''}}" src="@{{'/'+element.url_image || '/images/icons/NoImageAvailable.jpeg'}}" w="@{{element.w}}" h="@{{element.h}}"/>
                            <div class="delete-element" ng-click="deleteElement(momentSectionPart,$index,true)">
                               <i class="far fa-times-circle"></i>
                            </div>
                         </div>
                         <div ng-show="element.type==='video-element'" mt="@{{element.mt}}" ml="@{{element.ml}}"  
+                           style="@{{element.style}}"
                            class="@{{element.class}} font-text conx-element">
                            <iframe id="@{{element.type==='video-element' ? element.id : ''}}" refreshable="element.url_vimeo" src="https://player.vimeo.com/video/286898202" w="@{{element.w}}" h="@{{element.h}}" frameborder="0" 
                               webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
@@ -391,7 +404,8 @@
                            </div>
                         </div>
                         <div ng-show="element.type==='button-element'">
-                            <button id="@{{element.type==='button-element' ? element.id : ''}}" 
+                            <button id="@{{element.type==='button-element' ? element.id : ''}}"
+                               style="@{{element.style}}"
                                class="@{{element.class}} font-text conx-element  position-absolute" 
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                mt="@{{element.mt}}" ml="@{{element.ml}}"
@@ -405,6 +419,7 @@
                         </div>
                         <div ng-show="element.type==='evidence-element'" mt="@{{element.mt}}" ml="@{{element.ml}}" class="conx-element">
                             <div id="@{{element.type==='evidence-element' ? element.id : ''}}" 
+                               style="@{{element.style}}"
                                class="@{{element.class}} conx-element position-absolute evidence-head" 
                                ng-style="{'color':element.color, 'background-color': element.background_color}"
                                w="@{{element.w}}" h="@{{element.h}}" fs="@{{element.fs}}"
@@ -553,6 +568,10 @@
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
                </div>
+               <div class="d-flex mt-3">
+                  <i class="fab fa-accusoft mr-2"></i><small>Estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.style"/>
+               </div>
             </div>
             <div ng-show="typeEdit === 'image-element'">
                <img ng-src="/@{{elementEdit.url_image}}" width="79px" height="auto" class=""/>
@@ -602,6 +621,10 @@
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
                </div>
+               <div class="d-flex mt-3">
+                  <i class="fab fa-accusoft mr-2"></i><small>Estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.style"/>
+               </div>
             </div>
             <div ng-show="typeEdit === 'video-element'">
                <input type="text" ng-change="onChangeInput(elementEdit.url_vimeo)" ng-model="elementEdit.url_vimeo" class="w-100"/>
@@ -624,6 +647,10 @@
                <div class="d-flex mt-3">
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
+               </div>
+               <div class="d-flex mt-3">
+                  <i class="fab fa-accusoft mr-2"></i><small>Estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.style"/>
                </div>
             </div>
             <div ng-show="typeEdit === 'button-element'">
@@ -658,6 +685,10 @@
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
                </div>
+               <div class="d-flex mt-3">
+                  <i class="fab fa-accusoft mr-2"></i><small>Estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.style"/>
+               </div>
                
                <div class="line-separator"></div>
                <div class="d-flex mt-3">
@@ -674,16 +705,13 @@
                   <h6 class="cursor-pointer mb-0 fs--2" style=""> Evidencias </h6>
                   <img src="/images/icons/evidences.png" width="34" height="34" class="cursor-pointer">
                </div>
-              <div ng-show="showEvidenceModal" class="w-100 h-100 position-absolute" style="top:0; left:0;">
+               <div ng-show="showEvidenceModal" class="w-100 h-100 position-absolute" style="top:0; left:0;">
                   <div class="modal-backdrop fade show"></div>
-                  <div class="modal-menu card-notification shadow-none card  w-100 h-100">
+                  <div class="modal-menu card-notification shadow-none card" style="width: 517px;position: absolute;left: -140px;top: -29px;min-height: 458px;">
                     <div class="card-header bg-light pl-4">
                         Evidencias de aprendizaje
                     </div>
-                    <div class="position-absolute" style="left: 7px;top: 9px;" ng-click="closeEvidence()">
-                        <i class="fas fa-arrow-left cursor-position"></i>
-                    </div>
-                    <div class="fs--1 position-absolute" style="right: 12px; top: 42px;">
+                    <div class="fs--1 position-absolute" style="right: 12px; top: 7px;">
                         <span class=""> Tipo Pregunta @{{elementEdit.questionEditType}}</span>
                         <select ng-model="elementEdit.questionEditType">
                             <option value="1">Pregunta sin respuesta</option>
@@ -691,13 +719,25 @@
                             <option value="3">Pregunta docente </option>
                         </select>
                     </div>
+                    <div class="position-absolute" style="left: 7px;top: 9px;" ng-click="closeEvidence()">
+                        <i class="fas fa-arrow-left cursor-position"></i>
+                    </div>
                     <div class="card-body" style="overflow: auto;">
                         <h6>Preguntas</h6>
                         <conx-evidence-questions></conx-evidence-questions>
+                        <div ng-show="showHTMLEditor" class="card" style="padding: 42px 0 0 1px;position: absolute;top: 0px;left: -154px;height: 659px; width: 567px;">
+                            <div ng-click="onCloseHTMLEditor();" class="position-absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;"> 
+                              <i class="far fa-times-circle"></i> 
+                            </div>
+                            <textarea id="editorhtml" name="editorhtml"></textarea>
+                        </div>
                         <div class="line-separator"></div>
                         <div class="" ng-show="questionEdit">
                             <div class="mt-2"> 
-                                <h6>Pregunta @{{questionEdit.$index + 1}}: <small>@{{questionEdit.title}}</small></h6>
+                                <h6>Pregunta @{{questionEdit.$index + 1}}: 
+								<small ng-show="questionEdit.isHtml" style="width:10px" ng-bind-html="questionEdit.title"></small>
+								<small ng-hide="questionEdit.isHtml">@{{questionEdit.title}}</small>
+								</h6>
                             </div>
                             <div class="p-2"> 
                                 <h6>Objetivo</h6>
@@ -724,7 +764,7 @@
                         </div>
                     </div>
                   </div>
-              </div>
+               </div>
                <input type="text"  ng-change="onChangeInput(elementEdit.text)" ng-model="elementEdit.text" class="w-100"/>
                <div  class="d-flex mt-3">
                   <i class="fas fa-arrow-right mr-2"></i>
@@ -756,6 +796,10 @@
                   <i class="fas fa-map-pin mr-2"></i><small>Clases de estilos</small>
                   <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.class"/>
                </div>
+               <div class="d-flex mt-3">
+                  <i class="fab fa-accusoft mr-2"></i><small>Estilos</small>
+                  <input class="w-100 ml-2" type="text" onkeyup="onChangeInput()"  ng-change="onChangeInput()" ng-model="elementEdit.style"/>
+               </div>
             </div>
 
          </div>
@@ -766,4 +810,6 @@
 @section('js')
 <script src="{{asset('/../angular/controller/editCompanySequencesCtrl.js')}}"></script>
 <script src="{{asset('/../jstree/jstree.min.js')}}"></script>
+<script src="https://cdn.tiny.cloud/1/v4mwkpxb4xl040unqtsepspvu82ecwea01wqejwwy6gmv4jg/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 @endsection

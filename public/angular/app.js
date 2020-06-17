@@ -13,7 +13,7 @@ var csrftoken =  (function() {
 
 })();
 
-var MyApp = angular.module('MyApp',['ngMessages','ngAnimate']).constant("CSRF_TOKEN", csrftoken);
+var MyApp = angular.module('MyApp',['ngMessages','ngAnimate','ngSanitize']).constant("CSRF_TOKEN", csrftoken);
 
 /*Script for all navigations*/
 window.onload = function() {

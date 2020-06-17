@@ -2,7 +2,7 @@
     <div class="modal-backdrop fade show"></div>
     <div class="position-absolute modal-menu card-notification shadow-none card" style="top: 0px;width: 100%;margin-left: -15px;">
         <div class="card col-12">
-          <div ng-click="elementsKits.length =0" class="position_absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;position: absolute;"> <i class="far fa-times-circle"></i> </div>
+          <div ng-click="elementsKits.length =0" class="position-absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;left: 35px;text-align: right;"> <i class="far fa-times-circle"></i> </div>
           <div class="card-body w-100 d-none-result d-none mb-3">
             <h4 class=" boder-header p-1 pl-3">
                Implementos de Laboratorio

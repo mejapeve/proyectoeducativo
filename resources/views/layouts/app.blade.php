@@ -29,8 +29,9 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}" type="text/javascript"></script>
     
     <script src="{{ asset('js/select2.full.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/angular.1.6.4.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/angular-animate.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/angular.1.8.0.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/angular-animate.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/angular-sanitize.min.js') }}" type="text/javascript"></script>	
     <!-- load ngmessages -->
     <script src="{{ asset('js/ngMessages.js') }}"></script>
     <script src="{{ asset('js/Cubexy.js') }}" type="text/javascript"></script>

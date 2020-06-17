@@ -177,6 +177,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
 
             switch ($scope.dataJstree.type) {
+                case 'openAllSequence':
+                    location="/conexiones/admin/sequences_list";
+                    break; 
                 case 'openSequence':
                     $scope.PageName = 'Guía de Aprendizaje';
                     $scope.elementParentEdit = $scope.sequence;
@@ -628,6 +631,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                     countElements--;
                     countElements += element.questions.length;
                     for(var j=0;j<element.questions.length;j++) {
+						alert(element.questions[j].isHtml);
                         var data = { 
                             "id": element.questions[j].id,
                             "title": element.questions[j].title,
@@ -635,6 +639,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                             "moment_id":  $scope.moment ? $scope.moment.id : '',
                             "objective":  element.questions[j].objective,
                             "concept":  element.questions[j].concept,
+							"isHtml":  element.questions[j].isHtml,
                             "order":   j + 1,
                             "experience_id":  element.id,
                             "options": removeHashKey(element.questions[j].options),
@@ -1038,11 +1043,14 @@ MyApp.directive('conxTextList', function () {
 });
 
 MyApp.directive('conxEvidenceQuestions', function () {
+    var date = moment().format('YYYYMMDDHHMMSS');
     return {
         restrict: 'E',
         template: '<div class="d-flex" ng-show="elementEdit && elementEdit.questions.length > 0"  ng-repeat="question in elementEdit.questions track by $index"> ' +
-            '<div class="fs--1 mt-1 font-weight-semi-bold mr-2">{{$index + 1}}) </div> <input ng-change="onChangeQuestion()" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-75 mr-1 cursor-pointer"/>  ' +
-            '<a ng-click="deleteQuestion($index)" style="marging-top: 8px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
+            '<div class="fs--1 mt-1 font-weight-semi-bold mr-2">{{$index + 1}}) </div>' +
+            '<input style="padding-right: 51px;" ng-change="onChangeQuestion()" ng-readonly="question.isHtml" ng-model="question.title" ng-click="onOpenEvidenceQuestion(question)" class="mt-1 fs--1 w-75 mr-1 cursor-pointer"/>  ' +
+            '<button class="btn btn-sm btn-primary" ng-click="onOpenHTMLEditor(question)" style="margin-left: -44px;height: 26px;padding: 3px;margin-top: 5px;"> html </button>  ' +
+            '<a ng-click="deleteQuestion($index)" style="margin-left: 10px;margin-top: 5px;"><i class="cursor-pointer  far fa-times-circle"></i><a/> </div> ' +
             '<a href="#" ng-click="onNewQuestion()"><span class="fs--1"> Nueva pregunta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
             
@@ -1052,9 +1060,52 @@ MyApp.directive('conxEvidenceQuestions', function () {
                 $scope.questionEdit = {"review":[{"id":"a","review":"0"}],"options":[{"id":"a","option":""}],"$index":$scope.elementEdit.questions.length};
                 $scope.elementEdit.questions.push($scope.questionEdit);
             }
-            
+
             $scope.onOpenEvidenceQuestion = function(question) {
                 $scope.questionEdit = question;
+            }
+			
+			$scope.onCloseHTMLEditor = function() {
+				$scope.showHTMLEditor = false;
+				$scope.questionEdit.title = $('#editorhtml_ifr').contents().find('#tinymce').html() || 'prueba';
+				$scope.questionEdit.isHtml = true;
+				$scope.questionEdit.placeHolderHtml = $('#editorhtml_ifr').contents().find('#tinymce').text();
+				$scope.applyChange = true;
+			}
+			
+		    $scope.onOpenHTMLEditor = function(question) {
+                $scope.showHTMLEditor = true;
+                $scope.questionEdit = question;
+                
+				var title = question.title;
+				//$('.tox.tox-tinymce').remove();
+				$('#editorhtml').html(title);
+				if(tinymce.get('editorhtml'))
+				$(tinymce.get('editorhtml').getBody()).html(title);
+				
+				tinymce.init({
+				  selector: '#editorhtml',
+				  height: 500,
+				  plugins: [
+					'link image imagetools table spellchecker lists'
+				  ],
+				  contextmenu: "link image imagetools table spellchecker lists",
+				  content_css: '//www.tiny.cloud/css/codepen.min.css'
+				});
+    
+                /*ClassicEditor
+                .create( document.querySelector( '#editorhtml' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+                
+                //CKEDITOR.disableAutoInline = true;
+                
+                // Inline editor.
+                CKEDITOR.inline( 'editorhtml', {
+                    extraPlugins: 'sourcedialog',
+                    removePlugins: 'sourcearea'
+                });*/
             }
             
             $scope.onChangeQuestion = function() {

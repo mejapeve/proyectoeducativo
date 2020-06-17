@@ -86,7 +86,7 @@
                                    </div>
                               </div>
                               @endif
-							  @if(!old('redirect_to_shoppingcart') && !isset($redirect_to_shoppingcart) && !old('free_rating_plan_id') && !isset($free_rating_plan_id))
+                              @if(!old('redirect_to_shoppingcart') && !isset($redirect_to_shoppingcart) && !old('free_rating_plan_id') && !isset($free_rating_plan_id))
                               <div class="form-group">
                                    <div class="p-4">
                                    </div>
@@ -206,7 +206,7 @@
         <div class="p-4" style="padding-bottom: 0px!important;">
                <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Crea tu cuenta</h6>
         </div>
-        <div class="modal-menu min-content-height">
+        <div class="mt-5 modal-menu min-content-height">
            
            <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
                 <button type="button" class="btn btn-secondary btn-block d-flex h-100" ng-click="registrer_ini=false">

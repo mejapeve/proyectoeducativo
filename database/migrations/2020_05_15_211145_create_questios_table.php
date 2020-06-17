@@ -15,7 +15,7 @@ class CreateQuestiosTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->longText('title')->nullable();
             $table->longText('options');
             $table->longText('review');
             $table->bigInteger('type_answer')->unsigned()->comment('1:Pregunta sin respuesta,2:Cerrada,3:Pregunta docente');
@@ -23,7 +23,7 @@ class CreateQuestiosTable extends Migration
             $table->bigInteger('moment_id')->unsigned()->nullable();
             $table->bigInteger('experience_id')->unsigned()->nullable();
             $table->bigInteger('order')->unsigned();
-            $table->longText('objective');
+            $table->longText('objective')->nullable();
             $table->timestamps();
         });
     }
