@@ -120,12 +120,13 @@
                                   @endif
                                 </div>   
                             </div>
-                            
-                            @if(isset($part_id) && isset($section['part_' . ($part_id - 1)]))
-                            <a class="btn btn-sm btn-outline-primary" ml="100" mt="{{$container['h'] - 50 }}"> Part 1</a>
+                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id - 1)]))
+                            <a class="btn btn-sm btn-outline-primary" ml="100" mt="{{$container['h'] - 50 }}"
+                               href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id -  1)])}}"> Parte {{$part_id -1}}</a>
                             @endif
-                            @if(isset($part_id) && isset($section['part_' . ($part_id + 1)]))
-                            <a class="btn btn-sm btn-outline-primary" ml="300" mt="{{$container['h'] - 50 }}"> Part 2</a>
+                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id + 1)]) && ($part_id + 1) <=3)
+                            <a class="btn btn-sm btn-outline-primary" ml="815" mt="{{$container['h'] - 50 }}" 
+                               href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id +  1)])}}"> Parte {{$part_id  + 1}}</a>
                             @endif
                         </div>
                     </div>
@@ -144,7 +145,9 @@
                 </div>
                 <div class="card-body p-5" ng-show="questionsOpened[0].type_answer===1">
                     <div ng-repeat="question in questionsOpened track by $index" class="ml-auto mr-auto row">
-                        <div class="col-6"> <h6 ng-show="question.title" style="color:#E15433;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" ><div ng-class="{'mt-n3': question.isHtml}" ng-bind-html="question.title"></div></h6></div>
+                        <div class="col-6"> <h6 ng-show="question.title" style="color:#E15433;">
+                        <img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >
+						<div ng-class="{'mt-n3': question.isHtml}" ng-bind-html="question.title"></div></h6></div>
                         <div class="col-6"> <h6 ng-show="question.objective" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6></div>
                     </div>
                     <div class="d-flex mt-6 ml-6">

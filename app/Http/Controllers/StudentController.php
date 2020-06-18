@@ -385,8 +385,8 @@ class StudentController extends Controller
 					}
 				}
             }
-            $data = array_merge(['sequence' => $moment->sequence, 'sequence_id' => $sequence_id,
-				'part_id' => $part_id,
+			
+            $data = array_merge(['sequence' => $moment->sequence, 'sequence_id' => $sequence_id,'section_id'=>$section_id,'part_id' => $part_id,
                 'buttonBack' => $buttonBack, 'buttonNext' => $buttonNext, 'moment' => $moment, 'sections' => [$section_1, $section_2, $section_3, $section_4]], $section, $part);
             return view('roles.student.content_sequence_section', $data)->with('account_service_id', $account_service_id)->with('order_moment_id', $order_moment_id);
         }
