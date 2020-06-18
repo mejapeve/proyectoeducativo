@@ -13,8 +13,12 @@
 <hr>
 <p>
 @foreach($data as $questionAnswer)
-<strong>Pregunta: </strong>{{$questionAnswer['title']}}<br>
-<strong>Repuesta: </strong>{{$questionAnswer['answer_student']}}<br>
+<strong>Pregunta: </strong>
+{{ Illuminate\Mail\Markdown::parse($questionAnswer['title']) }}
+<br>
+<strong>Repuesta: </strong>
+{{ Illuminate\Mail\Markdown::parse($questionAnswer['answer_student']) }}
+<br>
 @if($questionAnswer['is_correct'])
 <strong>Aprobado: </strong><span style="color:green;
         font-size: 23px;
@@ -30,7 +34,8 @@
         -webkit-border-radius: 50%;
         border-radius: 50%;
         border-style: solid;
-    border-width: 1px;">&nbsp;{{strtoupper($questionAnswer['type_numeral'])}}&nbsp;</span><br>{{$questionAnswer['answer_question']}}
+    border-width: 1px;">&nbsp;{{strtoupper($questionAnswer['type_numeral'])}}&nbsp;</span><br>
+	{{ Illuminate\Mail\Markdown::parse($questionAnswer['answer_question']) }}
         <br>
 <strong>Concepto clave a tener en cuenta: </strong>{{$questionAnswer['concept']}}</p>
 <hr>

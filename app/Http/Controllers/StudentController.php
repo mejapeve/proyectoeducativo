@@ -277,14 +277,17 @@ class StudentController extends Controller
             ->where('sequence_moments.id', $moment_id)
             ->first();
 
-        $item = AdvanceLine::firstOrNew(
-            array(
+        $item = AdvanceLine::updateOrCreate(
+            [
                 'affiliated_account_service_id' => $account_service_id,
                 'affiliated_company_id' => auth('afiliadoempresa')->user()->id,
                 'sequence_id' => $sequence_id,
                 'moment_order' => $order_moment_id,
                 'moment_section_id' => $section_id
-            )
+            ],
+			[
+				'created_at' => ''
+			]
         );
         $item->save();
 		

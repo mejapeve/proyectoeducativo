@@ -41,7 +41,9 @@ class QuestionController extends Controller
 //sin calificación
         $question = Question::where('sequence_id',$request->sequence_id)
                    ->where('moment_id',$request->moment_id)
-                   ->where('experience_id',$request->experience_id)->get();
+                   ->where('experience_id',$request->experience_id)
+                   ->orderBy('order','ASC')
+                   ->get();
        // dd($question);
         return response()->json(['data'=>$question],200);
 

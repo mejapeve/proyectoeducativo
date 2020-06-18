@@ -193,7 +193,7 @@ class AfiliadoEmpresa extends Model
                 ->where('end_date', '<=', date('Y-m-d', strtotime('+ 1 day')));
         }])->where('affiliated_company_id', $user_id)->get();
 
-        return ['first' => $dates->min('updated_at'), 'last' => $dates->max('created_at')];
+        return ['first' => $dates->min('updated_at'), 'last' => $dates->max('updated_at')];
     }
 
     public function kidSelected()
