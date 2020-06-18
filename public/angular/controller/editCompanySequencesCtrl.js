@@ -631,7 +631,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                     countElements--;
                     countElements += element.questions.length;
                     for(var j=0;j<element.questions.length;j++) {
-						alert(element.questions[j].isHtml);
                         var data = { 
                             "id": element.questions[j].id,
                             "title": element.questions[j].title,
@@ -639,7 +638,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                             "moment_id":  $scope.moment ? $scope.moment.id : '',
                             "objective":  element.questions[j].objective,
                             "concept":  element.questions[j].concept,
-							"isHtml":  element.questions[j].isHtml,
+                            "isHtml":  element.questions[j].isHtml,
                             "order":   j + 1,
                             "experience_id":  element.id,
                             "options": removeHashKey(element.questions[j].options),
@@ -1064,34 +1063,34 @@ MyApp.directive('conxEvidenceQuestions', function () {
             $scope.onOpenEvidenceQuestion = function(question) {
                 $scope.questionEdit = question;
             }
-			
-			$scope.onCloseHTMLEditor = function() {
-				$scope.showHTMLEditor = false;
-				$scope.questionEdit.title = $('#editorhtml_ifr').contents().find('#tinymce').html() || 'prueba';
-				$scope.questionEdit.isHtml = true;
-				$scope.questionEdit.placeHolderHtml = $('#editorhtml_ifr').contents().find('#tinymce').text();
-				$scope.applyChange = true;
-			}
-			
-		    $scope.onOpenHTMLEditor = function(question) {
+            
+            $scope.onCloseHTMLEditor = function() {
+                $scope.showHTMLEditor = false;
+                $scope.questionEdit.title = $('#editorhtml_ifr').contents().find('#tinymce').html() || 'prueba';
+                $scope.questionEdit.isHtml = true;
+                $scope.questionEdit.placeHolderHtml = $('#editorhtml_ifr').contents().find('#tinymce').text();
+                $scope.applyChange = true;
+            }
+            
+            $scope.onOpenHTMLEditor = function(question) {
                 $scope.showHTMLEditor = true;
                 $scope.questionEdit = question;
                 
-				var title = question.title;
-				//$('.tox.tox-tinymce').remove();
-				$('#editorhtml').html(title);
-				if(tinymce.get('editorhtml'))
-				$(tinymce.get('editorhtml').getBody()).html(title);
-				
-				tinymce.init({
-				  selector: '#editorhtml',
-				  height: 500,
-				  plugins: [
-					'link image imagetools table spellchecker lists'
-				  ],
-				  contextmenu: "link image imagetools table spellchecker lists",
-				  content_css: '//www.tiny.cloud/css/codepen.min.css'
-				});
+                var title = question.title;
+                //$('.tox.tox-tinymce').remove();
+                $('#editorhtml').html(title);
+                if(tinymce.get('editorhtml'))
+                $(tinymce.get('editorhtml').getBody()).html(title);
+                
+                tinymce.init({
+                  selector: '#editorhtml',
+                  height: 500,
+                  plugins: [
+                    'link image imagetools table spellchecker lists'
+                  ],
+                  contextmenu: "link image imagetools table spellchecker lists",
+                  content_css: '//www.tiny.cloud/css/codepen.min.css'
+                });
     
                 /*ClassicEditor
                 .create( document.querySelector( '#editorhtml' ) )

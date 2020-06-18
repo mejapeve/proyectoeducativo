@@ -21,6 +21,7 @@ class Question extends Model
         'title',
         'concept',
         'url_image',
-        'url_video'
+        'url_video',
+        'isHtml'
     ];
 }

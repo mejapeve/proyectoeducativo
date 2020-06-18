@@ -24,10 +24,25 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
     };
     
     $scope.registerUserForm = function (){
-        window.scrollTo( 0, 0 );
-        $scope.newStudent = {};
-        $scope.newRegisterForm=true;
-        $scope.errorMessageRegister="";
+        if($scope.students && $scope.students.length >= 3) {
+            swal({
+                html: "<p style='text-align: justify;text-justify: inter-word;'><strong>¡Qué bueno que te guste nuestra propuesta educativa! A propósito, tienes posibilidad de\n" +
+                    "registrar hasta tres estudiantes con tu usuario. En caso de querer que más personas\n" +
+                    "aprovechen la plataforma, puedes recomendarla y una vez hecha la subscrición en alguno\n" +
+                    "de los planes que tenemos, podrá acceder a un bono de descuento.\n" +
+                    "Para más información, pueden escribirnos a través del formulario de contacto.</strong></p>",
+                //html: true,
+                type: "warning",
+                showCancelButton: false,
+                showConfirmButton: false
+            }).catch(swal.noop);
+        }
+        else {
+            window.scrollTo( 0, 0 );
+            $scope.newStudent = {};
+            $scope.newRegisterForm=true;
+            $scope.errorMessageRegister="";
+        }
     }
     
     $scope.onRegistry = function() {
@@ -48,18 +63,7 @@ MyApp.controller("tutorInscriptionsCtrl", ["$scope", "$http", function($scope, $
                 }).catch(swal.noop);
                 $scope.initInscriptions();
             }else{
-                swal({
-
-                    html: "<p style='text-align: justify;text-justify: inter-word;'><strong>¡Qué bueno que te guste nuestra propuesta educativa! A propósito, tienes posibilidad de\n" +
-                        "registrar hasta tres estudiantes con tu usuario. En caso de querer que más personas\n" +
-                        "aprovechen la plataforma, puedes recomendarla y una vez hecha la subscrición en alguno\n" +
-                        "de los planes que tenemos, podrá acceder a un bono de descuento.\n" +
-                        "Para más información, pueden escribirnos a través del formulario de contacto.</strong></p>",
-                    //html: true,
-                    type: "warning",
-                    showCancelButton: false,
-                    showConfirmButton: false
-                }).catch(swal.noop);
+                $scope.errorMessageFilter = 'Error registrando el estudiante.';
                 $scope.initInscriptions();
             }
         }
