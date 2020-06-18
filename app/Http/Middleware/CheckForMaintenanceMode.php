@@ -31,7 +31,7 @@ class CheckForMaintenanceMode
             '167.0.154.176',
             '181.51.65.19',
             '181.59.80.216',//cata,
-            '81.61.86.199'
+            '181.61.86.199'
         ];
     protected $except =
         [
