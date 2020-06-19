@@ -120,11 +120,11 @@
                                   @endif
                                 </div>   
                             </div>
-                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id - 1)]))
+                            @if(isset($part_id) && isset($sections[$section_id-1]['part_'.($part_id - 1)]))
                             <a class="btn btn-sm btn-outline-primary" ml="100" mt="{{$container['h'] - 50 }}"
                                href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id -  1)])}}"> Parte {{$part_id -1}}</a>
                             @endif
-                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id + 1)]) && ($part_id + 1) <=3)
+                            @if(isset($part_id) && isset($sections[$section_id-1]['part_'.($part_id + 1)]['elements']))
                             <a class="btn btn-sm btn-outline-primary" ml="815" mt="{{$container['h'] - 50 }}" 
                                href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id +  1)])}}"> Parte {{$part_id  + 1}}</a>
                             @endif
@@ -185,3 +185,4 @@
     </div>
     <script src="{{ asset('angular/controller/contentSequencesStudentCtrl.js') }}" defer></script>
 @endsection
+
