@@ -59,7 +59,7 @@
                             
                             <div class="mt-2 custom-control">
                                 @if (Route::has('password.sendlink'))
-                                <label class="label"><a href="{{route('password.sendlink',[$company->nick_name,1])}}">¿ Olvidó sus datos ?</a></label>
+                                <label class="label"><a ng-click="notifyStudent()">¿ Olvidó sus datos ?</a></label>
                                 @endif
                             </div>
                         </form>
@@ -151,6 +151,5 @@
         </div>
     </div>
     </div>
-
     <script src="{{ asset('angular/controller/LoginCtrl.js') }}" defer></script>
 @endsection

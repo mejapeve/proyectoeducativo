@@ -84,7 +84,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             data: data
         }).
         then(function (response) {
-            swal('Conexiones', 'Evidencias de aprendizaje finalizada exitósamente', 'success');
+            swal('Conexiones', 'Ya hemos recibido las respuestas. El reporte de desempeño llegará al correo registrado', 'success');
             $scope.questionsOpened = null;
             $scope.indexQuestion = 0;
             $scope.onFinishEvidenceLoad = false;
