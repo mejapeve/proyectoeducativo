@@ -2,7 +2,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
 
     $scope.errorMessage = null;
     $scope.sequences = null;
-    $scope.questionsOpened = null;
+    $scope.evidenceOpened = null;
     $scope.indexQuestion = 0;
     $scope.optionSelected = false;
     $scope.companyId = null;
@@ -19,8 +19,12 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         getAvailableSequences(companyId, sequenceId);
     }
 
-    $scope.onClickEvidence = function(sequenceId,momentId,experienceId) {
-        $scope.questionsOpened = null;
+    $scope.onClickEvidence = function(sequenceId,momentId,experienceId,icon,subtitle) {
+        $scope.evidenceOpened = {};
+        $scope.evidenceOpened.icon = icon || 'images/icons/evidenciasAprendizajeIcono-01.png';
+        $scope.evidenceOpened.subtitle = subtitle || 'Evidencias de aprendizaje';
+		
+        
         $scope.indexQuestion = 0;
         $scope.sequenceId = sequenceId;
         $scope.momentId = momentId;
@@ -33,11 +37,11 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
             method: "GET",
         }).
         then(function (response) {
-            $scope.questionsOpened = response.data.data;
-            if($scope.questionsOpened)
-            for(var i=0; i<$scope.questionsOpened.length;i++) {
-                $scope.questionsOpened[i].options = JSON.parse($scope.questionsOpened[i].options);
-                $scope.questionsOpened[i].optionSelected = false;
+            $scope.evidenceOpened.questions = response.data.data || [];
+            for(var i=0; i<$scope.evidenceOpened.questions.length;i++) {
+				$scope.evidenceOpened.type_answer = $scope.evidenceOpened.questions[i].type_answer;
+                $scope.evidenceOpened.questions[i].options = JSON.parse($scope.evidenceOpened.questions[i].options);
+                $scope.evidenceOpened.questions[i].optionSelected = false;
             }
             $('#' + $scope.experienceId + ' img').removeClass('d-none');
             $('#' + $scope.experienceId + ' span').addClass('d-none');
@@ -51,7 +55,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
     }
 
     $scope.closeEvidence = function() {
-        $scope.questionsOpened = null;
+        $scope.evidenceOpened = null;
         $scope.experienceId = null;
     }
     
@@ -64,9 +68,9 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         var answer = null;
         $scope.onFinishEvidenceLoad = true;
         
-        for(var i=0;i<$scope.questionsOpened.length;i++) {
-            answer = { "question_id": $scope.questionsOpened[i].id,
-                       "answer": $scope.questionsOpened[i].optionSelected.id
+        for(var i=0;i<$scope.evidenceOpened.questions.length;i++) {
+            answer = { "question_id": $scope.evidenceOpened.questions[i].id,
+                       "answer": $scope.evidenceOpened.questions[i].optionSelected.id
             };
             questionsAnswers.push(answer);
         }
@@ -85,7 +89,7 @@ MyApp.controller("contentSequencesStudentCtrl", ["$scope", "$http", function ($s
         }).
         then(function (response) {
             swal('Conexiones', 'Ya hemos recibido las respuestas. El reporte de desempeño llegará al correo registrado', 'success');
-            $scope.questionsOpened = null;
+            $scope.evidenceOpened = null;
             $scope.indexQuestion = 0;
             $scope.onFinishEvidenceLoad = false;
             

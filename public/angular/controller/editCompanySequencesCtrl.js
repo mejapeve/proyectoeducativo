@@ -19,6 +19,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     $scope.typeEdit = null;
     $scope.container = {};
     $scope.applyChange = false;
+    $scope.applyChangeEvidence = false;
 
     $scope.elementEdit = null;
     $scope.questionEdit = null;
@@ -93,15 +94,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         $scope.resizeWidth();
     };
 
-    function findById(list, id) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].id === Number(id)) {
-                return list[i];
-            }
-        }
-        return false;
-    }
-
     function findSectionSequenceEmpty(sequence) {
         var section = null;
         var list = Object.assign([], $scope.sectionsSequenceNames);
@@ -127,15 +119,6 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             }
         }
         return moment;
-    }
-
-    function findSectionMoment(list, type) {
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].type === Number(type)) {
-                return list[i];
-            }
-        }
-        return false;
     }
 
     function findSectionMomentEmpty(moment) {
@@ -265,6 +248,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             .then(function (response) {
 
                 $scope.sequence = response.data[0];
+                $scope.applyChangeEvidence = false;
                 if (!$scope.sequence['section_1']) $scope.sequence['section_1'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
                 if (!$scope.sequence['section_2']) $scope.sequence['section_2'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
                 if (!$scope.sequence['section_3']) $scope.sequence['section_3'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
@@ -387,6 +371,9 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             dir = getLastPath(dir);
             $scope.onChangeFolderImage(dir);
         }
+        else if ($scope.typeEdit === 'evidence-element') {
+            $scope.applyChangeEvidence = true;
+        }
         else if ($scope.typeEdit === 'slide-images') {
             if($scope.elementParentEdit[$scope.elementEdit] && $scope.elementParentEdit[$scope.elementEdit].length > 0) {
                 var dir = $scope.elementParentEdit[$scope.elementEdit].split('|')[0];
@@ -507,7 +494,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             }
             if(callback) callback(response.data);
         },function(e){
-            $scope.errorMessage = angular.toJson(e);
+            var message = 'Error consultando el directorio';
+            if(e.message) {
+                message += e.message;
+            }
+            $scope.errorMessage = angular.toJson(message);
             $scope.directoryPath = null;
         });
     }
@@ -540,7 +531,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if (typeItem === 'evidence-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'questionEditType': "1",'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'questions': [] });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'questionEditType': "1",'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'icon': 'images/designerAdmin/icons/evidenciasAprendizajeIcono-01.png', 'questions': [] });
         }
         
         $timeout(function () {
@@ -607,72 +598,86 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     }
     
     function saveEvidence(sectionPart,callback){
-        sectionPart.elements = sectionPart.elements || [];
         var countElements = sectionPart.elements.length;
         var countElementsError = [];
-        
-        var element = null;
-        var listQuestionModify = [];
-        function refreshQuestion(questions,response) {
-            for(var i=0;i<questions.length;i++){
-                if(response.data && response.data.id && questions[i].title === response.data.title) {
-                    questions[i].id = response.data.id;
-                }
+        if($scope.applyChangeEvidence) {
+            var data = { 
+                "sequence_id": $scope.sequence.id,
+                "moment_id":  $scope.moment ? $scope.moment.id : ''
             }
-        }
-        
-        for(var i=0;i<sectionPart.elements.length;i++) {
-            element = sectionPart.elements[i];
-            if(element.type === 'evidence-element') {
-                if(element.questions.length === 0) {
+            $http.post('/remove_question/', data)
+            .then(function (response) {
+                sectionPart.elements = sectionPart.elements || [];
+                var element = null;
+                function refreshQuestion(questions,response) {
+                    for(var i=0;i<questions.length;i++){
+                        if(response.data && response.data.id && questions[i].title === response.data.title) {
+                            questions[i].id = response.data.id;
+                        }
+                    }
+                }
+                for(var i=0;i<sectionPart.elements.length;i++) {
+                    element = sectionPart.elements[i];
+                    if(element.type === 'evidence-element') {
+                        if(element.questions.length === 0) {
+                            finishCallback();
+                        }
+                        else {
+                            countElements--;
+                            countElements += element.questions.length;
+                            for(var j=0;j<element.questions.length;j++) {
+                                var data = { 
+                                    "id": element.questions[j].id,
+                                    "title": element.questions[j].title,
+                                    "sequence_id": $scope.sequence.id,
+                                    "moment_id":  $scope.moment ? $scope.moment.id : '',
+                                    "objective":  element.questions[j].objective,
+                                    "concept":  element.questions[j].concept,
+                                    "isHtml":  element.questions[j].isHtml,
+                                    "order":   j + 1,
+                                    "experience_id":  element.id,
+                                    "options": removeHashKey(element.questions[j].options),
+                                    "review": removeHashKey(element.questions[j].review),
+                                    "type_answer": $scope.elementEdit.questionEditType
+                                }
+                                $http.post('/register_update_question/', data)
+                                .then(function (response) {
+                                    if (response && response.status === 200) {
+                                        refreshQuestion(element.questions,response.data);
+                                        finishCallback();
+                                    }
+                                    else {
+                                        var message = (reason && reason.data) ? reason.data.message : '';
+                                        finishCallback('Error invocando el servicio register_update_question:['+message+']');
+                                    }
+                                }, function (reason) {
+                                    var message = (reason && reason.data) ? reason.data.message : '';
+                                    finishCallback('Error invocando el servicio register_update_question:['+message+']');
+                                });
+                            }
+                        }
+                    }
+                    else {
+                        finishCallback();
+                    }
+                }
+    
+                if(sectionPart.elements.length === 0) {
                     finishCallback();
                 }
-                else {
-                    countElements--;
-                    countElements += element.questions.length;
-                    for(var j=0;j<element.questions.length;j++) {
-                        var data = { 
-                            "id": element.questions[j].id,
-                            "title": element.questions[j].title,
-                            "sequence_id": $scope.sequence.id,
-                            "moment_id":  $scope.moment ? $scope.moment.id : '',
-                            "objective":  element.questions[j].objective,
-                            "concept":  element.questions[j].concept,
-                            "isHtml":  element.questions[j].isHtml,
-                            "order":   j + 1,
-                            "experience_id":  element.id,
-                            "options": removeHashKey(element.questions[j].options),
-                            "review": removeHashKey(element.questions[j].review),
-                            "type_answer": $scope.elementEdit.questionEditType
-                        }
-                        $http.post('/register_update_question/', data)
-                        .then(function (response) {
-                            if (response && response.status === 200) {
-                                refreshQuestion(element.questions,response.data);
-                                finishCallback();
-                            }
-                            else {
-                                var message = (reason && reason.data) ? reason.data.message : '';
-                                finishCallback('Error invocando el servicio register_update_question:['+message+']');
-                            }
-                        }, function (reason) {
-                            var message = (reason && reason.data) ? reason.data.message : '';
-                            finishCallback('Error invocando el servicio register_update_question:['+message+']');
-                        });
-                        
-                    }
-
-                }
-            }
-            else {
-                finishCallback();
-            }
+    
+            }, function (reason) {
+                var message = (reason && reason.data) ? reason.data.message : '';
+                countElements = 0;
+                finishCallback('Error invocando el servicio register_update_question:['+message+']');
+            });
         }
-        
-        if(sectionPart.elements.length === 0) {
+        else {
+            countElements = 0;
+            countElementsError = [];
             finishCallback();
         }
-        
+
         function finishCallback(error) {
             countElements--;
             if(error) countElementsError.push(error);
@@ -1058,6 +1063,7 @@ MyApp.directive('conxEvidenceQuestions', function () {
                 $scope.elementEdit.questions = $scope.elementEdit.questions || [];
                 $scope.questionEdit = {"review":[{"id":"a","review":"0"}],"options":[{"id":"a","option":""}],"$index":$scope.elementEdit.questions.length};
                 $scope.elementEdit.questions.push($scope.questionEdit);
+                $scope.applyChangeEvidence = true;
             }
 
             $scope.onOpenEvidenceQuestion = function(question) {
@@ -1070,6 +1076,7 @@ MyApp.directive('conxEvidenceQuestions', function () {
                 $scope.questionEdit.isHtml = true;
                 $scope.questionEdit.placeHolderHtml = $('#editorhtml_ifr').contents().find('#tinymce').text();
                 $scope.applyChange = true;
+                $scope.applyChangeEvidence = true;
             }
             
             $scope.onOpenHTMLEditor = function(question) {
@@ -1091,28 +1098,16 @@ MyApp.directive('conxEvidenceQuestions', function () {
                   contextmenu: "link image imagetools table spellchecker lists",
                   content_css: '//www.tiny.cloud/css/codepen.min.css'
                 });
-    
-                /*ClassicEditor
-                .create( document.querySelector( '#editorhtml' ) )
-                .catch( error => {
-                    console.error( error );
-                } );
-                
-                //CKEDITOR.disableAutoInline = true;
-                
-                // Inline editor.
-                CKEDITOR.inline( 'editorhtml', {
-                    extraPlugins: 'sourcedialog',
-                    removePlugins: 'sourcearea'
-                });*/
             }
             
             $scope.onChangeQuestion = function() {
                 $scope.applyChange = true;
+                $scope.applyChangeEvidence = true;
             }
             
             $scope.deleteQuestion = function ($index) {
                 $scope.applyChange = true;
+                $scope.applyChangeEvidence = true;
                 $scope.elementEdit.questions = $scope.elementEdit.questions || [];
                 var list = $scope.elementEdit.questions;
                 var newList = [];
