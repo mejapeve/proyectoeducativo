@@ -880,6 +880,14 @@
                            <div class="p-2" ng-show="elementEdit.questionEditType==='2'">
                               <h6>Respuestas</h6>
                               <conx-evidence-options></conx-evidence-options>
+                              <div ng-show="showHTMLEditorAnswer" class="card"
+                               style="padding: 42px 0 0 1px;position: absolute;top: 0px;left: -154px;height: 659px; width: 567px;">
+                               <div ng-click="onCloseHTMLEditorAnswer();" class="position-absolute fs-2 cursor-pointer"
+                                  style="top: 3px;right: 16px;left: 35px;text-align: right;">
+                                  <i class="far fa-times-circle"></i>
+                               </div>
+                               <textarea id="editorAnserHtml" name="editorAnserHtml"></textarea>
+                              </div>
                            </div>
                            <div class="p-2" ng-show="elementEdit.questionEditType==='2'">
                               <div class="line-separator m-0"></div>

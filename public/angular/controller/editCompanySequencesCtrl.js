@@ -23,6 +23,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.elementEdit = null;
     $scope.questionEdit = null;
+	$scope.answerEdit = null;
     $scope.indexElement = null;
 
     $scope.directoryPath = null;
@@ -1129,12 +1130,43 @@ MyApp.directive('conxEvidenceOptions', function () {
         template: '<div ng-show="questionEdit" ng-repeat="itemOption in questionEdit.options track by $index"> ' +
             '<span class="fs--1 font-weight-semi-bold">{{itemOption.id}}) </span>' +
             '<input ng-change="onChange()" ng-model="itemOption.option" class="mt-1 fs--1 w-75"/>  ' +
+            '<button class="btn btn-sm btn-primary" ng-click="onOpenHTMLEditorAnswer(itemOption)" style="margin-left: -42px;height: 24px;padding: 2px;margin-top: 0px;"> html </button>  ' +
             '<a ng-click="onDelete($index)" style="marging-top: 8px;"><i class="far fa-times-circle"></i><a/>'+
             '</div> ' +
             '<a href="#" ng-click="onNew()"><span class="fs--1"> Nueva respuesta </span><i class="fas fa-plus cursor-pointer"></i><a/>',
         controller: function ($scope, $timeout) {
             
             $scope.letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
+			
+			$scope.onOpenHTMLEditorAnswer = function(answer) {
+                $scope.showHTMLEditorAnswer = true;
+                $scope.answerEdit = answer;
+                
+                var title = answer.option;
+                //$('.tox.tox-tinymce').remove();
+                $('#editorAnserHtml').html(title);
+                if(tinymce.get('editorAnserHtml'))
+                $(tinymce.get('editorAnserHtml').getBody()).html(title);
+                
+                tinymce.init({
+                  selector: '#editorAnserHtml',
+                  height: 500,
+                  plugins: [
+                    'link image imagetools table spellchecker lists'
+                  ],
+                  contextmenu: "link image imagetools table spellchecker lists",
+                  content_css: '//www.tiny.cloud/css/codepen.min.css'
+                });
+            }
+			
+            $scope.onCloseHTMLEditorAnswer = function() {
+                $scope.showHTMLEditorAnswer = false;
+                $scope.answerEdit.option = $('#editorAnserHtml_ifr').contents().find('#tinymce').html() || 'prueba';
+                $scope.answerEdit.isHtml = true;
+                $scope.answerEdit.placeHolderHtml = $('#editorAnserHtml_ifr').contents().find('#tinymce').text();
+                $scope.applyChange = true;
+                $scope.applyChangeEvidence = true;
+            }
 
             $scope.onDelete = function ($index) {
 

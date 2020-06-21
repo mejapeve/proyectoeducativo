@@ -169,6 +169,7 @@
 							Pregunta @{{$index + 1}}. <div ng-bind-html="question.title"></div>
                         </h5>
                         <h6 ng-show="question.objective" class="mb-3" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6>
+						<div class="line-separator mb-3"></div>
                         <div class="fs-0 ml-4" ng-repeat="option in question.options track by $index">
                             <input type="radio"
                                 name="optionQuestion-@{{question.id}}"
@@ -176,13 +177,13 @@
                                 ng-checked="@{{question.menu === $index}}"
                                 ng-change="onSelectOption(question,option)"
                                 value="@{{$index}}" class="mr-2">
-                            @{{option.option}}
+                            <div class="mt-n4 ml-4" ng-bind-html="option.option"></div>
                         </div>
                     </div>
                     <div class="d-flex mt-6 ml-6">
                         <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atrás</button>
-                        <button class="btn btn-sm btn-outline-primary ml-2" ng-disable="indexQuestion >= questionsOpened.length - 1 " ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
-                        <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === questionsOpened.length - 1" ng-click="onFinishEvidence()">
+                        <button class="btn btn-sm btn-outline-primary ml-2" ng-disable="indexQuestion >= evidenceOpened.questions.length - 1 " ng-disabled="indexQuestion >= evidenceOpened.questions.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
+                        <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === evidenceOpened.questions.length - 1" ng-click="onFinishEvidence()">
                         <span ng-show="onFinishEvidenceLoad" ><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
                     </div>
                 </div>
