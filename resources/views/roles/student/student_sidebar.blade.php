@@ -63,9 +63,9 @@
                                      <i class="fas fa-door-open fs-1" style="color:#35af7e;"></i>
                                   </span>
                                    Salir
-								<form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-								   @csrf
-								</form>
+                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                   @csrf
+                                </form>
                                </div>
                             </a>
                         </li>

@@ -23,7 +23,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
 
     $scope.elementEdit = null;
     $scope.questionEdit = null;
-	$scope.answerEdit = null;
+    $scope.answerEdit = null;
     $scope.indexElement = null;
 
     $scope.directoryPath = null;
@@ -532,7 +532,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if (typeItem === 'evidence-element') {
             parentElement.elements = parentElement.elements || [];
-            parentElement.elements.push({ 'id': id, 'type': typeItem, 'questionEditType': "1",'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'icon': 'images/designerAdmin/icons/evidenciasAprendizajeIcono-01.png', 'questions': [] });
+            parentElement.elements.push({ 'id': id, 'type': typeItem, 'questionEditType': "1",'fs': 11, 'ml': 210, 'mt': 176, 'w': 277, 'h': 58, 'text': 'Abrir evidencias de aprendizaje', 'class': '', 'subtitle':'Evidencias de aprendizaje','icon': 'images/designerAdmin/icons/evidenciasAprendizajeIcono.png', 'questions': [] });
         }
         
         $timeout(function () {
@@ -1137,8 +1137,8 @@ MyApp.directive('conxEvidenceOptions', function () {
         controller: function ($scope, $timeout) {
             
             $scope.letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m'];
-			
-			$scope.onOpenHTMLEditorAnswer = function(answer) {
+            
+            $scope.onOpenHTMLEditorAnswer = function(answer) {
                 $scope.showHTMLEditorAnswer = true;
                 $scope.answerEdit = answer;
                 
@@ -1158,7 +1158,7 @@ MyApp.directive('conxEvidenceOptions', function () {
                   content_css: '//www.tiny.cloud/css/codepen.min.css'
                 });
             }
-			
+            
             $scope.onCloseHTMLEditorAnswer = function() {
                 $scope.showHTMLEditorAnswer = false;
                 $scope.answerEdit.option = $('#editorAnserHtml_ifr').contents().find('#tinymce').html() || 'prueba';

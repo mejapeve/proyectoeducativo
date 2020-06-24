@@ -28,13 +28,17 @@
                            <div class="justify-content-between align-items-center row">
                               <div class="col-md">
                                  <h5 class="mb-2 mb-md-0">Crear Avatar</h5>
+                                 <h6>Antes de iniciar la ruta de aprendizaje, te invitamos a que personalices tu imagen</h6>
                               </div>
                               <div class="col-auto">
+                                 @if(!auth('afiliadoempresa')->user()->url_image)
+                                 <button class="mr-2 btn btn-outline-primary btn-sm" ng-click="onSaveAvatarDefault()">Omitir</button>
+                                 @endif
                                  <button ng-disabled="!customImage && !avatar"
                                  class="mr-2 btn btn-falcon-default btn-sm" ng-click="onSaveAvatar()">Guardar</button>
                                  <form action="{{route('update_avatar',auth('afiliadoempresa')->user()->company_name())}}" method="POST" id="save-avatar-form">
                                     @csrf
-                                    <input type="hidden" name="url_image" ng-value="avatar.urlImage"/>
+                                    <input type="hidden" id="url_image" name="url_image" ng-value="urlImage"/>
                                     <input type="hidden" id="custom_image" name="custom_image" ng-value="customImage"/>
                                  </form>
                               </div>
@@ -72,12 +76,12 @@
                                  </div>
                                  <div id="avatar">
                                     <div id="skin"  data-top="45" data-left="0" data-width="262" data-height="223" >
-                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer activo seleccionado" src="{{ asset('images/avatars/cara/1-01.png')}}" data-ears="165" data-mouth="85"/>
-                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/2-02.png')}}" data-ears="135" data-mouth="85"/>
-                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/3-03.png')}}" data-ears="150" data-mouth="85"/>
-                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/4-04.png')}}" data-ears="145" data-mouth="85"/>
+                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer activo seleccionado" src="{{ asset('images/avatars/cara/1-01.png')}}" data-ears="165" data-mouth    ="88" data-hair="165" />
+                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/2-02.png')}}" data-ears="135" data-mouth="88" data-hair="165"/>
+                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/3-03.png')}}" data-ears="150" data-mouth="88" data-hair="165"/>
+                                       <img width="65px" height="65px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/cara/4-04.png')}}" data-ears="145" data-mouth="88" data-hair="165"/>
                                     </div>
-                                    <div id="features" class="d-none" data-top="90" data-left="80" data-width="123" data-height="117">
+                                    <div id="features" class="d-none" data-top="100" data-left="90" data-width="123" data-height="117">
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/rasgos/1.png')}}">
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/rasgos/2.png')}}">
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/rasgos/3.png')}}">
