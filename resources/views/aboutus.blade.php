@@ -15,7 +15,7 @@
       </div>
    </div>
    <div class="pl-lg-2 col-lg-6">
-      <img class="img-thumbnail img-fluid mb-3 shadow-sm w-90" src="{{ asset('images/acercaConexiones/componentes.jpg') }}" alt="">
+      <img class="img-thumbnail img-fluid mb-3 shadow-sm w-sm-90 w-lg-75" src="{{ asset('images/acercaConexiones/componentes.jpg') }}" style="min-width:552px;">
    </div>
    <div class="pl-lg-2 ml-3 mb-3 col-12">
       <p>Ante el desafío que supone una educación científica actual, <strong>Conexiones</strong> se estructura a partir de tres componentes que se complementan de manera sinérgica:</p>

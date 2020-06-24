@@ -3,11 +3,25 @@ MyApp.controller("profileStudentCtrl", function ($scope, $http, $timeout) {
     $scope.urlImage = null;
     $scope.validateUserName = true;
    
-    $scope.initProfile = function(kidSelected, userNameInit) {
+    $scope.initProfile = function(kidSelected, userNameInit,urlImage) {
         $('.d-none-result').removeClass('d-none');
         $scope.kidSelected = kidSelected;
         $scope.userNameInit = userNameInit;
+        $scope.urlImage = urlImage;
     }
+    
+    $scope.avatars = [
+        {"urlImage":"/images/avatars/avatar-default/avatar1.png","name":"Leonardo da Vinci","job":"Polímata"},
+        {"urlImage":"/images/avatars/avatar-default/avatar2.png","name":"Marie Curie","job":"Química"},
+        {"urlImage":"/images/avatars/avatar-default/avatar3.png","name":"Albert Einstein","job":"Físico"},
+        {"urlImage":"/images/avatars/avatar-default/avatar4.png","name":"Samantha Cristoforetti","job":"Astronauta"},
+        {"urlImage":"/images/avatars/avatar-default/avatar5.png","name":"Katia Krafft","job":"Vulcanólaga"},
+        {"urlImage":"/images/avatars/avatar-default/avatar10.png","name":"Valerie Thomas","job":"Astrofísica"},
+        {"urlImage":"/images/avatars/avatar-default/avatar9.png","name":"Stephen Hawking","job":"Astrofísico"},
+        {"urlImage":"/images/avatars/avatar-default/avatar6.png","name":"Isaac Newton","job":"Físico"},
+        {"urlImage":"/images/avatars/avatar-default/avatar7.png","name":"Galileo Galilei","job":"Físico"},
+        {"urlImage":"/images/avatars/avatar-default/avatar8.png","name":"Rosalind Franklin","job":"Química"}
+    ];
 
     $scope.onEditStudent = function() {
        

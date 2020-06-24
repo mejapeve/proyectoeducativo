@@ -109,8 +109,12 @@
                                         <div id="{{$element['id']}}" class="{{$element['class']}} evidence-head cursor-pointer" 
                                            ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
                                            w="{{$element['w']}}" h="{{$element['h']}}" fs="{{$element['fs']}}"
-                                           ng-click="onClickEvidence('{{$sequence_id}}','{{$moment->id}}','{{$element['id']}}')">
-                                           <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="80" height="auto"/>
+                                           ng-click="onClickEvidence('{{$sequence_id}}','{{$moment->id}}','{{$element['id']}}','@if(isset($element['icon'])){{$element['icon']}}@endif','@if(isset($element['subtitle'])){{$element['subtitle']}}@endif')">
+                                           @if(isset($element['icon']))
+                                           <img src="{{asset($element['icon'])}}" width="auto" height="40px"/>
+                                           @else 
+                                           <img src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="auto" height="40px"/>
+                                           @endif
                                            <span class="d-none ml-3"><i style="width: 30px;height: auto;" class="fa fa-spinner fa-spin"></i></span>
                                            {{$element['text']}}
                                          </div>
@@ -120,11 +124,11 @@
                                   @endif
                                 </div>   
                             </div>
-                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id - 1)]))
+                            @if(isset($part_id) && isset($sections[$section_id-1]['part_'.($part_id - 1)]))
                             <a class="btn btn-sm btn-outline-primary" ml="100" mt="{{$container['h'] - 50 }}"
                                href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id -  1)])}}"> Parte {{$part_id -1}}</a>
                             @endif
-                            @if(isset($part_id) && isset($sections[$section_id]['part_'.($part_id + 1)]) && ($part_id + 1) <=3)
+                            @if(isset($part_id) && isset($sections[$section_id-1]['part_'.($part_id + 1)]['elements']))
                             <a class="btn btn-sm btn-outline-primary" ml="815" mt="{{$container['h'] - 50 }}" 
                                href="{{route('student.show_moment_section',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id, 'moment_id' => $moment->id, 'section_id' => ($section_id),'account_service_id'=>$account_service_id,'order_moment_id'=>$order_moment_id,'part_id'=>($part_id +  1)])}}"> Parte {{$part_id  + 1}}</a>
                             @endif
@@ -133,21 +137,23 @@
                 </div>
             </div>
         </div>
-        <div ng-show="questionsOpened" class="d-result d-none position-absolute col-xl-9 col-lg-8 col-10" style="top: 10%;left:12%;">
+        
+        <div ng-show="evidenceOpened" class="d-result d-none position-absolute col-xl-9 col-lg-8 col-10" style="top: 10%;left:12%;">
             <div class="d-result d-none modal-backdrop fade show w-100"></div>
+            
             <div class="card ml-lg-6" style="z-index: 1040;">
                 <div class="p-2">
-                    <img class="ml-2" src="{{asset('images/icons/evidenciasAprendizajeIcono-01.png')}}" width="120px" height="auto"/>
-                    <span class="ml-4 mt-3 fs-1 font-weight-bold">Evidencias de aprendizaje</span>
+                    <img class="ml-2" src="/@{{evidenceOpened.icon}}" width="auto" height="60px"/>
+                    <span class="ml-4 mt-3 fs-1 font-weight-bold">@{{evidenceOpened.subtitle}}</span>
                     <button class="close mt-2 mr-2" ng-click="closeEvidence()">
                         <span class="font-weight-light" >&times;</span>
                     </button>
                 </div>
-                <div class="card-body p-5" ng-show="questionsOpened[0].type_answer===1">
-                    <div ng-repeat="question in questionsOpened track by $index" class="ml-auto mr-auto row">
+                <div class="card-body p-5" ng-show="evidenceOpened.type_answer===1">
+                    <div ng-repeat="question in evidenceOpened.questions track by $index" class="ml-auto mr-auto row">
                         <div class="col-6"> <h6 ng-show="question.title" style="color:#E15433;">
                         <img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >
-						<div ng-class="{'mt-n3': question.isHtml}" ng-bind-html="question.title"></div></h6></div>
+						<div class="mt-n3" ng-bind-html="question.title"></div></h6></div>
                         <div class="col-6"> <h6 ng-show="question.objective" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6></div>
                     </div>
                     <div class="d-flex mt-6 ml-6">
@@ -156,13 +162,14 @@
                         <span ng-show="onFinishEvidenceLoad"><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
                     </div>
                 </div>
-                <div class="card-body pl-7 pr-6" ng-show="questionsOpened[0].type_answer===2">
-                    <div ng-repeat="question in questionsOpened track by $index" class="ml-auto mr-auto" ng-show="indexQuestion === $index">
+                <div class="card-body pl-7 pr-6" ng-show="evidenceOpened.type_answer===2">
+                    <div ng-repeat="question in evidenceOpened.questions track by $index" class="ml-auto mr-auto" ng-show="indexQuestion === $index">
                         <h5 style="color:#E15433;">
                             <img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-options-questions.png')}}" >
 							Pregunta @{{$index + 1}}. <div ng-bind-html="question.title"></div>
                         </h5>
-                        <h6 class="mb-3" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6>
+                        <h6 ng-show="question.objective" class="mb-3" style="color:#402F73;"><img style="margin-left: -26px;margin-top: -3px;" width="21px" height="auto" src="{{asset('images/icons/icon-objectives-questions.png')}}" >@{{question.objective}}</h6>
+						<div class="line-separator mb-3"></div>
                         <div class="fs-0 ml-4" ng-repeat="option in question.options track by $index">
                             <input type="radio"
                                 name="optionQuestion-@{{question.id}}"
@@ -170,13 +177,13 @@
                                 ng-checked="@{{question.menu === $index}}"
                                 ng-change="onSelectOption(question,option)"
                                 value="@{{$index}}" class="mr-2">
-                            @{{option.option}}
+                            <div class="mt-n4 ml-4" ng-bind-html="option.option"></div>
                         </div>
                     </div>
                     <div class="d-flex mt-6 ml-6">
                         <button class="btn btn-sm btn-outline-primary" ng-disabled="indexQuestion === 0" ng-class="{'opacity-0': indexQuestion === 0}" ng-click="indexQuestion = indexQuestion - 1;">Atrás</button>
-                        <button class="btn btn-sm btn-outline-primary ml-2" ng-disable="indexQuestion >= questionsOpened.length - 1 " ng-disabled="indexQuestion >= questionsOpened.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
-                        <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === questionsOpened.length - 1" ng-click="onFinishEvidence()">
+                        <button class="btn btn-sm btn-outline-primary ml-2" ng-disable="indexQuestion >= evidenceOpened.questions.length - 1 " ng-disabled="indexQuestion >= evidenceOpened.questions.length - 1 " ng-click="indexQuestion = indexQuestion + 1;">Siguiente</button>
+                        <button class="btn btn-sm btn-outline-success ml-2" style="right: 10%;" ng-disabled="" ng-show="indexQuestion === evidenceOpened.questions.length - 1" ng-click="onFinishEvidence()">
                         <span ng-show="onFinishEvidenceLoad" ><i class="fa fa-spinner fa-spin"></i> </span>Finalizar</button>
                     </div>
                 </div>
@@ -185,3 +192,4 @@
     </div>
     <script src="{{ asset('angular/controller/contentSequencesStudentCtrl.js') }}" defer></script>
 @endsection
+

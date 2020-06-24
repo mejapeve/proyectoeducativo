@@ -28,6 +28,7 @@ class AvatarController extends Controller
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $user = $request->user('afiliadoempresa');
+        
         if (isset($request->url_image)) {
             $user->url_image = $request->url_image;
             $user->save();
@@ -49,7 +50,7 @@ class AvatarController extends Controller
             $user->save();
 
         }
-        return redirect()->route('student', ['empresa' => $request->empresa, 'success' => 'Avatar modificado exitosamente']);
+        return redirect()->route('student.available_sequences', ['empresa' => $request->empresa, 'success' => 'Avatar modificado exitosamente']);
     }
 
 

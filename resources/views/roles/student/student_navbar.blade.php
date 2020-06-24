@@ -4,7 +4,7 @@
   </button>
   <a class="text-decoration-none navbar-brand text-left ml-3" id="topLogo" href="#">
      <div class="d-flex align-items-center">
-        <img class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
+        <a href="{{asset('/')}}"><img href="" class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40"></a>
         <div class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold">
            <span id="slogan" >Experiencias científicas <br/> para conocer el mundo <br/> natural</span>
         </div>
@@ -20,22 +20,33 @@
               @if(\Route::current()->getName() == 'student') selected @endif">
               Mi perfíl
            </a>
-              <i class="fas fa-user fs-1"></i>
+              <i class="fas fa-user fs-1" style="color:#aecb41;"></i>
         </li>
         <li class="nav-item ml-lg-14 col-auto d-flex">
            <a href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 
            @if(Route::current()->getName() == 'student.available_sequences' ||  
                Route::current()->getName() == 'student.sequences_section_1'  ) 
                selected @endif">Guías de aprendizaje</a>
-           <i class="fas fa-book-open fs-1"></i>
+           <i class="fas fa-book-open fs-1" style="color:#26b7c4;"></i>
         </li>
         <li class="nav-item ml-lg-14 col-auto d-flex">
            <a href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'student.achievements') selected @endif">
            Logros
            </a>
-           <i class="fas fa-star fs-1"></i></li>
-        <li class="nav-item ml-lg-14 col-auto d-flex"><a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">Calendario</a><i class="fas fa-calendar-alt fs-1"></i></li>
-        <li class="nav-item ml-lg-14 col-2 d-flex"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  mr-2 p-0 pb-1" >Salir</a><i class="fas fa-door-open fs-1"></i></li>
+           <i class="fas fa-star fs-1" style="color:#5f347c;"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-auto d-flex">
+           <a href="{{ route('home') }}" class="nav-link  mr-2 p-0 pb-1 @if(\Route::current()->getName() == 'home') selected @endif">
+              Calendario
+           </a>
+           <i class="fas fa-calendar-alt fs-1" style="color:red;"></i>
+        </li>
+        <li class="nav-item ml-lg-14 col-2 d-flex">
+           <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link  mr-2 p-0 pb-1" >
+              Salir
+           </a>
+           <i class="fas fa-door-open fs-1" style="color:#35af7e;"></i>
+        </li>
         <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
            @csrf
         </form>

@@ -1,6 +1,6 @@
 <div ng-controller="timelineSequencesStudentCtrl" ng-init=init(1,"{{$account_service_id}}","{{$sequence_id}}") class="row">
     <div class="col-5 pr-0" style="height: 106px;">
-        <img class="mr-2 avatar-logo-sequence" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40">
+        <a href="{{asset('/')}}"><img href="" class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40"></a>
         
         @if(isset(auth('afiliadoempresa')->user()->url_image)) 
             <img class="avatar-student-timeline avatar-default rounded-circle" src="{{ asset(auth('afiliadoempresa')->user()->url_image) }}" width="70px" height="auto">

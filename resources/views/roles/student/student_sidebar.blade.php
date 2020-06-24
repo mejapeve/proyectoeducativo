@@ -18,7 +18,7 @@
                             <a class="nav-link" aria-expanded="false" href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" >
                                <div class="d-flex align-items-center">
                                   <span class="ml-2 mr-2 nav-link-icon">
-                                     <i class="fas fa-user fs-1"></i>
+                                     <i class="fas fa-user fs-1" style="color:#aecb41;"></i>
                                   </span>
                                   Mi perfíl
                                </div>
@@ -29,9 +29,43 @@
                             <a class="nav-link" aria-expanded="false" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" >
                                <div class="d-flex align-items-center">
                                   <span class="ml-2 mr-2 nav-link-icon">
-                                     <i class="fas fa-book-open fs-1"></i>
+                                     <i class="fas fa-book-open fs-1" style="color:#26b7c4;"></i>
                                   </span>
                                    Guías de aprendizaje
+                               </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-expanded="false" href="{{ route('student.achievements',auth('afiliadoempresa')->user()->company_name()) }}" >
+                               <div class="d-flex align-items-center">
+                                  <span class="ml-2 mr-2 nav-link-icon">
+                                     <i class="fas fa-star fs-1" style="color:#5f347c;"></i>
+                                  </span>
+                                   Logros
+                               </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-expanded="false" href="{{ route('home') }}" >
+                               <div class="d-flex align-items-center">
+                                  <span class="ml-2 mr-2 nav-link-icon">
+                                     <i class="fas fa-calendar-alt fs-1" style="color:red;"></i>
+                                  </span>
+                                   Calendario
+                               </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                               aria-expanded="false" href="{{ route('student.available_sequences',auth('afiliadoempresa')->user()->company_name()) }}" >
+                               <div class="d-flex align-items-center">
+                                  <span class="ml-2 mr-2 nav-link-icon">
+                                     <i class="fas fa-door-open fs-1" style="color:#35af7e;"></i>
+                                  </span>
+                                   Salir
+                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                   @csrf
+                                </form>
                                </div>
                             </a>
                         </li>

@@ -1,7 +1,7 @@
 @extends('roles.student.layout')
 
 @section('content')
-    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile('{{$student->kidSelected()}}','{{$student->user_name}}')">
+    <div class="container" ng-controller="profileStudentCtrl" ng-init="initProfile('{{$student->kidSelected()}}','{{$student->user_name}}','{{$student->url_image}}')">
         <div class="content row">
             <div class="col-8 mt-4 ml-auto mr-auto">
                 <div class="border border-light rounded-radius-1 card card-body border-dark_opacity"  style="min-width: 24rem;">
@@ -9,6 +9,12 @@
                         <div class="col-lg-5 p-0 text-align">
                         @if(isset($student->url_image)) 
                             <img src="{{asset($student->url_image)}}" width="264px" height="auto"/>
+                            <div ng-repeat="avatar in avatars" class="d-none-result d-non">
+                                <div ng-show="urlImage.includes(avatar.urlImage)">
+                                    <h5 class="mt-3">@{{avatar.name}}</h5>
+                                    <h6>@{{avatar.job}}</h6>
+                                </div>
+                            </div>
                         @else 
                             <img src="{{asset('images/icons/default-avatar.png')}}" width="264px" height="auto"/>
                         @endif
