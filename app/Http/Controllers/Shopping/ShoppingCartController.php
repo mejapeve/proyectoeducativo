@@ -27,7 +27,16 @@ class ShoppingCartController extends Controller
     {
         if ($request->user('afiliadoempresa')) {
             $shoppingCarts = ShoppingCart::
-            with('rating_plan', 'shopping_cart_product')->
+            with('rating_plan', 'shopping_cart_product')
+                ->whereHas('rating_plan',function ($query){
+                    return $query->where([
+                        ['init_date','<=',date('Y-m-d')],
+                        ['expiration_date','>=',date('Y-m-d')]
+                    ])->orWhere([
+                        ['init_date','<=',date('Y-m-d')],
+                        ['expiration_date',null]
+                    ]);
+                })->
             where([
                 ['company_affiliated_id', $request->user('afiliadoempresa')->id],
                 ['payment_status_id', 1],
@@ -37,7 +46,15 @@ class ShoppingCartController extends Controller
                 session_start();
             }
             $shoppingCarts = ShoppingCart::
-            with('rating_plan', 'shopping_cart_product')->
+            with('rating_plan', 'shopping_cart_product')->whereHas('rating_plan',function ($query){
+                return $query->where([
+                    ['init_date','<=',date('Y-m-d')],
+                    ['expiration_date','>=',date('Y-m-d')]
+                ])->orWhere([
+                    ['init_date','<=',date('Y-m-d')],
+                    ['expiration_date',null]
+                ]);
+            })->
             where([
                 ['session_id', session_id()],
                 ['payment_status_id', 1],
