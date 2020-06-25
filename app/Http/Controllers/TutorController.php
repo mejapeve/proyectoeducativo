@@ -170,7 +170,7 @@ class TutorController extends Controller
         where('company_affiliated_id', '=', $user_id)
             ->where([
                 ['init_date', '<=', date('Y-m-d') . ' 00:00:00'],
-                ['end_date', '>=', date('Y-m-d') . ' 12:59:59']
+                ['end_date', '>=', date('Y-m-d') . ' 24:59:59']
             ])->pluck('id');
 
         return AffiliatedContentAccountService::with('affiliated_account_services.rating_plan', 'sequence')
