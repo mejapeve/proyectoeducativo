@@ -121,6 +121,12 @@
                                             </a>
                                         </li>
                                         <li class="nav-item nav-item-tutor">
+                                            <a class="avatar avatar-3xl tutor-button-head freePlan">
+                                                <img src="{{asset('images/iconosParteInferiorHome/gratisPrueba_Mesa de trabajo 1.png')}}" class="ml-auto mr-auto" width="36px" height="auto"  style="width: 42px;height: auto;"/>
+                                                <small class="fs--2 mb-1 text-700 font-weight-bold"> Plan gratuito </small>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item nav-item-tutor">
                                             <a class="avatar avatar-3xl tutor-button-head" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 <img src="{{asset('images/icons/portal-padres/salir-01.png')}}" class="ml-auto mr-auto" width="20px" height="auto"  style="width: 20px;height: auto;"/>
                                                 <small class="fs--2 mb-1 text-700 font-weight-bold"> Salir</small>
@@ -140,10 +146,58 @@
                 </div>
             </div>
         </div>
-        
+        <script>
+            $(document).ready( function () {
+
+                $('.freePlan').on('click',function(){
+                    var data = new FormData();
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "{{route('validate_registry_free_plan',1)}}",
+                        data: data,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        method: 'GET',
+                        type: 'GET',
+                        success: function (response, xhr, request) {
+                            console.log(response)
+                            if(response.status === 'successfull'){
+                                swal({
+                                    text: response.message,
+                                    type: "success",
+                                    showCancelButton: false,
+                                    showConfirmButton: false
+                                }).catch(swal.noop);
+                            }else{
+                                swal({
+                                    text: response.message,
+                                    type: "warning",
+                                    showCancelButton: false,
+                                    showConfirmButton: false
+                                }).catch(swal.noop);
+                            }
+
+                        },
+                        error: function (response, xhr, request) {
+                            swal({
+                                text: response.message,
+                                type: "warning",
+                                showCancelButton: false,
+                                showConfirmButton: false
+                            }).catch(swal.noop);
+                        }
+                    });
+                })
+
+
+            })
+        </script>
         <footer>
             @include('layouts/footer')
         </footer>
     </div>
-    
+
 @endsection

@@ -230,7 +230,15 @@
                   <span class="fs--1">Registrar con Gmail</span>
                 </button>
             </div>
+            <hr>
+            <div class="p-4" style="padding-bottom: 0px!important;">
+                <a href="{{ route('user.login') }}">
+                    <i class="fa fas fa-arrow-right arrow-icon"></i>
+                    Si ya tiene una cuenta registrada, inicie sesión desde el familiar tutor y podra adquirir al plan gratutio
+                </a>
+            </div>
         </div>
+
     </div>
 </section>
 

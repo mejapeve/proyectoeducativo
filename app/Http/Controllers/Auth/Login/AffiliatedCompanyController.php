@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 */
 
 namespace App\Http\Controllers\Auth\Login;
+use App\Models\AffiliatedAccountService;
 use App\Models\Companies;
 use App\Models\Empresas;
 use App\Models\AfiliadoEmpresa;
+use App\Models\RatingPlan;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\LoginController as DefaultLoginController;
 use Laravel\Socialite\Facades\Socialite;
@@ -80,9 +82,7 @@ class AffiliatedCompanyController extends DefaultLoginController
 
         $user_name = $request->user_name;
         $company = $request->company;
-        
         Auth::logout();
-        //Auth::logout('afiliadoempresa');
 		session(['rol_trans' => $rol]);
 		
         $user = DB::table('afiliado_empresas')
@@ -96,7 +96,30 @@ class AffiliatedCompanyController extends DefaultLoginController
 				  ->select('afiliado_empresas.id','afiliado_empresas.email')
                   ->first();
         if($user){
-			session(['email_session' => $user->email]);
+            if($request->session()->has('free_rating_plan_id')){
+                $free_rating_plan_id = $request->session()->pull('free_rating_plan_id');
+                $ratingPlanFree = RatingPlan::where('is_free',$free_rating_plan_id)->first();
+                if (!$ratingPlanFree || !$ratingPlanFree->is_free) {
+                    return view('page404', ['message' => 'Plan gratuito no encontrado']);
+                }
+                session(['email_session' => $user->email]);
+                $hasFreePlan = AffiliatedAccountService::whereHas('rating_plan',function ($query){
+                    return $query->where('is_free',1);
+                })->
+                where('company_affiliated_id', '=', $user->id)
+                    ->where([
+                        ['init_date', '<=', date('Y-m-d') ],
+                        ['end_date', '>=', date('Y-m-d') ]
+                    ])->first();
+                if($hasFreePlan === null){
+                    session(['status_validation_free_plan' => 1]);
+                    $this->addFreeRatingPlan($ratingPlanFree, $user);
+
+                }else{
+                    session(['status_validation_free_plan' => 2]);
+                }
+            }
+
             $this->validateLogin($request);
 
             if (method_exists($this, 'hasTooManyLoginAttempts') &&

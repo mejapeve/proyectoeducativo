@@ -196,25 +196,92 @@ class RegisterController extends Controller
     public function validate_registry_free_plan(Request $request, $rating_plan_id)
     {
 
-        $ratingPlanFree = RatingPlan::find($rating_plan_id);
+        if($request->ajax()){
+            $ratingPlanFree = RatingPlan::where('is_free',1)->first();
+            if (!$ratingPlanFree || !$ratingPlanFree->is_free) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Plan gratuito no encontrado'
+                ]);
+                    //view('page404', ['message' => 'Plan gratuito no encontrado']);
+            }
+            $afiliado_empresa = $request->user('afiliadoempresa');
+            if ($afiliado_empresa) {
+                //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
 
-        if (!$ratingPlanFree || !$ratingPlanFree->is_free) {
-            return view('page404', ['message' => 'Plan gratuito no encontrado']);
-        }
-        $afiliado_empresa = $request->user('afiliadoempresa');
-        if ($afiliado_empresa) {
-            //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
+                if ($afiliado_empresa->hasRole('tutor')) {
+                    $hasFreePlan = AffiliatedAccountService::whereHas('rating_plan',function ($query){
+                        return $query->where('is_free',1);
+                    })->
+                    where('company_affiliated_id', '=', $afiliado_empresa->id)
+                        ->where([
+                            ['init_date', '<=', date('Y-m-d') ],
+                            ['end_date', '>=', date('Y-m-d') ]
+                        ])->first();
+                    if($hasFreePlan === null){
+                        $this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
+                        return response()->json([
+                            'status' => 'successfull',
+                            'message' => 'El plan ha sido registrado correctamente, los estudiantes inscritos puden acceder a este plan'
+                        ]);
+                    }else{
+                        return response()->json([
+                            'status' => 'error',
+                            'message' => 'El plan gratuito no ha expirado, este plan expira para la fecha '.$hasFreePlan->end_date
+                        ]);
+                    }
 
-            if ($afiliado_empresa->hasRole('tutor')) {
-                $this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
-                return redirect('conexiones/tutor');
+                } else {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'No tiene permisos para acceder al plan gratuito'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No tiene permisos para acceder al plan gratuito'
+                ]);
+            }
+            //return "AJAX";
+        }else{
+            $ratingPlanFree = RatingPlan::find($rating_plan_id);
+
+            if (!$ratingPlanFree || !$ratingPlanFree->is_free) {
+                return view('page404', ['message' => 'Plan gratuito no encontrado']);
+            }
+            $afiliado_empresa = $request->user('afiliadoempresa');
+            if ($afiliado_empresa) {
+                //TODO:  si el afliiado es diferente a familiar (tutor), invitar a registro
+
+                if ($afiliado_empresa->hasRole('tutor')) {
+                    $hasFreePlan = AffiliatedAccountService::whereHas('rating_plan',function ($query){
+                        return $query->where('is_free',1);
+                    })->
+                    where('company_affiliated_id', '=', $afiliado_empresa->id)
+                        ->where([
+                            ['init_date', '<=', date('Y-m-d') ],
+                            ['end_date', '>=', date('Y-m-d') ]
+                        ])->first();
+                    if($hasFreePlan === null){
+                        session(['status_validation_free_plan' => 1]);
+                        $this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
+
+                    }else{
+                        session(['status_validation_free_plan' => 2]);
+                    }
+                    //$this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
+                    return redirect('conexiones/tutor');
+                } else {
+                    $request->session()->put('free_rating_plan_id', $rating_plan_id);
+                    return redirect()->action('Auth\RegisterController@show_register');
+                }
             } else {
                 $request->session()->put('free_rating_plan_id', $rating_plan_id);
                 return redirect()->action('Auth\RegisterController@show_register');
             }
-        } else {
-            $request->session()->put('free_rating_plan_id', $rating_plan_id);
-            return redirect()->action('Auth\RegisterController@show_register');
         }
+
     }
+
 }

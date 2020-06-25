@@ -34,7 +34,15 @@ class TutorController extends Controller
         $request->user('afiliadoempresa')->authorizeRoles(['tutor']);
         $route = route('tutor.registerStudentForm', session('name_company'));
         $tutor = AfiliadoEmpresa::find(auth('afiliadoempresa')->user()->id);
-        return view('roles.tutor.profile')->with('route', $route)->with('tutor', $tutor);
+        if($request->session()->has('status_validation_free_plan'))
+        {
+            $statusValidationFreePlan = $request->session()->pull('status_validation_free_plan');
+            return view('roles.tutor.profile')->with('route', $route)->with('tutor', $tutor)->with('statusValidationFreePlan',$statusValidationFreePlan);
+        }else{
+
+            return view('roles.tutor.profile')->with('route', $route)->with('tutor', $tutor)->with('statusValidationFreePlan',3);
+        }
+
     }
 
     /**
@@ -150,13 +158,14 @@ class TutorController extends Controller
     {
 
         $user_id = auth('afiliadoempresa')->user()->id;
-
+//esta consulta no se esta realizando
+        /*
         $accountServices = AffiliatedAccountService::
         where('affiliated_account_services.company_affiliated_id', '=', $user_id)
             ->where('init_date', '<=', date('Y-m-d') . ' 00:00:00')
             ->where('end_date', '>=', date('Y-m-d') . ' 24:59:59')
             ->get();
-
+*/
         $ids = AffiliatedAccountService::
         where('company_affiliated_id', '=', $user_id)
             ->where([

@@ -5,12 +5,31 @@ MyApp.controller("tutorProfileCtrl", ["$scope", "$http", function($scope, $http)
     $scope.copyTutor={};
     $scope.labelName;
     $scope.inputToEdit;
-    $scope.init = function(tutor) {
+    $scope.init = function(tutor,statusValidationFreePlan) {
+
         $scope.tutor=tutor
         $scope.tutor.password1 = ''
         $scope.tutor.password2 = ''
         $scope.newRegisterForm=false
         $('.d-none-result.d-none').removeClass('d-none')
+        if(statusValidationFreePlan == 1){
+            swal({
+                text:'El plan ha sido registrado correctamente, los estudiantes inscritos puden acceder a este plan' ,
+                type: "success",
+                showCancelButton: false,
+                showConfirmButton: false
+            }).catch(swal.noop);
+        }else{
+            if(statusValidationFreePlan == 2){
+                swal({
+                    text:'Ya tiene registrado un plan gratuito' ,
+                    type: "warning",
+                    showCancelButton: false,
+                    showConfirmButton: false
+                }).catch(swal.noop);
+            }
+        }
+
     };
     $scope.viewPassword = (idInput) => {
         var cambio = document.getElementById(idInput)

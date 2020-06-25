@@ -17,7 +17,7 @@ class DataAffiliatedCompanyController extends Controller
      * @param $empresa
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($empresa)
+    public function index(Request $request,$empresa)
     {
 
         $company = Companies::where('nick_name', $empresa)->first();

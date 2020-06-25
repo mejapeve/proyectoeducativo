@@ -1,7 +1,7 @@
 @extends('roles.tutor.layout')
 
 @section('content-tutor-index')
-    <div class="" ng-controller="tutorProfileCtrl" ng-init="init({{$tutor}})">
+    <div class="" ng-controller="tutorProfileCtrl" ng-init="init({{$tutor}},{{$statusValidationFreePlan}})">
         <h5 class="mt-3">Mi perfíl</h5>
         <div class="row pl-4 pb-4 pt-4 pr-4">
             <div class="col-3">Imagen de perfíl</div>
