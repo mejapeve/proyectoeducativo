@@ -141,12 +141,17 @@ class RegisterController extends Controller
 
         $free_rating_plan_id = $request->session()->get('free_rating_plan_id');
         $redirect_to_shoppingcart = $request->session()->pull('redirect_to_shoppingcart'); //remove cache to session
+        $status_validation_free_plan = false;
+        if($request->session()->has('status_validation_free_plan')){
+            $status_validation_free_plan = true;
+        }
         return view('auth.register',
             [
                 'free_rating_plan_id' => $free_rating_plan_id,
                 'redirect_to_shoppingcart' => $redirect_to_shoppingcart,
                 'errorEmailSocial' => $errorEmailSocial,
                 'email' => $email,
+                'status_validation_free_plan'=> $status_validation_free_plan
             ]);
     }
 
@@ -273,10 +278,12 @@ class RegisterController extends Controller
                     //$this->addFreeRatingPlan($ratingPlanFree, $afiliado_empresa);
                     return redirect('conexiones/tutor');
                 } else {
+                    session(['status_validation_free_plan' => false]);
                     $request->session()->put('free_rating_plan_id', $rating_plan_id);
                     return redirect()->action('Auth\RegisterController@show_register');
                 }
             } else {
+                session(['status_validation_free_plan' => false]);
                 $request->session()->put('free_rating_plan_id', $rating_plan_id);
                 return redirect()->action('Auth\RegisterController@show_register');
             }
