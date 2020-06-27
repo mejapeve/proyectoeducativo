@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 
 @section('content')
-<section class="py-0" ng-controller="registerController" @if(isset($errorEmailSocial)) ng-init="init('{{$errorEmailSocial}}','{{$email}}')" @else ng-init="init()" @endif>
+<div class="py-0" ng-controller="registerController" @if(isset($errorEmailSocial)) ng-init="init('{{$errorEmailSocial}}','{{$email}}')" @else ng-init="init()" @endif>
     
    <div class="container-fluid d-none-result d-none" ng-show="!registrer_ini || @if($errors->any()>0) true @else false @endif">
       <div class="flex-center no-gutters row">
@@ -206,9 +206,9 @@
         <div class="p-4" style="padding-bottom: 0px!important;">
                <h6><i class="fa fas fa-arrow-right arrow-icon"></i>Crea tu cuenta</h6>
         </div>
-        <div class="mt-5 modal-menu min-content-height">
+        <div class="mt-5 modal-menu" style="min-height:173px">
            
-           <div style="z-index:1041;" class="col-12 mt-2"  style="height:43px">
+           <div style="z-index:1041;" class="col-12 col-md-6 ml-auto mr-auto mt-2"  style="height:43px">
                 <button type="button" class="btn btn-secondary btn-block d-flex h-100" ng-click="registrer_ini=false">
                     <i class="far fa-edit fs-2 mr-2"></i>
                     <span class="fs--1">Formulario de ingreso</span>
@@ -217,30 +217,33 @@
             </div>
             <div style="z-index:1041;"  id="formFacebook" 
             action="{{ route('user.redirectfacebook',[encrypt(3),'register']) }}" 
-            class="col-12 mt-2"  style="height:43px">
+            class="col-12 col-md-6 ml-auto mr-auto mt-2"  style="height:43px">
                 <button type="button" class="btn btn-primary btn-block d-flex h-100" ng-click="goToFacebook()">
                     <i class="fab fa-facebook fs-3 mr-2"></i>
                     <span class="fs--1">Registrar con Facebook</span>
                 </button>
             </div>
-            <div style="z-index:1041; height:43px"  id="formGmail" action="{{ route('user.redirectgmail',[encrypt(3),'register']) }}" class="col-12">
+            <div style="z-index:1041; height:43px"  id="formGmail" action="{{ route('user.redirectgmail',[encrypt(3),'register']) }}" class="col-12 col-md-6 ml-auto mr-auto mt-2">
                 <button type="button" class="btn btn-primary btn-block  d-flex mt-2 h-100" 
                        style="background-color: #dd4b39;border-color: rgb(221, 75, 57);z-index:1041;" ng-click="goToGmail()">
                   <i class="fab fa-google fs-2 mr-2"></i>
                   <span class="fs--1">Registrar con Gmail</span>
                 </button>
             </div>
-            <hr>
-            <div class="p-4" style="padding-bottom: 0px!important;">
+
+			@if(old('free_rating_plan_id') || isset($free_rating_plan_id))
+            <div class="line-separator"></div>
+            <div class="p-4 mb-4" style="padding-bottom: 0px!important;">
                 <a href="{{ route('user.login') }}">
                     <i class="fa fas fa-arrow-right arrow-icon"></i>
                     Si ya tiene una cuenta registrada, inicie sesión desde el familiar tutor y podra adquirir al plan gratutio
                 </a>
             </div>
+            @endif
         </div>
 
     </div>
-</section>
+</div>
 
 <script id="terms" type="text/x-jQuery-tmpl">
    @include('terms-conditions')

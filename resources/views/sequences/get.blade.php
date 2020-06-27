@@ -69,10 +69,10 @@
             </div>
             <div class="d-none-result2 d-none row w-100">
                  <div class="pr-0 col-12 sequence-description ml-2" id="sequence-description-@{{sequence.id}}">
-                    <h4 class=" boder-header p-1">
+                    <h4 class=" boder-header pl-3">
                        @{{sequence.name}}
                     </h4>
-                    @{{sequence.description}}
+                    <strong>Punto de encuentro: </strong>@{{sequence.description}}
                  </div>
                  <div class="col-12">
                     <a ng-click="onSequenceBuy(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs-0" href="#" class="col-6">

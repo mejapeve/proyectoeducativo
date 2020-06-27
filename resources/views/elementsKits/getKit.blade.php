@@ -45,25 +45,12 @@
       <span class="col">@{{ errorMessageFilter }}</span>
       <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></a></i></span>
    </div>
+   @{{kit.images}}
    <div class="mb-3 card">
       <div class="card-body">
          <div class="no-gutters row">
             <div class="d-none-result d-none mb-3 col-12">
-               <div class="justify-content-center justify-content-sm-between row">
-                  <div class="d-none-result d-none d-flex flex-center mt-1 mt-sm-0 col-sm-auto d-none-result d-none">
-                     <!-- Swiper -->
-                     <div class="swiper-container">
-                        <div class="swiper-wrapper kit">
-                           <div class="swiper-slide" ng-repeat="imagen in kit.images" 
-                              style="background-image: url('{{env('APP_URL')}}/@{{imagen}}');">
-                           </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-button-next" style="color: white;"></div>
-                        <div class="swiper-button-prev" style="color: white;"></div>
-                     </div>
-                  </div>
-               </div>
+               
             </div>
             <div class="d-none-result d-none row w-100">
                  <div class="pr-0 col-12 sequence-description ml-2">

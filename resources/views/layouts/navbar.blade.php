@@ -1,17 +1,14 @@
 <nav id="navbar" class="pb-0 navbar-glass sticky-top-ie row navbar-top sticky-kit navbar navbar-expand-lg navbar-light" ng-controller="navbarController">
   <button aria-label="Toggle navigation" id="toggleMenu" type="button" class="navbar-toggler">
   <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="text-decoration-none navbar-brand text-left ml-3" id="topLogo" href="{{route('/')}}">
+  </button>  
      <div class="d-flex align-items-center">
-        <a href="{{asset('/')}}"><img href="" class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40"></a>
+        <a href="{{route('/')}}"><img href="" class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40"></a>
         <div class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold">
            <span id="slogan" >Experiencias científicas <br/> para conocer el mundo <br/> natural</span>
         </div>
      </div>
-  </a>
 
-     
      <ul class="ml-1 nav collapse navbar-collapse row text-align fs--1 font-weight-semi-bold">
         <li class="nav-item col-1 p-0 nav-small-fs--1"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home' || Route::current()->getName() == '') selected @endif">Inicio</a></li>
         <li class="nav-item col-1-5 p-0 "><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>

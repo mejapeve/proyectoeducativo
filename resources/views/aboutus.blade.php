@@ -6,16 +6,13 @@
       <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">Acerca de Conexiones</h5>
       </div>
-      <div class="mt-3 ml-3" >
-         <h5><strong>Conexiones para el desarrollo de pensamiento científico </strong></h5>
-      </div>
       <div class="about-body text-justify">
          <p>Es una propuesta educativa de <strong>ciencias naturales</strong> dirigida a niños, niñas y jóvenes, que como lo indica su nombre, relaciona<strong>&nbsp;teoría y práctica&nbsp;</strong>de manera contextualizada, a través de experiencias de aprendizaje orientadas hacia el desarrollo de pensamiento científico.</p>
          <p><strong>Conexiones&nbsp;</strong>ofrece una <strong>alternativa educativa</strong>, pues se distancia de la manera en que tradicionalmente se ha centrado la enseñanza de las ciencias naturales: la memorización de conceptos y la repetición de “recetas de laboratorio”, enfocándose en el desarrollo de <strong>habilidades científicas</strong>, la <strong>comprensión&nbsp;</strong>holística de los <strong>fenómenos naturales</strong>, el <strong>análisis crítico</strong> de los avances de la <strong>ciencia y la tecnología</strong>, así como la toma de <strong>decisiones fundamentadas</strong> respecto a las <strong>implicaciones éticas&nbsp;</strong>de estos. &nbsp;</p>
       </div>
    </div>
    <div class="pl-lg-2 col-lg-6">
-      <img class="img-thumbnail img-fluid mb-3 shadow-sm w-sm-90 w-lg-75" src="{{ asset('images/acercaConexiones/componentes.jpg') }}" style="min-width:552px;">
+      <img class="img-thumbnail img-fluid mb-3 shadow-sm w-sm-90 w-lg-75" src="{{ asset('images/acercaConexiones/componentes.jpg') }}" style="min-width:491px;">
    </div>
    <div class="pl-lg-2 ml-3 mb-3 col-12">
       <p>Ante el desafío que supone una educación científica actual, <strong>Conexiones</strong> se estructura a partir de tres componentes que se complementan de manera sinérgica:</p>
@@ -43,9 +40,6 @@
             han sido creadas por maestros y maestras con amplia experiencia en la enseñanza de las ciencias naturales.  
             El equipo profesional ha diseñado una propuesta educativa propia con la intención de aportar a los procesos de aprendizaje de las niñas, los niños y jóvenes.&nbsp;</p>
          <p>Este equipo se acompaña de un grupo experto en diseño, realización audiovisual y programación web, que han hecho posible el desarrollo de los contenidos y la plataforma que los integra, para ofrecer una experiencia de uso agradable e intuitiva.&nbsp;</p>
-      </div>
-      <div class="about-body text-justify">
-         <a class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--1" target="_blank" href="{{asset('docs/Terminosycondiciones_educonexiones.pdf')}}">Ver términos y condiciones</a>
       </div>
    </div>
 </div>
