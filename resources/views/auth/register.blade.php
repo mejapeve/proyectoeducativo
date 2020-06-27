@@ -230,13 +230,12 @@
                   <span class="fs--1">Registrar con Gmail</span>
                 </button>
             </div>
-
-			@if(old('free_rating_plan_id') || isset($free_rating_plan_id))
-            <div class="line-separator"></div>
-            <div class="p-4 mb-4" style="padding-bottom: 0px!important;">
+            @if($status_validation_free_plan)
+            <hr>
+            <div class="p-4" style="padding-bottom: 0px!important;">
                 <a href="{{ route('user.login') }}">
                     <i class="fa fas fa-arrow-right arrow-icon"></i>
-                    Si ya tiene una cuenta registrada, inicie sesión desde el familiar tutor y podra adquirir al plan gratutio
+                    Si ya tiene una cuenta registrada, inicie sesión desde el familiar y podra adquirir al plan gratutio
                 </a>
             </div>
             @endif
