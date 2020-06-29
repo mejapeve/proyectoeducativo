@@ -45,7 +45,24 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
         }).
         then(function (response) {
             $scope.kit = response.data;
-            
+			var moment = null;
+			var mbSeq = null;
+			$scope.listSequence = [];
+			if($scope.kit.moment_kits)
+			for(var i=0;i<$scope.kit.moment_kits.length;i++) {
+				moment = $scope.kit.moment_kits[i].moment;
+				mbSeq = false; 
+				for(var j=0;j<$scope.listSequence.length;j++) {
+					if($scope.listSequence[j].id === moment.sequence.id) {
+						mbSeq = true;
+						break;
+					}
+				}
+				if(!mbSeq) {
+					$scope.listSequence.push(moment.sequence);
+				}
+			}
+			
             $scope.kit.images = [];
             if($scope.kit.url_slider_images) {
 				$http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.kit.url_slider_images }).then(function (response) {

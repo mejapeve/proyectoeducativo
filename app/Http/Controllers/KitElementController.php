@@ -34,7 +34,7 @@ class KitElementController extends Controller
 		with(['moment_kits' => function($query) {
 			$query->with(['moment' => function($detail) {
 				$detail->with(['sequence' => function($seq) {
-					$seq->select(['company_sequences.id','company_sequences.name','company_sequences.url_image','company_sequences.url_slider_images']);
+					$seq->select(['company_sequences.id','company_sequences.name','company_sequences.description','company_sequences.url_image','company_sequences.url_slider_images']);
 				}]);
 				$detail->select(['id','sequence_moments.*']);
 			}]);

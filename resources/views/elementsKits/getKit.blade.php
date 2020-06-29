@@ -70,23 +70,20 @@
 					class="ml-3 mt-3 btn btn-outline-primary fs-0" href="#" class="col-6"><i class="fas fa-shopping-cart"></i> Comprar</a>
                  </div>
                  
-                 <div class="col-12 ml-2 mt-3" ng-show="elementsKits.length > 0">>
-                   <h5 class="p-1">Este elemento es requerido para las siguientes guías de aprendizaje</h5>
+                 <div class="col-12 ml-2 mt-3" ng-show="listSequence.length > 0">
+                   <h6 class="p-1">Este elemento es requerido para las siguientes guías de aprendizaje</h6>
                    <div class="row">
-                       <div class="col-lg-4 col-md-6" ng-repeat="kit_element in kit_elements" style="border: 6px solid white;">
+                       <div class="col-lg-4 col-md-6" ng-repeat="sequence in listSequence" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
                              <div class="col-5">
-                                <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit_element.url_image}}" width="62px" height="62px" />
+                                <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{sequence.url_image}}" width="62px" height="62px" />
                             </div>
                              <div class="col-7">
                                  <div class="col-12 mt-3 kit-description">
                                     <h6 class="boder-header p-1  fs-1">
-                                       @{{kit_element.name}}
+                                       @{{sequence.name}}
                                     </h6>
-                                    @{{kit_element.description}}
-                                 </div>
-                                 <div class="col-12 p-2 mt-3 text-aling-left">
-                                    <a class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Agregar</a>
+                                    @{{sequence.description}}
                                  </div>
                             </div>
                           </div>
