@@ -101,7 +101,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa']],function (){
     Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
     Route::get('conexiones/admin/management_kit_elements_view', 'AdminController@management_kit_elements_view')->middleware('role:admin')->name('management_kit_elements_view');
     Route::post('conexiones/admin/create_kit', 'KitController@create')->middleware('role:admin')->name('create_kit');
-    Route::post('conexiones/admin/create_element', 'ElementController@create')->middleware('role:admin')->name('create_kit');
+    Route::post('conexiones/admin/create_or_update_element/{action?}', 'ElementController@create_or_update_element')->middleware('role:admin')->name('create_or_update_element');
     Route::get('conexiones/admin/get_kit_element_dt', 'KitElementController@get_kit_element_dt')->middleware('role:admin')->name('get_kit_element_dt');
 });
 
