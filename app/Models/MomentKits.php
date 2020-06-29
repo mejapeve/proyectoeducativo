@@ -25,4 +25,9 @@ class MomentKits extends Model
     {
         return $this->belongsTo(Element::class, 'element_id', 'id');
     }
+	
+	public function moment()
+    {
+        return $this->belongsTo(SequenceMoment::class, 'sequence_moment_id', 'id');
+    }
 }

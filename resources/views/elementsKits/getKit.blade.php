@@ -45,7 +45,6 @@
       <span class="col">@{{ errorMessageFilter }}</span>
       <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></a></i></span>
    </div>
-   @{{kit.images}}
    <div class="mb-3 card">
       <div class="card-body">
          <div class="no-gutters row">
@@ -54,17 +53,25 @@
             </div>
             <div class="d-none-result d-none row w-100">
                  <div class="pr-0 col-12 sequence-description ml-2">
-                    <h4 class=" boder-header p-1">
+				    <div class="text-align"><img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit.url_image}}" width="62px" height="62px" /></div>
+                    <h5 class="boder-header p-1 mt-4 mb-3">
                        @{{kit.name}}
-                    </h4>
+                    </h5>
                     @{{kit.description}}
+ 				   <div class="product-label-sold-out" ng-show="kit.status=='sold-out'" style="top:0px">
+						 Producto agotado
+				    </div>
+				    <div class="product-label-no-available" ng-show="kit.status==='no-available'">
+						 Producto no disponible
+				    </div>
                  </div>
                  <div class="col-12">
-                    <a class="ml-3 mt-3 btn btn-outline-primary fs-0" href="#" class="col-6"><i class="fas fa-shopping-cart"></i> Comprar</a>
+                    <a ng-hide="kit.status === 'sold-out' || kit.status === 'no-available'"
+					class="ml-3 mt-3 btn btn-outline-primary fs-0" href="#" class="col-6"><i class="fas fa-shopping-cart"></i> Comprar</a>
                  </div>
                  
-                 <div class="col-12 ml-2 mt-3" ng-show="kit_elements">
-                   <h5 class="p-1">Esta guía requiere instrumentos y materiales de laboratorio </h5>
+                 <div class="col-12 ml-2 mt-3" ng-show="elementsKits.length > 0">>
+                   <h5 class="p-1">Este elemento es requerido para las siguientes guías de aprendizaje</h5>
                    <div class="row">
                        <div class="col-lg-4 col-md-6" ng-repeat="kit_element in kit_elements" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
@@ -87,12 +94,6 @@
                    </div>
                  </div>
             </div>
-
-            <div id="loading" class="fade show p-3 border-lg-y col-lg-2 w-100" ng-hide="kit"
-               style="min-height: 43vw; border: 0.4px solid grey; min-width: 100%">
-               cargando...
-            </div>
-
          </div>
       </div>
    </div>

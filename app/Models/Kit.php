@@ -15,5 +15,12 @@ class Kit extends Model
 
         return $this->hasMany(KitElement::class, 'kit_id', 'id')->select('id', 'kit_id', 'element_id');
     }
+	
+	public function moment_kits()
+    {
+
+        return $this->hasMany(MomentKits::class, 'kit_id', 'id');
+
+    }
 
 }

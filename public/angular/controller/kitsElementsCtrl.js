@@ -44,11 +44,26 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
             method: "GET",
         }).
         then(function (response) {
-            $scope.kit = response.data[0];
+            $scope.kit = response.data;
             
             $scope.kit.images = [];
             if($scope.kit.url_slider_images) {
-                $scope.kit.images = $scope.kit.url_slider_images.split('|');
+				$http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.kit.url_slider_images }).then(function (response) {
+					
+					for(var dir in response.data.scanned_directory) {
+						if(response.data.scanned_directory[dir]!=='..') {
+							$scope.kit.images.push(response.data.directory + '/' + response.data.scanned_directory[dir]);
+						}
+					}
+					
+				},function(e){
+					var message = 'Error consultando el directorio';
+					if(e.message) {
+						message += e.message;
+					}
+					$scope.errorMessage = angular.toJson(message);
+					$scope.directoryPath = null;
+				});
             }
             
             $scope.kit.type = 'kit';
@@ -66,7 +81,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
               },1000);
             
         }).catch(function (e) {
-            $scope.errorMessageFilter = 'Error consultando los kits de laboratorio';
+            $scope.errorMessageFilter = 'Error consultando los kits de laboratorio. ['+e+']';
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         });
@@ -85,6 +100,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
         then(function (response) {
             $scope.element = response.data[0];
             $scope.element.type = 'kit'
+			alert($scope.element.type);
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         }).catch(function (e) {

@@ -4,7 +4,7 @@
   </button>  
      <div class="d-flex align-items-center">
         <a href="{{route('/')}}"><img href="" class="mr-2 avatar-logo" src="{{ asset('images/icons/iconosoloConexiones-01.png') }}" alt="Logo" width="40"></a>
-        <div class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold">
+        <div class="text-sans-serif text-center fs-sm--3 fs-md--2 fs-lg-0 font-weight-semi-bold" style="min-width: 154px;">
            <span id="slogan" >Experiencias científicas <br/> para conocer el mundo <br/> natural</span>
         </div>
      </div>

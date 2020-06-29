@@ -31,10 +31,11 @@
             <div class="d-none-result d-none row w-100">
                <div class="col-lg-4 col-md-6" ng-repeat="kit in kit_elements | filter: searchText"
                   style="border: 6px solid white;">
-                  <div class="card-body bg-light text-center p-4 row">
+				  <div class="card-body bg-light text-center p-4 row">
                      <img class="kit-imagen col-12 p-0" ng-src="{{asset('/')}}@{{kit.url_image}}" width="62px" height="62px" />
+					 
                      <div class="col-12 mt-3 kit-description" id="sequence-description-@{{kit.id}}">
-                        <h6 class="boder-header p-1  fs-1">
+					    <h6 ng-class="{'boder-header-green': kit.type==='element'}" class="boder-header p-1  fs-1">
                            @{{kit.name}}
                         </h6>
                         @{{kit.description}}
@@ -42,9 +43,16 @@
                      <div class="col-12 mt-3" style="text-align: left;">
                         <a ng-show="kit.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/kit_de_laboratorio/@{{kit.id}}/@{{kit.name_url_value}}">Detalle</a>
                         <a ng-show="kit.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="/elemento_de_laboratorio/@{{kit.id}}/@{{kit.name_url_value}}">Detalle</a>
-                        <a ng-click="onAddShoppingCart(kit)" class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Comprar</a>
+                        <a ng-hide="kit.status === 'sold-out' || kit.status === 'no-available'"
+						ng-click="onAddShoppingCart(kit)" class="pl-3 ml-4 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Comprar</a>
                      </div>
                   </div>
+				  <div class="product-label-sold-out" ng-show="kit.status==='sold-out'">
+						 Producto agotado
+				  </div>
+				  <div class="product-label-no-available" ng-show="kit.status==='no-available'">
+						 Producto no disponible
+				  </div>
                </div>
             </div>
 

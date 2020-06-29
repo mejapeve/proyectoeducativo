@@ -21475,6 +21475,12 @@ footer .navbar-light {
     line-height: 22px !important;
 }
 
+.boder-header-green {
+    border-left: 5px solid #31AFB4;
+    border-radius: 0 !important;
+    line-height: 22px !important;
+}
+
 .about-header {
     background-color: #edf2f9;
 }
@@ -22093,7 +22099,32 @@ footer .navbar-light {
     /* opacity: 0.9; */
 }
 
+.product-label-sold-out {
+    font-weight: bold;
+    top: 30px;
+    left: -35px;
+    background-color: red;
+    transform: rotate(-50deg);
+    font-size: 14px;
+    color: black;
+    padding: 10px;
+    position: absolute;
+    opacity: 0.8;
+    color: white;
+}
 
+.product-label-no-available {
+    top: 27px;
+    left: -35px;
+    background-color: yellow;
+    transform: rotate(-50deg);
+    font-size: 14px;
+    color: black;
+    padding: 10px;
+    position: absolute;
+    font-weight: bold;
+    opacity: 0.8;
+}
 .line_up_beatyfull {
     border-bottom: 1.5px solid gray;
 }

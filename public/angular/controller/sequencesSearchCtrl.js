@@ -16,19 +16,20 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
         $('[icon-pedagogy]').each(function(index){
-            var left = $(this).position().left - 60;
-            var top = $(this).position().top + 150;
-            $(this).next().css('left',left);
-            $(this).next().css('top',top);
+			var left = $(this).position().left - ($(this).width()/2);
+            var top = $(this).position().top + 130;
+            $(this).next().next().css('left',left);
+            $(this).next().next().css('top',top);
         });
     };
     
     $(window).resize(function () {
         $('[icon-pedagogy]').each(function(index){
-            var left = $(this).position().left  -  100;
-            var top = $(this).position().top + 150;
-            $(this).next().css('left',left);
-            $(this).next().css('top',top);
+			alert($(this).width());
+            var left = $(this).position().left - ($(this).width()/2);
+            var top = $(this).position().top + 130 ;
+            $(this).next().next().css('left',left);
+            $(this).next().next().css('top',top);
         });
     });
     
@@ -204,11 +205,10 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
               4: 'Plan por 8 meses',
               4: 'Plan por 12 meses'
         };
+		/*
         swal({
             title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
-            input: 'select',
             inputOptions: ratingPlans,
-            inputValue: 2,
             showConfirmButton: true,showCancelButton: true
         })
         .then((result) => {
@@ -217,7 +217,17 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
             var name = ratingPlans[result] ? ratingPlans[result].replace(/\s/g,'_').toLowerCase() : '';
             window.location = '/plan_de_acceso/'+result+'/'+name;
           }
-        });
+        });*/
+swal({
+  title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
+  icon: 'info',
+  html:
+    '<div>{{true}}</div> ' +
+    '<a href="//sweetalert2.github.io">links</a> ' +
+    'and other HTML tags',
+  showCloseButton: false,
+  showCancelButton: false
+})
     }
 
     $scope.setPositionScroll = function () {
