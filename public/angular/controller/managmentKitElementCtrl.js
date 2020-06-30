@@ -2,6 +2,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
     /*****
         Variables para leer el directorio
      */
+    $scope.route_get_elements = null
     $scope.table
     $scope.typeEdit = null
     $scope.mbImageShow = false
@@ -105,9 +106,18 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
     $scope.element={}
     $scope.actionElement = 'Crear'
     $scope.route
+    $scope.route_kit
+    $scope.kit={}
+    $scope.actionkit = 'Crear'
+    $scope.route_kit
+    $scope.list_elements = []
+    $scope.elementsSelected = null
 
-    $scope.init = function(route) {
-        $scope.route = route
+    $scope.init = function(route_element,route_kit,route_get_elements) {
+    console.log(route_get_elements)
+        $scope.route_get_elements = route_get_elements
+        $scope.route = route_element
+        $scope.route_kit = route_kit
         $('.d-none-result').removeClass('d-none');
         $scope.table = $('#myTable').DataTable({
             processing: true,
@@ -230,63 +240,145 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
 
         }
     }
+    $scope.actionModalKit = (action) => {
+        console.log($scope.route_get_elements)
+        $http({
+            url:$scope.route_get_elements,
+            method: "GET",
+        }).
+        then(function (response) {
+            console.log('elementos',response)
+            $scope.list_elements = response.data.data
+        }).catch(function (e) {
 
-    $scope.createOrUpdateElement = (action) => {
-        $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
-            var list = response.data.scanned_directory;
-            var directoryPathModal = response.data.directory;
-            var item = null;
-            $scope.element.url_slider_images = ''
-            for (indx in list) {
-                item = list[indx];
-                if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                    $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
-                }
-            }
-            var data = new FormData();
-            data.append('name',$scope.element.name);
-            data.append('price',$scope.element.cost);
-            data.append('quantity',$scope.element.quantity);
-            data.append('url_image',$scope.cover);
-            data.append('url_slider_images',$scope.element.url_slider_images);
-            data.append('description',$scope.element.description);
-            let new_startDate= new Date($scope.element.init_date);
-            let date = moment(new_startDate).format('YYYY-MM-DD');
-            data.append('init_date',date)
-            data.append('arraySequenceMoment',JSON.stringify($scope.arraySequenceMoment));
-            data.append('action',action );
+        });
+        if(action === 'Crear'){
+            $scope.actionKit = 'Crear'
+            $('#exampleModalKit').modal('show');
+        }else{
+            $scope.actionKit = 'Editar'
+        }
+    }
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: $scope.route+'/'+action,
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                success: function (response, xhr, request){
-                    if(response.status === 'successfull'){
-                        $('#exampleModal').modal('hide');
-                        $scope.element = {}
-                        $scope.cover = ''
-                        $scope.arraySequenceMoment = []
-                        $scope.sequenceSelected = null
-                        $scope.momentSelected = null
-                        $scope.table.ajax.reload()
-                        $scope.swalfunction(response.message,"success")
-                    }else{
-                        $scope.swalfunction(response.message,"warning")
+    $scope.createOrUpdateKit = (action) => {
+        console.log(action)
+        console.log($scope.kit)
+        if(action === 'Crear'){
+            $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
+                var list = response.data.scanned_directory;
+                var directoryPathModal = response.data.directory;
+                var item = null;
+                $scope.kit.url_slider_images = ''
+                for (indx in list) {
+                    item = list[indx];
+                    if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
+                        $scope.kit.url_slider_images = $scope.kit.url_slider_images+'|'+directoryPathModal+''+item
                     }
-                },
-                error: function (response, xhr, request) {
-                    $scope.swalfunction('Algo salio mal',"warning")
                 }
-            });
-        })
+                var data = new FormData();
+                data.append('name',$scope.kit.name);
+                data.append('price',$scope.kit.cost);
+                data.append('quantity',$scope.kit.quantity);
+                data.append('url_image',$scope.cover);
+                data.append('url_slider_images',$scope.kit.url_slider_images);
+                data.append('description',$scope.kit.description);
+                let new_startDate= new Date($scope.kit.init_date);
+                let date = moment(new_startDate).format('YYYY-MM-DD');
+                data.append('init_date',date)
+                data.append('arraySequenceMoment',JSON.stringify($scope.arraySequenceMoment));
+                data.append('elements',JSON.stringify($scope.elementsSelected));
+                data.append('description',$scope.kit.description);
+                data.append('action',action );
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: $scope.route_kit+'/'+action,
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    type: 'POST',
+                    success: function (response, xhr, request){
+                        if(response.status === 'successfull'){
+                            $('#exampleModalKit').modal('hide');
+                            $scope.kit = {}
+                            $scope.cover = ''
+                            $scope.arraySequenceMoment = []
+                            $scope.sequenceSelected = null
+                            $scope.momentSelected = null
+                            $scope.elementsSelected = null
+                            $scope.table.ajax.reload()
+                            $scope.swalfunction(response.message,"success")
+                        }else{
+                            $scope.swalfunction(response.message,"warning")
+                        }
+                    },
+                    error: function (response, xhr, request) {
+                        $scope.swalfunction('Algo salio mal',"warning")
+                    }
+                });
+            })
+        }
+    }
+    $scope.createOrUpdateElement = (action) => {
+        if(action === 'Crear'){
+            $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
+                var list = response.data.scanned_directory;
+                var directoryPathModal = response.data.directory;
+                var item = null;
+                $scope.element.url_slider_images = ''
+                for (indx in list) {
+                    item = list[indx];
+                    if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
+                        $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
+                    }
+                }
+                var data = new FormData();
+                data.append('name',$scope.element.name);
+                data.append('price',$scope.element.cost);
+                data.append('quantity',$scope.element.quantity);
+                data.append('url_image',$scope.cover);
+                data.append('url_slider_images',$scope.element.url_slider_images);
+                data.append('description',$scope.element.description);
+                let new_startDate= new Date($scope.element.init_date);
+                let date = moment(new_startDate).format('YYYY-MM-DD');
+                data.append('init_date',date)
+                data.append('arraySequenceMoment',JSON.stringify($scope.arraySequenceMoment));
+                data.append('action',action );
 
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: $scope.route+'/'+action,
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    method: 'POST',
+                    type: 'POST',
+                    success: function (response, xhr, request){
+                        if(response.status === 'successfull'){
+                            $('#exampleModal').modal('hide');
+                            $scope.element = {}
+                            $scope.cover = ''
+                            $scope.arraySequenceMoment = []
+                            $scope.sequenceSelected = null
+                            $scope.momentSelected = null
+                            $scope.table.ajax.reload()
+                            $scope.swalfunction(response.message,"success")
+                        }else{
+                            $scope.swalfunction(response.message,"warning")
+                        }
+                    },
+                    error: function (response, xhr, request) {
+                        $scope.swalfunction('Algo salio mal',"warning")
+                    }
+                });
+            })
+        }
     }
     $scope.swalfunction = (text,type) => {
         swal({

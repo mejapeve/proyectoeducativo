@@ -11,7 +11,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="container" ng-controller="managmentKitElementCtrl" ng-init="init('{{route('create_or_update_element')}}')">
+    <div class="container" ng-controller="managmentKitElementCtrl" ng-init="init('{{route('create_or_update_element')}}','{{route('create_or_update_kit')}}','{{route('get_elements')}}')">
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Cantidad</label>
-                                    <input class="form-control" id="quantity" type="quantity" ng-model="element.quantity" placeholder="Cantidad">
+                                    <input class="form-control" id="quantity" type="number" ng-model="element.quantity" placeholder="Cantidad">
                                 </div>
                             </div>
                             <div class="row">
@@ -164,6 +164,168 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="exampleModalKit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Crear kit</h5><button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="name">Nombre</label>
+                                    <input class="form-control" id="nameKit" ng-model="kit.name" type="text" placeholder="Nombre">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Cantidad</label>
+                                    <input class="form-control" id="quantityKit" type="number" ng-model="kit.quantity" placeholder="Cantidad">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <div>
+                                        <label for="exampleFormControlSelect2">Cáratula (Seleccione imagen)</label>
+                                        <div class="line-separator"></div>
+                                        <div class="col-12 d-flex">
+                                            <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
+                                                ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
+                                            </h6>
+                                            <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                                                 style="position: absolute;right: 35px;top: 19px;">
+                                                <i class="fas fa-caret-down"></i>
+                                            </div>
+                                            <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;"
+                                                 style="position: absolute;right: 35px;top: 19px;">
+                                                <i class="fas fa-caret-up"></i>
+                                            </div>
+                                        </div>
+                                        <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow">
+                                            <ul class="p-0 list-inline mt-2 mb-0">
+                                                <li class="mb-2 ml-2" ng-repeat="field in directory">
+                                                    <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage(field.dir)">
+                                                        @{{field.name}}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="col-12 row mt-3">
+                                                <div ng-repeat="field in filesImages" class="col-4">
+                                                    <img ng-src="{{env('APP_URL')}}/@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"
+                                                         class="cursor-pointer" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line-separator"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect2">Carrusel imagenes (Seleccione directorio)</label>
+                                    <div class="line-separator"></div>
+                                    <div class="col-12 d-flex">
+                                        <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
+                                            ng-click="mbImageShow2=!mbImageShow2">Directorio: <small>@{{directoryPath2}}</small>
+                                        </h6>
+                                        <div ng-show="!mbImageShow2" class="cursor-pointer" ng-click="alert('down');mbImageShow2 = true;"
+                                             style="position: absolute;right: 35px;top: 19px;">
+                                            <i class="fas fa-caret-down"></i>
+                                        </div>
+                                        <div ng-hide="!mbImageShow2" class="cursor-pointer" ng-click="alert('up');mbImageShow2 = false;"
+                                             style="position: absolute;right: 35px;top: 19px;">
+                                            <i class="fas fa-caret-up"></i>
+                                        </div>
+                                    </div>
+                                    <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow2">
+                                        <ul class="p-0 list-inline mt-2 mb-0">
+                                            <li class="mb-2 ml-2" ng-repeat="field2 in directory2">
+                                                <a class="btn btn-sm btn-outline-primary" href="#" ng-click="onChangeFolderImage2(field2.dir)">
+                                                    @{{field2.name}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="col-12 row mt-3">
+                                            <div ng-repeat="field in filesImages2" class="col-4">
+                                                <img ng-src="{{env('APP_URL')}}/@{{field.url_image}}" width="79px" height="auto"
+                                                     class="cursor-pointer" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line-separator"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 input-group mb-3 mt-4">
+                                    <div class="input-group-prepend"><span class="input-group-text">Precio ($) </span></div><input class="form-control"  ng-model="kit.cost" type="text" aria-label="Amount (to the nearest dollar)">
+                                    <div class="input-group-append"><span class="input-group-text">.00</span></div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="">{{ __('Fecha de expiración') }}</label>
+                                    <input placeholder="día/mes/año" type="date" name="init_date" ng-model="kit.init_date"
+                                           class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="line-separator"></div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Secuencia</label>
+                                    <select id="selectCity"
+                                            ng-class="{'select2_group':true, 'form-control':true}"
+                                            class="select2_group form-control selectpicker" ng-model="sequenceSelected" ng-change="sequenceChange(sequenceSelected)">
+                                        <option></option>
+                                        <option ng-repeat="x in sequences" value="@{{x.id}}|@{{x.name}}">@{{x.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleFormControlSelect1">Momento</label>
+                                    <select class="form-control selectpicker" id="exampleFormControlSelect1"
+                                            ng-model="momentSelected" multiple>
+                                        <option></option>
+                                        <option ng-repeat="x in moments" value="@{{x.id}}|@{{x.name}}">@{{x.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-success btn-sm btn-block" ng-click="addSequenceMoment()">Agregar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row" ng-repeat="x in arraySequenceMoment">
+                                <div class="col-md-5" >
+                                    <label for="name">Secuencia</label>
+                                    <input class="form-control" type="text" placeholder="Descripción" ng-model="x.name">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlTextarea1">Momentos</label>
+                                    <textarea class="form-control" id="description" rows="1" ng-model="x.moments_name"></textarea>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment(x.id)"> - </button>
+                                </div>
+                            </div>
+                            <div class="line-separator"></div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleFormControlSelect1">Vincular elementos</label>
+                                    <select class="form-control selectpicker" id="exampleFormControlSelect1"
+                                            ng-model="elementsSelected" multiple>
+                                        <option></option>
+                                        <option ng-repeat="x in list_elements" value="@{{x.id}}">@{{x.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleFormControlTextarea1">Descripción</label>
+                                    <textarea class="form-control" ng-model="kit.description" id="description" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-sm" ng-class="(actionElement == 'Crear')?'btn-primary':'btn-warning'" type="button" id="onEdit" ng-click="createOrUpdateKit(actionElement)"><i id="move" class=""></i>@{{actionElement}}</button></div>
+                </div>
+            </div>
+        </div>
         <div class="content">
             <div class="row">
                 @include('roles.admin.sidebar')
@@ -173,7 +335,7 @@
                             <h5 class="">Gestión de kits y elementos</h5>
                         </div>
                         <div class="bg-light card-body">
-                            <button id="formPlan" class="btn btn-outline-primary mr-2 mb-3" type="button">
+                            <button id="formPlan" class="btn btn-outline-primary mr-2 mb-3" type="button" ng-click="actionModalKit('Crear')">
                                 <span class="fas fa-plus mr-1" data-fa-transform="shrink-3"></span>Nuevo Kit
                             </button>
                             <button id="formPlan" class="btn btn-outline-primary mr-2 mb-3" type="button" ng-click="actionModalElement('Crear')">
@@ -229,9 +391,7 @@
             $(".selectpicker").select2({
                 placeholder: "Seleccione...",
             });
-            $('#formPlan').on('click',function(){
-                $('#exampleModal').modal('show');
-            });
+
         } );
 
     </script>

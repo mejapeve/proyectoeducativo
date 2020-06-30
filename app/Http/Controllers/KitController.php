@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Element;
 use App\Models\Kit;
 use App\Models\KitElement;
+use App\Models\MomentKits;
 use Illuminate\Http\Request;
 
 /**
@@ -28,7 +29,7 @@ class KitController extends Controller
     /**
      * @param Request $request
      */
-    public function create(Request $request)
+    public function create_or_update_kit(Request $request)
     {
 
         $data = $request->all();
@@ -38,17 +39,31 @@ class KitController extends Controller
         $kit->url_image = $data['url_image'];
         $kit->price = $data['price'];
         $kit->url_slider_images = $data['url_slider_images'];
-        $kit->quantity = $data['url_slider_images'];
+        $kit->quantity = $data['quantity'];
+        $kit->init_date = $data['init_date'];
         $kit->save();
-        $elements = explode('|',$data['elements']);
+        $elements = @json_decode($data['elements']);
         foreach ($elements as $element_id){
             $kit_element_n = new KitElement();
             $kit_element_n->kit_id = $kit->id;
             $kit_element_n->element_id = $element_id;
             $kit_element_n->save();
         }
+        $element_json = @json_decode($data['arraySequenceMoment']);
+        foreach ($element_json as $sequenceMoment){
+            foreach ($sequenceMoment->moments as $moment){
+                $momentKits = new MomentKits();
+                $momentKits->kit_id = $kit->id;
+                $momentKits->sequence_moment_id = $moment->id;
+                $momentKits->save();
+            }
 
-        return response()->json('Registro exitoso',200);
+        }
+        return response()->json([
+            'status' => 'successfull',
+            'message' => 'El kit ha sido creado'
+        ]);
+
     }
 
     /**

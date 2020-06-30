@@ -20,7 +20,7 @@ class ElementController extends Controller
     public function get_elements(Request $request)
     {
 
-        return Element::all();
+        return response()->json(['data'=>Element::all()]);
 
     }
 

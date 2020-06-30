@@ -100,9 +100,11 @@ Route::group(['middleware' =>['auth:afiliadoempresa']],function (){
     Route::get('conexiones/admin/plans_view', 'AdminController@plans_view')->middleware('role:admin')->name('plans_view');
     Route::get('conexiones/admin/get_plans_dt', 'RatingPlanController@get_plans_dt')->middleware('role:admin')->name('get_plans_dt');
     Route::get('conexiones/admin/management_kit_elements_view', 'AdminController@management_kit_elements_view')->middleware('role:admin')->name('management_kit_elements_view');
-    Route::post('conexiones/admin/create_kit', 'KitController@create')->middleware('role:admin')->name('create_kit');
+    Route::post('conexiones/admin/create_or_update_kit/{action?}', 'KitController@create_or_update_kit')->middleware('role:admin')->name('create_or_update_kit');
     Route::post('conexiones/admin/create_or_update_element/{action?}', 'ElementController@create_or_update_element')->middleware('role:admin')->name('create_or_update_element');
     Route::get('conexiones/admin/get_kit_element_dt', 'KitElementController@get_kit_element_dt')->middleware('role:admin')->name('get_kit_element_dt');
+    Route::get('conexiones/admin/get_elements', 'ElementController@get_elements')->middleware('role:admin')->name('get_elements');
+
 });
 
 
