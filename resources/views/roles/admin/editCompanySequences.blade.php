@@ -196,7 +196,7 @@
                      <div class="conx-element col-auto"
                         ng-click="onClickElement(sequence,'url_image','Carátula','img')">
                         <h6>Carátula</h6>
-                        <img ng-src="@{{'/'+sequence.url_image || '/images/icons/NoImageAvailable.jpeg'}}" width="79px"
+                        <img ng-src="/@{{sequence.url_image || 'images/icons/NoImageAvailable.jpeg'}}" width="79px"
                            height="auto" />
                      </div>
                      <div class="col-3 conx-element" ng-click="onClickElement(sequence,'name','Nombre','text')">
@@ -226,6 +226,13 @@
                            ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index">
                            <img src="/@{{slide}}" width="40px" height="40px" style="margin-left: -10px" />
                         </div>
+                     </div>
+                     
+                     <div class="conx-element col-auto"
+                        ng-click="onClickElement(sequence,'mesh','Malla de contenido','img')">
+                        <h6>Malla de contenido</h6>
+                        <img ng-src="/@{{sequence.mesh || 'images/icons/NoImageAvailable.jpeg'}}" width="79px"
+                           height="auto" />
                      </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex"
                         ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">

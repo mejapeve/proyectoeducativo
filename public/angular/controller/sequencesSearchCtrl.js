@@ -10,22 +10,36 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
     $scope.keywords = [];
     $scope.defaultCompanySequences = 1;
     $scope.responseData = null;
+    $scope.ratingPlans = [];
 
     $scope.init = function(company_id)
     {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
         $('[icon-pedagogy]').each(function(index){
-			var left = $(this).position().left - ($(this).width()/2);
+            var left = $(this).position().left - ($(this).width()/2);
             var top = $(this).position().top + 130;
             $(this).next().next().css('left',left);
             $(this).next().next().css('top',top);
         });
+		
+		//retrive plan
+        $http({
+            url: '/get_rating_plans/',
+            method: "GET",
+        }).
+		then(function (response) {
+			$scope.ratingPlans = response.data.data || response.data;
+		}).catch(function (e) {
+			$('.d-none-result').removeClass('d-none');
+			$('#loading').removeClass('show');
+			$scope.errorMessageFilter = 'Error consultando las secuencias, compruebe su conexión a internet';
+		});        
+
     };
     
     $(window).resize(function () {
         $('[icon-pedagogy]').each(function(index){
-			alert($(this).width());
             var left = $(this).position().left - ($(this).width()/2);
             var top = $(this).position().top + 130 ;
             $(this).next().next().css('left',left);
@@ -198,36 +212,28 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
         
     }
     
-    $scope.onSequenceBuy = function(sequence) {
-        var ratingPlans = {
-              2: 'Plan por 2 meses',
-              3: 'Plan por 4 meses',
-              4: 'Plan por 8 meses',
-              4: 'Plan por 12 meses'
-        };
-		/*
+    $scope.onSequenceBuy = function (sequence) {
+        var ratingPlans = '';
+        for(var i = 0; i < $scope.ratingPlans.length; i++) {
+            var rt = $scope.ratingPlans[i];
+            if(!rt.is_free) {
+                var listItem = rt.description_items.split('|');
+                var items = '';
+                for(var j=0;j<listItem.length;j++) {
+                    items += '<li>' + listItem[j] + '</li>';
+                }
+               var href = '/plan_de_acceso/' + rt.id + '/' + rt.name + '/' + sequence.id;
+               var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-75">Adquirir</a>';    
+               ratingPlans += '<div class="mt-3 col-12 col-md-4"><div class="p-2 card"><h6>'+rt.name+'</h6><ul class=" text-left fs--1">' + items + '</ul>'+button+'</div></div>';
+            }
+        }
+        var html = '<div class="row justify-content-center">' + ratingPlans + '</div>';
         swal({
             title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
-            inputOptions: ratingPlans,
-            showConfirmButton: true,showCancelButton: true
-        })
-        .then((result) => {
-          if (result) {
-            //TODO: redireccionar a detalle del plan seleccionando la guia
-            var name = ratingPlans[result] ? ratingPlans[result].replace(/\s/g,'_').toLowerCase() : '';
-            window.location = '/plan_de_acceso/'+result+'/'+name;
-          }
-        });*/
-swal({
-  title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
-  icon: 'info',
-  html:
-    '<div>{{true}}</div> ' +
-    '<a href="//sweetalert2.github.io">links</a> ' +
-    'and other HTML tags',
-  showCloseButton: false,
-  showCancelButton: false
-})
+            html: html,
+            width: '75%',
+            showConfirmButton: false, showCancelButton: false
+        }).catch(swal.noop);
     }
 
     $scope.setPositionScroll = function () {

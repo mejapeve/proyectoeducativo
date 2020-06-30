@@ -22,8 +22,8 @@
                <p> Cada <strong>guía de aprendizaje</strong> propone una ruta de <strong>ocho momentos </strong>&nbsp;o estaciones que se componen &nbsp;a su vez de preguntas, experiencias científicas, explicaciones en contexto y enlaces sugeridos para más conexiones. <strong>(Ver + haciendo clic en cada ícono)</strong></p>
                <ul class="nav row fs--1 text-align mt-1">
                   <li class="ml-auto" >
-					<img icon-pedagogy src="{{asset('images/icons/situacionGeneradora.png')}}" width="74px" height="auto" ng-click="onIconPedagogy('pedagogy1')"  class="cursor-pointer">
-					<span class="d-flex mt-1 ml-auto mr-auto w-75"> Situación generadora </span>
+                    <img icon-pedagogy src="{{asset('images/icons/situacionGeneradora.png')}}" width="74px" height="auto" ng-click="onIconPedagogy('pedagogy1')"  class="cursor-pointer">
+                    <span class="d-flex mt-1 ml-auto mr-auto w-75"> Situación generadora </span>
                     <div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy1'" style="background-color: white; z-index:102;">
                         <div style="margin-    left: 5vw;position: absolute;margin-top: -38px;">
                           <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: 43px;">
@@ -45,7 +45,7 @@
                   </li>
                   <li class="ml-auto" >
                     <img icon-pedagogy src="{{asset('images/icons/rutaViaje.png')}}" width="74px" height="auto"  ng-click="onIconPedagogy('pedagogy2')"  class="cursor-pointer">
-					<span class="d-flex mt-1 ml-auto mr-auto w-75"> Ruta de viaje </span>
+                    <span class="d-flex mt-1 ml-auto mr-auto w-75"> Ruta de viaje </span>
 
                     <div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy2'" style="background-color: white; z-index:102;">
                         <div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
@@ -64,7 +64,7 @@
                     </li>
                   <li class="ml-auto" >
                     <img icon-pedagogy src="{{asset('images/icons/puntoEncuentro.png')}}" width="74px" height="auto"  ng-click="onIconPedagogy('pedagogy3')"  class="cursor-pointer">
-					<span class="d-flex mt-1 ml-auto mr-auto w-75"> Punto de encuentro </span>
+                    <span class="d-flex mt-1 ml-auto mr-auto w-75"> Punto de encuentro </span>
                     <div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy3'" style="background-color: white; z-index:102;">
                         <div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
                           <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -23px;">
@@ -171,7 +171,7 @@
                   <li class="ml-auto mr-auto" >
                     <img icon-pedagogy src="{{asset('images/icons/masConexiones.png')}}" width="74px" height="auto"  ng-click="onIconPedagogy('pedagogy8')" class="cursor-pointer">
                     <span class="d-flex mt-1 ml-auto mr-auto w-100"> + Conexiones </span>
-					<div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy8'" style="background-color: white; z-index:102;">
+                    <div class="panel-icon-pedagogy d-none-result d-none fs--3 position-absolute" ng-show="icon_pedagogy==='pedagogy8'" style="background-color: white; z-index:102;">
                         <div style="margin-left: 5vw;position: absolute;margin-top: -38px;">
                           <div style="border-width: 0px 17px 17px; border-style: solid;border-image: initial;border-color: #77A3A3 transparent;content: '';display: block;font-size: 0px;height: 0px;line-height: 0;position: absolute;top: 1px;width: 0px;left: -23px;">
                           </div>

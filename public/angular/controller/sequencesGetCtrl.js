@@ -2,12 +2,25 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
     $scope.sequence = null;
     $scope.errorMessageFilter = '';
     $scope.elementsKits = [];
+    $scope.ratingPlans = [];
 
     var params = window.location.href.split('/');
     $scope.sequenceName = window.location.href.split('/')[params.length - 1];
     $scope.sequenceId = window.location.href.split('/')[params.length - 2];
 
     $scope.init = function () {
+        $http({
+            url: '/get_rating_plans/',
+            method: "GET",
+        }).
+            then(function (response) {
+                $scope.ratingPlans = response.data.data || response.data;
+            }).catch(function (e) {
+                $('.d-none-result').removeClass('d-none');
+                $('#loading').removeClass('show');
+                $scope.errorMessageFilter = 'Error consultando las secuencias, compruebe su conexión a internet';
+            });        
+        
         $http({
             url: '/get_sequence/' + $scope.sequenceId,
             method: "GET",
@@ -86,28 +99,40 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
                 $scope.errorMessageFilter = 'Error consultando las secuencias, compruebe su conexión a internet';
             });
     };
+    
+    $scope.showMash = function (sequence) {
+        
+        var width = $( window ).width() * 492 / 1280;
+        var html = '<img src="/'+sequence.mesh+'" width="'+width+'px" height="auto">';
+        swal({
+            html: html,
+            width: '50%',
+            showConfirmButton: false, showCancelButton: false
+        }).catch(swal.noop);
+    }
 
     $scope.onSequenceBuy = function (sequence) {
-        var ratingPlans = {
-            2: 'Plan por 2 meses',
-            3: 'Plan por 4 meses',
-            4: 'Plan por 8 meses',
-            4: 'Plan por 12 meses'
-        };
+        var ratingPlans = '';
+        for(var i = 0; i < $scope.ratingPlans.length; i++) {
+            var rt = $scope.ratingPlans[i];
+            if(!rt.is_free) {
+                var listItem = rt.description_items.split('|');
+                var items = '';
+                for(var j=0;j<listItem.length;j++) {
+                    items += '<li>' + listItem[j] + '</li>';
+                }
+               var href = '/plan_de_acceso/' + rt.id + '/' + rt.name + '/' + $scope.sequence.id;
+               var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-75">Adquirir</a>';    
+               ratingPlans += '<div class="mt-3 col-12 col-md-4"><div class="p-2 card"><h6>'+rt.name+'</h6><ul class=" text-left fs--1">' + items + '</ul>'+button+'</div></div>';
+            }
+        }
+        var html = '<div class="row justify-content-center">' + ratingPlans + '</div>';
         swal({
             title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
-            input: 'select',
-            inputOptions: ratingPlans,
-            inputValue: 2,
-            showConfirmButton: true, showCancelButton: true
-        })
-            .then((result) => {
-                if (result) {
-                    //TODO: redireccionar a detalle del plan seleccionando la guia
-                    var name = ratingPlans[result] ? ratingPlans[result].replace(/\s/g, '_').toLowerCase() : '';
-                    window.location = '/plan_de_acceso/' + result + '/' + name;
-                }
-            }).catch(swal.noop);
+            html: html,
+            width: '75%',
+            showConfirmButton: false, showCancelButton: false
+        }).catch(swal.noop);
     }
 
 });

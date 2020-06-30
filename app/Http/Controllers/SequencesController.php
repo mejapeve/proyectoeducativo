@@ -46,6 +46,7 @@ class SequencesController extends Controller
             $sequence->areas = isset($data['areas']) ? $data['areas'] : null;
             $sequence->themes = isset($data['themes']) ? $data['themes'] : null;
             $sequence->objectives = isset($data['objectives']) ? $data['objectives'] : null;
+            $sequence->objectives = isset($data['mesh']) ? $data['mesh'] : null;
             $var_sections = ['section_1', 'section_2', 'section_3', 'section_4'];
             for ($i = 0; $i < count($var_sections); $i++) {
                 if (isset($data[$var_sections[$i]])) {
@@ -136,6 +137,8 @@ class SequencesController extends Controller
             $sequence->themes = $data['themes'];
         if (isset($data['objectives']))
             $sequence->objectives = $data['objectives'];
+        if (isset($data['mesh']))
+            $sequence->mesh = $data['mesh'];
         if (isset($data['init_date']))
             $sequence->init_date = $data['init_date'];
         if (isset($data['expiration_date']))

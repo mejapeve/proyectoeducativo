@@ -5,7 +5,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
     
     $scope.allKits = function() {
         $('.d-none-result').removeClass('d-none');
-            $http({
+        $http({
             url:"/get_kit_elements",
             method: "GET",
         }).
@@ -45,56 +45,76 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
         }).
         then(function (response) {
             $scope.kit = response.data;
-			var moment = null;
-			var mbSeq = null;
-			$scope.listSequence = [];
-			if($scope.kit.moment_kits)
-			for(var i=0;i<$scope.kit.moment_kits.length;i++) {
-				moment = $scope.kit.moment_kits[i].moment;
-				mbSeq = false; 
-				for(var j=0;j<$scope.listSequence.length;j++) {
-					if($scope.listSequence[j].id === moment.sequence.id) {
-						mbSeq = true;
-						break;
-					}
-				}
-				if(!mbSeq) {
-					$scope.listSequence.push(moment.sequence);
-				}
-			}
-			
-            $scope.kit.images = [];
+            var moment = null;
+            var mbSeq = null;
+            $scope.listSequence = [];
+            if($scope.kit.moment_kits)
+            for(var i=0;i<$scope.kit.moment_kits.length;i++) {
+                moment = $scope.kit.moment_kits[i].moment;
+                mbSeq = false; 
+                for(var j=0;j<$scope.listSequence.length;j++) {
+                    if($scope.listSequence[j].id === moment.sequence.id) {
+                        mbSeq = true;
+                        break;
+                    }
+                }
+                if(!mbSeq) {
+                    $scope.listSequence.push(moment.sequence);
+                }
+            }
+            
+            
             if($scope.kit.url_slider_images) {
-				$http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.kit.url_slider_images }).then(function (response) {
-					
-					for(var dir in response.data.scanned_directory) {
-						if(response.data.scanned_directory[dir]!=='..') {
-							$scope.kit.images.push(response.data.directory + '/' + response.data.scanned_directory[dir]);
-						}
-					}
-					
-				},function(e){
-					var message = 'Error consultando el directorio';
-					if(e.message) {
-						message += e.message;
-					}
-					$scope.errorMessage = angular.toJson(message);
-					$scope.directoryPath = null;
-				});
+                $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.kit.url_slider_images }).then(function (response) {
+                    $scope.kit.images = [];
+                    var slideImages = '';
+                    for(var dir in response.data.scanned_directory) {
+                        if(response.data.scanned_directory[dir]!=='..') {
+                            var src = '/' + response.data.directory + '/' + response.data.scanned_directory[dir];
+                            slideImages += '<div class="swiper-slide" style="background-image:url('+src+');"></div>';
+                            console.log(src);
+                        }
+                    }
+                    $('.swiper-wrapper').html(slideImages);
+
+               $timeout(function() {
+                    
+                    //create swiper-image in html and refresh this
+                    new Swiper('.swiper-container', {
+                        hashNavigation: true,
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                    });
+                    $( window ).resize(function() {
+                       resizable();
+                    });
+                    
+                       function resizable() {
+                          var height = $( window ).width() * 300 / 1291;
+                          $('.swiper-slide').css('height',height);
+                          $('.swiper-slide').css('background-size','100% '+height+'px');
+                       }
+
+                     resizable();
+              },100);
+                    
+                },function(e){
+                    var message = 'Error consultando el directorio';
+                    if(e.message) {
+                        message += e.message;
+                    }
+                    $scope.errorMessage = angular.toJson(message);
+                    $scope.directoryPath = null;
+                });
             }
             
             $scope.kit.type = 'kit';
             
             $timeout(function() {
-                
                 $('#loading').removeClass('show');
                 $('.d-none-result').removeClass('d-none');
-                new Swiper('.swiper-container', {
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                });
               },1000);
             
         }).catch(function (e) {
@@ -117,7 +137,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
         then(function (response) {
             $scope.element = response.data[0];
             $scope.element.type = 'kit'
-			alert($scope.element.type);
+            alert($scope.element.type);
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         }).catch(function (e) {

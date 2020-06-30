@@ -4,7 +4,11 @@
 
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
-
+<style>
+[aria-labelledby="swal2-title"] {
+    padding: 50px!important;
+}
+</style>
 <!-- Demo styles -->
 <style type="text/css">
    .swiper-container {
@@ -42,59 +46,49 @@
    <div class="mb-3 card" ng-show="sequence">
       <div class="card-body">
          <div class="no-gutters row">
-            <div class="d-none-result2 d-none mb-3 col-12 row">
-               <div class="col-12 col-lg-8">
-                     <!-- Swiper -->
-                     <div class="swiper-container">
-                        <div class="swiper-wrapper sequence">
-                        
-                           <div class="swiper-slide" ng-repeat="imagen in sequence.images  track by $index" width="75px"
-                              @if(App::environment('APP_URL'))
-                                  style="background-image: url('{{App::environment('APP_URL')}}/@{{ imagen }}');background-size: 100% 100%; "
-                              @else
-                                  style="background-image:  url('{{env('APP_URL')}}@{{ imagen }}');background-size: 100% 100%; "
-                              @endif
-                            >
-                           </div>
-                        </div>
-                        <!-- Add Arrows -->
-                        <div class="swiper-button-next" style="color: white;"></div>
-                        <div class="swiper-button-prev" style="color: white;"></div>
-                     </div>
-               </div>
-               <div class="col-12 mt-3 mt-lg-0 col-lg-4">
-                  <iframe src="sequence.url_vimeo" frameborder="0" width="100%" height="100%" refreshable="sequence.url_vimeo"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-               </div>
-            </div>
-            <div class="d-none-result2 d-none row w-100">
+            <div class="d-none-result2 d-none row w-100 mt-3">
                  <div class="pr-0 col-12 sequence-description ml-2" id="sequence-description-@{{sequence.id}}">
-                    <h4 class=" boder-header pl-3">
+                    <h5 class=" boder-header pl-3">
                        @{{sequence.name}}
-                    </h4>
-                    <strong>Punto de encuentro: </strong>@{{sequence.description}}
+                    </h5>
                  </div>
-                 <div class="col-12">
-                    <a ng-click="onSequenceBuy(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs-0" href="#" class="col-6">
-                    <i class="fas fa-shopping-cart"></i> Comprar</a>
+                 <div class="col-12 row mt-2">
+                   <div class="col-12 col-lg-4 text-center">
+                        <img src="/@{{sequence.url_image}}" width="40%" height="auto" class="mr-auto ml-auto">
+                   </div>
+                   <div class="col-12 col-lg-4 mt-3 mt-md-0">
+                          <iframe src="sequence.url_vimeo" frameborder="0" width="100%" height="100%" refreshable="sequence.url_vimeo"
+                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                   </div>
+                   <div class="col-12 col-lg-4">
+                     <strong>Punto de encuentro: </strong>@{{sequence.description}}
+                     <p>
+                        <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--1" href="#" class="col-6">
+                            <i class="fas fa-search"></i> Ver contenido
+                        </a>                     
+                        <a ng-click="onSequenceBuy(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--1" href="#" class="col-6">
+                            <i class="fas fa-shopping-cart"></i> Comprar
+                        </a>
+                     </p>
+                   </div>
                  </div>
                  
                  <div class="col-12 ml-2 mt-3" ng-show="elementsKits.length > 0">
-                   <h6 class="p-1">Esta guía requiere instrumentos y materiales de laboratorio </h6>
+                   <h5 class="pl-3 mt-4 boder-header">Esta guía requiere instrumentos y materiales de laboratorio </h5>
                    <div class="row">
                        <div class="col-lg-4 col-md-6" ng-repeat="kit_element in elementsKits" style="border: 6px solid white;">
                           <div class="card-body bg-light text-center p-1 row">
-                             <div class="col-7">
-                                <img class="kit-imagen col-12 p-0" ng-src="@{{kit_element.url_image}}" width="62px" height="62px" />
+                             <div class="col-4">
+                                <img class="p-0" ng-src="/@{{kit_element.url_image}}" width="100%" height="auto" />
                             </div>
-                             <div class="col-5">
-                                 <div class="col-12 mt-3 kit-description" id="sequence-description-@{{kit_element.id}}">
-                                    <h6 class="boder-header p-1  fs-1">
+                             <div class="col-auto">
+                                 <div class="mt-3 kit-description" id="sequence-description-@{{kit_element.id}}">
+                                    <h6 class="boder-header p-1 text-left fs-1">
                                        @{{kit_element.name}}
                                     </h6>
                                     @{{kit_element.description}}
                                  </div>
-                                 <div class="col-12 p-0 mt-3 text-aling-left">
+                                 <div class="p-0 mt-3 text-aling-left">
                                     <a ng-show="kit_element.type==='kit'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../kit_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
                                     <a ng-show="kit_element.type==='element'" class="ml-auto mr-auto mt-1 btn btn-outline-primary fs--2" ng-href="../../elemento_de_laboratorio/@{{kit_element.id}}/@{{kit_element.name_url_value}}">Detalle</a>
                                     <a class="pl-3 mt-1 btn btn-outline-primary fs--2" href="#" class="col-6">Agregar</a>
