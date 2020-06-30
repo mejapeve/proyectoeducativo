@@ -1,4 +1,4 @@
-MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope, $http) {
+MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile", function($scope, $http, $compile) {
     /*****
         Variables para leer el directorio
      */
@@ -16,6 +16,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
     $scope.sequenceSelected = null
     $scope.momentSelected = null
     $scope.arraySequenceMoment = []
+    $scope.arraySequenceMomentEdit = []
     $scope.onChangeFolderImage = function (path,callback) {
         $http.post('/conexiones/admin/get_folder_image', { 'dir': path }).then(function (response) {
             var list = response.data.scanned_directory;
@@ -104,6 +105,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
     }
     /** fin varilables para leer el directorio */
     $scope.element={}
+    $scope.element.id = ''
     $scope.actionElement = 'Crear'
     $scope.route
     $scope.route_kit
@@ -156,7 +158,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
                             'type':'Elemento',
                             'price':row.price,
                             'quantity':row.quantity,
-                            'edit':'',
+                            'edit':`<button class="btn btn-sm btn-warning" ng-click="actionModalElement('Editar',${row.id})" style="padding: .0875rem .75rem;font-size: .575rem;">Editar</button>`,
                             'view':''
                         })
 
@@ -169,7 +171,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
                             'type':'Kit',
                             'price':row.price,
                             'quantity':row.quantity,
-                            'edit':'',
+                            'edit':`<button class="btn btn-sm btn-warning" ng-click="actionModalKit('Editar',${row.id})" style="padding: .0875rem .75rem;font-size: .575rem;">Editar</button>`,
                             'view':''
                         })
 
@@ -186,9 +188,12 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
                 {data: 'edit', className: 'text-right'},
                 {data: 'view', className: 'text-right'},
 
-            ]
+            ],
+            "createdRow": function ( row, data, index ) {
+                $compile(row)($scope); //add this to compile the DOM
+            }
         });
-
+        //$compile($scope.table)($scope);
         var path = 'images/designerAdmin'
         $scope.onChangeFolderImage(path)
         $scope.onChangeFolderImage2(path)
@@ -201,6 +206,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
         }).catch(function (e) {
 
         });
+        //$scope.$apply();
     }
     $scope.sequenceChange = (data) => {
         data = data.split('|')[0]
@@ -229,19 +235,69 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
             }
             );
     }
-
-    $scope.actionModalElement = (action) => {
-
+    $scope.deleteSequenceMoment = (index) => {
+        $scope.arraySequenceMoment.splice(index,1)
+    }
+    $scope.actionModalElement = (action, id=false) => {
+        $scope.arraySequenceMoment = []
         if(action === 'Crear'){
+            $scope.element={}
+            $scope.element.id = ''
             $scope.actionElement = 'Crear'
+            $scope.arraySequenceMomentEdit = []
             $('#exampleModal').modal('show');
         }else{
             $scope.actionElement = 'Editar'
+            $scope.arraySequenceMomentEdit = []
+            $http.get('/conexiones/admin/get_element/'+id, { 'id': id }).then(function (response) {
+                $scope.element.id = response.data.data.id
+                $scope.element.name = response.data.data.name
+                $scope.element.cost = response.data.data.price
+                $scope.element.quantity = response.data.data.quantity
+                $scope.element.description = response.data.data.description
+                $scope.element.cover = response.data.data.url_image
+                $scope.element.url_slider_images = response.data.data.url_slider_images
+                $scope.element.init_date = new Date(response.data.data.init_date+' 00:00:00');
+                angular.forEach(response.data.data.element_in_moment, function (keyword, key) {
+                    $scope.arraySequenceMomentEdit.push({
+                        id:keyword.moment.id,
+                        id_moment_kit:keyword.id,
+                        moment_name:keyword.moment.name,
+                        sequence_name:keyword.moment.sequence.name
+                    })
+                });
+                $('#exampleModal').modal('show');
+            },function(e){
+                //error
+            })
+
 
         }
     }
-    $scope.actionModalKit = (action) => {
+    $scope.deleteSequenceMomentEdit = (id,index,id_moment_kit) => {
+        swal({
+            text: "Confirma para desvincular el elemento del momento",
+            type: "warning",
+            showConfirmButton: true,showCancelButton: true
+        }).then((willConfirm) => {
+            if (willConfirm) {
+                $http.post('/conexiones/admin/delete_elementorkit_in_moment',
+                    {
+                        'id': id_moment_kit,
+                    }).then(function (response){
+                        $scope.arraySequenceMomentEdit.splice(index,1)
+                        swal({
+                            type: 'success',
+                            text:response.data.message,
+                            showConfirmButton: false,showCancelButton: false
+                        });
+                    })
+            }
+        });
+    }
+    $scope.actionModalKit = (action,id=false) => {
         console.log($scope.route_get_elements)
+        console.log(action,'kit',id)
         $http({
             url:$scope.route_get_elements,
             method: "GET",
@@ -252,14 +308,15 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
         }).catch(function (e) {
 
         });
+        $scope.arraySequenceMoment = []
         if(action === 'Crear'){
             $scope.actionKit = 'Crear'
             $('#exampleModalKit').modal('show');
         }else{
+            $('#exampleModalKit').modal('show');
             $scope.actionKit = 'Editar'
         }
     }
-
     $scope.createOrUpdateKit = (action) => {
         console.log(action)
         console.log($scope.kit)
@@ -335,50 +392,73 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http", function($scope,
                         $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
                     }
                 }
-                var data = new FormData();
-                data.append('name',$scope.element.name);
-                data.append('price',$scope.element.cost);
-                data.append('quantity',$scope.element.quantity);
-                data.append('url_image',$scope.cover);
-                data.append('url_slider_images',$scope.element.url_slider_images);
-                data.append('description',$scope.element.description);
-                let new_startDate= new Date($scope.element.init_date);
-                let date = moment(new_startDate).format('YYYY-MM-DD');
-                data.append('init_date',date)
-                data.append('arraySequenceMoment',JSON.stringify($scope.arraySequenceMoment));
-                data.append('action',action );
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: $scope.route+'/'+action,
-                    data: data,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    method: 'POST',
-                    type: 'POST',
-                    success: function (response, xhr, request){
-                        if(response.status === 'successfull'){
-                            $('#exampleModal').modal('hide');
-                            $scope.element = {}
-                            $scope.cover = ''
-                            $scope.arraySequenceMoment = []
-                            $scope.sequenceSelected = null
-                            $scope.momentSelected = null
-                            $scope.table.ajax.reload()
-                            $scope.swalfunction(response.message,"success")
-                        }else{
-                            $scope.swalfunction(response.message,"warning")
-                        }
-                    },
-                    error: function (response, xhr, request) {
-                        $scope.swalfunction('Algo salio mal',"warning")
-                    }
-                });
+                $scope.createOrUpdateElementService(action)
             })
         }
+        if(action === 'Editar'){
+            if($scope.directoryPath2 === 'images/designerAdmin'){
+                $scope.createOrUpdateElementService(action)
+            }else{
+                $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
+                    var list = response.data.scanned_directory;
+                    var directoryPathModal = response.data.directory;
+                    var item = null;
+                    $scope.element.url_slider_images = ''
+                    for (indx in list) {
+                        item = list[indx];
+                        if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
+                            $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
+                        }
+                    }
+                    $scope.createOrUpdateElementService(action)
+                })
+            }
+        }
+    }
+    $scope.createOrUpdateElementService = (action) => {
+        var data = new FormData();
+        data.append('id',$scope.element.id);
+        data.append('name',$scope.element.name);
+        data.append('price',$scope.element.cost);
+        data.append('quantity',$scope.element.quantity);
+        data.append('url_image',$scope.cover);
+        data.append('url_slider_images',$scope.element.url_slider_images);
+        data.append('description',$scope.element.description);
+        let new_startDate= new Date($scope.element.init_date);
+        let date = moment(new_startDate).format('YYYY-MM-DD');
+        data.append('init_date',date)
+        data.append('arraySequenceMoment',JSON.stringify($scope.arraySequenceMoment));
+        data.append('action',action );
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: $scope.route+'/'+action,
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            success: function (response, xhr, request){
+                if(response.status === 'successfull'){
+                    $('#exampleModal').modal('hide');
+                    $scope.element = {}
+                    $scope.element.id = ''
+                    $scope.cover = ''
+                    $scope.arraySequenceMoment = []
+                    $scope.sequenceSelected = null
+                    $scope.momentSelected = null
+                    $scope.table.ajax.reload()
+                    $scope.swalfunction(response.message,"success")
+                }else{
+                    $scope.swalfunction(response.message,"warning")
+                }
+            },
+            error: function (response, xhr, request) {
+                $scope.swalfunction('Algo salio mal',"warning")
+            }
+        });
     }
     $scope.swalfunction = (text,type) => {
         swal({

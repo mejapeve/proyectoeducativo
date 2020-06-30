@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kit;
 use App\Models\Element;
+use App\Models\MomentKits;
 use Illuminate\Http\Request;
 
 /**
@@ -64,6 +65,17 @@ class KitElementController extends Controller
 
         return response()->json($kitsElements,200);
 
+    }
+
+    public function delete_elementorkit_in_moment (Request $request){
+
+        $kitElement = MomentKits::where(
+            'id',$request->id
+        )->delete();
+        return response()->json([
+            'status' => 'successfull',
+            'message' => 'El elemento ha sido desvinculado del momento',
+        ]);
     }
 
 }

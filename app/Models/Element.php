@@ -8,4 +8,10 @@ class Element extends Model
 {
     //
     protected $table = "elements";
+
+    public function element_in_moment(){
+
+        return $this->hasMany(MomentKits::class,'element_id','id');
+
+    }
 }

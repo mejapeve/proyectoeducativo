@@ -112,6 +112,7 @@
                                 </div>
                             </div>
                             <div class="line-separator"></div>
+                            <br>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlSelect1">Secuencia</label>
@@ -135,6 +136,19 @@
                                 </div>
                             </div>
                             <br>
+                            <div class="row" ng-repeat="x in arraySequenceMomentEdit">
+                                <div class="col-md-5" >
+                                    <label for="name">Secuencia</label>
+                                    <input class="form-control" type="text" placeholder="nombre" ng-model="x.sequence_name">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlTextarea1">Momento</label>
+                                    <input class="form-control" type="text" placeholder="nombre" ng-model="x.moment_name">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMomentEdit(x.id,$index,x.id_moment_kit)"> - </button>
+                                </div>
+                            </div>
                             <div class="row" ng-repeat="x in arraySequenceMoment">
                                 <div class="col-md-5" >
                                     <label for="name">Secuencia</label>
@@ -145,7 +159,7 @@
                                     <textarea class="form-control" id="description" rows="1" ng-model="x.moments_name"></textarea>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment(x.id)"> - </button>
+                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment($index)"> - </button>
                                 </div>
                             </div>
                             <div class="line-separator"></div>
@@ -297,7 +311,7 @@
                                     <textarea class="form-control" id="description" rows="1" ng-model="x.moments_name"></textarea>
                                 </div>
                                 <div class="form-group col-md-2">
-                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment(x.id)"> - </button>
+                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment($index)"> - </button>
                                 </div>
                             </div>
                             <div class="line-separator"></div>
@@ -322,7 +336,7 @@
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cerrar</button>
-                        <button class="btn btn-sm" ng-class="(actionElement == 'Crear')?'btn-primary':'btn-warning'" type="button" id="onEdit" ng-click="createOrUpdateKit(actionElement)"><i id="move" class=""></i>@{{actionElement}}</button></div>
+                        <button class="btn btn-sm" ng-class="(actionKit == 'Crear')?'btn-primary':'btn-warning'" type="button" id="onEdit" ng-click="createOrUpdateKit(actionKit)"><i id="move" class=""></i>@{{actionKit}}</button></div>
                 </div>
             </div>
         </div>

@@ -81,7 +81,29 @@ class ElementController extends Controller
                         'message' => 'El elemento ha sido creado'
                 ]);
         }else{
-
+            $data = $request->all();
+            $element = Element::find($data['id']);
+            $element->name = $data['name'];
+            $element->description = $data['description'];
+            $element->url_image = $data['url_image'];
+            $element->url_slider_images = $data['url_slider_images'];
+            $element->price = $data['price'];
+            $element->quantity = $data['quantity'];
+            $element->init_date = $data['init_date'];
+            $element->save();
+            $element_json = @json_decode($data['arraySequenceMoment']);
+            foreach ($element_json as $sequenceMoment){
+                foreach ($sequenceMoment->moments as $moment){
+                    $momentKits = new MomentKits();
+                    $momentKits->element_id = $element->id;
+                    $momentKits->sequence_moment_id = $moment->id;
+                    $momentKits->save();
+                }
+            }
+            return response()->json([
+                'status' => 'successfull',
+                'message' => 'El elemento ha sido actualizado'
+            ]);
         }
     }
 
@@ -105,5 +127,21 @@ class ElementController extends Controller
         } else {
             return [false,'No fue posible cargar la imagen'];
         }
+    }
+
+    public function get_element (Request $request,$id) {
+
+        $element = Element::with(['element_in_moment' => function ($query){
+            $query->with(['moment' => function ($query){
+                $query->with(['sequence'=>function($query){
+                    $query->select('id','name');
+                }])->select('id','name','sequence_company_id');
+            }]);
+        }])->find($id);
+        return response()->json([
+            'status' => 'successfull',
+            'message' => 'El elemento ha sido consultado',
+            'data' => $element
+        ]);
     }
 }
