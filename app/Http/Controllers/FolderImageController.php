@@ -20,7 +20,7 @@ class FolderImageController extends Controller
     {
         $homeDirectory = 'images/designerAdmin/';
         $directory = env('ADMIN_DESIGN_PATH') . '/' . str_replace($homeDirectory,'',$request->dir);
-        if (isset($request->dir) && count($request->dir)>0 && $request->dir != $homeDirectory && file_exists($directory)) {
+        if (isset($request->dir) && strlen($request->dir)>0 && $request->dir != $homeDirectory && file_exists($directory)) {
             $scanned_directory = array_diff(scandir($directory), array('.'));
             return response()->json(['scanned_directory' => $scanned_directory, 'directory' => $request->dir], 200);
         }
