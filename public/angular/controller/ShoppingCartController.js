@@ -2,6 +2,9 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
 
     $scope.shopping_carts = null;
     $scope.totalPrices = 0;
+    $scope.ivaPrice = 0;
+    $scope.subtotalPrice = 0;
+    $scope.numberOfItems = 0;
     $scope.cards = [];
     $scope.preferenceInitPoint = null;
 
@@ -19,6 +22,7 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                         var sc = $scope.shopping_carts[i];
                         if (sc.rating_plan_id != null) {
                             $scope.totalPrices += sc.rating_plan.price;
+                            $scope.numberOfItems+=sc.rating_plan.count;
                         }
                         else {
                             for (var l = 0; l <  sc.shopping_cart_product.length; l++) {
@@ -52,6 +56,9 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                         }
                     }
                 }
+            //$scope.ivaPrice = (parseFloat($scope.totalPrices) * parseFloat(env('MERCADOPAGO_IVA'))) / 100;
+            $scope.ivaPrice = ((parseFloat($scope.totalPrices) * 15.9864) / 100).toFixed(2);
+            $scope.subtotalPrice = ($scope.totalPrices - $scope.ivaPrice).toFixed(2);  
 
             }).catch(function (e) {
                 $scope.errorMessage = 'Error consultando el carrito de compras, compruebe su conexión a internet';
