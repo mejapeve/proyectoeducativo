@@ -379,7 +379,6 @@
                                     <th class="sort">Precio</th>
                                     <th class="sort">Cantidad</th>
                                     <th class="sort">Editar</th>
-                                    <th class="sort">Ver mas</th>
                                 </tr>
                                 </thead>
                                 <tfoot class="bg-200">
@@ -390,7 +389,6 @@
                                     <th>Precio</th>
                                     <th>Cantidad</th>
                                     <th>Editar</th>
-                                    <th>Ver mas</th>
                                 </tr>
                                 </tfoot>
                             </table>

@@ -116,7 +116,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
     $scope.elementsSelected = null
 
     $scope.init = function(route_element,route_kit,route_get_elements) {
-    console.log(route_get_elements)
         $scope.route_get_elements = route_get_elements
         $scope.route = route_element
         $scope.route_kit = route_kit
@@ -159,7 +158,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
                             'price':row.price,
                             'quantity':row.quantity,
                             'edit':`<button class="btn btn-sm btn-warning" ng-click="actionModalElement('Editar',${row.id})" style="padding: .0875rem .75rem;font-size: .575rem;">Editar</button>`,
-                            'view':''
                         })
 
                     }
@@ -172,7 +170,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
                             'price':row.price,
                             'quantity':row.quantity,
                             'edit':`<button class="btn btn-sm btn-warning" ng-click="actionModalKit('Editar',${row.id})" style="padding: .0875rem .75rem;font-size: .575rem;">Editar</button>`,
-                            'view':''
                         })
 
                     }
@@ -186,14 +183,12 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
                 {data: 'price', className: 'text-cneter'},
                 {data: 'quantity', className: 'text-center'},
                 {data: 'edit', className: 'text-right'},
-                {data: 'view', className: 'text-right'},
 
             ],
             "createdRow": function ( row, data, index ) {
                 $compile(row)($scope); //add this to compile the DOM
             }
         });
-        //$compile($scope.table)($scope);
         var path = 'images/designerAdmin'
         $scope.onChangeFolderImage(path)
         $scope.onChangeFolderImage2(path)
@@ -206,7 +201,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
         }).catch(function (e) {
 
         });
-        //$scope.$apply();
     }
     $scope.sequenceChange = (data) => {
         data = data.split('|')[0]
@@ -294,14 +288,11 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
         });
     }
     $scope.actionModalKit = (action,id=false) => {
-        //console.log($scope.route_get_elements)
-        //console.log(action,'kit',id)
         $http({
             url:$scope.route_get_elements,
             method: "GET",
         }).
         then(function (response) {
-            //console.log('elementos',response)
             $scope.list_elements = response.data.data
         }).catch(function (e) {
 
@@ -312,7 +303,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
             $('#exampleModalKit').modal('show');
         }else{
             $http.get('/conexiones/admin/get_kit/'+id, { 'id': id }).then(function (response) {
-                console.log('kit',response)
                 $scope.kit.id = response.data.data.id
                 $scope.kit.name = response.data.data.name
                 $scope.kit.cost = response.data.data.price
@@ -348,8 +338,6 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
         }
     }
     $scope.createOrUpdateKit = (action) => {
-        console.log(action)
-        console.log($scope.kit)
         if(action === 'Crear'){
             $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
                 var list = response.data.scanned_directory;
