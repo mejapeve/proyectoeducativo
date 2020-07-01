@@ -16,7 +16,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Crear elemento</h5><button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+                        <h5 class="modal-title" id="exampleModalLabel">@{{actionElement}} elemento</h5><button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -182,7 +182,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Crear kit</h5><button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
+                        <h5 class="modal-title" id="exampleModalLabel">@{{actionKit}} kit</h5><button class="close" type="button" data-dismiss="modal" aria-label="Close"><span class="font-weight-light" aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -301,6 +301,20 @@
                                 </div>
                             </div>
                             <br>
+                            <br>
+                            <div class="row" ng-repeat="x in arraySequenceMomentEdit">
+                                <div class="col-md-5" >
+                                    <label for="name">Secuencia</label>
+                                    <input class="form-control" type="text" placeholder="nombre" ng-model="x.sequence_name">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="exampleFormControlTextarea1">Momento</label>
+                                    <input class="form-control" type="text" placeholder="nombre" ng-model="x.moment_name">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMomentEdit(x.id,$index,x.id_moment_kit)"> - </button>
+                                </div>
+                            </div>
                             <div class="row" ng-repeat="x in arraySequenceMoment">
                                 <div class="col-md-5" >
                                     <label for="name">Secuencia</label>
@@ -314,11 +328,12 @@
                                     <button class="btn btn-sm btn-warning mt-4" ng-click="deleteSequenceMoment($index)"> - </button>
                                 </div>
                             </div>
+
                             <div class="line-separator"></div>
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label for="exampleFormControlSelect1">Vincular elementos</label>
-                                    <select class="form-control selectpicker" id="exampleFormControlSelect1"
+                                    <select class="form-control selectpicker" id="exampleFormControlSelect1prue"
                                             ng-model="elementsSelected" multiple>
                                         <option></option>
                                         <option ng-repeat="x in list_elements" value="@{{x.id}}">@{{x.name}}</option>

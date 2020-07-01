@@ -106,8 +106,7 @@ Route::group(['middleware' =>['auth:afiliadoempresa']],function (){
     Route::get('conexiones/admin/get_elements', 'ElementController@get_elements')->middleware('role:admin')->name('get_elements');
     Route::get('conexiones/admin/get_element/{id?}', 'ElementController@get_element')->middleware('role:admin')->name('get_element');
     Route::post('conexiones/admin/delete_elementorkit_in_moment', 'KitElementController@delete_elementorkit_in_moment')->middleware('role:admin')->name('delete_elementorkit_in_moment');
-
-
+    Route::get('conexiones/admin/get_kit/{id?}', 'KitController@get_kit')->middleware('role:admin')->name('get_kit');
 
 });
 
