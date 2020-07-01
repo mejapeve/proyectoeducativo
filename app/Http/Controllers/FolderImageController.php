@@ -18,11 +18,8 @@ class FolderImageController extends Controller
      */
     public function getFiles(Request $request)
     {
-		
         $homeDirectory = 'images/designerAdmin/';
         $directory = env('ADMIN_DESIGN_PATH') . '/' . str_replace($homeDirectory,'',$request->dir);
-		dd($request,env('ADMIN_DESIGN_PATH'),$directory);
-		
         if (isset($request->dir) && strlen($request->dir)>0 && $request->dir != $homeDirectory && file_exists($directory)) {
             $scanned_directory = array_diff(scandir($directory), array('.'));
             return response()->json(['scanned_directory' => $scanned_directory, 'directory' => $request->dir], 200);
