@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Companies;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,8 +56,8 @@ Route::get('/planes_de_acceso', function () {
     return view('ratingPlan.list');
 })->name('ratingPlan.list');
 
-Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}', function () {
-    return view('ratingPlan.detail');
+Route::get('/plan_de_acceso/{rating_plan_id}/{rating_name}/{sequence_id?}', function (Request $request) {
+    return view('ratingPlan.detail',['rating_plan_id'=>$request->rating_plan_id,'sequence_id'=>$request->sequence_id]);
 })->name('ratingPlan.detailSequence');
 
 Route::get('page500', function(){

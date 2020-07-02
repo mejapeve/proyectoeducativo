@@ -1,6 +1,7 @@
 MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $http) {
     $scope.ratingPlan = null;
     $scope.sequences = [];
+    $scope.sequenceForAdd = null;
     $scope.elementsKits = [];
     
     var type_sequence = 1;
@@ -13,12 +14,12 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
     $scope.requiredMoment = false;
     $scope.errorMessageFilter = '';
     
-    $scope.init = function(company_id) {
+    $scope.init = function(company_id, ratingPlanId, sequence_id) {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
         
+        
         var params = window.location.href.split('/');
-        var ratingPlanId = window.location.href.split('/')[params.length - 2];
         
         $http({
             url:"/get_rating_plan/" + ratingPlanId,
@@ -30,10 +31,14 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             $scope.requiredMoment = $scope.ratingPlan.type_rating_plan_id === 2;
             $scope.requiredExperience = $scope.ratingPlan.type_rating_plan_id === 3;
             
+            if($scope.requiredMoment && sequence_id) { 
+                $('#moment_div_responsive_ForAdd').addClass('show');
+            }
+
+            
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los planes de acceso, compruebe su conexión a internet';
         });
-        
         
         $http({
             url:"/get_company_sequences/" + company_id,
@@ -41,20 +46,34 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         }).
         then(function (response) {
             $scope.sequences = response.data.companySequences;
+            var listTemp = [];
+            
+            for(var i=0;i<$scope.sequences.length;i++) {
+                if(Number($scope.sequences[i].id) ===  Number(sequence_id) ) {
+                    $scope.sequenceForAdd = Object.assign({},$scope.sequences[i]) ;
+                    $scope.sequenceForAdd.isSelected = true;
+                }
+                else {
+                    listTemp.push($scope.sequences[i]);
+                }
+            }
+            $scope.sequences = listTemp;
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando las guías de aprendizaje, compruebe su conexión a internet';
         });
     }
     
-    $scope.onCheckChange = function(sequence,moment) {
+    $scope.onCheckChange = function(sequence,moment,sequenceForAdd) {
         
         if(!$scope.ratingPlan) return;
         
         //Rating plan for sequence
         if( $scope.ratingPlan.type_rating_plan_id === type_sequence) {
             var totalSequences = 0;
-            
+            if(sequenceForAdd && sequenceForAdd.isSelected ) {
+                totalSequences++;
+            }
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
               if(sequenceTmp.isSelected) totalSequences++;
             });
@@ -63,7 +82,6 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 sequence.isSelected = false;
                 swal({
                   title: "Número máximo de secuencias permitidas",
-                  type: "error",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -82,12 +100,21 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         }
         //Rating plan for moment or experience
         else if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
+
             var totalMoments = 0;
-            if(sequence.isSelected) {
-                $('#moment_div_responsive_'+sequence.id).addClass('show');
+            
+            $('#moment_div_responsive_ForAdd').removeClass('show');
+            
+            if(sequenceForAdd) {
+                $('#moment_div_responsive_ForAdd').addClass('show');
             }
             else {
-                $('#moment_div_responsive_'+sequence.id).removeClass('show');            
+                if(sequence.isSelected) {
+                    $('#moment_div_responsive_'+sequence.id).addClass('show');
+                }
+                else {
+                    $('#moment_div_responsive_'+sequence.id).removeClass('show');            
+                }
             }
             
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
@@ -97,6 +124,12 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 });
               }
             });
+            
+            if($scope.sequenceForAdd) {
+                angular.forEach($scope.sequenceForAdd.moments, function(momentTmp, key) {
+                    if(momentTmp.isSelected) totalMoments++;
+                });
+            }
             
             if(totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
                 moment.isSelected = false;
@@ -124,7 +157,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
     
     $scope.onContinueElements = function() {
         
-		window.scrollTo( 0, 0 );
+        window.scrollTo( 0, 0 );
         
         function searchElementKit(elementKit) {
             for(var i=0;i<$scope.elementsKits.length;i++) {
@@ -140,34 +173,34 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             if(sequenceTmp.isSelected && sequenceTmp.moments ) {
                 var mbAdd = true;
                 var kit,moment,element = null;
-				
+                
                 for(var i=0;i<sequenceTmp.moments.length;i++) {
                     moment = sequenceTmp.moments[i];
-					for(var j=0;j<moment.moment_kit.length;i++) {
-						kit = moment.moment_kit[i].kit;
-						if(kit) {
-							kit.type = 'kit';
-							if(!searchElementKit(kit)) {
-								$scope.elementsKits.push(kit);
-							}
-							for(var j=0;j<kit.kit_elements.length;j++) {
-								element = kit.kit_elements[j].element;
-								element.type = 'element';
-								if(!searchElementKit(element)) {
-									$scope.elementsKits.push(element);
-								}
-							}
-						}
-						else {
-							element = moment.moment_kit[i].element;
-							if(element) {
-								element.type = 'element';
-								if(!searchElementKit(element)) {
-									$scope.elementsKits.push(element);
-								}
-							}
-						}
-					}
+                    for(var j=0;j<moment.moment_kit.length;i++) {
+                        kit = moment.moment_kit[i].kit;
+                        if(kit) {
+                            kit.type = 'kit';
+                            if(!searchElementKit(kit)) {
+                                $scope.elementsKits.push(kit);
+                            }
+                            for(var j=0;j<kit.kit_elements.length;j++) {
+                                element = kit.kit_elements[j].element;
+                                element.type = 'element';
+                                if(!searchElementKit(element)) {
+                                    $scope.elementsKits.push(element);
+                                }
+                            }
+                        }
+                        else {
+                            element = moment.moment_kit[i].element;
+                            if(element) {
+                                element.type = 'element';
+                                if(!searchElementKit(element)) {
+                                    $scope.elementsKits.push(element);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -231,25 +264,37 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
             data: data
         }).
         then(function (response) {
-			if(response && response.data && typeof response.data === 'object') {
-				$('#move').removeClass('fa fa-spinner fa-spin');
-				var message = response.data.message || 'Se ha registrado el producto correctamente';
-				swal('Conexiones',message,'success');
-				$('#move').next().removeClass('d-none');
-			   window.location = '/carrito_de_compras';
-			}
-			else {
-				$scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, por favor intenta nuevamente';
-				swal('Conexiones',$scope.errorMessageFilter,'error');
-				$('#move').removeClass('fa fa-spinner fa-spin');
-				$('#move').next().removeClass('d-none');
-			}
+            if(response && response.data && typeof response.data === 'object') {
+                $('#move').removeClass('fa fa-spinner fa-spin');
+                var message = response.data.message || 'Se ha registrado el producto correctamente';
+                swal('Conexiones',message,'success');
+                $('#move').next().removeClass('d-none');
+               window.location = '/carrito_de_compras';
+            }
+            else {
+                $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, por favor intenta nuevamente';
+                swal('Conexiones',$scope.errorMessageFilter,'error');
+                $('#move').removeClass('fa fa-spinner fa-spin');
+                $('#move').next().removeClass('d-none');
+            }
             
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error agregando el pedido al carrito de compras, comprueba tu conexión a internet';
             swal('Conexiones',$scope.errorMessageFilter,'error');
-			$('#move').removeClass('fa fa-spinner fa-spin');
+            $('#move').removeClass('fa fa-spinner fa-spin');
             $('#move').next().removeClass('d-none');
         });
     }
+    
+    $scope.showMash = function (sequence) {
+        
+        var width = $( window ).width() * 492 / 1280;
+        var html = '<img src="/'+sequence.mesh+'" width="'+width+'px" height="auto">';
+        swal({
+            html: html,
+            width: '50%',
+            showConfirmButton: false, showCancelButton: false
+        }).catch(swal.noop);
+    }
+
 }]);

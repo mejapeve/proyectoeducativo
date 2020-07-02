@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="w-100" ng-controller="ratingPlanDetailCtrl" ng-init="init(1)">
+<div class="w-100" ng-controller="ratingPlanDetailCtrl" ng-init="init(1,'{{$rating_plan_id}}','{{$sequence_id}}')">
     <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">
       <span class="col">@{{ errorMessageFilter }}</span>
@@ -15,25 +15,12 @@
                 <h4 class=" boder-header p-1 pl-3">
                    @{{ratingPlan.name}}
                 </h4>
-                @{{ratingPlan.description}}
              </div>
-             
-             <ul class="text-justify pr-4 mb-0" ng-show="ratingPlan.type_rating_plan_id === 1">
-                <li><strong>Situación generadora</strong>: tiene la intención pedagógica de movilizar la curiosidad de los estudiantes y las estudiantes para indagar y aprender. </li>
-                <li><strong>Ruta de viaje</strong>: contenidos organizados en ocho momentos o etapas secuenciales que, en conjunto, permiten ampliar la comprensión de los fenómenos naturales tratados y la conexión de estos con el mundo de la vida </li>
-                <li><strong>Guía de saberes</strong>: durante el desarrollo de cada guía de aprendizaje, las y los estudiantes despliegan un conjunto de acciones de pensamiento y producción que constituyen las evidencias de aprendizaje. </li>
-                <li><strong>Momentos</strong>:  Los momentos de la ruta están articulados a un punto de encuentro, que constituye el propósito común articulador de todos los contenidos. </li>
-                <p class="mt-3"> A continuación te ofrecemos una lista para que elijas @{{ratingPlan.count===1 ? 'la secuencia': 'las '+ratingPlan.count+' secuencias'}} que deseas realizar.</p>
-             </ul>
-             
-             <ul class="text-justify pr-4 mb-0" ng-show="ratingPlan.type_rating_plan_id === 2">
-                <li><strong>Momentos</strong>:  Adquiere los momentos y experiencias de momentos según la guía de aprendizaje. </li>
-                <p class="mt-3"> A continuación te ofrecemos una lista para que elijas @{{ratingPlan.count===0 ? ' los momentos ': ratingPlan.count===1 ? 'el momento': 'los '+ratingPlan.count +' momentos'}} que deseas realizar.</p>
-             </ul>
-             
-             <ul class="text-justify pr-4 mb-0" ng-show="ratingPlan.type_rating_plan_id === 3">
-                <li><strong>Experiencia</strong>:  Adquiere las experiencias de momentos según la guía de aprendizaje. </li>
-                <p class="mt-3"> A continuación te ofrecemos una lista para que elijas @{{ratingPlan.count===0 ? 'las experiencias ' : ratingPlan.count===1 ? 'la experiencia': 'las '+ratingPlan.count +' experiencias'}} que deseas realizar.</p>
+                          
+             <ul class="text-justify pr-4 mb-0">
+                <p>@{{ratingPlan.description}}</p>
+                <p> A continuación, te mostramos las guías de aprendizaje disponibles. Para conocer de qué se tratan y cuáles son sus contenidos pueden hacer clic en detalles, allí encontrarán un video introductorio y una malla curricular en la que se describen los propósitos de cada momento, la pregunta central, el eje temático de la explicación de ciencia en contexto, las experiencias científicas propuestas y los materiales que se requieren para esta.     </p>
+                <p>Si tiene alguna pregunta pueden escribirnos a través del formulario de contacto. </p>
              </ul>
              
              <div class="col-12 text-right">
@@ -41,6 +28,38 @@
              </div>
              
              <div class="col-12 ml-2 mt-1 row" ng-show="sequences">
+
+               <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
+                               'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
+                    ng-show="sequenceForAdd" style="border: 10px solid white;">
+                  <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">
+                     <div class="position-absolute" style="top:10px; transform : scale(2);">
+                         <input type="checkbox" ng-model="sequenceForAdd.isSelected" name="check_sequence_ForAdd_"@{{sequenceForAdd.id}} ng-change="onCheckChange(sequenceForAdd,null,sequenceForAdd)"/>
+                     </div>
+
+                     <div class="col-5">
+                        <img ng-src="/@{{sequenceForAdd.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
+                        <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                            <i class="fas fa-search"></i> Ver contenido
+                        </a>                     
+                     </div>
+                     <div class="col-7 pl-0 ml-2 text-justify fs--1 flex-100" id="sequence-descriptionForAdd-@{{sequenceForAdd.id}}">
+                        <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequenceForAdd.name}} </span></h5>  
+                        <p class="mt-4 ml-2"> @{{sequenceForAdd.description}}</p>
+                     </div>
+                     <div class="fade bg-light moment_div_responsive row p-3" ng-show="sequenceForAdd.isSelected" id="moment_div_responsive_ForAdd"> 
+                         <div class="text-left" ng-repeat="moment in sequenceForAdd.moments" ng-show="ratingPlan.type_rating_plan_id === 2">
+                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_moment_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
+                             <span>@{{moment.name}}</span>
+                         </div>
+                         <div class="text-left" ng-repeat="moment in sequenceForAdd.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
+                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
+                             <span>@{{moment.name}}</span>
+                         </div>
+                     </div>
+                  </div>
+               </div>
+
                
                <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
                                'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
@@ -52,9 +71,12 @@
 
                      <div class="col-5">
                         <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
+                        <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                            <i class="fas fa-search"></i> Ver contenido
+                        </a>                     
                      </div>
-                     <div class="col-7 pl-0 ml-2 text-justify fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
-                        <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequence.name}} </span></h5>  
+                     <div class="col-7 pl-0 ml-2 text-left fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
+                        <h5 class="pl-3 boder-header"> <span class="">@{{sequence.name}} </span></h5>  
                         <p class="mt-4 ml-2"> @{{sequence.description}}</p>
                      </div>
                      <div class="fade bg-light moment_div_responsive row p-3" ng-show="sequence.isSelected" id="moment_div_responsive_@{{sequence.id}}"> 

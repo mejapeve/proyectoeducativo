@@ -222,14 +222,15 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
                 for(var j=0;j<listItem.length;j++) {
                     items += '<li>' + listItem[j] + '</li>';
                 }
-               var href = '/plan_de_acceso/' + rt.id + '/' + rt.name + '/' + sequence.id;
+			   var name = rt.name ? rt.name.replace(/\s/g,'_').toLowerCase() : '';
+               var href = '/plan_de_acceso/' + rt.id + '/' + name + '/' + sequence.id;
                var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-75">Adquirir</a>';    
                ratingPlans += '<div class="mt-3 col-12 col-md-4"><div class="p-2 card"><h6>'+rt.name+'</h6><ul class=" text-left fs--1">' + items + '</ul>'+button+'</div></div>';
             }
         }
         var html = '<div class="row justify-content-center">' + ratingPlans + '</div>';
         swal({
-            title: 'Debes seleccionar un plan de acceso para adquirir esta guía',
+            title: '<small>Debes seleccionar un plan de acceso para adquirir esta guía</small>',
             html: html,
             width: '75%',
             showConfirmButton: false, showCancelButton: false
