@@ -136,8 +136,7 @@ MyApp.controller("kitsElementsCtrl", function ($scope, $http, $timeout) {
         }).
         then(function (response) {
             $scope.element = response.data[0];
-            $scope.element.type = 'kit'
-            alert($scope.element.type);
+            $scope.element.type = 'kit';
             $('#loading').removeClass('show');
             $('.d-none-result').removeClass('d-none');
         }).catch(function (e) {

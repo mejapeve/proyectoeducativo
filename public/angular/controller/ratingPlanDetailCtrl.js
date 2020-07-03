@@ -62,6 +62,17 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                     $scope.sequenceForAdd = Object.assign({},$scope.sequences[i]) ;
                     $scope.sequenceForAdd.isSelected = true;
 					clickSelected(1, $scope.ratingPlan.count);
+					
+					$scope.selectComplete =  Number($scope.ratingPlan.count) === 1;
+					if($scope.selectComplete) {
+						$('.confirm_rating').addClass("btn-primary");
+						$('.confirm_rating').removeClass("btn-outline-primary");
+					}
+					else {
+						$('.confirm_rating').removeClass("btn-primary");
+						$('.confirm_rating').addClass("btn-outline-primary");
+					}
+					
                 }
                 else {
                     listTemp.push($scope.sequences[i]);
@@ -301,7 +312,6 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
     }
     
     $scope.showMash = function (sequence) {
-        
         var width = $( window ).width() * 492 / 1280;
         var html = '<img src="/'+sequence.mesh+'" width="'+width+'px" height="auto">';
         swal({
