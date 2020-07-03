@@ -13,14 +13,23 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
     $scope.selectComplete = false;
     $scope.requiredMoment = false;
     $scope.errorMessageFilter = '';
-    
+	$("#toast-name-1").fadeOut();
+	
+	var scrollOrig = $("#toast-name-1").offset().top;
+	var scrollOrig = $("#toast-name-1").offset().left;
+	
+	function clickSelected(totalSequences, ratingPlanCount) {
+	  $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  secuencias.';
+	  $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
+	  $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
+	};
+
     $scope.init = function(company_id, ratingPlanId, sequence_id) {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
-        
-        
+		
         var params = window.location.href.split('/');
-        
+		
         $http({
             url:"/get_rating_plan/" + ratingPlanId,
             method: "GET",
@@ -52,6 +61,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 if(Number($scope.sequences[i].id) ===  Number(sequence_id) ) {
                     $scope.sequenceForAdd = Object.assign({},$scope.sequences[i]) ;
                     $scope.sequenceForAdd.isSelected = true;
+					clickSelected(1, $scope.ratingPlan.count);
                 }
                 else {
                     listTemp.push($scope.sequences[i]);
@@ -71,9 +81,11 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         //Rating plan for sequence
         if( $scope.ratingPlan.type_rating_plan_id === type_sequence) {
             var totalSequences = 0;
-            if(sequenceForAdd && sequenceForAdd.isSelected ) {
+            
+			if($scope.sequenceForAdd && $scope.sequenceForAdd.isSelected ) {
                 totalSequences++;
             }
+			
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
               if(sequenceTmp.isSelected) totalSequences++;
             });
@@ -96,6 +108,8 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                     $('.confirm_rating').removeClass("btn-primary");
                     $('.confirm_rating').addClass("btn-outline-primary");
                 }
+				
+				clickSelected(totalSequences, $scope.ratingPlan.count);
             }
         }
         //Rating plan for moment or experience

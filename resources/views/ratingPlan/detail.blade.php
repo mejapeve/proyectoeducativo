@@ -23,18 +23,25 @@
                 <p>Si tiene alguna pregunta pueden escribirnos a través del formulario de contacto. </p>
              </ul>
              
-             <div class="col-12 text-right">
-                <button ng-click="onContinueElements()" ng-disabled="!selectComplete" class="d-none-result d-none ml-3 mt-3 btn btn-outline-primary fs-0 confirm_rating" href="#" class="col-6"><i class="fas fa-arrow-right"></i> Continuar compra</button>
+             <div class="col-12 text-right r-0 w-md-50" id="div-continue" style="background-color: white; z-index: 10; ">
+			    <span class="mt-1">@{{messageToast}}</span>
+                <button ng-click="onContinueElements()" ng-disabled="!selectComplete" class="d-none-result d-none ml-3 mt-3 btn btn-outline-primary fs-0 confirm_rating" href="#" class="col-6">
+                   <i class="fas fa-arrow-right"></i> Continuar compra
+                </button>
              </div>
              
              <div class="col-12 ml-2 mt-1 row" ng-show="sequences">
-
+			    <!-- Toast -->
+			    <div class="z-index-10 bg-success position-absolute color-white p-3" id="toast-name-1">
+				  <p>@{{messageToast}}</p>
+ 			    </div>
+			  
                <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
                                'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
                     ng-show="sequenceForAdd" style="border: 10px solid white;">
                   <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">
                      <div class="position-absolute" style="top:10px; transform : scale(2);">
-                         <input type="checkbox" ng-model="sequenceForAdd.isSelected" name="check_sequence_ForAdd_"@{{sequenceForAdd.id}} ng-change="onCheckChange(sequenceForAdd,null,sequenceForAdd)"/>
+                         <input type="checkbox" class="sequence_ForAdd" title="That&apos;s what this widget is" ng-model="sequenceForAdd.isSelected" name="check_sequence_ForAdd_"@{{sequenceForAdd.id}} ng-change="onCheckChange(sequenceForAdd,null,sequenceForAdd)"/>
                      </div>
 
                      <div class="col-5">

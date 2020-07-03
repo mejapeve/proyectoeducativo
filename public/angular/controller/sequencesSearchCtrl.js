@@ -220,23 +220,26 @@ MyApp.controller("sequencesSearchCtrl", ["$scope", "$http", function ($scope, $h
                 var listItem = rt.description_items.split('|');
                 var items = '';
                 for(var j=0;j<listItem.length;j++) {
-                    items += '<li>' + listItem[j] + '</li>';
+                    items += '<li class="card-rating-plan-id-'+ i +'" fs-2><span class="color-gray-dark fs--1">' + listItem[j] + '</span></li>';
                 }
 			   var name = rt.name ? rt.name.replace(/\s/g,'_').toLowerCase() : '';
                var href = '/plan_de_acceso/' + rt.id + '/' + name + '/' + sequence.id;
-               var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-75">Adquirir</a>';    
-               ratingPlans += '<div class="mt-3 col-12 col-md-4"><div class="p-2 card"><h6>'+rt.name+'</h6><ul class=" text-left fs--1">' + items + '</ul>'+button+'</div></div>';
+               var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-50">Adquirir</a>';    
+               ratingPlans += '<div class="mt-3 col-12 col-md-4 "><div class="p-2 card" style="border-radius: 13px;">'+
+			   '<h6 class="font-weight-bold card-rating-plan-id-'+ i +'">'+rt.name+'</h6>'+
+			   '<ul class=" text-left fs-2">' + items + '</ul>'+button+'</div></div>';
             }
         }
         var html = '<div class="row justify-content-center">' + ratingPlans + '</div>';
         swal({
-            title: '<small>Debes seleccionar un plan de acceso para adquirir esta guía</small>',
+            title: '<small class="p-2 rounded" style="background-color: white;padding: 7px;">Debes seleccionar un plan de acceso para adquirir esta guía</small>',
             html: html,
             width: '75%',
             showConfirmButton: false, showCancelButton: false
         }).catch(swal.noop);
+		$('.swal2-show').css('background-color','transparent');
     }
-
+	
     $scope.setPositionScroll = function () {
         
         if(window.scrollY <= 50) {
