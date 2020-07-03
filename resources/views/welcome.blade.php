@@ -6,16 +6,16 @@
     <div class="swiper-container mt-lg--2">
        <div class="swiper-wrapper">
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide1.jpg);">
+             style="background-image:url(images/sliderCarrucelHome/slide1.jpg?v.1);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide2.jpg);">
+             style="background-image:url(images/sliderCarrucelHome/slide2.jpg?v.1);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide3.jpg);">
+             style="background-image:url(images/sliderCarrucelHome/slide3.jpg?v.1);">
           </div>
           <div class="swiper-slide"
-             style="background-image:url(images/sliderCarrucelHome/slide4.jpg);">
+             style="background-image:url(images/sliderCarrucelHome/slide4.jpg?v.1);">
           </div>
        </div>
        <!-- Add Arrows -->
