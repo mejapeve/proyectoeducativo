@@ -220,19 +220,23 @@
                      <div class="col-4 d-flex mt-3 conx-element"
                         ng-click="onClickElement(sequence,'url_slider_images','Imágenes slide','slide-images')">
                         <h6 class="mr-3">Imágenes slide</h6>
-                        <img ng-hide="sequence.url_slider_images" ng-src="/images/icons/NoImageAvailable.jpeg"
+                        <img ng-hide="sequence.url_slider_imagesScannedDirectory" ng-src="/images/icons/NoImageAvailable.jpeg"
                            width="79px" height="auto" />
-                        <div class="w-100" ng-show="sequence.url_slider_images"
-                           ng-repeat="slide in sequence.url_slider_images.split('|')  track by $index">
+                        <div class="w-100" ng-show="sequence.url_slider_imagesScannedDirectory"
+                           ng-repeat="slide in sequence.url_slider_imagesScannedDirectory.split('|')  track by $index">
                            <img src="/@{{slide}}" width="40px" height="40px" style="margin-left: -10px" />
                         </div>
                      </div>
                      
-                     <div class="conx-element col-auto"
-                        ng-click="onClickElement(sequence,'mesh','Malla de contenido','img')">
-                        <h6>Malla de contenido</h6>
-                        <img ng-src="/@{{sequence.mesh || 'images/icons/NoImageAvailable.jpeg'}}" width="79px"
-                           height="auto" />
+                     <div class="col-4 d-flex mt-3 conx-element"
+                        ng-click="onClickElement(sequence,'mesh','Malla de contenido','slide-images')">
+                        <h6 class="mr-3">Malla de contenido</h6>
+                        <img ng-hide="sequence.meshScannedDirectory" ng-src="/images/icons/NoImageAvailable.jpeg"
+                           width="79px" height="auto" />
+                        <div class="w-100" ng-show="sequence.meshScannedDirectory"
+                           ng-repeat="slide in sequence.meshScannedDirectory.split('|')  track by $index">
+                           <img src="/@{{slide}}" width="40px" height="40px" style="margin-left: -10px" />
+                        </div>
                      </div>
                      <div class="col-12 mt-3 pt-1 conx-element d-flex"
                         ng-click="onClickElement(sequence,'keywords','Palabras clave','text-list')">
@@ -542,19 +546,18 @@
                   <h6 class="p-2 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                   </h6>
-                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = true;"
                      style="position: absolute;right: 35px;top: 5px;">
                      <i class="fas fa-caret-down"></i>
                   </div>
-                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;"
+                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = false;"
                      style="position: absolute;right: 35px;top: 5px;">
                      <i class="fas fa-caret-up"></i>
                   </div>
                </div>
-               <!--conx-slide-images elementParent="elementParentEdit" elementChild="elementEdit"></conx-slide-images-->
                <div class="bg-light mb-3 row edit-div-folder pt-2" ng-show="mbImageShow">
                   <ul class="p-0 list-inline mt-2 mb-0">
-                     <li class="mb-2 ml-2" ng-repeat="field in directory">
+                     <li class="mb-2 ml-2" ng-repeat="field in directory" style="opacity:0.8">
                         <a class="btn btn-sm btn-outline-primary" href="#"
                            ng-click="onChangeFolderSlideImage(field.dir)">
                            @{{field.name}}
@@ -563,7 +566,7 @@
                   </ul>
                   <div class="col-12 row mt-3">
                      <div ng-repeat="field in filesImages" class="col-4">
-                        <img ng-src="/@{{field.url_image}}" width="79px" height="auto" />
+                        <img ng-src="/@{{field.url_image}}" width="79px" height="auto" style="opacity:0.8"/>
                      </div>
                   </div>
                </div>
@@ -578,11 +581,11 @@
                   <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                   </h6>
-                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = true;"
                      style="position: absolute;right: 35px;top: 19px;">
                      <i class="fas fa-caret-down"></i>
                   </div>
-                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;"
+                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = false;"
                      style="position: absolute;right: 35px;top: 19px;">
                      <i class="fas fa-caret-up"></i>
                   </div>
@@ -675,11 +678,11 @@
                   <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                      ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                   </h6>
-                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                  <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = true;"
                      style="position: absolute;right: 35px;top: 19px;">
                      <i class="fas fa-caret-down"></i>
                   </div>
-                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="alert('up');mbImageShow = false;"
+                  <div ng-hide="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = false;"
                      style="position: absolute;right: 35px;top: 19px;">
                      <i class="fas fa-caret-up"></i>
                   </div>

@@ -242,6 +242,22 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         $scope.dataJstree.type = 'openSequence';
         $scope.elementParentEdit = $scope.sequence;
     }
+    
+    function loadFolderImage(parentElement,elementId,path) {
+        $scope.onChangeFolderImage(path,function(data){
+            var images_str = '';
+            var file = null;
+            for(var index in data.scanned_directory) {
+                file = data.scanned_directory[index];
+                if(file != '..' && file.includes('.') ) {
+                    if(images_str.length>0) images_str += '|';
+                    images_str += data.directory + '/' + file;
+                }
+            }
+            images_str = images_str.replace('//','/');
+            parentElement[elementId + 'ScannedDirectory'] = images_str;
+        });
+    }
 
     function loadSequence(sequence_id) {
 
@@ -249,6 +265,11 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             .then(function (response) {
 
                 $scope.sequence = response.data[0];
+                
+                loadFolderImage($scope.sequence,'mesh',$scope.sequence.mesh);
+                loadFolderImage($scope.sequence,'url_slider_images',$scope.sequence.url_slider_images);
+                
+                
                 $scope.applyChangeEvidence = false;
                 if (!$scope.sequence['section_1']) $scope.sequence['section_1'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
                 if (!$scope.sequence['section_2']) $scope.sequence['section_2'] = angular.toJson({ "section": findSectionSequenceEmpty($scope.sequence) });
@@ -377,8 +398,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
         else if ($scope.typeEdit === 'slide-images') {
             if($scope.elementParentEdit[$scope.elementEdit] && $scope.elementParentEdit[$scope.elementEdit].length > 0) {
-                var dir = $scope.elementParentEdit[$scope.elementEdit].split('|')[0];
-                dir = getLastPath(dir);
+                var dir = $scope.elementParentEdit[$scope.elementEdit];
+                
                 $scope.onChangeFolderImage(dir,function(data){
                     var images_str = '';
                     var file = null;
@@ -391,7 +412,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                         }
                     }
                     images_str = images_str.replace('//','/');
-                    $scope.elementParentEdit[$scope.elementEdit] = images_str;
+                    //$scope.elementParentEdit[$scope.elementEdit] = images_str;
                 });
             }
             else {
@@ -465,7 +486,8 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                 }
             }
             images_str = images_str.replace('//','/');
-            $scope.elementParentEdit[$scope.elementEdit] = images_str;
+            $scope.elementParentEdit[$scope.elementEdit] = path;
+            $scope.elementParentEdit[$scope.elementEdit + 'ScannedDirectory'] = images_str;
             $scope.applyChange = true;
         });
     }

@@ -24,79 +24,73 @@
              </ul>
              
              <div class="col-12 text-right r-0 w-md-50" id="div-continue" style="background-color: white; z-index: 10; ">
-			    <span class="mt-1">@{{messageToast}}</span>
+                <span class="mt-1">@{{messageToast}}</span>
                 <button ng-click="onContinueElements()" ng-disabled="!selectComplete" class="d-none-result d-none ml-3 mt-3 btn btn-outline-primary fs-0 confirm_rating" href="#" class="col-6">
                    <i class="fas fa-arrow-right"></i> Continuar compra
                 </button>
              </div>
              
-             <div class="col-12 ml-2 mt-1 row" ng-show="sequences">
-			    <!-- Toast -->
-			    <div class="z-index-10 bg-success position-absolute color-white p-3" id="toast-name-1">
-				  <p>@{{messageToast}}</p>
- 			    </div>
-			  
-               <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
-                               'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
-                    ng-show="sequenceForAdd" style="border: 10px solid white;">
-                  <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">
-                     <div class="position-absolute" style="top:10px; transform : scale(2);">
-                         <input type="checkbox" class="sequence_ForAdd" title="That&apos;s what this widget is" ng-model="sequenceForAdd.isSelected" name="check_sequence_ForAdd_"@{{sequenceForAdd.id}} ng-change="onCheckChange(sequenceForAdd,null,sequenceForAdd)"/>
-                     </div>
-
-                     <div class="col-5">
-                        <img ng-src="/@{{sequenceForAdd.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
-                        <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
-                            <i class="fas fa-search"></i> Ver contenido
-                        </a>                     
-                     </div>
-                     <div class="col-7 pl-0 ml-2 text-justify fs--1 flex-100" id="sequence-descriptionForAdd-@{{sequenceForAdd.id}}">
-                        <h5 class="pl-3 boder-header"> <span class="ml-2">@{{sequenceForAdd.name}} </span></h5>  
-                        <p class="mt-4 ml-2"> @{{sequenceForAdd.description}}</p>
-                     </div>
-                     <div class="fade bg-light moment_div_responsive row p-3" ng-show="sequenceForAdd.isSelected" id="moment_div_responsive_ForAdd"> 
-                         <div class="text-left" ng-repeat="moment in sequenceForAdd.moments" ng-show="ratingPlan.type_rating_plan_id === 2">
-                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_moment_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
-                             <span>@{{moment.name}}</span>
+             <div class="col-12 ml-2 mt-1 row p-0 ml-0 mr-0" ng-show="sequences">
+                <!-- Toast -->
+                <div class="z-index-10 bg-success position-absolute color-white p-3" id="toast-name-1">
+                  @{{messageToast}}
+                 </div>
+              
+               <div class="p-0 col-md-6 col-sm-12" ng-show="sequenceForAdd" style="border: 10px solid white;">
+              <div class="d-none-result d-none row w-100 p-3">
+                  <div class="ml-2 pr-2 border-white-extent card card-body bg-dark row d-flex" >
+                    <div class="view" id="sequence-description-@{{sequenceForAdd.id}}">
+                      <div class="media">
+                         <div class="row col-5">
+                          <div class="col-12">
+                              <img ng-src="{{asset('/')}}@{{sequenceForAdd.url_image}}" width="142px" height="auto" style="width:142px"/>
+                          </div>
+                          <div class="col-12">
+                             <a ng-click="showMash(sequenceForAdd)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                                 <i class="fas fa-search"></i> Ver contenido
+                             </a>
+                          </div>
                          </div>
-                         <div class="text-left" ng-repeat="moment in sequenceForAdd.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
-                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
-                             <span>@{{moment.name}}</span>
+                        <div class="position-absolute" style="top:10px; transform : scale(2);">
+                          <input type="checkbox" class="sequence_ForAdd" ng-model="sequenceForAdd.isSelected" name="check_sequence_ForAdd_"@{{sequenceForAdd.id}} ng-change="onCheckChange(sequenceForAdd,null,sequenceForAdd)"/>
                          </div>
-                     </div>
+                        <div class="media-body pl-2 pr-3">
+                           <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequenceForAdd.name}}</h5>
+                           <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequenceForAdd.description}}</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                </div>
-
-               
-               <div ng-class="{'col-lg-4 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 1,
-                               'col-xl-4 col-lg-5 col-md-6 col-sm-12': ratingPlan.type_rating_plan_id === 2 || ratingPlan.type_rating_plan_id === 3}" class="col-12" 
-                    ng-repeat="sequence in sequences" style="border: 10px solid white;">
-                  <div class="card card-body bg-dark text-center pt-5 row sequence_div_responsive">
-                     <div class="position-absolute" style="top:10px; transform : scale(2);">
-                         <input type="checkbox" ng-model="sequence.isSelected" name="check_sequence_"@{{sequences.id}} ng-change="onCheckChange(sequence)"/>
-                     </div>
-
-                     <div class="col-5">
-                        <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="auto" height="auto" class="col-12 p-0"/> 
-                        <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
-                            <i class="fas fa-search"></i> Ver contenido
-                        </a>                     
-                     </div>
-                     <div class="col-7 pl-0 ml-2 text-left fs--1 flex-100" id="sequence-description-@{{sequence.id}}">
-                        <h5 class="pl-3 boder-header"> <span class="">@{{sequence.name}} </span></h5>  
-                        <p class="mt-4 ml-2"> @{{sequence.description}}</p>
-                     </div>
-                     <div class="fade bg-light moment_div_responsive row p-3" ng-show="sequence.isSelected" id="moment_div_responsive_@{{sequence.id}}"> 
-                         <div class="text-left" ng-repeat="moment in sequence.moments" ng-show="ratingPlan.type_rating_plan_id === 2">
-                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_moment_@{{moment.id}}" ng-change="onCheckChange(sequence,moment)"/>
-                             <span>@{{moment.name}}</span>
+               </div>
+               <div class="p-0 col-md-6 col-sm-12" style="border: 10px solid white;"
+                    ng-repeat="sequence in sequences">
+              <div class="row w-100 p-0">
+                  <div class="ml-2 pr-2 border-white-extent card card-body bg-dark row d-flex" >
+                    <div class="view" id="sequence-description-@{{sequence.id}}">
+                      <div class="media">
+                        <div class="row col-5">
+                          <div class="col-12">
+                              <img ng-src="{{asset('/')}}@{{sequence.url_image}}" width="142px" height="auto" style="width:142px"/>
+                          </div>
+                          <div class="col-12">
+                             <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                                 <i class="fas fa-search"></i> Ver contenido
+                             </a>
+                          </div>
                          </div>
-                         <div class="text-left" ng-repeat="moment in sequence.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
-                             <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_@{{moment.id}}" ng-change="onCheckChange(sequence,moment)"/>
-                             <span>@{{moment.name}}</span>
-                         </div>
-                     </div>
+                         <div class="position-absolute" style="top:10px; transform : scale(2);">
+                           <input type="checkbox" ng-model="sequence.isSelected" name="check_sequence_"@{{sequences.id}} ng-change="onCheckChange(sequence)"/>
+                          </div>
+
+                             <div class="media-body pl-2 pr-3">
+                             <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}}</h5>
+                             <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
+                          </div>
+                      </div>
+                    </div>
                   </div>
+               </div>
                </div>
              </div>
              

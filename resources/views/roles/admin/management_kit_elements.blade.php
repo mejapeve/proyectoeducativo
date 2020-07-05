@@ -39,7 +39,7 @@
                                             <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                                                 ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                                             </h6>
-                                            <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                                            <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = true;"
                                                  style="position: absolute;right: 35px;top: 19px;">
                                                 <i class="fas fa-caret-down"></i>
                                             </div>
@@ -73,7 +73,7 @@
                                         <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                                             ng-click="mbImageShow2=!mbImageShow2">Directorio: <small>@{{directoryPath2}}</small>
                                         </h6>
-                                        <div ng-show="!mbImageShow2" class="cursor-pointer" ng-click="alert('down');mbImageShow2 = true;"
+                                        <div ng-show="!mbImageShow2" class="cursor-pointer" ng-click="mbImageShow2 = true;"
                                              style="position: absolute;right: 35px;top: 19px;">
                                             <i class="fas fa-caret-down"></i>
                                         </div>
@@ -205,7 +205,7 @@
                                             <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                                                 ng-click="mbImageShow=!mbImageShow">Directorio: <small>@{{directoryPath}}</small>
                                             </h6>
-                                            <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="alert('down');mbImageShow = true;"
+                                            <div ng-show="!mbImageShow" class="cursor-pointer" ng-click="mbImageShow = true;"
                                                  style="position: absolute;right: 35px;top: 19px;">
                                                 <i class="fas fa-caret-down"></i>
                                             </div>
@@ -239,7 +239,7 @@
                                         <h6 class="p-2 mt-3 cursor-pointer conex-table card-header w-100" style="border: 1px solid;"
                                             ng-click="mbImageShow2=!mbImageShow2">Directorio: <small>@{{directoryPath2}}</small>
                                         </h6>
-                                        <div ng-show="!mbImageShow2" class="cursor-pointer" ng-click="alert('down');mbImageShow2 = true;"
+                                        <div ng-show="!mbImageShow2" class="cursor-pointer" ng-click="mbImageShow2 = true;"
                                              style="position: absolute;right: 35px;top: 19px;">
                                             <i class="fas fa-caret-down"></i>
                                         </div>

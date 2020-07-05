@@ -1,8 +1,9 @@
-MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $http) {
+MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", function ($scope, $http, $timeout) {
     $scope.ratingPlan = null;
     $scope.sequences = [];
     $scope.sequenceForAdd = null;
     $scope.elementsKits = [];
+    $scope.meshDirectory = null;
     
     var type_sequence = 1;
     var type_moment = 2;
@@ -13,23 +14,21 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
     $scope.selectComplete = false;
     $scope.requiredMoment = false;
     $scope.errorMessageFilter = '';
-	$("#toast-name-1").fadeOut();
-	
-	var scrollOrig = $("#toast-name-1").offset().top;
-	var scrollOrig = $("#toast-name-1").offset().left;
-	
-	function clickSelected(totalSequences, ratingPlanCount) {
-	  $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  secuencias.';
-	  $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
-	  $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
-	};
+    $("#toast-name-1").fadeOut();
+    
+    var scrollOrig = $("#toast-name-1").offset().top;
+    var scrollOrig = $("#toast-name-1").offset().left;
+    
+    function clickSelected(totalSequences, ratingPlanCount) {
+      $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  secuencias.';
+      $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
+      $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
+    };
 
     $scope.init = function(company_id, ratingPlanId, sequence_id) {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
-		
-        var params = window.location.href.split('/');
-		
+        
         $http({
             url:"/get_rating_plan/" + ratingPlanId,
             method: "GET",
@@ -61,18 +60,18 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                 if(Number($scope.sequences[i].id) ===  Number(sequence_id) ) {
                     $scope.sequenceForAdd = Object.assign({},$scope.sequences[i]) ;
                     $scope.sequenceForAdd.isSelected = true;
-					clickSelected(1, $scope.ratingPlan.count);
-					
-					$scope.selectComplete =  Number($scope.ratingPlan.count) === 1;
-					if($scope.selectComplete) {
-						$('.confirm_rating').addClass("btn-primary");
-						$('.confirm_rating').removeClass("btn-outline-primary");
-					}
-					else {
-						$('.confirm_rating').removeClass("btn-primary");
-						$('.confirm_rating').addClass("btn-outline-primary");
-					}
-					
+                    clickSelected(1, $scope.ratingPlan.count);
+                    
+                    $scope.selectComplete =  Number($scope.ratingPlan.count) === 1;
+                    if($scope.selectComplete) {
+                        $('.confirm_rating').addClass("btn-primary");
+                        $('.confirm_rating').removeClass("btn-outline-primary");
+                    }
+                    else {
+                        $('.confirm_rating').removeClass("btn-primary");
+                        $('.confirm_rating').addClass("btn-outline-primary");
+                    }
+                    
                 }
                 else {
                     listTemp.push($scope.sequences[i]);
@@ -93,10 +92,10 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         if( $scope.ratingPlan.type_rating_plan_id === type_sequence) {
             var totalSequences = 0;
             
-			if($scope.sequenceForAdd && $scope.sequenceForAdd.isSelected ) {
+            if($scope.sequenceForAdd && $scope.sequenceForAdd.isSelected ) {
                 totalSequences++;
             }
-			
+            
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
               if(sequenceTmp.isSelected) totalSequences++;
             });
@@ -119,8 +118,8 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
                     $('.confirm_rating').removeClass("btn-primary");
                     $('.confirm_rating').addClass("btn-outline-primary");
                 }
-				
-				clickSelected(totalSequences, $scope.ratingPlan.count);
+                
+                clickSelected(totalSequences, $scope.ratingPlan.count);
             }
         }
         //Rating plan for moment or experience
@@ -311,14 +310,110 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", function ($scope, $
         });
     }
     
+    
     $scope.showMash = function (sequence) {
         var width = $( window ).width() * 492 / 1280;
-        var html = '<img src="/'+sequence.mesh+'" width="'+width+'px" height="auto">';
-        swal({
-            html: html,
-            width: '50%',
-            showConfirmButton: false, showCancelButton: false
-        }).catch(swal.noop);
+        if(sequence.mesh) {
+            $http.post('/conexiones/admin/get_folder_image', { 'dir': sequence.mesh }).then(function (response) {
+                $scope.meshDirectory = [];
+                //Javascript control image index
+                _mbControl = 0;
+                
+                var i = 0;
+                var htmlImg = '';
+                for(var dir in response.data.scanned_directory) {
+                    
+                    if(response.data.scanned_directory[dir]!=='..') {
+                        if(response.data.directory.substr(response.data.directory.length-1,1) === '/') {
+                            response.data.directory = response.data.directory.substr(0,response.data.directory.length-1);
+                        }
+                        var src = response.data.directory + '/' + response.data.scanned_directory[dir];
+                        $scope.meshDirectory.push(src);
+                        htmlImg += '<div id="id-image-'+i+'"><img src="/'+src+'" width="'+width+'px" height="auto"></div>';    
+                        i++;
+                    }
+                    
+                    
+                }
+                
+                var html = '<div ng-init="idElement=0;">' + 
+                            '<div class="row mt-2 mb-3">'+
+                                '<div class="ml-auto mr-auto">'+
+                                '<button id="btnOnPrevius" onclick="onPrevius(\''+i+'\');"  class="btn btn-sm btn-primary">Previo</button>'+
+                                '<button id="btnOnNext" onclick="onNext(\''+i+'\');" class="btn btn-sm btn-primary ml-2">Siguiente</button>'+
+                                '</div>'+
+                            '</div>' + htmlImg + '</div>';
+                swal({
+                    html: html,
+                    width: '50%',
+                    showConfirmButton: false, showCancelButton: false
+                }).catch(swal.noop);
+                
+                $timeout(function () {
+                    _mbControl = 0;
+                    $('#btnOnPrevius').click(function() {onPrevius(i);});
+                    $('#btnOnNext').click(function() {onNext(i);});
+                    $('#btnOnPrevius').attr('disabled', true);
+
+                    $('div[id^="id-image-"]').hide();
+                    $('#id-image-' + _mbControl).show();
+                }, 300);
+                
+            },function(e){
+                var message = 'Error consultando el directorio';
+                if(e.message) {
+                    message += e.message;
+                }
+                $scope.errorMessage = angular.toJson(message);
+                $scope.meshDirectory = null;
+            });
+        } else {
+            var html = '<img src="/images/icons/NoImageAvailable.jpeg" width="'+width+'px" height="auto">';
+            swal({
+                html: html,
+                width: '50%',
+                showConfirmButton: false, showCancelButton: false
+            }).catch(swal.noop);
+        }
     }
 
 }]);
+
+//Javascript control image index
+var _mbControl = 0;
+$('div[id^="id-image-"]').hide();
+$('#id-image-' + _mbControl).show();
+
+function onNext(arrayLenght){
+    if(_mbControl + 1 < arrayLenght ) {
+        _mbControl ++;
+        $('div[id^="id-image-"]').hide();
+        $('#id-image-' + _mbControl).show();
+        if(_mbControl + 1 >= arrayLenght ) {
+           $('#btnOnNext').attr('disabled', true);
+        }
+        else {
+            $('#btnOnNext').attr('disabled', false);
+        }
+        
+        $('#btnOnPrevius').attr('disabled', false);
+    }
+}
+
+
+function onPrevius(arrayLenght){
+    if(_mbControl > 0 ) {
+        _mbControl --;
+        $('div[id^="id-image-"]').hide();
+        $('#id-image-' + _mbControl).show();
+
+        if(_mbControl - 1 > 0 ) {
+            $('#btnOnPrevius').attr('disabled', false);
+        }
+        else {
+            $('#btnOnPrevius').attr('disabled', true);
+        }
+        
+        $('#btnOnNext').attr('disabled', false);
+    }
+}

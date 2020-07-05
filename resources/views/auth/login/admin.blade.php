@@ -44,9 +44,6 @@
                                 {{ __('Entrar') }}
                             </button>
                         </div>
-                        @if ($errors->any())
-                        {{ $errors }}
-                        @endif
                     </div>
 
                     <div class="form-group row mt-3 justify-content-center">

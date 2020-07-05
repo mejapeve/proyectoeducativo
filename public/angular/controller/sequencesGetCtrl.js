@@ -101,16 +101,71 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
     };
     
     $scope.showMash = function (sequence) {
-        
         var width = $( window ).width() * 492 / 1280;
-        var html = '<img src="/'+sequence.mesh+'" width="'+width+'px" height="auto">';
-        swal({
-            html: html,
-            width: '50%',
-            showConfirmButton: false, showCancelButton: false
-        }).catch(swal.noop);
-    }
+        if(sequence.mesh) {
+            $http.post('/conexiones/admin/get_folder_image', { 'dir': sequence.mesh }).then(function (response) {
+                $scope.meshDirectory = [];
+                //Javascript control image index
+                _mbControl = 0;
+                
+                var i = 0;
+                var htmlImg = '';
+                for(var dir in response.data.scanned_directory) {
+                    
+                    if(response.data.scanned_directory[dir]!=='..') {
+                        if(response.data.directory.substr(response.data.directory.length-1,1) === '/') {
+                            response.data.directory = response.data.directory.substr(0,response.data.directory.length-1);
+                        }
+                        var src = response.data.directory + '/' + response.data.scanned_directory[dir];
+                        $scope.meshDirectory.push(src);
+                        htmlImg += '<div id="id-image-'+i+'"><img src="/'+src+'" width="'+width+'px" height="auto"></div>';    
+                        i++;
+                    }
+                    
+                    
+                }
+                
+                var html = '<div ng-init="idElement=0;">' + 
+                            '<div class="row mt-2 mb-3">'+
+                                '<div class="ml-auto mr-auto">'+
+                                '<button id="btnOnPrevius" onclick="onPrevius(\''+i+'\');"  class="btn btn-sm btn-primary">Previo</button>'+
+                                '<button id="btnOnNext" onclick="onNext(\''+i+'\');" class="btn btn-sm btn-primary ml-2">Siguiente</button>'+
+                                '</div>'+
+                            '</div>' + htmlImg + '</div>';
+                swal({
+                    html: html,
+                    width: '50%',
+                    showConfirmButton: false, showCancelButton: false
+                }).catch(swal.noop);
+                
+                $timeout(function () {
+                    _mbControl = 0;
+                    $('#btnOnPrevius').click(function() {onPrevius(i);});
+                    $('#btnOnNext').click(function() {onNext(i);});
+                    $('#btnOnPrevius').attr('disabled', true);
 
+                    $('div[id^="id-image-"]').hide();
+                    $('#id-image-' + _mbControl).show();
+                }, 300);
+                
+            },function(e){
+                var message = 'Error consultando el directorio';
+                if(e.message) {
+                    message += e.message;
+                }
+                $scope.errorMessage = angular.toJson(message);
+                $scope.meshDirectory = null;
+            });
+        } else {
+            var html = '<img src="/images/icons/NoImageAvailable.jpeg" width="'+width+'px" height="auto">';
+            swal({
+                html: html,
+                width: '50%',
+                showConfirmButton: false, showCancelButton: false
+            }).catch(swal.noop);
+        }
+    }
+   
     $scope.onSequenceBuy = function (sequence) {
         var ratingPlans = '';
         for(var i = 0; i < $scope.ratingPlans.length; i++) {
@@ -124,18 +179,57 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
                var href = '/plan_de_acceso/' + rt.id + '/' + rt.name + '/' + $scope.sequence.id;
                var button = '<a href="'+href+'" class="ml-auto mr-auto btn btn-sm btn-outline-primary w-50">Adquirir</a>';    
                ratingPlans += '<div class="mt-3 col-12 col-md-4 "><div class="p-2 card" style="border-radius: 13px;">'+
-			   '<h6 class="font-weight-bold card-rating-plan-id-'+ i +'">'+rt.name+'</h6>' + 
-			   '<ul class=" text-left fs-2">' + items + '</ul>'+button+'</div></div>';
+               '<h6 class="font-weight-bold card-rating-plan-id-'+ i +'">'+rt.name+'</h6>' + 
+               '<ul class=" text-left fs-2">' + items + '</ul>'+button+'</div></div>';
             }
         }
         var html = '<div class="row justify-content-center">' + ratingPlans + '</div>';
         swal({
-            title: '<small class="p-2 rounded" style="background-color: white;padding: 7px;">Debes seleccionar un plan de acceso para adquirir esta guía</small>',
             html: html,
             width: '75%',
             showConfirmButton: false, showCancelButton: false
         }).catch(swal.noop);
-		$('.swal2-show').css('background-color','transparent');
+        $('.swal2-show').css('background-color','transparent');
     }
 
 });
+
+
+//Javascript control image index
+var _mbControl = 0;
+$('div[id^="id-image-"]').hide();
+$('#id-image-' + _mbControl).show();
+
+function onNext(arrayLenght){
+    if(_mbControl + 1 < arrayLenght ) {
+        _mbControl ++;
+        $('div[id^="id-image-"]').hide();
+        $('#id-image-' + _mbControl).show();
+        if(_mbControl + 1 >= arrayLenght ) {
+           $('#btnOnNext').attr('disabled', true);
+        }
+        else {
+            $('#btnOnNext').attr('disabled', false);
+        }
+        
+        $('#btnOnPrevius').attr('disabled', false);
+    }
+}
+
+
+function onPrevius(arrayLenght){
+    if(_mbControl > 0 ) {
+        _mbControl --;
+        $('div[id^="id-image-"]').hide();
+        $('#id-image-' + _mbControl).show();
+
+        if(_mbControl - 1 > 0 ) {
+            $('#btnOnPrevius').attr('disabled', false);
+        }
+        else {
+            $('#btnOnPrevius').attr('disabled', true);
+        }
+        
+        $('#btnOnNext').attr('disabled', false);
+    }
+}
