@@ -127,12 +127,13 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
 
             var totalMoments = 0;
             
-            $('#moment_div_responsive_ForAdd').removeClass('show');
-            
             if(sequenceForAdd) {
                 $('#moment_div_responsive_ForAdd').addClass('show');
             }
             else {
+				if(!$scope.sequenceForAdd) {
+					$('#moment_div_responsive_ForAdd').removeClass('show');
+				}
                 if(sequence.isSelected) {
                     $('#moment_div_responsive_'+sequence.id).addClass('show');
                 }
@@ -159,7 +160,6 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 moment.isSelected = false;
                 swal({
                   title: "Número máximo de momentos permitidos",
-                  type: "error",
                   buttons: true,
                   dangerMode: true,
                 })

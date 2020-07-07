@@ -52,13 +52,25 @@
                         <div class="media-body pl-2 pr-3">
                            <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequenceForAdd.name}}</h5>
                            <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequenceForAdd.description}}</div>
-						   <div class="col-12">
-						    <a ng-click="showMash(sequenceForAdd)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                           <div class="col-12">
+                            <a ng-click="showMash(sequenceForAdd)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
                                  <i class="fas fa-search"></i> Ver contenido
                              </a>
                              <a ng-click="showVideo(sequenceForAdd)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
                                  <i class="fas fa-search"></i> Ver video
                              </a>
+                             
+                            <div class="fade bg-light mt-2 row p-3" ng-show="sequenceForAdd.isSelected" id="moment_div_responsive_ForAdd"> 
+                                 <div class="text-left" ng-repeat="moment in sequenceForAdd.moments" ng-show="ratingPlan.type_rating_plan_id === 2">
+                                     <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_moment_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
+                                     <span>@{{moment.name}}</span>
+                                 </div>
+                                 <div class="text-left" ng-repeat="moment in sequenceForAdd.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
+                                     <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequenceForAdd,moment,sequenceForAdd)"/>
+                                     <span>@{{moment.name}}</span>
+                                 </div>
+                             </div>
+                     
                           </div>
 
                         </div>
@@ -83,7 +95,7 @@
                           </div>
 
                              <div class="media-body pl-2 pr-3">
-                             <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}}</h5>
+                             <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}} @{{sequence.isSelected}}</h5>
                              <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
                              <div class="col-12">
                                  <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
@@ -92,6 +104,18 @@
                                  <a ng-click="showVideo(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
                                      <i class="fas fa-search"></i> Ver video
                                  </a>
+                                 
+                                <div class="fade bg-light mt-2 row p-3" ng-show="sequence.isSelected" id="moment_div_responsive_@{{sequence.id}}"> 
+                                     <div class="text-left" ng-repeat="moment in sequence.moments" ng-show="ratingPlan.type_rating_plan_id === 2">
+                                         <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_moment_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequence,moment,sequence)"/>
+                                         <span>@{{moment.name}}</span>
+                                     </div>
+                                     <div class="text-left" ng-repeat="moment in sequence.moments"  ng-show="ratingPlan.type_rating_plan_id === 3">
+                                         <input class="transform-scale-2 ml-3 mt-1 mr-2" type="checkbox" ng-model="moment.isSelected" name="check_experience_ForAdd@{{moment.id}}" ng-change="onCheckChange(sequence,moment,sequence)"/>
+                                         <span>@{{moment.name}}</span>
+                                     </div>
+                                 </div>
+                                 
                              </div>
                           </div>
                       </div>
