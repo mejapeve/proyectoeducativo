@@ -7,7 +7,7 @@
             <h4 class=" boder-header p-1 pl-3">
                Implementos de Laboratorio
             </h4>
-            <p>La guía de aprendizaje adquirida contiene implementos de laboratorio que también podrá adquirir, si no desea adquirirlos omita este paso y continue con la compra.</p>
+            <p>La guía de aprendizaje seleccionada contiene implementos de laboratorio que también podrá incluir, si no desea adquirirlos omita este paso y continúe con la compra.</p>
             
             <div class="row">
                 <div ng-repeat="elementsKit in elementsKits" class="text-center col-xl-4 col-md-6 col-12 border-white-extent">

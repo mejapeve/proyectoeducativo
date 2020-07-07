@@ -21,14 +21,14 @@
                </div>
             </div>
             <div class="ml-2 pr-lg-5 pr-md-4 pr-sm-2 col-12">
-                <p>Es importante tener en cuenta que si bien hay una ruta de viaje trazada, en Conexiones se puede  elegir hacer el recorrido en el orden propuesto o de manera aleatoria, pues aunque los momentos de cada guía de aprendizaje se relacionan entre sí, cada uno puede abordarse independientemente.</p>
-                <p>De esta manera, Conexiones tiene una estructura flexible que se adapta  a diversos intereses de aprendizaje, planes de estudio y disponibilidad de tiempo,  dando la opción de elegir entre las siguientes opciones: </p>
+                <p>Es importante tener en cuenta que si bien hay <strong>una ruta de viaje</strong> trazada, en <strong>Conexiones</strong> se puede  elegir hacer el recorrido en el <strong>orden</strong> propuesto o de manera <strong>aleatoria</strong>, pues aunque los <strong>momentos</strong> de cada <strong>guía de aprendizaje</strong> se relacionan entre sí, cada uno puede abordarse independientemente.</p>
+                <p>De esta manera, Conexiones tiene una <strong>estructura flexible</strong> que se adapta  a diversos <strong>intereses de aprendizaje</strong>, <strong>planes de estudio</strong> y disponibilidad de <strong>tiempo</strong>,  dando la opción de elegir entre las siguientes <strong>opciones</strong>: </p>
                 <ul>
-                <li>Guía de aprendizaje completa con sus ocho momentos, cada uno con preguntas exploradoras de saberes, experiencias científicas, explicaciones de ciencias  en contexto e  ideas para + conexiones. </li>
-                <li>Uno o varios momentos o etapas de una misma guía de aprendizaje o de  varias.</li>
-                <li>Una o varias experiencias científicas, con los videos orientadores para su realización.</li>
+                <li><strong>Guía de aprendizaje completa</strong> con sus <strong>ocho momentos</strong>, cada uno con preguntas exploradoras de saberes, experiencias científicas, explicaciones de ciencias  en contexto e  ideas para + conexiones. </li>
+                <li><strong>Uno</strong> o <strong>varios momentos</strong> o etapas de una misma guía de aprendizaje o de  varias.</li>
+                <li><strong>Una</strong> o <strong>varias experiencias</strong> científicas, con los videos orientadores para su realización.</li>
                 </ul>
-                <p>A continuación puede consultar los diferentes planes disponibles. Si tiene dudas o sugerencias, contáctenos y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
+                <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, contáctenos y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
             </div>
             <div class="d-none-result d-none row col-12 ml-auto mr-auto">
                <div class="mt-xl-0 mt-5 col-xl-1_5 col-lg-2 col-md-3 col-sm-4 col-6 pl-0 pr-0" ng-repeat="ratingPlan in ratingPlans" style="border: 10px solid white;">

@@ -17,10 +17,10 @@
                 </h4>
              </div>
                           
-             <ul class="text-justify pr-4 mb-0">
+             <ul class="text-justify pr-4 pl-3 mb-0">
                 <p>@{{ratingPlan.description}}</p>
-                <p> A continuación, te mostramos las guías de aprendizaje disponibles. Para conocer de qué se tratan y cuáles son sus contenidos pueden hacer clic en detalles, allí encontrarán un video introductorio y una malla curricular en la que se describen los propósitos de cada momento, la pregunta central, el eje temático de la explicación de ciencia en contexto, las experiencias científicas propuestas y los materiales que se requieren para esta.     </p>
-                <p>Si tiene alguna pregunta pueden escribirnos a través del formulario de contacto. </p>
+                <p>A continuación, te mostramos las <strong>guías de aprendizaje</strong> disponibles. Para conocer de qué se tratan y cuáles son sus contenidos pueden hacer clic en <strong>ver detalle</strong>, allí encontrarán un video introductorio y una <strong>malla curricular</strong> en la que se describen los <strong>propósitos de cada momento</strong>, la <strong>pregunta central</strong>, el eje temático de la <strong>explicación de ciencia en contexto</strong>, las <strong>experiencias científicas</strong> propuestas y los <strong>materiales</strong> que se requieren para esta.</p>
+                <p>Si tienes alguna pregunta puedes escribirnos a través del formulario de contacto. </p>
              </ul>
              
              <div class="col-12 text-right r-0 w-md-50" id="div-continue" style="background-color: white; z-index: 10; ">

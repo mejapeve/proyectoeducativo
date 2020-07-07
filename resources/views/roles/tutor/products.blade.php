@@ -47,7 +47,7 @@
         </div>
         
         <div class="no-gutters" ng-show="ratingPlans && ratingPlans.length > 0">
-          <h6 class="mt-3 mb-4"> No olvides nuestros planes y beneﬁcios para ampliar las posibilidades de aprendizaje.</h6>
+          <h6 class="mt-3 mb-4"> Recuerda nuestros planes y beneﬁcios para ampliar las posibilidades de aprendizaje.</h6>
           <div class="row">
               <div ng-hide="ratingPlan.is_free"class="mb-6 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6" 
                   ng-repeat="ratingPlan in ratingPlans track by $index">
