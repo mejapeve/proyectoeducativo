@@ -66,7 +66,7 @@ class CompanyController extends Controller
             ])->get();
         }
 
-        $companySequence = CompanySequence::select('id', 'name', 'description', 'url_image', 'keywords', 'areas', 'themes', 'objectives', 'mesh')->with(
+        $companySequence = CompanySequence::select('id', 'name', 'description', 'url_image', 'keywords', 'areas', 'themes', 'objectives', 'mesh', 'url_vimeo')->with(
             ['moments' => function ($query) {
                 $query->select('id', 'sequence_company_id', 'order', 'name', 'description', 'objectives')
                     ->with(['experiences' => function ($query) {

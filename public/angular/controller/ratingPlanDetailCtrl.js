@@ -312,7 +312,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
     
     
     $scope.showMash = function (sequence) {
-        var width = $( window ).width() * 492 / 1280;
+        var height = $( window ).width() * 492 / 1280;
         if(sequence.mesh) {
             $http.post('/conexiones/admin/get_folder_image', { 'dir': sequence.mesh }).then(function (response) {
                 $scope.meshDirectory = [];
@@ -329,7 +329,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                         }
                         var src = response.data.directory + '/' + response.data.scanned_directory[dir];
                         $scope.meshDirectory.push(src);
-                        htmlImg += '<div id="id-image-'+i+'"><img src="/'+src+'" width="'+width+'px" height="auto"></div>';    
+                        htmlImg += '<div id="id-image-'+i+'"><img src="/'+src+'" height="'+height+'px" width="auto"></div>';    
                         i++;
                     }
                     
@@ -368,13 +368,28 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 $scope.meshDirectory = null;
             });
         } else {
-            var html = '<img src="/images/icons/NoImageAvailable.jpeg" width="'+width+'px" height="auto">';
+            var html = '<img src="/images/icons/NoImageAvailable.jpeg" height="'+height+'px" width="auto">';
             swal({
                 html: html,
                 width: '50%',
                 showConfirmButton: false, showCancelButton: false
             }).catch(swal.noop);
         }
+    }
+
+    $scope.showVideo = function (sequence) {
+        var width = $( window ).width() * 50/100;
+		var height = $( window ).height() * 50/100;
+		var width1 = width * 90/100;
+		var height1 = height * 100/100;
+        var html = '<div class="m-auto" style="height:'+height+'px;width:'+width+'px;"><iframe src="'+sequence.url_vimeo+'" width="'+width1+'px"  height="'+height1+'px" frameborder="0" webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false"></iframe></div>';
+
+        swal({
+            html: html,
+            width: '75%',
+            showConfirmButton: false, showCancelButton: false
+        }).catch(swal.noop);
+    
     }
 
 }]);

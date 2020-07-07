@@ -50,12 +50,15 @@
           <h6 class="mt-3 mb-4"> No olvides nuestros planes y beneﬁcios para ampliar las posibilidades de aprendizaje.</h6>
           <div class="row">
               <div ng-hide="ratingPlan.is_free"class="mb-6 col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6" 
-                  ng-repeat="ratingPlan in ratingPlans">
+                  ng-repeat="ratingPlan in ratingPlans track by $index">
                   <div class="card card-body pr-2 pl-2 pb-0 h-100">
                      <div class=" ml-2 fs--3 flex-100">
-                        <h6 class="text-center fs--3"> <span class="ml-2">@{{ratingPlan.name}} </span></h6>  
-                        <ul class="p-0 fs--3" ng-repeat="item in ratingPlan.description_items">
-                            <li class="fs--3 small pr-3 mt-4 ml-2"> @{{item}}</li>
+                        <h6 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h6>  
+                        <ul class="p-0" ng-repeat="item in ratingPlan.description_items">
+                            <li class="fs-1 small pl-1 pr-2 mt-3 ml-3 card-rating-plan-id-@{{$parent.$index}}"> 
+							<span class="color-gray-dark fs--1">
+							@{{item}}
+							</span></li>
                         </ul>
                      </div>
                   </div>
