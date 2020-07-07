@@ -60,7 +60,7 @@
                                   @foreach($elements as $element)
                                     @if($element['type'] == 'text-element' || $element['type'] == 'text-area-element')
                                        <div ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
-                                            style="{{$element['style']}}"
+                                            style="@if(isset($element['style'])) {{$element['style']}} @endif"
                                             class="@if(isset($element['class'])){{ $element['class']}} @endif p-0 font-text card-body col-7" w="{{$element['w']}}" h="{{$element['h']}}" mt="{{$element['mt']}}" ml="{{$element['ml']}}" fs="{{$element['fs']}}">
                                         {!! $element['text'] !!}
                                        </div>
@@ -68,14 +68,14 @@
                                     @if($element['type'] == 'image-element')
                                         <div class="z-index-1" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
                                             <img class="@if(isset($element['class'])){{ $element['class']}} @endif"
-                                            style="{{$element['style']}}"
+                                            style="@if(isset($element['style'])) {{$element['style']}} @endif"
                                             src="{{asset($element['url_image'])}}" w="{{$element['w']}}" h="{{$element['h']}}"/>
                                         </div>    
                                     @endif
                                     @if($element['type'] == 'video-element' && isset($element['url_vimeo']))
                                        <div class="z-index-2" mt="{{$element['mt']}}" ml="{{$element['ml']}}">
                                             <iframe src="{{$element['url_vimeo']}}" w="{{$element['w']}}" h="{{$element['h']}}" frameborder="0" 
-                                            style="{{$element['style']}}"
+                                            style="@if(isset($element['style'])) {{$element['style']}} @endif"
                                             class="@if(isset($element['class'])){{ $element['class']}} @endif"
                                             webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false">
                                             </iframe>
@@ -98,7 +98,7 @@
                                         @else
                                           class="{{$element['class']}} cursor-pointer"
                                         @endif
-                                          style="{{$element['style']}}"
+                                          style="@if(isset($element['style'])) {{$element['style']}} @endif"
                                           ml="{{$element['ml']}}" mt="{{$element['mt']}}" w="{{$element['w']}}" h="{{$element['h']}}">
                                          {{$element['text']}}
                                         </button>
@@ -112,7 +112,7 @@
                                     <div ml="{{$element['ml']}}" mt="{{$element['mt']}}">
                                         <div id="{{$element['id']}}" class="{{$element['class']}} evidence-head cursor-pointer" 
                                            ng-style="{@if(isset($element['color'])) 'color': '{{$element['color']}}', @endif @if(isset($element['background_color'])) 'background-color': '{{$element['background_color']}}', @endif}" 
-                                           style="{{$element['style']}}"
+                                           style="@if(isset($element['style'])) {{$element['style']}} @endif"
                                            w="{{$element['w']}}" h="{{$element['h']}}" fs="{{$element['fs']}}"
                                            ng-click="onClickEvidence('{{$sequence_id}}','{{$moment->id}}','{{$element['id']}}','@if(isset($element['icon'])){{$element['icon']}}@endif','@if(isset($element['subtitle'])){{$element['subtitle']}}@endif')">
                                            @if(isset($element['icon']))

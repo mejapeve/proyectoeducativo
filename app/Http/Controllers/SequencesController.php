@@ -44,9 +44,10 @@ class SequencesController extends Controller
             $sequence->url_slider_images = isset($data['url_slider_images']) ? $data['url_slider_images'] : null;
             $sequence->keywords = isset($data['keywords']) ? $data['keywords'] : null;
             $sequence->areas = isset($data['areas']) ? $data['areas'] : null;
+            $sequence->url_vimeo = isset($data['url_vimeo']) ? $data['url_vimeo'] : null;
             $sequence->themes = isset($data['themes']) ? $data['themes'] : null;
             $sequence->objectives = isset($data['objectives']) ? $data['objectives'] : null;
-            $sequence->objectives = isset($data['mesh']) ? $data['mesh'] : null;
+            $sequence->mesh = isset($data['mesh']) ? $data['mesh'] : null;
             $var_sections = ['section_1', 'section_2', 'section_3', 'section_4'];
             for ($i = 0; $i < count($var_sections); $i++) {
                 if (isset($data[$var_sections[$i]])) {
@@ -139,6 +140,8 @@ class SequencesController extends Controller
             $sequence->objectives = $data['objectives'];
         if (isset($data['mesh']))
             $sequence->mesh = $data['mesh'];
+        if (isset($data['url_vimeo']))
+            $sequence->url_vimeo = $data['url_vimeo'];
         if (isset($data['init_date']))
             $sequence->init_date = $data['init_date'];
         if (isset($data['expiration_date']))

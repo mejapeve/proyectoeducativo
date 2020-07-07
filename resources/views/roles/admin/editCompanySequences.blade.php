@@ -538,7 +538,7 @@
                ng-model="elementParentEdit[elementEdit]" rows="5" class="w-100">
             </textarea>
             <input ng-show="typeEdit === 'video'" ng-change="onChangeInput(elementParentEdit[elementEdit])"
-               ng-model="elementParentEdit[elementEdit] || 'https://player.vimeo.com/video/286898202'" class="w-100" />
+               ng-model="elementParentEdit[elementEdit]" class="w-100" />
 
             <div ng-show="typeEdit === 'slide-images'">
                <h6><small>Seleccione el directorio</small></h6>

@@ -237,7 +237,7 @@
             <div class="p-4" style="padding-bottom: 0px!important;">
                 <a href="{{ route('user.login') }}">
                     <i class="fa fas fa-arrow-right arrow-icon"></i>
-                    Si ya tiene una cuenta registrada, inicie sesión desde el familiar y podra adquirir al plan gratutio
+                    Si ya tiene una cuenta registrada, inicie sesión desde el perfíl de familiar y podrá adquirir al plan gratuito
                 </a>
             </div>
             @endif

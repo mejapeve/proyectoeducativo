@@ -621,7 +621,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
     }
     
     function saveEvidence(sectionPart,callback){
-        var countElements = sectionPart.elements.length;
+        var countElements = sectionPart.elements? sectionPart.elements.length : 0;
         var countElementsError = [];
         if($scope.applyChangeEvidence) {
             var data = { 
@@ -632,13 +632,20 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
             .then(function (response) {
                 sectionPart.elements = sectionPart.elements || [];
                 var element = null;
-                function refreshQuestion(questions,response) {
-                    for(var i=0;i<questions.length;i++){
-                        if(response.data && response.data.id && questions[i].title === response.data.title) {
-                            questions[i].id = response.data.id;
+				
+                function refreshQuestion(question) {
+					for(var i=0;i<sectionPart.elements.length;i++) {
+						element = sectionPart.elements[i];
+						if(element.type === 'evidence-element') {
+							for(var j=0;j<element.questions.length;j++) {
+								if(element.questions[j].id === question.id || element.questions[j].title === question.title) {
+									element.questions[j].id = question.id;
+								}
+							}
                         }
-                    }
+					}
                 }
+				
                 for(var i=0;i<sectionPart.elements.length;i++) {
                     element = sectionPart.elements[i];
                     if(element.type === 'evidence-element') {
@@ -661,12 +668,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
                                     "experience_id":  element.id,
                                     "options": removeHashKey(element.questions[j].options),
                                     "review": removeHashKey(element.questions[j].review),
-                                    "type_answer": $scope.elementEdit.questionEditType
+                                    "type_answer": element.questionEditType
                                 }
                                 $http.post('/register_update_question/', data)
                                 .then(function (response) {
                                     if (response && response.status === 200) {
-                                        refreshQuestion(element.questions,response.data);
+                                        refreshQuestion(response.data.data);
                                         finishCallback();
                                     }
                                     else {
@@ -1119,7 +1126,7 @@ MyApp.directive('conxEvidenceQuestions', function () {
                     'link image imagetools table spellchecker lists'
                   ],
                   contextmenu: "link image imagetools table spellchecker lists",
-                  content_css: '//www.tiny.cloud/css/codepen.min.css'
+                  content_css: "body { color: #E15433; }"
                 });
             }
             
