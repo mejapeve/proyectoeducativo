@@ -17,10 +17,16 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
     $("#toast-name-1").fadeOut();
     
     var scrollOrig = $("#toast-name-1").offset().top;
-    var scrollOrig = $("#toast-name-1").offset().left;
     
     function clickSelected(totalSequences, ratingPlanCount) {
-      $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  secuencias.';
+      if(ratingPlanCount === 0) ratingPlanCount = ' los ';
+      
+      if($scope.ratingPlan.type_rating_plan_id === type_sequence) {
+         $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  secuencias.';
+      }
+      else if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
+         $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  momentos';
+      }
       $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
       $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
     };
@@ -60,8 +66,16 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 if(Number($scope.sequences[i].id) ===  Number(sequence_id) ) {
                     $scope.sequenceForAdd = Object.assign({},$scope.sequences[i]) ;
                     $scope.sequenceForAdd.isSelected = true;
-                    clickSelected(1, $scope.ratingPlan.count);
-                    
+                    if( $scope.ratingPlan.type_rating_plan_id === type_sequence) {
+                       clickSelected(1, $scope.ratingPlan.count);
+                    }
+                    else if( $scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
+						$('#moment_div_responsive_ForAdd').addClass('show');
+                        $scope.messageToast = 'Seleccciona los momentos que deseas incluir';
+                        $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
+                        $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());                
+                    }
+						
                     $scope.selectComplete =  Number($scope.ratingPlan.count) === 1;
                     if($scope.selectComplete) {
                         $('.confirm_rating').addClass("btn-primary");
@@ -84,7 +98,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
         });
     }
     
-    $scope.onCheckChange = function(sequence,moment,sequenceForAdd) {
+    $scope.onCheckChange = function(sequence,moment,sequenceIdForAdd) {
         
         if(!$scope.ratingPlan) return;
         
@@ -127,13 +141,13 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
 
             var totalMoments = 0;
             
-            if(sequenceForAdd) {
+            if(sequenceIdForAdd) {
                 $('#moment_div_responsive_ForAdd').addClass('show');
             }
             else {
-				if(!$scope.sequenceForAdd) {
-					$('#moment_div_responsive_ForAdd').removeClass('show');
-				}
+                if(!$scope.sequenceForAdd) {
+                    $('#moment_div_responsive_ForAdd').removeClass('show');
+                }
                 if(sequence.isSelected) {
                     $('#moment_div_responsive_'+sequence.id).addClass('show');
                 }
@@ -174,6 +188,8 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                     $('.confirm_rating').removeClass("btn-primary");
                     $('.confirm_rating').addClass("btn-outline-primary");
                 }
+                
+                 clickSelected(totalMoments, $scope.ratingPlan.count);
             }
         }
     
@@ -200,15 +216,15 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 
                 for(var i=0;i<sequenceTmp.moments.length;i++) {
                     moment = sequenceTmp.moments[i];
-                    for(var j=0;j<moment.moment_kit.length;i++) {
-                        kit = moment.moment_kit[i].kit;
+                    for(var j=0;j<moment.moment_kit.length;j++) {
+                        kit = moment.moment_kit[j].kit;
                         if(kit) {
                             kit.type = 'kit';
                             if(!searchElementKit(kit)) {
                                 $scope.elementsKits.push(kit);
                             }
-                            for(var j=0;j<kit.kit_elements.length;j++) {
-                                element = kit.kit_elements[j].element;
+                            for(var k=0;k<kit.kit_elements.length;k++) {
+                                element = kit.kit_elements[k].element;
                                 element.type = 'element';
                                 if(!searchElementKit(element)) {
                                     $scope.elementsKits.push(element);
@@ -216,7 +232,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                             }
                         }
                         else {
-                            element = moment.moment_kit[i].element;
+                            element = moment.moment_kit[j].element;
                             if(element) {
                                 element.type = 'element';
                                 if(!searchElementKit(element)) {
@@ -235,6 +251,19 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
         //retrive products to add shoppingCart
         var products = [];
         var moment = null;
+        if($scope.sequenceForAdd && $scope.sequenceForAdd.isSelected) {
+            if($scope.ratingPlan.type_rating_plan_id === type_sequence) {
+                products.push({id:$scope.sequenceForAdd.id});
+            }
+            if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
+                for(var i=0; i < $scope.sequenceForAdd.moments.length; i++ ) {
+                    var moment = $scope.sequenceForAdd.moments[i];
+                    if($scope.sequenceForAdd.isSelected) {
+                        products.push({id:moment.id});        
+                    }
+                }
+            }
+        }
         for(var s = 0; s < $scope.sequences.length; s++) {
             var sequenceTmp = $scope.sequences[s];
             if(sequenceTmp.isSelected) {
@@ -379,9 +408,9 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
 
     $scope.showVideo = function (sequence) {
         var width = $( window ).width() * 50/100;
-		var height = $( window ).height() * 50/100;
-		var width1 = width * 90/100;
-		var height1 = height * 100/100;
+        var height = $( window ).height() * 50/100;
+        var width1 = width * 90/100;
+        var height1 = height * 100/100;
         var html = '<div class="m-auto" style="height:'+height+'px;width:'+width+'px;"><iframe src="'+sequence.url_vimeo+'" width="'+width1+'px"  height="'+height1+'px" frameborder="0" webkitallowfullscreen="false" mozallowfullscreen="false" allowfullscreen="false"></iframe></div>';
 
         swal({

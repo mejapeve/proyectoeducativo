@@ -119,7 +119,7 @@
              <h6 class="mb-1 font-weight-bold"><a href="#" onclick="onRatingPlanFree()">Prueba Gratuita</a></h6>
              <div class="fs--1 text-aling">
                 Ponemos a disposición el acceso a la plataforma <strong>Conexiones</strong> por 15 días, para que conozcan la propuesta educativa y las posibilidades de aprendizaje que pueden tener con esta 
-				<a href="#" onclick="onRatingPlanFree()" class="font-weight-bold"> (Ver +).</a>
+                <a href="#" onclick="onRatingPlanFree()" class="font-weight-bold"> (Ver +).</a>
              </div>
           </div>
        </div>
