@@ -36,6 +36,24 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                                 }
                             }
                         }
+                        if (sc.type_product_id === 2 && sc.shopping_cart_product) {
+                            sc.sequences = [];
+                            for (var j = 0; j < sc.shopping_cart_product.length; j++) {
+                                scp = sc.shopping_cart_product[j];
+                                if (scp.sequenceStruct_moment) {
+                                    mbControl = false;
+                                    for (var k = 0; k < sc.sequences.length; k++) {
+                                        if (sc.sequences[k].id === scp.sequenceStruct_moment.id) {
+                                            mbControl = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!mbControl) {
+                                        sc.sequences.push(scp.sequenceStruct_moment);
+                                    }
+                                }
+                            }
+                        }
                         if (sc.type_product_id === 3 && sc.shopping_cart_product) {
                             sc.sequences = [];
                             for (var j = 0; j < sc.shopping_cart_product.length; j++) {
@@ -64,14 +82,14 @@ MyApp.controller('shoppingCartController', function ($scope, $http, $timeout) {
                 $scope.errorMessage = 'Error consultando el carrito de compras, compruebe su conexión a internet';
             });
     };
-    $scope.onRegistryWithPendingShoppingCart = function () {
+    $scope.onRegistryWithPendingShoppingCart = function (url) {
         swal({
             text: "Serás redireccionado al registro",
             showConfirmButton: false, showCancelButton: false,
             dangerMode: false,
         }).catch(swal.noop);
 
-        window.location = 'registryWithPendingShoppingCart';
+        window.location = url;
     }
 
     //invoca el servicio que construye la preferencia en mercado pago y retorna el link de pago    

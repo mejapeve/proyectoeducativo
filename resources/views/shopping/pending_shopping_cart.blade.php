@@ -11,7 +11,7 @@
        @guest('afiliadoempresa')
        <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <span class="fs--1 mt-2 col-10 text-right">Para continuar con la compra, primero debes registrarte</span>
-         <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
+         <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart('{{route('registryWithPendingShoppingCart')}}')">
          <span class="fs-lg-0 fs-md-0 fs-sm--1">Registro</span></button>
        </div>
        @endguest
@@ -40,7 +40,6 @@
             <div class="align-items-center media col-8">
               <div class="media-body">
                 <h5 class="fs-0"><a class="text-900">@{{shopping_cart.rating_plan.name}}</a></h5>
-                <h4 class="fs-0"><a class="text-600">@{{shopping_cart.rating_plan.description}}</a></h4>
                 <div class="fs--2 fs-md--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
               </div>
             </div>
@@ -65,30 +64,30 @@
          </div>
          <div class="col-12 row">
             <div ng-show="shopping_cart.type_product_id === 2" 
-                ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" 
-               class="col-6 d-flex pl-0">
-               <div class="p-3" ng-show="shopping_cart_product.sequenceStruct_moment">
-                 <img class="col-rounded" src="{{asset('/')}}@{{shopping_cart_product.sequenceStruct_moment.url_image}}" width="80px"/>
+                ng-repeat="sequence in shopping_cart.sequences" 
+               class="col-12 col-md-6 d-flex pl-0">
+               <div class="p-3" ng-show="sequence">
+                 <img class="col-rounded" src="{{asset('/')}}@{{sequence.url_image}}" width="80px"/>
                </div>
-               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="shopping_cart_product.sequenceStruct_moment">
-                 <h6 class="text-900">@{{shopping_cart_product.sequenceStruct_moment.name}}</h6>
+               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="sequence">
+                 <h6 class="text-900">@{{sequence.name}}</h6>
                  <p class="col-12 fs-0 text-900 pl-0">
-                   <small>@{{shopping_cart_product.sequenceStruct_moment.description}}</small>
+                   <small>@{{sequence.description}}</small>
                  </p>
                </div>
             </div>
          </div>
          <div class="col-12 row">
             <div ng-show="shopping_cart.type_product_id === 3" 
-                ng-repeat="shopping_cart_product in shopping_cart.shopping_cart_product" 
-               class="col-6 d-flex pl-0">
-               <div class="p-3" ng-show="shopping_cart_product.sequenceStruct_experience">
-                 <img class="col-rounded" src="{{asset('/')}}@{{shopping_cart_product.sequenceStruct_experience.url_image}}" width="80px"/>
+                ng-repeat="sequence in shopping_cart.sequences" 
+               class="col-12 col-md-6 d-flex pl-0">
+               <div class="p-3" ng-show="sequence">
+                 <img class="col-rounded" src="{{asset('/')}}@{{sequence.url_image}}" width="80px"/>
                </div>
-               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="shopping_cart_product.sequenceStruct_experience">
-                 <h6 class="text-900">@{{shopping_cart_product.sequenceStruct_experience.name}}</h6>
+               <div class="pr-3 pb-0 col-lg-6 col-md-9 pl-0" ng-show="sequence">
+                 <h6 class="text-900">@{{sequence.name}}</h6>
                  <p class="col-12 fs-0 text-900 pl-0">
-                   <small>@{{shopping_cart_product.sequenceStruct_experience.description}}</small>
+                   <small>@{{sequence.description}}</small>
                  </p>
                </div>
             </div>
@@ -162,7 +161,7 @@
        @guest('afiliadoempresa')
        <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <span class="fs--1 mt-2 col-10 text-right">Para continuar con la compra, primero debes registrarte</span>
-         <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart()">
+         <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart('{{route('registryWithPendingShoppingCart')}}')">
          <span class="fs-lg-0 fs-md-0 fs-sm--1">Registro</span></button>
        </div>
        @endguest
