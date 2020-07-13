@@ -71,7 +71,7 @@ class LoginController extends Controller
         session(['name_company' => 'conexiones']);
         session(['company_id' => 1]);
         session(['redirect_to_portal' => $this->redirectTo]);
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')->with(['request_type' => 'reauthenticate','access_type' => 'offline',"prompt" => "consent select_account"])->redirect();
     }
 
     /**
@@ -159,7 +159,7 @@ class LoginController extends Controller
             session(['free_rating_plan_id' => $request->free_rating_plan_id]);
         }
         session(['redirect_to_portal' => $this->redirectTo]);
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->with(['request_type' => 'reauthenticate','access_type' => 'offline',"prompt" => "consent select_account"])->redirect();
     }
 
     /**
