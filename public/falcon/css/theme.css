@@ -13,7 +13,7 @@ root {
     --red: #e63757;
     --orange: #fd7e14;
     --yellow: #f5803e;
-    --green: #00d27a;
+    --green: #6CB249;
     --teal: #02a8b5;
     --cyan: #27bcfd;
     --white: #fff;
@@ -923,6 +923,12 @@ pre code {
     -webkit-box-flex: 0;
     flex: 0 0 12.66667%;
     max-width: 12.66667%;
+}
+
+.col-2-2 {
+    -webkit-box-flex: 0;
+    flex: 0 0 14.66667%;
+    max-width: 14.66667%
 }
 
 .col-2-3 {
@@ -18850,6 +18856,10 @@ button.bg-soft-light:focus {
 
 .bg-soft-dark {
     background-color: #e2e3e5 !important
+}
+
+.bg-soft-dark-light {
+    background-color: #efefef !important
 }
 
 a.bg-soft-dark:hover,

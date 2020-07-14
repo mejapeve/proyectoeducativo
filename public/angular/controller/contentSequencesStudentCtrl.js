@@ -236,16 +236,27 @@ function resizeSequenceCard() {
 
     $(card).find('[mt]').each(function (value, key) {
         var mt = $(this).attr('mt');
-        var newMt = (mt * deltaX);
+        if(mt.includes('%')) {
+            $(this).css('top', mt);
+        }
+        else {
+            var newMt = (mt * deltaX);
+            $(this).css('top', newMt + 'px');
+        }
         $(this).addClass('position-absolute');
-        $(this).css('top', newMt + 'px');
     });
 
     $(card).find('[ml]').each(function (value, key) {
+        
         var ml = $(this).attr('ml');
-        var newMl = (ml * deltaX);
+        if(ml.includes('%')) {
+            $(this).css('left', ml);
+        }
+        else {
+            var newMl = (ml * deltaX);
+            $(this).css('left', newMl + 'px');
+        }
         $(this).addClass('position-absolute');
-        $(this).css('left', newMl + 'px');
     });
 
     $(card).find('[w]').each(function (value, key) {

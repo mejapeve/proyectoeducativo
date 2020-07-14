@@ -82,8 +82,76 @@ class StudentController extends Controller
         $countSequences = count($sequences);
         $firstAccess = $student->first_last_access()['first'];
         $lastAccess = $student->first_last_access()['last'];
-        return view('roles.student.achievements_sequences', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess]);
+        return view('roles.student.achievements.index', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess]);
     }
+
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param int $affiliated_account_service_id
+     * @param int $sequence_id
+     * @param int $company_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show_achievements_sequence(Request $request, $empresa, $affiliated_account_service_id, $sequence_id, $company_id = 1)
+    {
+        $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $student = $request->user('afiliadoempresa');
+        $sequences = $this->get_available_sequences($request, $empresa, $company_id);
+        $countSequences = count($sequences);
+        $firstAccess = $student->first_last_access()['first'];
+        $lastAccess = $student->first_last_access()['last'];
+        $sequence = CompanySequence::with('moments')->find($sequence_id);
+        $moments = [];
+        foreach($sequence->moments as $moment) {
+            $advanceLine = AdvanceLine::where([
+                ['affiliated_company_id',$student->id],
+                ['affiliated_account_service_id',$request->affiliated_account_service_id],
+                ['sequence_id',$sequence_id],
+                ['moment_order',$moment->order]
+            ])->orderBy('moment_order', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
+            $moment = ['name'=>$moment->name,'order'=>$moment->order];
+            $moment['advance'] = (count($advanceLine) / 4) * 100;;
+            $moment['performance'] = (count($advanceLine) / 4) * 100;
+            array_push($moments,$moment);
+        }
+
+        return view('roles.student.achievements.sequence', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id], );
+    }
+
+    /**
+     * @param Request $request
+     * @param $empresa
+     * @param int $affiliated_account_service_id
+     * @param int $sequence_id
+     * @param int $company_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show_achievements_moment(Request $request, $empresa, $affiliated_account_service_id, $sequence_id, $moment_id, $company_id = 1)
+    {
+        $request->user('afiliadoempresa')->authorizeRoles(['student']);
+        $student = $request->user('afiliadoempresa');
+        $sequences = $this->get_available_sequences($request, $empresa, $company_id);
+        $countSequences = count($sequences);
+        $firstAccess = $student->first_last_access()['first'];
+        $lastAccess = $student->first_last_access()['last'];
+        $sequence = CompanySequence::with('moments')->find($sequence_id);
+        $moments = [];
+        foreach($sequence->moments as $moment) {
+            $advanceLine = AdvanceLine::where([
+                ['affiliated_company_id',$student->id],
+                ['affiliated_account_service_id',$request->affiliated_account_service_id],
+                ['sequence_id',$sequence_id],
+                ['moment_order',$moment->order]
+            ])->orderBy('moment_order', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
+            $moment = ['name'=>$moment->name,'order'=>$moment->order];
+            $moment['advance'] = (count($advanceLine) / 4) * 100;;
+            $moment['performance'] = (count($advanceLine) / 4) * 100;
+            array_push($moments,$moment);
+        }
+        return view('roles.student.achievements.moment', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id] );
+    }
+
 
     /**
      * @param Request $request

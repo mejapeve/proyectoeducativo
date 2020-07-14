@@ -128,6 +128,8 @@ Route::group(['middleware' =>['auth:afiliadoempresa', 'companyaffiliated', 'comp
     Route::post('{empresa}/student/update_avatar', 'AvatarController@update_avatar')->middleware('role:student')->name('update_avatar');
     Route::get('{empresa}/student/secuencias', 'StudentController@show_available_sequences')->middleware('role:student')->name('student.available_sequences');
     Route::get('{empresa}/student/logros', 'StudentController@show_achievements')->middleware('role:student')->name('student.achievements');
+    Route::get('{empresa}/student/logros_por_secuencia/{affiliated_account_service_id}/{sequence_id}', 'StudentController@show_achievements_sequence')->middleware('role:student')->name('student.achievements.sequence');
+    Route::get('{empresa}/student/logros_por_momento/{affiliated_account_service_id}/{sequence_id}', 'StudentController@show_achievements_moment')->middleware('role:student')->name('student.achievements.moment');
     Route::get('{empresa}/student/secuencia/{sequence_id}/situacion_generadora/{account_service_id}/{part_id?}', 'StudentController@show_sequences_section_1')->middleware('role:student')->name('student.sequences_section_1');
     Route::get('{empresa}/student/secuencia/{sequence_id}/Mapa_de_ruta/{account_service_id}/{part_id?}', 'StudentController@show_sequences_section_2')->middleware('role:student')->name('student.sequences_section_2');
     Route::get('{empresa}/student/secuencia/{sequence_id}/Guia_de_saberes/{account_service_id}/{part_id?}', 'StudentController@show_sequences_section_3')->middleware('role:student')->name('student.sequences_section_3');
