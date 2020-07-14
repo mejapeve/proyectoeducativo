@@ -20079,6 +20079,10 @@ button.bg-soft-dark:focus {
         width: 75% !important
     }
 
+    .w-md-90 {
+        width: 90% !important
+    }
+
     .w-md-100 {
         width: 100% !important
     }
@@ -22538,4 +22542,14 @@ footer .navbar-light {
 .toast-trigger:hover {
   background: #ffffff;
   color: #009688;
+}
+
+.w-50IE {
+    width: 50%;
+}
+
+.float {
+    position:fixed;
+    bottom:0px;
+    right:0px;
 }

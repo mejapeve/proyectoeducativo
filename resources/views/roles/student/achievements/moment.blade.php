@@ -42,46 +42,52 @@
                     <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por preguntas</div>
                 </div>
             </div>
-            <h5 class="mt-3  mb-3">Reporte por guía de aprendizaje</h5>
-            <div>
+            <h5 class="mt-3  mb-3">Reporte por momentos</h5>
+            <div class="">
             @foreach ($moments as $key => $moment)
-               <div class="row p-3  rounded @if($key%2==0) bg-soft-dark @else bg-soft-dark-light @endif">
-                    <div class="col-8 col-md-6">
-                        <span class="fs--1"> Momento {{$moment['order']}}</span>
-                        <h5 class="col-6 fs--1"> Momento {{$moment['name']}}</span>
+               <div class="row p-3 rounded @if($key%2==0) bg-soft-dark @else bg-soft-dark-light @endif">
+
+                    <div class="col-4 col-md-4 mt-2">
+                        <span class="fs-0"> Momento {{$moment['order']}} <small>{{$moment['name']}}</small></span>
                     </div>
-
-                    <span class="font-weight-normal col-2-5 col-md-3 fs--1"> 
-                    @if($moment['advance']==0)
-                    <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i>Sin iniciar
-                    @endif
-                    @if($moment['advance']>0 && $moment['advance']<100)
-                    <i class="fa fa-circle  mr-2" style="color:#F9E538" aria-hidden="true"></i> En proceso
-                    @endif
-                   
-                    @if($moment['advance']==100)
-                    <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> Concluida
-                    @endif
-                    </span>
+                    <div class="col-3 col-md-3 mt-2">
+                        @if($moment['advance']==0)
+                        <i class="fa fa-circle mr-2 fs--1" style="color:#706B66" aria-hidden="true"></i>Sin iniciar
+                        @endif
+                        @if($moment['advance']>0 && $moment['advance']<100)
+                        <i class="fa fa-circle  mr-2 fs--1" style="color:#F9E538" aria-hidden="true"></i> En proceso
+                        @endif
                     
-                    <span class="font-weight-bold col-3 fs--1">
-                        <label class="">Desempeño</label>
-                        @if($moment['performance']>=90)
-                        <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> S 
+                        @if($moment['advance']==100)
+                        <i class="fa fa-circle mr-2 fs--1" style="color:#6CB249" aria-hidden="true"></i> Concluida
                         @endif
-                        @if($moment['performance']>=60 && $moment['performance']<90)
-                        <i class="fa fa-circle  mr-2" style="color:#F9E538" aria-hidden="true"></i> A
+                        </span>
+                    </div>
+                    <span class="font-weight-bold col-4 fs--1 align-items-end">
+                        @if($moment['lastAccessInMoment'] != null)
+                        Última conexión: {{$moment['lastAccessInMoment']}}
                         @endif
-                        @if($moment['performance']<60)
-                        <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> D
-                        @endif
-                        {{$moment['performance']}} %
                     </span>
-
+                    <div class="row mt-3 ml-auto mr-auto w-md-90 ml-auto mr-auto">
+                        @foreach ($moment['sections'] as $section)
+                        <div class="col-12 row border-1000 border-bottom p-3">
+                            <div class="col-5 p-0 fs-0">
+                                <span class="fs--1"><strong>{{$section['name']}} : </strong> {{$section['title']}}</span>
+                            </div>
+                            <div class="col-3 p-0 fs--1">  
+                                <strong> Progreso: </strong>
+                                <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> Concluida
+                            </div>
+                            <div class="col-3 p-0 fs--1">  
+                                <strong> Desempeño: </strong>
+                                <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> A 90%
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                </div>
             @endforeach
             <div>
-
             </div>
         </div>
     @else 

@@ -127,7 +127,7 @@ class StudentController extends Controller
      * @param int $company_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show_achievements_moment(Request $request, $empresa, $affiliated_account_service_id, $sequence_id, $moment_id, $company_id = 1)
+    public function show_achievements_moment(Request $request, $empresa, $affiliated_account_service_id, $sequence_id, $company_id = 1)
     {
         $request->user('afiliadoempresa')->authorizeRoles(['student']);
         $student = $request->user('afiliadoempresa');
@@ -135,9 +135,16 @@ class StudentController extends Controller
         $countSequences = count($sequences);
         $firstAccess = $student->first_last_access()['first'];
         $lastAccess = $student->first_last_access()['last'];
+        
         $sequence = CompanySequence::with('moments')->find($sequence_id);
         $moments = [];
+        
         foreach($sequence->moments as $moment) {
+            $section_1 = json_decode($moment->section_1,true);
+            $section_2 = json_decode($moment->section_2,true);
+            $section_3 = json_decode($moment->section_3,true);
+            $section_4 = json_decode($moment->section_4,true);
+
             $advanceLine = AdvanceLine::where([
                 ['affiliated_company_id',$student->id],
                 ['affiliated_account_service_id',$request->affiliated_account_service_id],
@@ -147,9 +154,17 @@ class StudentController extends Controller
             $moment = ['name'=>$moment->name,'order'=>$moment->order];
             $moment['advance'] = (count($advanceLine) / 4) * 100;;
             $moment['performance'] = (count($advanceLine) / 4) * 100;
+            $moment['lastAccessInMoment'] = $advanceLine->max('updated_at');
+            $moment['sections'] = [
+                'section_1' => ['name' => $section_1['section']['name'],'title' => isset($section_1['title']) ? $section_1['title'] : ''],
+                'section_2' => ['name' => $section_2['section']['name'],'title' => isset($section_2['title']) ? $section_2['title'] : ''],
+                'section_3' => ['name' => $section_3['section']['name'],'title' => isset($section_3['title']) ? $section_3['title'] : ''],
+                'section_4' => ['name' => $section_4['section']['name'],'title' => isset($section_4['title']) ? $section_4['title'] : ''],
+            ];
             array_push($moments,$moment);
         }
-        return view('roles.student.achievements.moment', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id] );
+        
+        return view('roles.student.achievements.moment', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id]  );
     }
 
 

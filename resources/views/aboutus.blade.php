@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 
 @section('content')
-<div class="no-gutters row mt-lg-4 mt-md-3 mt-sm-2 ">
+<div class="no-gutters row mt-lg-4 mt-md-3 mt-sm-2 w-100">
    <div class="pr-lg-2 col-lg-6">
       <div class="card-header about-header boder-header p-2 ml-3" >
          <h5 class="mb-0">Acerca de Conexiones</h5>

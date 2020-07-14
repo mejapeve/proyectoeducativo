@@ -20,10 +20,12 @@
                 </a>
             </div>
             <div class="d-block col-2-2 text-align">
+                <a href="/{{auth('afiliadoempresa')->user()->company_name()}}/student/logros_por_momento/@{{sequence.affiliated_account_service_id}}/@{{sequence.id}}">
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reporteMomentos.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>
                 <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por momento</div>
+                </a>
             </div>
             <div class="d-block col-2-2 text-align">
                 <div class="col-12 border-left-mini">
