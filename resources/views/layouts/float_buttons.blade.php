@@ -5,7 +5,7 @@
 			<div ng-click="toogleChatPanel= false" class="position-absolute fs-2 cursor-pointer" style="top: 3px;right: 16px;text-align: right;"> 
 			<i class="far fa-times-circle"></i> 
 			</div>
-		¡Hola!
+		Â¡Hola! 
 		Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat ut wisi enim ad 
 		</div>
 		<div class="line-separator"></div>
