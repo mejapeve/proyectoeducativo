@@ -21,16 +21,20 @@
     </div>
     <nav class="pr-sm-6 pl-sm-6 pr-md-2 pl-md-2 pr-lg-3 pl-lg-3 fs--2 font-weight-semi-bold row navbar text-center">
         <a class="cursor-pointer" href="{{route('student.sequences_section_1',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id,'account_service_id'=>$account_service_id])}}">
-            <img src="{{asset('/images/icons/iconos_con_letra/situacionGeneradora.png')}}" height= "auto" width="45px">
+            <img src="{{asset('/images/icons/situacionGeneradora.png')}}" height= "auto" width="45px">
+            <span class="d-flex mr-auto ml-auto" style="margin-left: -5px;top: 69px;width: 45px;">Situación Generadora</span>
         </a>
         <a class="cursor-pointer" href="{{route('student.sequences_section_2',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id,'account_service_id'=>$account_service_id])}}">
-            <img src="{{asset('/images/icons/iconos_con_letra/rutaViaje.png')}}" height= "auto" width="45px">
+            <img src="{{asset('/images/icons/rutaViaje.png')}}" height= "auto" width="45px">
+            <span class="d-flex" style="top: 69px;width: 45px;">Mapa de ruta</span>
         </a>
         <a class="cursor-pointer mt-md-2" href="{{route('student.sequences_section_3',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id,'account_service_id'=>$account_service_id])}}">
-            <img src="{{asset('/images/icons/iconos_con_letra/GuiaSaberes.png')}}" height= "auto" width="45px">
+            <img src="{{asset('/images/icons/GuiaSaberes.png')}}" height= "auto" width="45px">
+            <span class="d-flex" style="top: 69px;width: 45px;">Guía de saberes</span>
         </a>
         <a class="cursor-pointer mt-md-2" href="{{route('student.sequences_section_4',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence_id,'account_service_id'=>$account_service_id])}}">
-            <img src="{{asset('/images/icons/iconos_con_letra/puntoEncuentro.png')}}" height= "auto" width="45px">
+            <img src="{{asset('/images/icons/puntoEncuentro.png')}}" height= "auto" width="45px">
+            <span class="d-flex" style="top: 69px;width: 45px;">Punto de encuentro</span>
         </a>
     <div class="fs--2 mt-3 font-weight-semi-bold">
         @if(isset($sections))

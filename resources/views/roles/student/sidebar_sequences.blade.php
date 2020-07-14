@@ -20,7 +20,7 @@
     <nav class="pr-sm-6 pl-sm-6 pr-md-2 pl-md-2 pr-lg-3 pl-lg-3 fs--2 font-weight-semi-bold row navbar text-center">
         <a class="cursor-pointer" href="{{route('student.sequences_section_1',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence->id,'account_service_id'=>$account_service_id])}}">
             <img src="{{asset('/images/icons/situacionGeneradora.png')}}" height= "auto" width="50px">
-            <span class="d-flex" style="top: 69px;width: 45px;">Situación Generadora</span>
+            <span class="d-flex" style="margin-left: -5px;top: 69px;width: 45px;">Situación Generadora</span>
         </a>
         <a class="cursor-pointer" href="{{route('student.sequences_section_2',['empresa'=>auth('afiliadoempresa')->user()->company_name(), 'sequence_id' => $sequence->id,'account_service_id'=>$account_service_id])}}">
             <img src="{{asset('/images/icons/rutaViaje.png')}}" height= "auto" width="50px">
