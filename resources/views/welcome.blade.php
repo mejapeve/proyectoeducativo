@@ -103,8 +103,7 @@
              <h6 class="mb-1 font-weight-bold"><a href="{{route('ratingPlan.list')}}">Planes de acceso</a></h6>
              <p class="fs--2 mb-1">
                 <div class="fs--1 text-aling">
-                   Se basa en el diseño de experiencias de aprendizaje que generan Conexiones entre teoría y práctica, orientadas al desarrollo de pensamiento científico, a través de la indagación (Ver +). 
-                   <strong>Conexiones</strong> cuenta  con una completa serie de guías para el aprendizaje de las ciencias naturales, en formato multimedia que permite la interactividad
+                   Tenemos diferentes planes para acceder a los contenidos educativos de <strong>Conexiones</strong>, de manera que pueden elegir guías de aprendizaje completas, o seleccionar las partes de estas que les interesan 
                    <a href="{{route('ratingPlan.list')}}" class="font-weight-bold"> (Ver +).</a>
                 </div>
              </p>

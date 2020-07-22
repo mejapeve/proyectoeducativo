@@ -18,7 +18,7 @@
                </div>
             </div>
             <div class="pr-lg-2 col-lg-12 text-justify">
-			
+            
                <p>Todas las <strong>guías de aprendizaje</strong> que hacen parte de <strong>Conexiones</strong>, usan como metáfora para estructurar sus contenidos la idea de viaje, como una invitación para explorar, conocer y comprender a través de la indagación el mundo natural del que hacemos parte. Así, cada <strong>guía de aprendizaje</strong>&nbsp; está compuesta por una <strong>situación generadora</strong> o punto de partida, un <strong>mapa de ruta</strong> flexible, un entramado <strong>saberes </strong>a desarrollar y un <strong>punto de encuentro</strong> o propósito, que integra un conjunto amplio de recursos didácticos orientados al desarrollo de pensamiento científico. </p>
                <p> Las <strong>guías de aprendizaje</strong> proponen una ruta de <strong>ocho momentos </strong>&nbsp;o estaciones que se componen &nbsp;a su vez de preguntas, experiencias científicas, explicaciones en contexto y enlaces sugeridos para más conexiones. <strong>(Ver + haciendo clic en cada ícono)</strong></p>
                <ul class="nav row fs--1 text-align mt-1">
@@ -192,6 +192,34 @@
                     </div>
                   </li>
                </ul>
+            </div>
+            <div class="mb-1 mt-3 col-12 mt-2">
+                Es importante tener en cuenta que si bien hay <strong>una ruta de viaje</strong> trazada,
+                en <strong>Conexiones</strong> se puede elegir hacer el recorrido en el <strong>orden</strong> propuesto o de
+                manera aleatoria, pues aunque los <strong>momentos</strong> de cada <strong>guía de aprendizaje</strong> se
+                relacionan entre sí, cada uno puede abordarse independientemente.
+                <p>
+                De esta manera, <strong>Conexiones</strong> tiene una <strong>estructura flexible</strong> que se adapta a
+                diversos <strong>intereses de aprendizaje</strong>,<strong> planes de estudio </strong>y disponibilidad de <strong>tiempo</strong>, dando
+                la opción de elegir entre las siguientes <strong>opciones</strong>:
+                </p>
+                <ul>
+                    <li><strong>Guía de aprendizaje completa</strong> con sus <strong>ocho momentos</strong>, cada uno con
+                    preguntas exploradoras de saberes, experiencias científicas, explicaciones de
+                    ciencias en contexto e ideas para + conexiones.
+                    </li>
+                    <li><strong>Uno</strong> o <strong>varios momentos</strong> o etapas de una misma guía de aprendizaje o de varias.
+                    </li>
+                    <li> <strong>Una</strong> o <strong>varias experiencias</strong> científicas, con los videos orientadores para su
+                    realización.
+                    </li>
+                </ul>
+                <p>
+                    Haciendo clic en la guía de interés, puede consultar el detalle de los contenidos y las <strong>opciones de compra</strong> disponibles.
+                </p>
+                <p>
+                    Si tiene dudas o sugerencias, contáctenos y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.
+                </p>
             </div>
             <div class="mb-1 mt-3 col-12 mt-2">
                <div class="justify-content-center justify-content-sm-between row">

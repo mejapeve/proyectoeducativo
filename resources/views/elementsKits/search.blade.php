@@ -9,9 +9,9 @@
       <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></a></i></span>
    </div>
 
-   <div class="mb-3 card">
+   <div class="mb-3 card w-100">
       <div class="card-body">
-         <div class="no-gutters row w-50IE">
+         <div class="no-gutters row">
             <div class="mb-3 col-12">
                <div class="justify-content-center justify-content-sm-between row">
                   <div class="text-center col-sm-auto card-header boder-header p-2 ml-3">

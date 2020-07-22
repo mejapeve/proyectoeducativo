@@ -22458,30 +22458,37 @@ footer .navbar-light {
 
 .card-rating-plan-id-0 {
     color:#fd7e14;
+    min-height: 53px;
 }
 
 .card-rating-plan-id-1 {
-    color:#f5803e;
+   color:#6b5eae;
+   min-height: 53px;
 }
 
 .card-rating-plan-id-2 {
-    color:#00d27a;
+   color:#00d27a;
+   min-height: 53px;
 }
    
 .card-rating-plan-id-3 {
-    color:#2c7be5;
+   color:#2c7be5;
+   min-height: 53px;
 }
 
 .card-rating-plan-id-4 {
-    color:#e63757;
+   color:#e63757;
+   min-height: 53px;
 }
 
 .card-rating-plan-id-5 {
    color:#fd7e14;
+   min-height: 53px;
 }
 
 .card-rating-plan-id-6 {
-   color:#6b5eae;
+   color:#f5803e;
+   min-height: 53px;
 }
 
 

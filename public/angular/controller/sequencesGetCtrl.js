@@ -14,7 +14,10 @@ MyApp.controller("sequencesGetCtrl", function ($scope, $http, $timeout) {
             method: "GET",
         }).
             then(function (response) {
-                $scope.ratingPlans = response.data.data || response.data;
+                var data = response.data.data || response.data;
+                $scope.ratingPlans = data.filter(function(value){
+                    return !value.is_free && ( (value.type_plan.id === 1 && value.count === 1) || value.type_plan.id === 2 || value.type_plan.id === 3    );
+                })
             }).catch(function (e) {
                 $('.d-none-result').removeClass('d-none');
                 $('#loading').removeClass('show');
