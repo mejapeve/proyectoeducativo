@@ -12,13 +12,13 @@
        <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <span class="fs--1 mt-2 col-10 text-right">Para continuar con la compra, primero debes registrarte</span>
          <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart('{{route('registryWithPendingShoppingCart')}}')">
-         <span class="fs-lg-0 fs-md-0 fs-sm--1">Registro</span></button>
+         <span class="fs--1">Registro</span></button>
        </div>
        @endguest
        @auth('afiliadoempresa')
        <h5 ng-show="shopping_carts.length > 0" class="mb-2 justify-content-end col-12">
          <a class="btn btn-outline-primary" href="#" ng-click="getPreferenceInitPoint()">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1"><i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Continuar Compra</span>
+            <span class="fs--1"><i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Continuar Compra</span>
          </a>
        </h5>
        @endauth
@@ -40,7 +40,7 @@
             <div class="align-items-center media col-8">
               <div class="media-body">
                 <h5 class="fs-0"><a class="text-900">@{{shopping_cart.rating_plan.name}}</a></h5>
-                <div class="fs--2 fs-md--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
+                <div class="fs--1 text-danger cursor-pointer" ng-click="onDelete(shopping_cart.id)">Remover</div>
               </div>
             </div>
             <div class="p-3 col-4 text-align-right">
@@ -157,8 +157,9 @@
       </div>
      </div>
      
-     <div class="font-weight-bold px-1 no-gutters row text-right">
+     <div class="px-1 no-gutters row text-right">
        @guest('afiliadoempresa')
+       <div class="line-separator"></div>
        <div ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12">
          <span class="fs--1 mt-2 col-10 text-right">Para continuar con la compra, primero debes registrarte</span>
          <button class="btn btn-sm btn-outline-primary" ng-click="onRegistryWithPendingShoppingCart('{{route('registryWithPendingShoppingCart')}}')">
@@ -169,7 +170,7 @@
        @auth('afiliadoempresa')
        <h5 ng-show="shopping_carts.length>0" class="mt-1 mb-2 justify-content-end col-12 d-none-result d-none">
          <button class="btn btn-outline-primary" ng-click="simulator()">
-         <span class="fs-lg-0 fs-md-0 fs-sm--1">
+         <span class="fs--1">
          <i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Simular Pago</span>
          </button>
          <form id="simulate-form" action="{{ route('notification_gwpayment_callback') }}" method="GET" style="display: none;">
@@ -180,7 +181,7 @@
             <input type="text" name="isSimulador" id="isSimulador" value="true"/>
          </form>
          <button class="btn btn-outline-primary">
-            <span class="fs-lg-0 fs-md-0 fs-sm--1" ng-click="getPreferenceInitPoint()">
+            <span class="fs--1" ng-click="getPreferenceInitPoint()">
               <i class="btn-spinner d-none fa fa-spinner fa-spin"></i>Continuar Compra
             </span>
          </button>

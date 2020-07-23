@@ -117,7 +117,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             if(totalSequences > $scope.ratingPlan.count) {
                 sequence.isSelected = false;
                 swal({
-                  title: "Número máximo de secuencias permitidas",
+                  title: "Has excedido en número máximo de guías de aprendizaje permitidas en el plan seleccionado.",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -208,6 +208,45 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
         }
 
         $scope.elementsKits = [];
+		
+		
+		if($scope.sequenceForAdd && $scope.sequenceForAdd.isSelected && $scope.sequenceForAdd.moments ) {
+            var sequenceTmp = $scope.sequenceForAdd;
+            if(sequenceTmp.isSelected && sequenceTmp.moments ) {
+                var mbAdd = true;
+                var kit,moment,element = null;
+                
+                for(var i=0;i<sequenceTmp.moments.length;i++) {
+                    moment = sequenceTmp.moments[i];
+                    for(var j=0;j<moment.moment_kit.length;j++) {
+                        kit = moment.moment_kit[j].kit;
+                        if(kit) {
+                            kit.type = 'kit';
+                            if(!searchElementKit(kit)) {
+                                $scope.elementsKits.push(kit);
+                            }
+                            for(var k=0;k<kit.kit_elements.length;k++) {
+                                element = kit.kit_elements[k].element;
+                                element.type = 'element';
+                                if(!searchElementKit(element)) {
+                                    $scope.elementsKits.push(element);
+                                }
+                            }
+                        }
+                        else {
+                            element = moment.moment_kit[j].element;
+                            if(element) {
+                                element.type = 'element';
+                                if(!searchElementKit(element)) {
+                                    $scope.elementsKits.push(element);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		}
+		
         for(var s=0;s<$scope.sequences.length;s++) {
             var sequenceTmp = $scope.sequences[s];
             if(sequenceTmp.isSelected && sequenceTmp.moments ) {

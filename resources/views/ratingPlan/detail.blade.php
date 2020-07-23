@@ -8,6 +8,10 @@
       <span class="col">@{{ errorMessageFilter }}</span>
       <span class="col-auto"><a ng-click="errorMessageFilter = null"><i class="far fa-times-circle"></i></a></span>
     </div>
+	<div id="loading" class="fade show p-3 border-lg-y col-lg-2 w-100 card card-body" ng-hide="ratingPlan"
+	   style="min-height: 43vw; border: 0.4px solid grey; min-width: 100%">
+	   cargando...
+	</div>
     <div class="mb-3 card col-12" ng-show="ratingPlan">
       <div class="card-body w-100">
         <div class="row d-none-result d-none">
@@ -30,7 +34,7 @@
                 </button>
              </div>
              
-             <div class="col-12 ml-2 mt-1 row p-0 ml-0 mr-0" ng-show="sequences">
+             <div class="col-12 ml-2 mt-1 row p-0 h-100 ml-0 mr-0" ng-show="sequences" style="min-height: 500px;">
                 <!-- Toast -->
                 <div class="z-index-10 bg-success position-absolute color-white p-3" id="toast-name-1">
                   @{{messageToast}}
@@ -96,10 +100,10 @@
                                  <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}} @{{sequence.isSelected}}</h5>
                                  <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
                                  <div class="col-12">
-                                     <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                                     <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--1" href="#" class="col-6">
                                          <i class="fas fa-search"></i> Ver contenido
                                      </a>
-                                     <a ng-click="showVideo(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--2" href="#" class="col-6">
+                                     <a ng-click="showVideo(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--1" href="#" class="col-6">
                                          <i class="fas fa-search"></i> Ver video
                                      </a>
                                      
@@ -128,10 +132,7 @@
              </div>
         </div>
 
-        <div id="loading" class="fade show p-3 border-lg-y col-lg-2 w-100" ng-hide="ratingPlan"
-           style="min-height: 43vw; border: 0.4px solid grey; min-width: 100%">
-           cargando...
-        </div>
+
       </div>
       @include('ratingPlan/elements_kits')
    </div>

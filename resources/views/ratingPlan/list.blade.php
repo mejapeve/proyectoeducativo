@@ -35,8 +35,8 @@
                   <div class="card card-body bg-light pr-2 pl-2 pb-0 h-100">
                      <div class="ml-2 fs--3 flex-100">
                         <h5 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h5>  
-                        <ul class="p-0" ng-repeat="item in ratingPlan.description_items">
-                            <li class="fs-1 small pr-3 mt-4 ml-2 card-rating-plan-id-@{{$parent.$index}}">
+                        <ul class="p-0">
+                            <li class="fs-1 small pr-3 mt-4 ml-2 card-rating-plan-id-@{{$parent.$index}}" ng-repeat="item in ratingPlan.description_items">
 							<span class="color-gray-dark fs--1">@{{item}}</span></li>
                         </ul>
                         <div class="position-absolute" style="bottom: -40px;">
