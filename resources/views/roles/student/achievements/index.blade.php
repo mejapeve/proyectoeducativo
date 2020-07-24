@@ -12,7 +12,7 @@
                 <p class="" >@{{sequence.sequence.name}}</p>
             </div>
             <div class="d-block col-2-2 text-align">
-			    <a href="/{{auth('afiliadoempresa')->user()->company_name()}}/student/logros_por_secuencia/@{{sequence.affiliated_account_service_id}}/@{{sequence.id}}">
+			    <a href="/{{auth('afiliadoempresa')->user()->company_name()}}/student/logros_por_secuencia/@{{sequence.affiliated_account_service_id}}/@{{sequence.sequence.id}}">
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reporteSecuencias.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>
@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div class="d-block col-2-2 text-align">
-                <a href="/{{auth('afiliadoempresa')->user()->company_name()}}/student/logros_por_momento/@{{sequence.affiliated_account_service_id}}/@{{sequence.id}}">
+                <a href="/{{auth('afiliadoempresa')->user()->company_name()}}/student/logros_por_momento/@{{sequence.affiliated_account_service_id}}/@{{sequence.sequence.id}}">
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reporteMomentos.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>

@@ -1,7 +1,7 @@
 @extends('roles.student.achievements.layout')
 
 @section('achievements_layout')
-<div class="row p-2 pl-md-4 pr-md-3" ng-controller="achievementsStudentSequenceCtrl" ng-init="initSequences(1)" >
+<div class="row p-2 pl-md-4 pr-md-3" ng-controller="achievementsStudentCtrl" ng-init="initSequences(1)" >
     @if(isset($sequence))
         <div class="col-12 mt-sm-2 pr-sm-0 " ng-show="sequence">
             <div class="oval-line"></div>
@@ -73,14 +73,26 @@
                         <div class="col-12 row border-1000 border-bottom p-3">
                             <div class="col-5 p-0 fs-0">
                                 <span class="fs--1"><strong>{{$section['name']}} : </strong> {{$section['title']}}</span>
-                            </div>
+                            </div>achievementsStudentSequenceCtrl
                             <div class="col-3 p-0 fs--1">  
                                 <strong> Progreso: </strong>
-                                <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> Concluida
+                                @if(isset($section['progress']))
+                                    <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i>  
+                                    {{ $section['progress']}}
+                                @else 
+                                    <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i> 
+                                    Sin iniciar
+                                @endif
                             </div>
                             <div class="col-3 p-0 fs--1">  
                                 <strong> Desempeño: </strong>
-                                <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> A 90%
+                                @if(isset($section['performance']))
+                                    <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> 
+                                    {{ $section['performance']}} {{ $section['quantity']}}
+                                @else 
+                                    <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i> 
+                                    Sin iniciar
+                                @endif  
                             </div>
                         </div>
                         @endforeach

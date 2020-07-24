@@ -9,6 +9,8 @@ use App\Models\AffiliatedContentAccountService;
 use App\Models\AfiliadoEmpresa;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
+use App\Models\Answer;
+use App\Models\Question;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -101,7 +103,9 @@ class StudentController extends Controller
         $countSequences = count($sequences);
         $firstAccess = $student->first_last_access()['first'];
         $lastAccess = $student->first_last_access()['last'];
+       
         $sequence = CompanySequence::with('moments')->find($sequence_id);
+       
         $moments = [];
         foreach($sequence->moments as $moment) {
             $advanceLine = AdvanceLine::where([
@@ -138,13 +142,20 @@ class StudentController extends Controller
         
         $sequence = CompanySequence::with('moments')->find($sequence_id);
         $moments = [];
-        
+
+        $answers = Answer::with('question')
+            ->where([['student_affiliated_company_id',$student->id], 
+                  ['affiliated_account_service_id',$affiliated_account_service_id]
+            ])
+            ->get();
+
         foreach($sequence->moments as $moment) {
             $section_1 = json_decode($moment->section_1,true);
             $section_2 = json_decode($moment->section_2,true);
             $section_3 = json_decode($moment->section_3,true);
             $section_4 = json_decode($moment->section_4,true);
-
+ 
+            
             $advanceLine = AdvanceLine::where([
                 ['affiliated_company_id',$student->id],
                 ['affiliated_account_service_id',$request->affiliated_account_service_id],
@@ -156,15 +167,47 @@ class StudentController extends Controller
             $moment['performance'] = (count($advanceLine) / 4) * 100;
             $moment['lastAccessInMoment'] = $advanceLine->max('updated_at');
             $moment['sections'] = [
-                'section_1' => ['name' => $section_1['section']['name'],'title' => isset($section_1['title']) ? $section_1['title'] : ''],
-                'section_2' => ['name' => $section_2['section']['name'],'title' => isset($section_2['title']) ? $section_2['title'] : ''],
-                'section_3' => ['name' => $section_3['section']['name'],'title' => isset($section_3['title']) ? $section_3['title'] : ''],
-                'section_4' => ['name' => $section_4['section']['name'],'title' => isset($section_4['title']) ? $section_4['title'] : ''],
+                'section_1' => ['name' => $section_1['section']['name'],'title' => isset($section_1['title']) ? $section_1['title'] : '', 'section' => $section_1],
+                'section_2' => ['name' => $section_2['section']['name'],'title' => isset($section_2['title']) ? $section_2['title'] : '', 'section' => $section_2],
+                'section_3' => ['name' => $section_3['section']['name'],'title' => isset($section_3['title']) ? $section_3['title'] : '', 'section' => $section_3],
+                'section_4' => ['name' => $section_4['section']['name'],'title' => isset($section_4['title']) ? $section_4['title'] : '', 'section' => $section_4],
             ];
+            
+            foreach($moment['sections'] as $section) {
+                $grade = $this->getEvidenceGrate($section,$answers);
+                $section['performance'] = $grade['performance'];
+                $section['progress'] = $grade['progress'];
+                $section['quantity'] = $grade['quantity'];
+            }
             array_push($moments,$moment);
         }
         
         return view('roles.student.achievements.moment', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id]  );
+    }
+
+    /**
+     * @param $section
+     * @return Array with Grate
+     */
+    public function getEvidenceGrate($section,$answers)
+    {
+ 
+        for($i=1;$i <=4; $i++) { 
+            if($section['section']['part_'.$i]) {
+                foreach($section['section']['part_'.$i]['elements'] as $element) {
+                    if($element['type'] == 'text-element') {
+                        foreach($answers as $answer) {
+                            //dd($element['id'] ,$answer['question']['experience_id'] );
+                            if($element['id'] === $answer['question']['experience_id']) {
+                                dd($answer);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ['progress'=> 'Concluida', 'performance'=>'B', 'quantity'=>'90%'];
     }
 
 

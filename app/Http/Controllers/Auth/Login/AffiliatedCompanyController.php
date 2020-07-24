@@ -77,9 +77,9 @@ class AffiliatedCompanyController extends DefaultLoginController
         return $user->getAvatar();
     }
 
-    public function login(Request $request,$rol)
+    public function login(Request $request)
     {
-
+        $rol = $request->rol;
         $user_name = $request->user_name;
         $company = $request->company;
         Auth::logout();
@@ -149,8 +149,9 @@ class AffiliatedCompanyController extends DefaultLoginController
         
     }
 
-    protected function sendLoginResponse(Request $request,$rol)
+    protected function sendLoginResponse(Request $request)
     {
+        $rol = $request->rol;
         $request->session()->regenerate();
 
         $this->clearLoginAttempts($request);

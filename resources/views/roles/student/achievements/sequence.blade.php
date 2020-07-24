@@ -66,16 +66,20 @@
                     
                     <span class="font-weight-bold col-3 fs--1">
                         <label class="">Desempeño</label>
-                        @if($moment['performance']>=90)
-                        <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> S 
+                        @if($moment['advance']!=0)
+                            @if($moment['performance']>=90)
+                            <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> S 
+                            @endif
+                            @if($moment['performance']>=60 && $moment['performance']<90)
+                            <i class="fa fa-circle  mr-2" style="color:#F9E538" aria-hidden="true"></i> A
+                            @endif
+                            @if($moment['performance']<60)
+                            <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> D
+                            @endif
+                            {{$moment['performance']}} %
+                        @else
+                            <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i>Sin iniciar
                         @endif
-                        @if($moment['performance']>=60 && $moment['performance']<90)
-                        <i class="fa fa-circle  mr-2" style="color:#F9E538" aria-hidden="true"></i> A
-                        @endif
-                        @if($moment['performance']<60)
-                        <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> D
-                        @endif
-                        {{$moment['performance']}} %
                     </span>
 
                </div>
