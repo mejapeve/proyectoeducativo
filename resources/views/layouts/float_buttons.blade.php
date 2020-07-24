@@ -1,4 +1,4 @@
-<a class="float" ng-init="toogleChatPanel=false">
+<a class="float"  ng-controller="frequentQuestionCtrl" ng-init="init()">
     <img ng-hide="toogleChatPanel" class="cursor-pointer" src="{{asset('images/icons/chat.png')}}" width="60px" height="auto" ng-click="toogleChatPanel=true">
     <div class="card" ng-show="toogleChatPanel" style="width: 435px;">
 		<div class="card-header fs--1 pr-5">
@@ -10,14 +10,17 @@
 		</div>
 		<div class="line-separator"></div>
 		<div class="card-body">
-			<div ng-repeat="items in [1,2,3,4,5,6,7]" class="d-flex bg-secondary mt-1 mb-1 rounded bg-soft-dark-light pr-1 pl-1">
-				<label>Pregunta frecuente @{{item}}</label> 
+			<div ng-repeat="items in frequentQuestions" class="d-flex bg-secondary mt-1 mb-1 rounded bg-soft-dark-light pr-1 pl-1">
+				<label>@{{items.question}}</label>
 				<span class="ml-auto">></span>
 			</div>
 			<div class="d-flex">
-				<input type="text" class="w-100"/>
+				<input placeholder="Correo" type="text" class="w-100"/>
 				<button class="btn btn-sm btn-primary">></button>
 			</div>
 		</div>
 	</div>
 </a>
+@section('js')
+	<script src="{{asset('/../angular/controller/frequentQuestionsCtrl.js')}}"></script>
+@endsection

@@ -242,4 +242,6 @@ Route::group([],function (){
     Route::get('get_answers', 'AnswerController@get_answers')->name('get_answers');
 
 });
+//servcios preguntas frecuentes
+Route::get('get_frequent_questions', 'FrequentQuestionController@get_frequent_questions')->name('get_frequent_questions');
 
