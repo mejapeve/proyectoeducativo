@@ -10,6 +10,7 @@ use App\Models\AfiliadoEmpresa;
 use App\Models\AfiliadoEmpresaRoles;
 use App\Models\ConectionAffiliatedStudents;
 use App\Models\Answer;
+use App\Models\Rating;
 use App\Models\Question;
 use Carbon\Carbon;
 use DB;
@@ -162,11 +163,12 @@ class StudentController extends Controller
                 ['sequence_id',$sequence_id],
                 ['moment_order',$moment->order]
             ])->orderBy('moment_order', 'ASC')->orderBy('moment_section_id', 'ASC')->get();
-            $moment = ['name'=>$moment->name,'order'=>$moment->order];
+
             $moment['advance'] = (count($advanceLine) / 4) * 100;;
             $moment['performance'] = (count($advanceLine) / 4) * 100;
             $moment['lastAccessInMoment'] = $advanceLine->max('updated_at');
             $moment['sections'] = [
+                
                 'section_1' => ['name' => $section_1['section']['name'],'title' => isset($section_1['title']) ? $section_1['title'] : '', 'section' => $section_1],
                 'section_2' => ['name' => $section_2['section']['name'],'title' => isset($section_2['title']) ? $section_2['title'] : '', 'section' => $section_2],
                 'section_3' => ['name' => $section_3['section']['name'],'title' => isset($section_3['title']) ? $section_3['title'] : '', 'section' => $section_3],
@@ -174,43 +176,29 @@ class StudentController extends Controller
             ];
             
             foreach($moment['sections'] as $section) {
-                $grade = $this->getEvidenceGrate($section,$answers);
-                $section['performance'] = $grade['performance'];
-                $section['progress'] = $grade['progress'];
-                $section['quantity'] = $grade['quantity'];
+                //$grade = $this->getEvidenceGrate($sequence->id, $moment->id);
+ 
+                $rarings = Rating::where([
+                    ['affiliated_account_service_id',$affiliated_account_service_id],
+                    ['student_id',$student->id],
+                    ['company_id', $sequence->company_id],
+                    ['sequence_id',$sequence->id],
+                    ['moment_id',$moment->id]
+                ]);
+
+                $weighted = $rarings->avg('weighted');
+ 
+                $section['quantity'] = $weighted;;
+                $section['performance'] = $weighted;
+                $section['progress'] = 'Concluida';
+                
             }
             array_push($moments,$moment);
         }
         
         return view('roles.student.achievements.moment', ['student' => $student, 'countSequences' => $countSequences, 'firstAccess' => $firstAccess, 'lastAccess' => $lastAccess, 'sequence'=>$sequence, 'moments' => $moments, 'affiliated_account_service_id' => $affiliated_account_service_id]  );
     }
-
-    /**
-     * @param $section
-     * @return Array with Grate
-     */
-    public function getEvidenceGrate($section,$answers)
-    {
- 
-        for($i=1;$i <=4; $i++) { 
-            if($section['section']['part_'.$i]) {
-                foreach($section['section']['part_'.$i]['elements'] as $element) {
-                    if($element['type'] == 'text-element') {
-                        foreach($answers as $answer) {
-                            //dd($element['id'] ,$answer['question']['experience_id'] );
-                            if($element['id'] === $answer['question']['experience_id']) {
-                                dd($answer);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return ['progress'=> 'Concluida', 'performance'=>'B', 'quantity'=>'90%'];
-    }
-
-
+  
     /**
      * @param Request $request
      * @param $empresa

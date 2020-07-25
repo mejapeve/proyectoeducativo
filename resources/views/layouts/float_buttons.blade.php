@@ -21,6 +21,4 @@
 		</div>
 	</div>
 </a>
-@section('js')
-	<script src="{{asset('/../angular/controller/frequentQuestionsCtrl.js')}}"></script>
-@endsection
+ 

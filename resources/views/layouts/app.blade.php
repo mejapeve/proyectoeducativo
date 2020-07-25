@@ -63,6 +63,7 @@
     <script src="{{ asset('angular/controller/NavBarController.js') }}" defer></script>
     <script src="{{ asset('angular/controller/ShoppingCartController.js') }}" defer></script>
     <script src="{{ asset('font-awesome/v5.12.1/js/all.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('angular/controller/frequentQuestionsCtrl.js')}}"></script>
     @yield('js')
     
 </body>
