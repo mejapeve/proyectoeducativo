@@ -1,6 +1,9 @@
 @extends('layouts.app_side')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
 <div ng-controller="kitsElementsCtrl" ng-init="allKits()">
 
    <div ng-show="errorMessageFilter" id="errorMessageFilter"

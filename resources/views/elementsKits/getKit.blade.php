@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('layouts/float_buttons')
+
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="{{ asset('falcon/css/swiper.min.css') }}">
 

@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('layouts/float_buttons')
+
     <!-- Swiper -->
     <div class="swiper-container mt-lg--2">
        <div class="swiper-wrapper">

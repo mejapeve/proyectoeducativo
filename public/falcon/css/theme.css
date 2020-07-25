@@ -22438,8 +22438,9 @@ footer .navbar-light {
 
 .float {
     position:fixed;
-    bottom:0px;
-    right:0px;
+    bottom: 12px;
+    right: 26px;
+    z-index: 100;
 }
 
 .rotateimg180 {

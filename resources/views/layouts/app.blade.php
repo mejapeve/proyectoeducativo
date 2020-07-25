@@ -56,7 +56,6 @@
             <div class="container">
                 @yield('content_layout')
             </div>
-			@include('layouts/float_buttons')
         </main>
     </div>
     

@@ -1,6 +1,9 @@
 @extends('layouts.app_side')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
 <div class="ml-auto mr-auto row " ng-controller="contactusController" ng-init="init()">
    <div class="pr-lg-2 col-lg-12">
       <div class="mb-3 card">

@@ -1,6 +1,9 @@
 @extends('layout.app_layoutCompany')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
 <div class="flex-center min-vh-100 py-6 row">
    <div class="col-xxl-5 col-sm-11 col-md-9 col-lg-7 col-xl-6">
 

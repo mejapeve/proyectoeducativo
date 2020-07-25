@@ -1,6 +1,9 @@
 @extends('layouts.app_side')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
 <div class="container ">
     <div class="row justify-content-center">
         <div class="col-md-8">

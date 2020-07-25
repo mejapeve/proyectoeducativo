@@ -1,6 +1,9 @@
 @extends('layouts.app_side')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
     <div class="justify-content-center" ng-controller="LoginCtrl">
     <div class=" row">
         <div style="margin-top: 15px" class="border-top-4 col-md-6 col-sm-12">

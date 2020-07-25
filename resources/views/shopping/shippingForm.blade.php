@@ -1,6 +1,9 @@
 @extends('layouts.app_side')
 
 @section('content')
+
+@include('layouts/float_buttons')
+
 <div class="no-gutters row">
 	<div class="pr-lg-2 mb-3 col-lg-8">
 		<div class="mb-3 card">

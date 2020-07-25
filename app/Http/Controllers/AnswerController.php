@@ -6,6 +6,7 @@ use App\Mail\SendReportAnswerTutor;
 use App\Models\AdvanceLine;
 use App\Models\AfiliadoEmpresa;
 use App\Models\Answer;
+use App\Models\Rating;
 use App\Models\CompanySequence;
 use App\Models\SequenceMoment;
 use Carbon\Carbon;
@@ -130,6 +131,23 @@ class AnswerController extends Controller
                     $qualification = '(B)';
                     break;
             }
+            
+            //registra el resumen de la evaluzación para la posterior generación de reportes
+            Rating::updateOrCreate(
+                [
+                    'affiliated_account_service_id' => $request->affiliated_account_service_id,
+                    'student_id' => $student->id,
+                    'company_id' => $request->company_id,
+                    'sequence_id' => $request->sequence_id,
+                    'moment_id' => $request->moment_id
+                ] ,
+                [
+                    'weighted' => $performance, 
+                    'letter' => $qualification,
+                    'color' => $color_performance 
+                ]
+            );
+
 
             Mail::to($tutor->email)->send(new SendReportAnswerTutor($tutor, $student, $reportAnswers, $sequence, $moment, $level, $performance_comment,$color_performance,$performance,$place_advance_line));
             return response()->json(['data' => ['performance' => $performance, 'performance_comment' => $performance_comment, 'level' => $level, 'qualification' => $qualification], 'message' => 'Respuestas registradas o actualizadas, se ha notificado al familiar las respuestas'], 200);

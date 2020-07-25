@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('layouts/float_buttons')
+
 <div class="w-100" ng-controller="ratingPlanDetailCtrl" ng-init="init(1,'{{$rating_plan_id}}','{{$sequence_id}}')">
     <div ng-show="errorMessageFilter" id="errorMessageFilter"
       class="fade-message d-none-result d-none alert alert-danger p-1 pl-2 row">

@@ -1,4 +1,4 @@
-<a class="float"  ng-controller="frequentQuestionCtrl" ng-init="init()">
+<a class="float result-finish-done d-none"  ng-controller="frequentQuestionCtrl" ng-init="init()">
     <img ng-hide="toogleChatPanel" class="cursor-pointer" src="{{asset('images/icons/chat.png')}}" width="60px" height="auto" ng-click="toogleChatPanel=true">
     <div class="card" ng-show="toogleChatPanel" style="width: 435px;">
 		<div class="card-header fs--1 pr-5">
