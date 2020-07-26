@@ -15,7 +15,7 @@
      <ul class="nav collapse navbar-collapse row text-align-rigth row">
         <li class="nav-item ml-lg-14 col-2-2 d-flex ml-xl-10 ml-lg-8">
            <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" 
-              class="nav-link  mr-2 p-0 pb-1
+              class="nav-link  mr-2 p-0 pb-1 ml-auto
               @if(\Route::current()->getName() == 'avatar') selected @endif
               @if(\Route::current()->getName() == 'student') selected @endif">
               Mi perfíl

@@ -22,7 +22,7 @@
                                        <img class="rounded-circle m-auto" src="{{asset('images/icons/default-avatar.png')}}" width="150px" height="150px">
                                      @endif 
                                   </div>
-                                  <div class="ml-auto mr-auto m-3 text-align" id="tutorProfileFullName">{{auth('afiliadoempresa')->user()->name }}
+                                  <div class="mt-4 ml-auto mr-auto m-3 text-align" id="tutorProfileFullName">{{auth('afiliadoempresa')->user()->name }}
                                      {{auth('afiliadoempresa')->user()->last_name}}
                                   </div>
                                    <div class="ml-auto mr-auto text-align">
