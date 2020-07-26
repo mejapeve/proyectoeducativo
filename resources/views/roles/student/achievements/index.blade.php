@@ -16,7 +16,7 @@
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reporteSecuencias.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>
-                <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por guía de aprendizaje</div>
+                <div class="font-weight-bold p-3 fs--2">Reporte por guía de aprendizaje</div>
                 </a>
             </div>
             <div class="d-block col-2-2 text-align">
@@ -24,14 +24,14 @@
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reporteMomentos.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>
-                <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por momento</div>
+                <div class="font-weight-bold p-3 fs--2">Reporte por momento</div>
                 </a>
             </div>
             <div class="d-block col-2-2 text-align">
                 <div class="col-12 border-left-mini">
                     <img src="{{asset('images/icons/reportePreguntas.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                 </div>
-                <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por preguntas</div>
+                <div class="font-weight-bold p-3  fs--2">Reporte por preguntas</div>
             </div>
         </div>
     </div>

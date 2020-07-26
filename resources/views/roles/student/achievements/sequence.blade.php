@@ -14,13 +14,13 @@
                 src="{{asset($sequence['url_image'])}}" width="80px" height= "100px"/>
                 <div class="d-block col-5 mr-2 ml-2 fs--1">
                     <p class="font-weight-bold mb-1">Guía de aprendizaje</p>
-                    <p class="" >{{$sequence['name']}}</p>
+                    <p class="fs-0" >{{$sequence['name']}}</p>
                 </div>
                 <div class="d-block col-2-2 text-align  opacity-50 cursor-not-allowed">
                     <div class="col-12 border-left-mini">
                         <img src="{{asset('images/icons/reporteSecuencias.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                     </div>
-                    <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por guía de aprendizaje</div>
+                    <div class="font-weight-bold p-3 fs--2">Reporte por guía de aprendizaje</div>
                 </div>
                 <div class="d-block col-2-2 text-align">
                     <a href="{{
@@ -32,14 +32,14 @@
                         <div class="col-12 border-left-mini">
                             <img src="{{asset('images/icons/reporteMomentos.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                         </div>
-                        <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por momento</div>
+                        <div class="font-weight-bold p-3 fs--2">Reporte por momento</div>
                     </a>
                 </div>
                 <div class="d-block col-2-2 text-align">
                     <div class="col-12 border-left-mini">
                         <img src="{{asset('images/icons/reportePreguntas.png')}}" class="imagen-reports-type-mini"  width="45px" height= "auto"/>
                     </div>
-                    <div class="font-weight-bold p-3 fs-sm--3 fs--3">Reporte por preguntas</div>
+                    <div class="font-weight-bold p-3 fs--2">Reporte por preguntas</div>
                 </div>
             </div>
             <h5 class="mt-3  mb-3">Reporte por guía de aprendizaje</h5>
@@ -67,16 +67,26 @@
                     <span class="font-weight-bold col-3 fs--1">
                         <label class="">Desempeño</label>
                         @if($moment['advance']!=0)
-                            @if($moment['performance']>=90)
-                            <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> S 
-                            @endif
-                            @if($moment['performance']>=60 && $moment['performance']<90)
-                            <i class="fa fa-circle  mr-2" style="color:#F9E538" aria-hidden="true"></i> A
-                            @endif
-                            @if($moment['performance']<60)
-                            <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> D
-                            @endif
-                            {{$moment['performance']}} %
+                            @if($moment['performance'])
+                                @if($moment['performance']>=90)
+                                <i class="fa fa-circle mr-2" style="color:#6CB249" aria-hidden="true"></i> (S) 
+                                @endif
+                                @if($moment['performance']>=70 && $moment['performance']<=89)
+                                <i class="fa fa-circle  mr-2" style="color:#6CB249" aria-hidden="true"></i> (A)
+                                @endif
+                                @if($moment['performance']>=60 && $moment['performance']<=69)
+                                <i class="fa fa-circle mr-2" style="color:#F9E538" aria-hidden="true"></i> (B)
+                                @endif
+                                @if($moment['performance']>=40 && $moment['performance']<=59)
+                                <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> (B)
+                                @endif
+                                @if($moment['performance']<40)
+                                <i class="fa fa-circle mr-2" style="color:#AC312A" aria-hidden="true"></i> (B)
+                                @endif
+                                {{$moment['performance']}} %
+                            @else
+                                <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i>Sin iniciar
+                            @endif    
                         @else
                             <i class="fa fa-circle mr-2" style="color:#706B66" aria-hidden="true"></i>Sin iniciar
                         @endif
