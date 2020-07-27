@@ -145,7 +145,7 @@
     });
 
    function resizable() {
-      var height = $( window ).width() * 300 / 1291;
+      var height = $( window ).width() * 250 / 1291;
       $('.swiper-slide').css('height',height);
       $('.swiper-slide').css('background-size','100% '+height+'px');
    }
