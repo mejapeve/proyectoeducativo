@@ -22075,11 +22075,17 @@ footer .navbar-light {
 }
 
 .trapecio-top {
-    width: 102px;
+    width: 50%;
     height: 0px;
     border-right: 26px solid transparent;
     border-left: 24px solid transparent;
-    border-top: 25px solid #428bca
+    border-top: 25px solid #428bca;
+    padding-left: 11px;
+    bottom: -25px;
+    right: 25%;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .conex-table {}
