@@ -1,4 +1,3 @@
-proyecto conexiones
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:R5l3t/O9P/ooPtlI+SfjVwCrrkoeXoEX93X+J8ZJxQU=
@@ -51,4 +50,8 @@ FACEBOOK_URL =http://proyectoeducativo.test/login/github/callback
 GMAIL_ID =492593728270-hj8udo7ljskgt0ufvok4a9l9eke77pg4.apps.googleusercontent.com
 GMAIL_SECRET =tS-GKZ0J13fG0On_5ajqh4Tl
 GMAIL_URL =https://pruebaconexiones.estrategicacomunicaciones.com/callbackgmail
+
+PAYPAL_CLIENT_ID=AcdvNeyKfOUkAvS3xqQtbabHo3HfG80I5PzbhbVHMRTDmfe3_0wmmOC3u-wjK9nX07XGv9pLt2JSZDvt
+PAYPAL_SECRET=EIs7Oi94E3LKGZ2rhZ6dNE38yUEmK9uz9PY2luZ9aCAB3Rx3MUVCKmqqnSIbLDFmyVwrHq4LV06Gw4ZH
+PAYPAL_MODE=sandbox
 
