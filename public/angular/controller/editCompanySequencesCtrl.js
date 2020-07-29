@@ -383,7 +383,12 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         }
 
         $scope.titleEdit = title;
-        if ($scope.typeEdit === 'img') {
+
+        if($scope.typeEdit === 'date') {
+            var dateControl = document.querySelector('#typeEditDateInput');
+            dateControl.value = parent[element];
+        }
+        else if ($scope.typeEdit === 'img') {
             var dir = $scope.elementParentEdit[$scope.elementEdit] || '/';
             dir = getLastPath(dir);
             $scope.onChangeFolderImage(dir);

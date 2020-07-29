@@ -1,7 +1,7 @@
 @extends('layouts.app_side')
 @section('content')
 <link rel="stylesheet" href="../../../jstree/themes/default/style.min.css">
-<div class="container" ng-controller="editCompanySequencesCtrl" ng-init="initSequence({{$sequence->id}})">
+<div class="container" ng-controller="editCompanySequencesCtrl" ng-init="hidePublicateBtn = true;initSequence({{$sequence->id}})">
    <div class="content">
       <div class="row">
          <div class="col-lg-3 open" id="sidemenu-sequences">
@@ -611,9 +611,12 @@
                <conx-text-list elementParent="elementParentEdit" elementChild="elementEdit"></conx-text-list>
             </div>
             <div ng-show="typeEdit === 'date'">
-               <input placeholder="día/mes/año" type="date" data-date=""
-                  ng-change="changeFormatDate(elementParentEdit,elementEdit,'DD/MM/YYYY')" data-date-format="DD/MM/YYYY"
-                  ng-model="elementParentEdit[elementEdit]" />
+               <input id="typeEditDateInput" placeholder="día/mes/año" type="date" data-date=""
+                  ng-change="changeFormatDate(elementParentEdit,elementEdit,'YYYY-MM-DD')" data-date-format="YYYY-MM-DD"
+                  ng-model="elementParentEdit[elementEdit]"/>
+               <a class="" ng-click="elementParentEdit[elementEdit]=null">
+               <i class=" far fa-times-circle"></i> 
+               </a>
             </div>
             <div ng-show="typeEdit === 'text-element' || typeEdit === 'text-area-element'">
                <div ng-show="typeEdit === 'text-area-element'">
