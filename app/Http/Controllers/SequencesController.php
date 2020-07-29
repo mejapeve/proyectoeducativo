@@ -142,9 +142,9 @@ class SequencesController extends Controller
             $sequence->mesh = $data['mesh'];
         if (isset($data['url_vimeo']))
             $sequence->url_vimeo = $data['url_vimeo'];
-        if (isset($data['init_date']))
+        if (isset($data['init_date']) || isset($data['isDateChange'])  )
             $sequence->init_date = $data['init_date'];
-        if (isset($data['expiration_date']))
+        if (isset($data['expiration_date']) || isset($data['isDateChange']) )
             $sequence->expiration_date = $data['expiration_date'];
         $sequence->save();
         cache()->tags('connection_sequences_redis')->flush();

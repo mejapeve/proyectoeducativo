@@ -440,6 +440,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         try {
             $scope.elementParentEdit[elementEdit] = moment($scope.elementParentEdit[elementEdit], "YYYY-MM-DD").format(format);
             $scope.applyChange = true;
+            $scope.elementParentEdit.isDateChange = true;
         } catch (e) { console.log(e);}
     }
     
@@ -448,6 +449,7 @@ MyApp.controller("editCompanySequencesCtrl", ["$scope", "$http", "$timeout", fun
         $scope.applyChange = true;
         var dateControl = document.querySelector('#typeEditDateInput');
         dateControl.value = '';
+        $scope.elementParentEdit.isDateChange = true;
     }
 
     $scope.onImgChange = function (field) {
