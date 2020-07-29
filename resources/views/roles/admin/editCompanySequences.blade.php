@@ -614,7 +614,7 @@
                <input id="typeEditDateInput" placeholder="día/mes/año" type="date" data-date=""
                   ng-change="changeFormatDate(elementParentEdit,elementEdit,'YYYY-MM-DD')" data-date-format="YYYY-MM-DD"
                   ng-model="elementParentEdit[elementEdit]"/>
-               <a class="" ng-click="elementParentEdit[elementEdit]=null">
+               <a class="" ng-click="clearChangeFormatDate()">
                <i class=" far fa-times-circle"></i> 
                </a>
             </div>
