@@ -65,7 +65,7 @@ class CompanyController extends Controller
                 ['payment_status_id', 1]
             ])->get();
         }
-
+        $dt = new \DateTime();
         $companySequence = CompanySequence::select('id', 'name', 'description', 'url_image', 'keywords', 'areas', 'themes', 'objectives', 'mesh', 'url_vimeo')->with(
             ['moments' => function ($query) {
                 $query->select('id', 'sequence_company_id', 'order', 'name', 'description', 'objectives')
@@ -77,9 +77,11 @@ class CompanyController extends Controller
             ->where('company_id', $company_id)
             ->where(function ($query) {
                 $dt = new \DateTime();
-                $query->where('expiration_date', '>', $dt->format('Y-m-d H:i:s'))
-                    ->orWhereNull('expiration_date');
-            })->get();
+                $query->where('expiration_date', '>=', $dt->format('Y-m-d'))
+                    ->orWhereNull('expiration_date'); 
+            })
+            ->where('init_date', '<=', $dt->format('Y-m-d'))
+            ->get();
 
         return response()->json([
             'activesPlan' => $activesPlan,
