@@ -14,9 +14,11 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
     $scope.selectComplete = false;
     $scope.requiredMoment = false;
     $scope.errorMessageFilter = '';
+    $scope.messageToastPrice = null;
     $("#toast-name-1").fadeOut();
     
     var scrollOrig = $("#toast-name-1").offset().top;
+    var $mbDelayCtrlFlag = false;
     
     function clickSelected(totalSequences, ratingPlanCount) {
       if(ratingPlanCount === 0) ratingPlanCount = ' los ';
@@ -27,8 +29,14 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
       else if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
          $scope.messageToast = 'Has seleccionado ' + totalSequences + ' de ' + ratingPlanCount + '  momentos';
       }
-      $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
-      $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
+ 
+      if(!$mbDelayCtrlFlag) {
+        $mbDelayCtrlFlag = true;
+        $("#toast-name-1").fadeIn(400).delay(1000).fadeOut(400);
+        setTimeout(function(){ $mbDelayCtrlFlag = false;}, 1000);
+        $("#toast-name-1").css('top',scrollOrig + $(window).scrollTop());
+      }
+
     };
 
     $scope.init = function(company_id, ratingPlanId, sequence_id) {
@@ -44,18 +52,20 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             $scope.ratingPlan = ( $scope.ratingPlan && $scope.ratingPlan.length ) ? $scope.ratingPlan[0] : $scope.ratingPlan;
             $scope.requiredMoment = $scope.ratingPlan.type_rating_plan_id === 2;
             $scope.requiredExperience = $scope.ratingPlan.type_rating_plan_id === 3;
+
+            if($scope.ratingPlan === 1) {
+                $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
+            }
             
             if($scope.requiredMoment && sequence_id) { 
                 $('#moment_div_responsive_ForAdd').addClass('show');
             }
-
-            
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los planes de acceso, compruebe su conexión a internet';
         });
         
         $http({
-            url:"/get_company_sequences/" + company_id,
+            url:"/get_company_sequences/" + company_id + "/" + sequence_id,
             method: "GET",
         }).
         then(function (response) {
@@ -94,7 +104,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             $scope.sequences = listTemp;
             
         }).catch(function (e) {
-            $scope.errorMessageFilter = 'Error consultando las guías de aprendizaje, compruebe su conexión a internet';
+            $scope.errorMessageFilter = 'Error consultando las guías de aprendizaje, compruebe su conexión a internet' + e;
         });
     }
     
@@ -141,6 +151,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
 
             var totalMoments = 0;
             
+            
             if(sequenceIdForAdd) {
                 $('#moment_div_responsive_ForAdd').addClass('show');
             }
@@ -169,11 +180,15 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                     if(momentTmp.isSelected) totalMoments++;
                 });
             }
+
+            if(totalMoments===0) {
+                $scope.messageToastPrice = null;
+            }
             
             if(totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
                 moment.isSelected = false;
                 swal({
-                  title: "Número máximo de momentos permitidos",
+                  title: "Has excedido en número máximo de momentos de aprendizaje permitidos en el plan seleccionado",
                   buttons: true,
                   dangerMode: true,
                 })
@@ -190,6 +205,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 }
                 
                  clickSelected(totalMoments, $scope.ratingPlan.count);
+                 $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
             }
         }
     

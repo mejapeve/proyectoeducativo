@@ -31,14 +31,14 @@
                 <li><strong>Uno</strong> o <strong>varios momentos</strong> o etapas de una misma guía de aprendizaje o de  varias.</li>
                 <li><strong>Una</strong> o <strong>varias experiencias</strong> científicas, con los videos orientadores para su realización.</li>
                 </ul>
-                <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, contáctenos y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
+                <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> contáctenos</a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
             </div>
             <div class="d-none-result d-none row col-12 ml-auto mr-auto">
                <div class="mt-xl-0 mt-5 col-xl-1_5 col-lg-2 col-md-3 col-sm-4 col-6 pl-0 pr-0" ng-repeat="ratingPlan in ratingPlans" style="border: 10px solid white;">
                   <div class="card card-body bg-light pr-2 pl-2 pb-0 h-100">
                      <div class="ml-2 fs--3 flex-100">
                         <h5 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h5>  
-                        <ul class="p-0">
+                        <ul class="p-0 ml-2">
                             <li class="fs-1 small pr-3 mt-4 ml-2 card-rating-plan-id-@{{$parent.$index}}" ng-repeat="item in ratingPlan.description_items">
 							<span class="color-gray-dark fs--1">@{{item}}</span></li>
                         </ul>

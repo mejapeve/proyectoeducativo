@@ -37,7 +37,7 @@ class CompanyController extends Controller
      * @param $company_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function get_company_sequences(Request $request, $company_id)
+    public function get_company_sequences(Request $request, $company_id, $sequence_id = 0)
     {
         $activesPlan = [];
         if (auth('afiliadoempresa')->user()) {
@@ -73,16 +73,22 @@ class CompanyController extends Controller
                         $query->select('id', 'sequence_moment_id', 'title', 'decription', 'objectives');
                     }, 'moment_kit.kit.kit_elements.element', 'moment_kit.element']);
             }]
-        )
+        ) 
             ->where('company_id', $company_id)
             ->where(function ($query) {
                 $dt = new \DateTime();
                 $query->where('expiration_date', '>=', $dt->format('Y-m-d'))
                     ->orWhereNull('expiration_date'); 
             })
-            ->where('init_date', '<=', $dt->format('Y-m-d'))
-            ->get();
+            ->where('init_date', '<=', $dt->format('Y-m-d'));
 
+            if($sequence_id > 0) {
+                $companySequence = $companySequence->find($sequence_id);
+                $companySequence  = [$companySequence];
+            }
+            else {
+                $companySequence = $companySequence->get();
+            } 
         return response()->json([
             'activesPlan' => $activesPlan,
             'shoppingCartPlan' => $shoppingCartPlan,

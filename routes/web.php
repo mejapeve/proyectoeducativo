@@ -179,7 +179,7 @@ Route::get('get_companies', 'CompanyController@get_companies')->name('get_compan
 Route::get('get_departments', 'DepartmentController@get_departments')->name('get_departments');
 Route::get('get_cities', 'CityController@getCitiesList')->name('get_cities');
 Route::get('get_countries', 'CountryController@getCountriesList')->name('get_countries');
-Route::get('get_company_sequences/{company_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
+Route::get('get_company_sequences/{company_id?}/{sequence_id?}', 'CompanyController@get_company_sequences')->name('get_company_sequences');
 
 Route::get('get_company_groups/{company_id?}', 'CompanyController@get_company_groups')->name('get_company_groups');
 Route::get('get_teachers_company/{company_id?}', 'CompanyController@get_teachers_company')->    name('get_teachers_company');
