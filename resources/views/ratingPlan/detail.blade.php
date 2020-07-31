@@ -149,5 +149,6 @@
 </div>
 
 <script src="{{ asset('/../angular/controller/ratingPlanDetailCtrl.js') }}" defer></script>
+<script src="{{ asset('/../js/math.round_10.min.js') }}" defer></script>
 
 @endsection

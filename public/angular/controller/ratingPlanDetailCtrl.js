@@ -4,6 +4,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
     $scope.sequenceForAdd = null;
     $scope.elementsKits = [];
     $scope.meshDirectory = null;
+    $scope.totalMoments = 0;
     
     var type_sequence = 1;
     var type_moment = 2;
@@ -57,7 +58,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             $scope.requiredExperience = $scope.ratingPlan.type_rating_plan_id === 3;
 
             if($scope.ratingPlan === 1) {
-                $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
+                $scope.messageToastPrice = 'Precio del plan $' + $scope.ratingPlan.price + ' USD';
             }
             
             if($scope.requiredMoment && sequence_id) { 
@@ -157,7 +158,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
         //Rating plan for moment or experience
         else if($scope.ratingPlan.type_rating_plan_id === type_moment || $scope.ratingPlan.type_rating_plan_id === type_experience) {
 
-            var totalMoments = 0;
+            $scope.totalMoments = 0;
             
             
             if(sequenceIdForAdd) {
@@ -178,22 +179,22 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             angular.forEach($scope.sequences, function(sequenceTmp, key) {
               if(sequenceTmp.isSelected) {
                 angular.forEach(sequenceTmp.moments, function(momentTmp, key) {
-                    if(momentTmp.isSelected) totalMoments++;
+                    if(momentTmp.isSelected) $scope.totalMoments++;
                 });
               }
             });
             
             if($scope.sequenceForAdd) {
                 angular.forEach($scope.sequenceForAdd.moments, function(momentTmp, key) {
-                    if(momentTmp.isSelected) totalMoments++;
+                    if(momentTmp.isSelected) $scope.totalMoments++;
                 });
             }
 
-            if(totalMoments===0) {
+            if($scope.totalMoments===0) {
                 $scope.messageToastPrice = null;
             }
             else {
-                if(totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
+                if($scope.totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
                     moment.isSelected = false;
                     swal({
                       title: "Has excedido en número máximo de momentos de aprendizaje permitidos en el plan seleccionado",
@@ -202,7 +203,7 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                     })
                 }
                 else { 
-                    $scope.selectComplete = ( totalMoments === $scope.ratingPlan.count || $scope.ratingPlan.count === 0) && totalMoments > 0;
+                    $scope.selectComplete = $scope.totalMoments === $scope.ratingPlan.count || $scope.ratingPlan.count === 0
                     if($scope.selectComplete) {
                         $('.confirm_rating').addClass("btn-primary");
                         $('.confirm_rating').removeClass("btn-outline-primary");
@@ -211,9 +212,9 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                         $('.confirm_rating').removeClass("btn-primary");
                         $('.confirm_rating').addClass("btn-outline-primary");
                     }
-                    
-                     clickSelected(totalMoments, $scope.ratingPlan.count);
-                     $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
+                    clickSelected($scope.totalMoments, $scope.ratingPlan.count);
+                    var price = Math.round10($scope.totalMoments * $scope.ratingPlan.price,-2 );
+                    $scope.messageToastPrice = 'Precio del plan $' + price + ' USD';
                 }
             }
              
@@ -346,7 +347,6 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
                 }
             }
         }
-        
         var ratingPlanData = { 'type_product_id': $scope.ratingPlan.type_rating_plan_id,'rating_plan_id': $scope.ratingPlan.id, 'products': products};
         var kitsData =     { 'type_product_id': 4, products: [] };
         var elementsData =     { 'type_product_id': 5, products: [] };

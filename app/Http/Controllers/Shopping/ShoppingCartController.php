@@ -84,41 +84,46 @@ class ShoppingCartController extends Controller
     {
 
         $payment_status_default = 1;
+        $type_product_id = intval($data['type_product_id']);
 
         if ($request->user('afiliadoempresa')) {
-            $shoppingCart = ShoppingCart::where([
-                ['company_affiliated_id', $request->user('afiliadoempresa')->id],
-                ['type_product_id', intval($data['type_product_id'])],
-                ['payment_status_id', $payment_status_default],
-            ])->first();
+            // $shoppingCart = ShoppingCart::where([
+            //     ['company_affiliated_id', $request->user('afiliadoempresa')->id],
+            //     ['type_product_id', $type_product_id],
+            //     ['payment_status_id', $payment_status_default],
+            // ])->first();
             //$shipping_price = $shoppingCart->shipping_price;
 
-            if (!$shoppingCart) {
+            //if (!$shoppingCart) {
                 $shoppingCart = new ShoppingCart();
                 $shoppingCart->company_affiliated_id = $request->user('afiliadoempresa')->id;
-            }
+            //}
         } else {
             if (session_id() == "") {
                 session_start();
             }
 
-            $shoppingCart = ShoppingCart::where([
-                ['session_id', session_id()],
-                ['type_product_id', intval($data['type_product_id'])],
-                ['payment_status_id', $payment_status_default],
-            ])->first();
+            // $shoppingCart = ShoppingCart::where([
+            //     ['session_id', session_id()],
+            //     ['type_product_id', $type_product_id],
+            //     ['payment_status_id', $payment_status_default],
+            // ])->first();
 
-            if (!$shoppingCart) {
+            //if (!$shoppingCart) {
                 $shoppingCart = new ShoppingCart();
                 $shoppingCart->session_id = session_id();
-            }
+            //}
         }
-        if ($shoppingCart->type_product_id != 4 && $shoppingCart->type_product_id != 5) {
-            $shoppingCart->shopping_cart_product()->delete();
-        }
+        // if ($shoppingCart->type_product_id != 4 && $shoppingCart->type_product_id != 5) {
+        //     $shoppingCart->shopping_cart_product()->delete();
+        // }
 
         if (isset($data['rating_plan_id'])) {
+            $ratingPlan = RatingPlan::find($data['rating_plan_id']);
             $shoppingCart->rating_plan_id = intval($data['rating_plan_id']);
+            if($type_product_id == 2 || $type_product_id == 3) {
+                $shoppingCart->shipping_price = $ratingPlan->price * count($data['products']);
+            }
         }
 
         $shoppingCart->type_product_id = intval($data['type_product_id']);
@@ -128,7 +133,6 @@ class ShoppingCartController extends Controller
         } else {
             $shoppingCart->payment_status_id = $payment_status_default;
         }
-
         $shoppingCart->save();
 
         foreach ($data['products'] as $product) {
