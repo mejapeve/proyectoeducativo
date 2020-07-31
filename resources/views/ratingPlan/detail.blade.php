@@ -103,7 +103,7 @@
                                <input type="checkbox" ng-model="sequence.isSelected" name="check_sequence_"@{{sequences.id}} ng-change="onCheckChange(sequence)"/>
                               </div>
                                  <div class="media-body pl-2 pr-3">
-                                 <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}} @{{sequence.isSelected}}</h5>
+                                 <h5 class="pl-2 fs-0 boder-header text-align-left">@{{sequence.name}}</h5>
                                  <div class="mt-3 pr-2 pl-2 fs--1" style="min-height: 110px;">@{{sequence.description}}</div>
                                  <div class="col-12">
                                      <a ng-click="showMash(sequence)" class="ml-3 mt-3 btn btn-outline-primary fs--1" href="#" class="col-6">

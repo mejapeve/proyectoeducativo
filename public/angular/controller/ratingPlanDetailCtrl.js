@@ -42,7 +42,10 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
     $scope.init = function(company_id, ratingPlanId, sequence_id) {
         $scope.defaultCompanySequences = company_id;
         $('.d-none-result').removeClass('d-none');
-        
+        getRatingPlan(company_id,ratingPlanId,sequence_id);        
+    }
+
+    function getRatingPlan(company_id,ratingPlanId,sequence_id) {
         $http({
             url:"/get_rating_plan/" + ratingPlanId,
             method: "GET",
@@ -60,10 +63,15 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             if($scope.requiredMoment && sequence_id) { 
                 $('#moment_div_responsive_ForAdd').addClass('show');
             }
+
+            getSequences(company_id,sequence_id);
+
         }).catch(function (e) {
             $scope.errorMessageFilter = 'Error consultando los planes de acceso, compruebe su conexión a internet';
         });
-        
+    }
+
+    function getSequences(company_id,sequence_id) {
         $http({
             url:"/get_company_sequences/" + company_id + "/" + sequence_id,
             method: "GET",
@@ -184,29 +192,31 @@ MyApp.controller("ratingPlanDetailCtrl", ["$scope", "$http", "$timeout", functio
             if(totalMoments===0) {
                 $scope.messageToastPrice = null;
             }
-            
-            if(totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
-                moment.isSelected = false;
-                swal({
-                  title: "Has excedido en número máximo de momentos de aprendizaje permitidos en el plan seleccionado",
-                  buttons: true,
-                  dangerMode: true,
-                })
-            }
-            else { 
-                $scope.selectComplete = ( totalMoments === $scope.ratingPlan.count || $scope.ratingPlan.count === 0) && totalMoments > 0;
-                if($scope.selectComplete) {
-                    $('.confirm_rating').addClass("btn-primary");
-                    $('.confirm_rating').removeClass("btn-outline-primary");
+            else {
+                if(totalMoments > $scope.ratingPlan.count && $scope.ratingPlan.count > 0) {
+                    moment.isSelected = false;
+                    swal({
+                      title: "Has excedido en número máximo de momentos de aprendizaje permitidos en el plan seleccionado",
+                      buttons: true,
+                      dangerMode: true,
+                    })
                 }
-                else {
-                    $('.confirm_rating').removeClass("btn-primary");
-                    $('.confirm_rating').addClass("btn-outline-primary");
+                else { 
+                    $scope.selectComplete = ( totalMoments === $scope.ratingPlan.count || $scope.ratingPlan.count === 0) && totalMoments > 0;
+                    if($scope.selectComplete) {
+                        $('.confirm_rating').addClass("btn-primary");
+                        $('.confirm_rating').removeClass("btn-outline-primary");
+                    }
+                    else {
+                        $('.confirm_rating').removeClass("btn-primary");
+                        $('.confirm_rating').addClass("btn-outline-primary");
+                    }
+                    
+                     clickSelected(totalMoments, $scope.ratingPlan.count);
+                     $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
                 }
-                
-                 clickSelected(totalMoments, $scope.ratingPlan.count);
-                 $scope.messageToastPrice = 'Precio del plan $' + totalMoments + ' USD';
             }
+             
         }
     
     }
