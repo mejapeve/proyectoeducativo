@@ -340,16 +340,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
     $scope.createOrUpdateKit = (action) => {
         if(action === 'Crear'){
             $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
-                var list = response.data.scanned_directory;
-                var directoryPathModal = response.data.directory;
-                var item = null;
-                $scope.kit.url_slider_images = ''
-                for (indx in list) {
-                    item = list[indx];
-                    if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                        $scope.kit.url_slider_images = $scope.kit.url_slider_images+'|'+directoryPathModal+''+item
-                    }
-                }
+                $scope.kit.url_slider_images = response.data.directory + '/'; 
                 $scope.createOrUpdateKitService(action)
             })
         }
@@ -358,16 +349,7 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
                 $scope.createOrUpdateKitService(action)
             }else{
                 $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
-                    var list = response.data.scanned_directory;
-                    var directoryPathModal = response.data.directory;
-                    var item = null;
-                    $scope.kit.url_slider_images = ''
-                    for (indx in list) {
-                        item = list[indx];
-                        if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                            $scope.kit.url_slider_images = $scope.kit.url_slider_images+'|'+directoryPathModal+''+item
-                        }
-                    }
+                    $scope.kit.url_slider_images = response.data.directory  + '/'; 
                     $scope.createOrUpdateKitService(action)
                 })
             }
@@ -375,17 +357,8 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
     }
     $scope.createOrUpdateElement = (action) => {
         if(action === 'Crear'){
-            $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
-                var list = response.data.scanned_directory;
-                var directoryPathModal = response.data.directory;
-                var item = null;
-                $scope.element.url_slider_images = ''
-                for (indx in list) {
-                    item = list[indx];
-                    if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                        $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
-                    }
-                }
+            $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) { 
+                $scope.element.url_slider_images = response.data.directory + '/'; 
                 $scope.createOrUpdateElementService(action)
             })
         }
@@ -393,17 +366,8 @@ MyApp.controller("managmentKitElementCtrl", ["$scope", "$http","$compile",'$time
             if($scope.directoryPath2 === 'images/designerAdmin'){
                 $scope.createOrUpdateElementService(action)
             }else{
-                $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {
-                    var list = response.data.scanned_directory;
-                    var directoryPathModal = response.data.directory;
-                    var item = null;
-                    $scope.element.url_slider_images = ''
-                    for (indx in list) {
-                        item = list[indx];
-                        if (item.includes('.png') || item.includes('.jpg') || item.includes('.jpeg')) {
-                            $scope.element.url_slider_images = $scope.element.url_slider_images+'|'+directoryPathModal+''+item
-                        }
-                    }
+                $http.post('/conexiones/admin/get_folder_image', { 'dir': $scope.directoryPath2 }).then(function (response) {  
+                    $scope.element.url_slider_images = response.data.directory + '/'; 
                     $scope.createOrUpdateElementService(action)
                 })
             }

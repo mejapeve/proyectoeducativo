@@ -224,7 +224,7 @@
                                             </ul>
                                             <div class="col-12 row mt-3">
                                                 <div ng-repeat="field in filesImages" class="col-4">
-                                                    <img ng-src="{{env('APP_URL')}}/@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"
+                                                    <img ng-src="/@{{field.url_image}}" width="79px" height="auto" ng-click="onImgChange(field)"
                                                          class="cursor-pointer" />
                                                 </div>
                                             </div>
@@ -258,7 +258,7 @@
                                         </ul>
                                         <div class="col-12 row mt-3">
                                             <div ng-repeat="field in filesImages2" class="col-4">
-                                                <img ng-src="{{env('APP_URL')}}/@{{field.url_image}}" width="79px" height="auto"
+                                                <img ng-src="/@{{field.url_image}}" width="79px" height="auto"
                                                      class="cursor-pointer" />
                                             </div>
                                         </div>
