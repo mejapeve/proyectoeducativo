@@ -103,7 +103,7 @@ class KitController extends Controller
 
     public function get_kit (Request $request,$id) {
 
-        $element = Kit::has('moment_kits')->with(['moment_kits' => function ($query){
+        $element = Kit::with(['moment_kits' => function ($query){
             $query->has('moment')->with(['moment' => function ($query){
                 $query->with(['sequence'=>function($query){
                     $query->select('id','name');
