@@ -7,6 +7,8 @@ use App\Models\Element;
 use App\Models\MomentKits;
 use Illuminate\Http\Request;
 
+use DB;
+
 /**
  * Class KitElementController
  * @package App\Http\Controllers
@@ -20,7 +22,9 @@ class KitElementController extends Controller
      */
     public function get_kit_elements(Request $request)
     {
-        return Kit::with('kit_elements', 'kit_elements.element')->get();
+        return Kit::with('kit_elements', 'kit_elements.element')
+        ->select('kits.*',DB::raw('(CASE WHEN kits.quantity = 0 THEN "sold-out" ELSE CASE WHEN kits.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
+        ->get();
 
     }
 
@@ -42,6 +46,7 @@ class KitElementController extends Controller
             $query->select(['moment_kits.id','moment_kits.*']);
         }])
         ->with('kit_elements', 'kit_elements.element')
+        ->select('kits.*',DB::raw('(CASE WHEN kits.quantity = 0 THEN "sold-out" ELSE CASE WHEN kits.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
         
         ->find($kid_id);
     }
