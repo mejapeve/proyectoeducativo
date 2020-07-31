@@ -22,10 +22,12 @@ class KitElementController extends Controller
      */
     public function get_kit_elements(Request $request)
     {
-        return Kit::with('kit_elements', 'kit_elements.element')
+        return Kit::with('kit_elements')
+        ->with(['kit_elements.element' => function($query) {
+            $query->select('elements.*',DB::raw('(CASE WHEN elements.quantity = 0 THEN "sold-out" ELSE CASE WHEN elements.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'));
+        }])
         ->select('kits.*',DB::raw('(CASE WHEN kits.quantity = 0 THEN "sold-out" ELSE CASE WHEN kits.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
         ->get();
-
     }
 
     /**
@@ -59,14 +61,20 @@ class KitElementController extends Controller
     public function get_element(Request $request, $element_id)
     {
 
-        return Element::where('id', $element_id)->get();
+        return Element::where('id', $element_id)
+        ->select('elements.*',DB::raw('(CASE WHEN elements.quantity = 0 THEN "sold-out" ELSE CASE WHEN elements.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
+        ->get();
 
     }
 
     public function get_kit_element_dt (){
 
-        $kitsElements['kits'] = Kit::all();
-        $kitsElements['elements'] = Element::all();
+        $kitsElements['kits'] = Kit::
+        select('kits.*',DB::raw('(CASE WHEN elements.quantity = 0 THEN "sold-out" ELSE CASE WHEN elements.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
+        ->all();
+        $kitsElements['elements'] = Element::
+        select('kits.*',DB::raw('(CASE WHEN elements.quantity = 0 THEN "sold-out" ELSE CASE WHEN elements.init_date < CURDATE() THEN "available" ELSE "no-available" END END) AS status'))
+        -all();
 
         return response()->json($kitsElements,200);
 
