@@ -59,17 +59,21 @@ MyApp.controller("avatarStudentCtrl", function ($scope, $http) {
             $scope.avatar = null;
             $scope.$apply();
             if(category === 'skin') { 
-                $("#color-skin").show();
+                $("#color-skin").removeClass('d-none');
+                $("#color-skin").addClass('d-flex');
             }
             else {
-                $("#color-skin").hide();
+                $("#color-skin").removeClass('d-flex');
+                $("#color-skin").addClass('d-none');
             }
 
-            if(category === 'hair') {
-                $("#color-hair").show();
+            if(category === 'hair') { 
+                $("#color-hair").removeClass('d-none');
+                $("#color-hair").addClass('d-flex');
             }
             else{
-                $("#color-hair").hide();
+                $("#color-hair").removeClass('d-flex');
+                $("#color-hair").addClass('d-none');
             }
                     
             $("#avatar").find("div").removeClass("d-block");

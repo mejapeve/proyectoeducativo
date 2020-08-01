@@ -45,7 +45,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="mb-3 overflow-hidden card" style="min-width: 12rem;">
+                     <div class="mb-3 overflow-hidden card" style="min-width: 1210px;">
                         <div class="p-3 border-lg-y col-lg-2 w-100 loading"
                            style="min-height: 23vw; border: 0.4px solid grey; min-width: 100%" ng-hide="kits.length > 0">
                            cargando...
@@ -56,7 +56,7 @@
                               <div class="col-3 col-md-4">
                                  <img ng-repeat="avatar in avatars" class="shadow-sm avatar-default rounded-circle" src="@{{avatar.urlImage}}" ng-click="setAvatar(avatar)" >
                               </div>
-                              <div class="col-7 col-md-5 col-lg-4">
+                              <div class="col-7 col-md-4 col-lg-4">
                                  <div ng-show="avatar" style="width: 75%;">
                                     <img class="shadow-sm rounded-circle" width="100%" height="auto" src="@{{avatar.urlImage}}">
                                     <h6 class="text-align mt-2">@{{avatar.name}}</h6>
@@ -66,12 +66,12 @@
                               </div>
                               <div class="col-2 col-md-3 col-lg-4"  class="card-body">
                                  <div id="menu">
-                                    <div class="mb-3">
-                                       <img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cara.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="skin"/>
-                                       <img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/rasgo.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="features"/>
-                                       <img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cabello.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="hair"/>
-                                       <img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/accesorio11.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories1"/>
-                                       <img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/accesorio2.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories2"/>
+                                    <div class="mb-3 d-flex">
+                                       <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cara.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2 ml-auto mr-auto" data-tab="skin"/></div>
+                                       <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/rasgo.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="features"/></div>
+                                       <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cabello.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="hair"/></div>
+                                       <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/accesorio11.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories1"/></div>
+                                       <div class="ml-auto mr-auto"  ><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/accesorio2.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories2"/></div>
                                     </div>
                                  </div>
                                  <div id="avatar">
@@ -117,21 +117,21 @@
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/mini/accesorios/sombrero.png')}}"/>
                                        <img width="65px" height="55px" class="img-thumbnail cursor-pointer" src="{{ asset('images/avatars/mini/accesorios/eraser.png')}}"/>
                                     </div>
-                                 </div>
-                                  <div class="mt-3">
-                                     <ul id="color-skin" class="pl-0">
-                                        <li data-rgb="fac9b7" class="colorbg seleccionado" style="background-color:#fac9b7;"></li>
-                                        <li data-rgb="5b4031" class="colorbg" style="background-color:#5b4031;"></li>
-                                        <li data-rgb="c69a7b" class="colorbg" style="background-color:#c69a7b;"></li>
-                                        <li data-rgb="cca39a" class="colorbg" style="background-color:#cca39a;"></li>
-                                        <li data-rgb="ffefcf" class="colorbg" style="background-color:#ffefcf;"></li>
-                                     </ul>
-                                     <ul id="color-hair" class="pl-0">
-                                        <li data-rgb="000000" class="colorbg seleccionado" style="background-color:#000000;"></li>
-                                        <li data-rgb="2d1b13" class="colorbg" style="background-color:#2d1b13;"></li>
-                                        <li data-rgb="e8d68b" class="colorbg" style="background-color:#e8d68b;"></li>
-                                        <li data-rgb="3f1414" class="colorbg" style="background-color:#3f1414;"></li>
-                                     </ul>
+                                 </div> 
+                                  <div class="mt-3 pr-2">
+                                     <div id="color-skin" class="p-2 mt-7 d-flex border ">
+                                        <div data-rgb="fac9b7" class=" ml-auto mr-auto border-color seleccionado" style="background-color:#fac9b7;"></div>
+                                        <div data-rgb="5b4031" class=" ml-auto mr-auto border-color" style="background-color:#5b4031;"></div>
+                                        <div data-rgb="c69a7b" class=" ml-auto mr-auto border-color" style="background-color:#c69a7b;"></div>
+                                        <div data-rgb="cca39a" class=" ml-auto mr-auto border-color" style="background-color:#cca39a;"></div>
+                                        <div data-rgb="ffefcf" class=" ml-auto mr-auto border-color" style="background-color:#ffefcf;"></div>
+                                    </div>
+                                     <div id="color-hair" class="p-2 mt-7 d-none     border ">
+                                        <div data-rgb="000000" class="ml-auto mr-auto border-color seleccionado" style="background-color:#000000;"></div>
+                                        <div data-rgb="2d1b13" class="ml-auto mr-auto border-color" style="background-color:#2d1b13;"></div>
+                                        <div data-rgb="e8d68b" class="ml-auto mr-auto border-color" style="background-color:#e8d68b;"></div>
+                                        <div data-rgb="3f1414" class="ml-auto mr-auto border-color" style="background-color:#3f1414;"></div>
+                                     </div>
                                   </div> 
                               </div>
                            </div>

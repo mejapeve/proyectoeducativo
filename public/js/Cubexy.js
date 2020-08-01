@@ -49,14 +49,14 @@ $.fn.extend({
       IniciarPintadoAvatar();
     });
 
-    $('#color-skin > li').click(function () {
-      $(this).parent().children('li').removeClass(cssParteUnica);
+    $('#color-skin > div').click(function () {
+      $(this).parent().children('div').removeClass(cssParteUnica);
       $(this).addClass(cssParteUnica);
       IniciarPintadoAvatar();
     });
   
-    $('#color-hair > li').click(function () {
-      $(this).parent().children('li').removeClass(cssParteUnica);
+    $('#color-hair > div').click(function () {
+      $(this).parent().children('div').removeClass(cssParteUnica);
       $(this).addClass(cssParteUnica);
       IniciarPintadoAvatar();
     });

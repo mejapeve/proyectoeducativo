@@ -53,16 +53,16 @@
                   ng-repeat="ratingPlan in ratingPlans track by $index">
                   <div class="card card-body pr-2 pl-2 pb-0 h-100">
                      <div class=" ml-2 fs--3 flex-100">
-                        <h6 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h6>  
+                        <h6 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2 " style="font-size:15px;">@{{ratingPlan.name}} </span></h6>  
                         <ul class="p-0 ml-2" ng-repeat="item in ratingPlan.description_items">
                             <li class="fs-1 small pl-1 pr-2 mt-3 ml-3 card-rating-plan-id-@{{$parent.$index}}"> 
-                            <span class="color-gray-dark fs--1">
+                            <span class="color-gray-dark font-family font-14px ">
                             @{{item}}
                             </span></li>
                         </ul>
                      </div>
                   </div>
-                  <div class="trapecio-top position-absolute ml-4" style="bottom: -25px;">
+                  <div class="trapecio-top position-absolute ml-4 card-rating-button-id-@{{$index}} " style="bottom: -25px;">
                     <a class=""
                         ng-href="{{route('/')}}/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url_value}}" class="col-auto">
                         <span class="fs--3 ml-1 mt-2" style="position: absolute;top: -31px;color: white;">Adquirir</span>

@@ -34,23 +34,27 @@
                 <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> contáctenos</a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
             </div>
             <div class="d-none-result d-none row col-12 ml-auto mr-auto">
-               <div class="mt-xl-0 mt-5 col-xl-1_5 col-lg-2 col-md-3 col-sm-4 col-6 pl-0 pr-0" ng-repeat="ratingPlan in ratingPlans" style="border: 10px solid white;">
+               <div class="mt-xl-0 mt-5 col-xl-1_5 col-md-3 col-sm-4 col-6 pl-0 pr-0" ng-repeat="ratingPlan in ratingPlans" style="border: 10px solid white;">
                   <div class="card card-body bg-light pr-2 pl-2 pb-0 h-100">
-                     <div class="ml-2 fs--3 flex-100">
-                        <h5 class="font-weight-bold text-center fs--3 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h5>  
+                     <div class="ml-2 mt-3 fs--3 flex-100">
+                        <h5 class="alingTextPlan font-weight-bold text-center fs-0 card-rating-plan-id-@{{$index}}"> <span class="ml-2">@{{ratingPlan.name}} </span></h5>  
                         <ul class="p-0 ml-2">
                             <li class="fs-1 small pr-3 mt-4 ml-2 card-rating-plan-id-@{{$parent.$index}}" ng-repeat="item in ratingPlan.description_items">
-							<span class="color-gray-dark fs--1">@{{item}}</span></li>
-                        </ul>
-                        <div class="position-absolute" style="bottom: -40px;">
-                            <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-hide="ratingPlan.is_free"
+							        <span class="color-gray-dark font-14px font-family ">@{{item}}</span></li>
+                        </ul> 
+                        <div class="position-absolute" style="bottom: -40px; left: calc(25% - 0px);">
+                           <div ng-hide="ratingPlan.is_free" >
+                            <a class="ml-lg-0 ml-2 btn btn-outline-primary card-rating-plan-id-@{{$index}}  card-rating-button-id-@{{$index}} " 
                                 ng-href="/plan_de_acceso/@{{ratingPlan.id}}/@{{ratingPlan.name_url_value}}" class="col-auto">
                                 <span>Adquirir</span>
                             </a>
-                            <a class="ml-lg-0 ml-2 btn btn-outline-primary" ng-show="ratingPlan.is_free" href="#"
+                           </div>
+                           <div ng-show="ratingPlan.is_free"> 
+                            <a class="ml-lg-0 ml-2 btn btn-outline-primary card-rating-plan-id-@{{$index}} card-rating-button-id-@{{$index}} "  href="#"
                                 ng-click="onRatingPlanFree(ratingPlan.id)" class="col-auto">
                                 <span>Plan gratuito</span>
                             </a>
+                            </div>
                         </div>
                      </div>
                   </div>
