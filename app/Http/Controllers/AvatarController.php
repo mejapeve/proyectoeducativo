@@ -41,7 +41,7 @@ class AvatarController extends Controller
                 die('Base64 value is not a valid image'); // This is important, because you should not miss corrupted or unsupported images
             }
             
-            $directory = env('ADMIN_DESIGN_PATH') . '/' . str_replace($homeDirectory,'',$request->dir);
+            $directory = env('ADMIN_DESIGN_PATH') . '/' .  $img_file ;
             imagepng($im, $directory , 0); // Save the GD resource as PNG in the best possible quality (no compression)
 
             $user->url_image = $img_file;
