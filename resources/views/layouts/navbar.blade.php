@@ -9,48 +9,49 @@
         </div>
      </div>
 
-     <ul class="ml-1 nav collapse navbar-collapse row text-align fs-14px font-weight-semi-bold">
-        <li class="nav-item col-1 p-0 nav-small-fs--1"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home' || Route::current()->getName() == '') selected @endif">Inicio</a></li>
-        <li class="nav-item col-1-5 p-0 "><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></li>
-        <li class="nav-item col-1-5 p-0"><a href="{{ route('sequences.search') }}" class="nav-link p-0 pb-1 
+     <div class="ml-1 nav collapse navbar-collapse row text-align fs-14px font-weight-semi-bold">
+        <div class="nav-item ml-auto mr-1 p-0 nav-small-fs--1"><a href="{{ route('home') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'home' || Route::current()->getName() == '') selected @endif">Inicio</a></div>
+        <div class="nav-item ml-auto mr-auto p-0 max-with-105px "><a href="{{ route('aboutus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'aboutus') selected @endif">Acerca de conexiones</a></div>
+        <div class="nav-item ml-auto mr-auto p-0 max-with-105px " ><a href="{{ route('sequences.search') }}" class="nav-link p-0 pb-1 
         @if(\Route::current()->getName() == 'sequences.search') selected @endif
         @if(\Route::current()->getName() == 'sequences.get') selected @endif
-        ">Guías de aprendizaje</a></li>
-        <li class="nav-item col-2 p-0"><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></li>
-        <li class="nav-item ml-2 col-1-6 p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></li>
+        ">Guías de aprendizaje</a></div>
+        <div class="nav-item ml-auto mr-auto p-0 max-with-105px "><a href="{{ route('elementsKits.search') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'elementsKits.search') selected @endif">Implementos de laboratorio</a></div>
+        <div class="nav-item ml-auto mr-auto p-0"><a href="{{ route('contactus') }}" class="nav-link p-0 pb-1 @if(\Route::current()->getName() == 'contactus') selected @endif">Contáctenos</a></div>
         @guest('afiliadoempresa')
-        <li class="ml-2 nav-item col-2 p-0 text-align-right">
-           <a class="btn btn-primary btn-sm badge-pill fs-lg--1" href="{{ route('user.login') }}">Inicio de Sesión</a>
-        </li>
-        <li class="ml-2 nav-item p-0">
-           <a class="btn btn-warning btn-sm badge-pill	  fs-lg--1" href="{{ route('registerForm') }}">Registro</a>
-        </li>
+        <div class="nav-item ml-auto mr-auto p-0 text-align-right">
+           <a class="btn btn-primary btn-sm badge-pill fs-lg--1 font-weight-bold" href="{{ route('user.login') }}">Inicio de Sesión</a>
+        </div>
+        <div class="nav-item p-0 ml-auto mr-auto">
+           <a class="btn btn-warning btn-sm badge-pill fs-lg--1 font-weight-bold" href="{{ route('registerForm') }}">Registro</a>
+        </div>
         @endguest
         
         @auth('afiliadoempresa')
         @if(auth('afiliadoempresa')->user()->hasAnyRole('student'))
-        <li class="ml-1 col-2-3 d-flex">
+        <div class="ml-1 ml-auto mr-auto d-flex">
             <a href="{{ route('student', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
             <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
-        </li>
+        </div>
         @elseif(auth('afiliadoempresa')->user()->hasAnyRole('tutor'))
-        <li class="ml-1 col-2-3 d-flex">
+        <div class="ml-1 ml-auto mr-auto d-flex">
             <a href="{{ route('tutor', auth('afiliadoempresa')->user()->company_name()) }}" class="ml-2 pl-2 pr-2 pb-1 btn btn-outline-primary btn-sm"> 
             <i class="fas fa-user fs-1 mt-1"></i> Mi perfíl </a>
-        </li>
+        </div>
         @else
-        <li class="ml-1 col-2-3 d-flex">
+        <div class="ml-1 ml-auto mr-auto d-flex">
             <a class="my-3 btn btn-primary btn-sm btn-block" href="{{ route('user.logout') }}"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Cerrar Sesión</a>
             <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                @csrf
             </form>
-        </li>
+        </div>
         @endif
+
+
         @endauth
         
-        @if(!auth('afiliadoempresa')->user() || auth('afiliadoempresa')->user()->hasAnyRole('tutor') || auth('afiliadoempresa')->user()->hasAnyRole('teacher'))
-        <li class="nav-item">
+         <div class="nav-item">
            <a class="px-0 notification-indicator notification-indicator-warning notification-indicator-fill nav-link" href="{{route('shoppingCart')}}">
               <span class="notification-indicator-number">!</span>
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="shopping-cart" class="svg-inline--fa fa-shopping-cart fa-w-18 fs-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="transform-origin: 0.5625em 0.5em;">
@@ -61,16 +62,17 @@
                  </g>
               </svg>
            </a>
-        </li>
-        @endif
-        
-        <li class="nav-item ml-auto mr-auto">
+        </div> 
+
+        <div class="nav-item ml-auto mr-auto">
            <form class="search-box form-inline ng-pristine ng-valid">
               <input placeholder="Buscar..." aria-label="Search" type="search" class="rounded-pill search-input form-control">
               <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16 position-absolute text-400 search-box-icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                  <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
               </svg>
            </form>
-        </li>
-     </ul>
+        </div>
+        
+
+</div>
 </nav>
