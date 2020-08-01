@@ -67,7 +67,7 @@
                               <div class="col-2 col-md-3 col-lg-4"  class="card-body">
                                  <div id="menu">
                                     <div class="mb-3 d-flex">
-                                       <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cara.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2 ml-auto mr-auto" data-tab="skin"/></div>
+                                       <div class="mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cara.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2 ml-auto mr-auto" data-tab="skin"/></div>
                                        <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/rasgo.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="features"/></div>
                                        <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/cabello.png')}}" class="tab-avatar btn btn-falcon-primary pl-2 pr-2" data-tab="hair"/></div>
                                        <div class="ml-auto mr-auto"><img width="65px" height="65px" src="{{asset('images/avatars/mini/icons/accesorio11.png')}}" class="tab-avatar btn btn-falcon-primary p-2 pt-3 pb-3" data-tab="accessories1"/></div>
