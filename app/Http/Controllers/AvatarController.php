@@ -33,7 +33,7 @@ class AvatarController extends Controller
             $user->url_image = $request->url_image;
             $user->save();
         } elseif (isset($request->custom_image)) {
-            $img_file = "images/users_images/student_" . $user->id /* . '_' . $this->random_string(5)  */. ".jpeg";
+            $img_file = "../images/users_images/student_" . $user->id /* . '_' . $this->random_string(5)  */. ".jpeg";
             $b64 = str_replace("data:image/jpeg;base64", "", $request->custom_image);// Define the Base64
             $bin = base64_decode($b64);// Obtain the original content (usually binary data)
             $im = imageCreateFromString($bin);// Load GD resource from binary data
