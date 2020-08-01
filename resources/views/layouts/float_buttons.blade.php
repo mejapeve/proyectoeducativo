@@ -10,10 +10,15 @@
 		</div>
 		<div class="line-separator"></div>
 		<div class="card-body">
-			<div ng-repeat="items in frequentQuestions" class="d-flex bg-secondary mt-1 mb-1 rounded bg-soft-dark-light pr-1 pl-1">
-				<label>@{{items.question}}</label>
-				<span class="ml-auto">></span>
-			</div>
+			<div ng-repeat="items in frequentQuestions"> 
+				<div class="d-flex bg-secondary mt-1 mb-1 rounded bg-soft-dark-light pr-1 pl-1">
+					<label>@{{items.question}}</label>
+					<span class="ml-auto">></span>
+				</div>
+				<div class="d-flex bg-secondary mt-1 mb-1 rounded bg-soft-dark-light pr-1 pl-1">
+					<label>@{{items.answer}}</label> 
+				</div>
+			</div>	
 			<div class="d-flex">
 				<input placeholder="Correo" type="text" class="w-100"/>
 				<button class="btn btn-sm btn-primary">></button>

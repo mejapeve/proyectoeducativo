@@ -222,7 +222,7 @@
                     Haciendo clic en la guía de interés, puede consultar el detalle de los contenidos y las <strong>opciones de compra</strong> disponibles.
                 </p>
                 <p>
-                    Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> contáctenos</a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.
+                    Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> <strong>contáctenos</strong></a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.
                 </p>
             </div>
             <div class="mb-1 mt-3 col-12 mt-2">

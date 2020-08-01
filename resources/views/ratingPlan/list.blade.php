@@ -31,7 +31,7 @@
                 <li><strong>Uno</strong> o <strong>varios momentos</strong> o etapas de una misma guía de aprendizaje o de  varias.</li>
                 <li><strong>Una</strong> o <strong>varias experiencias</strong> científicas, con los videos orientadores para su realización.</li>
                 </ul>
-                <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> contáctenos</a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
+                <p>A continuación puede consultar los diferentes <strong>planes disponibles</strong>. Si tiene dudas o sugerencias, <a target="_blank" href="{{route('contactus')}}"> <strong>contáctenos</strong></a> y con gusto le llamaremos para darle más detalles y ofrecerle la mejor opción de acuerdo sus expectativas.</p>
             </div>
             <div class="d-none-result d-none row col-12 ml-auto mr-auto">
                <div class="mt-xl-0 mt-5 col-xl-1_5 col-md-3 col-sm-4 col-6 pl-0 pr-0" ng-repeat="ratingPlan in ratingPlans" style="border: 10px solid white;">
