@@ -35,6 +35,7 @@ MyApp.controller("avatarStudentCtrl", function ($scope, $http) {
     $scope.init = function() {
         
         $('#avatar').Cubexy();
+        $("#color-hair").hide();
         $(".avatar-default").click(function(){
             //$("#avatar-selected").attr("src",$(this).attr('src'));
             $("#colors").hide();
@@ -52,12 +53,25 @@ MyApp.controller("avatarStudentCtrl", function ($scope, $http) {
         $(".tab-avatar").click(function(){
             $("#avatar").find("div").addClass("d-none");
             $("#canvas").show();
+            var category = $(this).attr('data-tab');
             $scope.urlImage = null;
             $scope.customImage = true;
             $scope.avatar = null;
             $scope.$apply();
-            $("#colors").hide();
-            
+            if(category === 'skin') { 
+                $("#color-skin").show();
+            }
+            else {
+                $("#color-skin").hide();
+            }
+
+            if(category === 'hair') {
+                $("#color-hair").show();
+            }
+            else{
+                $("#color-hair").hide();
+            }
+                    
             $("#avatar").find("div").removeClass("d-block");
             $("#" + $(this).attr("data-tab")).addClass("d-block");
         });
